@@ -1,27 +1,42 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <frowand.list@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5146A1DE2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05BCD1F5B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Jul 2019 17:17:27 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0C6E987C
+	Sun,  7 Jul 2019 21:56:14 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+	[209.85.215.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 866D47D2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Jul 2019 17:17:25 +0000 (UTC)
-Date: Sat, 6 Jul 2019 19:17:24 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Leon Romanovsky <leon@kernel.org>
-Message-ID: <20190706171724.GA12534@kunai>
-References: <20190706142738.GA6893@kunai>
-	<20190706165214.GB18182@mtr-leonro.mtl.com>
+	Sun,  7 Jul 2019 21:56:13 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id i18so6619532pgl.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 07 Jul 2019 14:56:13 -0700 (PDT)
+To: Theodore Ts'o <tytso@mit.edu>, Linus Walleij <linus.walleij@linaro.org>
+References: <37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
+	<1562082713.3321.38.camel@HansenPartnership.com>
+	<201907020926.FB19EDEBCC@keescook>
+	<1562103238.3321.66.camel@HansenPartnership.com>
+	<alpine.DEB.2.21.1907030000050.1802@nanos.tec.linutronix.de>
+	<1562106408.29304.11.camel@HansenPartnership.com>
+	<20190702224347.GJ3032@mit.edu>
+	<20190703085620.GA5007@pendragon.ideasonboard.com>
+	<20190703135012.GC2041@mit.edu>
+	<CACRpkdbqxwwKxjELS8WXtFHbq3L5b49XoEJjCdUOgRTNLTR_NQ@mail.gmail.com>
+	<20190706044238.GE11665@mit.edu>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <c621c13f-fcb8-4ee0-eeeb-9e061888db17@gmail.com>
+Date: Sun, 7 Jul 2019 14:56:02 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VS++wcV0S1rZb1Fb"
-Content-Disposition: inline
-In-Reply-To: <20190706165214.GB18182@mtr-leonro.mtl.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
-	meaningful
+In-Reply-To: <20190706044238.GE11665@mit.edu>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
+ commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,65 +46,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 7/5/19 9:42 PM, Theodore Ts'o wrote:
+> On Fri, Jul 05, 2019 at 11:26:22AM +0200, Linus Walleij wrote:
+>> I would have to dig them all out of lore one by one to get
+>> the picture (and I guess I will). The story of CMA is a really
+>> interesting one, and now it is part of the MM core.
+>> Documentation/cma is pretty empty.
+>>
+>> Asking Michal, Marek and Joonsoo who all worked hard on
+>> this to summarize the development and make the design
+>> and evolution of this feature understandable would be a
+>> pretty big development task in itself so I'm not gonna.
+> 
+> I assume you want something more detailed than this article on LWN?
+> 
+> 	https://lwn.net/Articles/486301/
+> 
+> I vaguely remember there was a presentation at Plumbers, but of course
+> that was a long time ago, before we were regularly recording
+> presentations at LPC.
+> 
+> It may be that best sort of thing will be conference presentations
+> and/or refereed papers.  For example, there will be a 2019 Usenix ATC
+> about EROFS.
+> 
+> 	https://www.usenix.org/conference/atc19/presentation/gao
+> 
+> Of course, asking developers to write refereed papers for submission
+> to Usenix, FAST, etc., or even giving a presentation at Plumbers is
+> also an awful lot to ask.  :-)
 
---VS++wcV0S1rZb1Fb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Then the next step is to have a way to find those papers.
 
-Hi Leon,
+Search engines are sometimes helpful.
 
-> > 2) Reviewed-by should have a description of the review done (and the re=
-view not
-> >    done)
->=20
-> IMHO, this path of thinking will lead us to less reviews due to an extra
-> work and wouldn't bring an extra quality which we want.
+For the Embedded Linux Conference (ELC) and Embedded Linux Conference
+Europe (ELCE), there is an easy to scan table of presentations and
+their slides and videos for each year of the conference.  It is a
+two step search, the top level is a link to each year of the
+conference:
 
-I'd argue that this extra work is needed in the same way a good patch
-description is needed.
+   https://elinux.org/ELC_Presentations
 
-> Right now, everything is built on trust and it will continue to be after
-> we will demand to add extra sentence. It means that we don't fully trust
-> in Reviewed-by of one time contributors now and we won't trust in their
-> description of their Reviewed-by either.
+then following the link from there gets you to the table of
+presentations, for example ELCE 2018 is at:
 
-Per default, I do trust a new contributor to have done the review. I
-don't want this extra sentence as a proof of that.
+   https://elinux.org/ELC_Europe_2018_Presentations
 
-The "problem" with a new reviewer is that I don't know if all aspects of
-a patch have been reviewed or just a subset. Actually, this holds true
-for people I do know just the same way. If a get a Rev-by from Linus
-Walleij I am extremly sure the GPIO parts have been throughly checked.
-But I still don't know if he had time to check e.g. the locking or not.
-There is a huge difference if I get three plain Rev-by or three Rev-by
-saying "I did check <xy> but not the media parts".
+An example of a more organized list of conference presentations for
+one subsystem is a reference to devicetree conference presentations
+at:
 
-Thanks for your feedback. I think this clarification was important.
+   https://elinux.org/Device_Tree_presentations_papers_articles
 
-Regards,
+Each presentation is listed twice, once by topic area(s) and once
+by date.
 
-   Wolfram
+-Frank
 
-
---VS++wcV0S1rZb1Fb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0g16AACgkQFA3kzBSg
-KbYe8g/6A4+2glAgxv7C0LlU+R0gSK2PG9oKUZpEffFZgK5Pfn3GGJpRROrXyn1H
-dypTyCbivToekeNXZznWyP20vyZnc5iYIcO1ju7orbvNlwgTQDjBFVd4JxAe3iZd
-sVmNz4FYWjsGH4Sa4FwPbLZB2ulCvyOfdAPHVN9uU3NSuVSCvHVbrkAfQxRdR5Ol
-Yw3+TrRWdlaQPQGvwmKyBmqj3qJ+nEeaWDRzXWOoDpypiznCXI6fqyX5zzFPI949
-E73658WhT9rl+ntvVv+78LLdR2faG9G3hJfo0SuedBl45ZuJfkF4kk6PgqF9uH/H
-s9LbaJ4ynuD/n59aBFeYBgRR1oFbzrVO2lWoLL/QK1GTmltyq5ZLvXIStEaJG/z+
-DqcPLOClcFlxRMcQaq6DLWENybYAiRJVrXkRpBkOzLGlA58TwyPmNVd4eXVTv43W
-PA9Y+Us95qKDGIYQ1+sBlFembSG7p2S9i2BKmt31nzdXGj7nVSQx9nVrNCN1GKSw
-h12Bzft+4dsEVLMBN5oNlj77rsOjcpnx+FMIycXBjh1KOcmgHlUjutNUVuZFrGrC
-/w/TwryJzHNJbcNehbUTuQnpCGNK4FVr4QMN4/RXpO11zQVOka62sbxEQLf5pSw4
-SUXCEfygsDW9mvPeROQNP+6Dcbunng98nO71Jq+r3BbrkLgQrb0=
-=Dx9v
------END PGP SIGNATURE-----
-
---VS++wcV0S1rZb1Fb--
+> 
+> 					- Ted
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
