@@ -1,18 +1,18 @@
 Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8975B27AB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 714F921BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 15:06:46 +0000 (UTC)
+	Mon,  8 Jul 2019 15:10:48 +0000 (UTC)
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
 	[66.111.4.27])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0F3A287F
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C5CB187F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 15:06:45 +0000 (UTC)
-Date: Mon, 8 Jul 2019 17:06:41 +0200
+	Mon,  8 Jul 2019 15:10:47 +0000 (UTC)
+Date: Mon, 8 Jul 2019 17:10:40 +0200
 From: Greg KH <greg@kroah.com>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20190708150641.GA1548@kroah.com>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190708151040.GB1548@kroah.com>
 References: <20190703013557.GQ11506@sasha-vm>
 	<20190705164142.GC20625@sirena.org.uk>
 	<20190705201231.GI10104@sasha-vm>
@@ -20,11 +20,11 @@ References: <20190703013557.GQ11506@sasha-vm>
 	<20190708110208.GN10104@sasha-vm>
 	<20190708123733.GC8576@sirena.org.uk>
 	<102219fd-4ba0-e1ff-b2e3-9a0a43392c4c@roeck-us.net>
-	<20190708145045.GC12731@sirena.co.uk>
+	<s5h7e8swq87.wl-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20190708145045.GC12731@sirena.co.uk>
+In-Reply-To: <s5h7e8swq87.wl-tiwai@suse.de>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] stable kernel process
  automation and improvement
@@ -37,15 +37,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 08, 2019 at 03:50:45PM +0100, Mark Brown wrote:
-> On Mon, Jul 08, 2019 at 07:05:44AM -0700, Guenter Roeck wrote:
+On Mon, Jul 08, 2019 at 04:33:28PM +0200, Takashi Iwai wrote:
+> On Mon, 08 Jul 2019 16:05:44 +0200,
+> Guenter Roeck wrote:
+> > 
 > > On 7/8/19 5:37 AM, Mark Brown wrote:
-> 
+> > > On Mon, Jul 08, 2019 at 07:02:08AM -0400, Sasha Levin wrote:
+> > >> On Sat, Jul 06, 2019 at 01:32:14AM +0100, Mark Brown wrote:
+> > >
+> > >>> I'm not saying leave it alone, it's more a question of how
+> > >>> aggressive we are about picking up things we think might be
+> > >>> relevant fixes but haven't had some sort of domain specific
+> > >>> analysis of.  Testing is a good way to mitigate the potential
+> > >>> risks here.
+> > >
+> > >> I agree, and for various subsystems and drivers where the maintainers
+> > >> volunteer their domain specific expertise to send backports to stable, I
+> > >> have "blacklisted" it from AUTOSEL since indeed it's a much better
+> > >> option.
+> > >
+> > > Hrm, it's definitely getting a bunch of stuff for my subsystems
+> > > where I do tag things for stable...
+> > >
+> > >>>> This came up in the last MS, and the agreement there was that we expect
+> > >>>> stable kernel users to test their workloads before throwing it into
+> > >>>> production.
+> > >
+> > >>> That's kind of the problem - if people are doing testing and end
+> > >>> up finding problems coming back in the stable kernel that's the
+> > >>> sort of thing that encourages them to not just take stable en
+> > >>> masse as we say they should.  Part of the deal with stable is
+> > >>> that it is conservative, people can trust it to be a low risk
+> > >>> update.  That's not happening now as far as I'm aware but it does
+> > >>> worry me that it might happen.
+> > >
+> > >> Right, and the rate at which AUTOSEL commits are reverted is lower than
+> > >> commits that are actually tagged for stable. If AUTOSEL commits on their
+> > >> own were being reverted left and right I'd agree we need to tone it
+> > >> down, but I don't see it happening now.
+> > >
 > > > I'm not sure how many people will actually report problems they
 > > > experience upstream rather than just fixing things locally and
 > > > just moving on.  The more code is the more likely it is that one
 > > > of the users will report things.
-> 
+> > >
+> > 
 > > I for my part will most definitely report any such problems, since each
 > > regression in stable releases is used as argument against merging
 > > stable releases (even if the regression rate is negligible), and I am
@@ -53,15 +89,25 @@ On Mon, Jul 08, 2019 at 03:50:45PM +0100, Mark Brown wrote:
 > > possible. Reporting each and every regression is an essential part
 > > of that.
 > 
-> Me too - but I'm pretty sure for example most of the product
-> teams I've worked with at consumer electronics companies would
-> never even consider it.
+> BTW, regarding regression: currently we have no central regression
+> tracking.  This is another big missing piece, and a thing to be
+> discussed in KS, IMO.
 
-Sweet, want me to come into those teams and give a presentation like I
-did a few months ago for one major company entitled "all the ways your
-kernel is insecure and trivial to break"?
+Well, I think the conversation will go just like it has in the past for
+this issue:
+	"We need to have someone track regressions!"
+	"X said they would do it but they need to be paid, any company
+	willing to sponsor this?"
+	{crickets}
 
-I'll be glad to do so :)
+We know we need this, we have at least one talented and capable person
+to do the work, but no company is willing to step up and fund it :(
+
+It's like where we were 5 years ago with testing, everyone knew there
+was a problem, but no one was willing to do anything about it.  That
+time I convinced some LF member companies to start doing work within
+their companies toward this, but that really doesn't solve this type of
+problem as being "distributed" isn't the issue here...
 
 thanks,
 
