@@ -1,27 +1,31 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D5EB524CF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA95B2565
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 11:59:51 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3B4CB884
+	Mon,  8 Jul 2019 12:34:25 +0000 (UTC)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+	[66.111.4.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2626887C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 11:59:51 +0000 (UTC)
-Date: Mon, 8 Jul 2019 13:59:50 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20190708115949.GC1050@kunai>
-References: <20190706142738.GA6893@kunai>
-	<CAMuHMdUVtz6_3-9_+QLRWt6x7fauvA0K4p77eOcyVWo_oO9g5g@mail.gmail.com>
+	Mon,  8 Jul 2019 12:34:25 +0000 (UTC)
+Date: Mon, 8 Jul 2019 14:34:21 +0200
+From: Greg KH <greg@kroah.com>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20190708123421.GA20112@kroah.com>
+References: <20190703013557.GQ11506@sasha-vm>
+	<20190705164142.GC20625@sirena.org.uk>
+	<20190705201231.GI10104@sasha-vm>
+	<20190706003214.GE20625@sirena.org.uk>
+	<20190708110208.GN10104@sasha-vm>
+	<nycvar.YFH.7.76.1907081329580.5899@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aT9PWwzfKXlsBJM1"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUVtz6_3-9_+QLRWt6x7fauvA0K4p77eOcyVWo_oO9g5g@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
-	meaningful
+In-Reply-To: <nycvar.YFH.7.76.1907081329580.5899@cbobk.fhfr.pm>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] stable kernel process
+ automation and improvement
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,88 +35,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, Jul 08, 2019 at 01:35:15PM +0200, Jiri Kosina wrote:
+> On Mon, 8 Jul 2019, Sasha Levin wrote:
+> > 
+> > >> If we were to start avoiding driver updates, it would act as an
+> > >> incentive for people not to upgrade their kernel.
+> > >
+> > >I'm not sure I follow the logic here?
+> > 
+> > The way I see it, the lower your "effective delta" is between to
+> > kernels, the easier it is to move forward. For example, if I have a
+> > product that runs on 4.19 and uses all our core kernel code + 10
+> > drivers, and I know that those drivers had most of the fixes backported
+> > to my LTS tree, I'd feel much more confident going to 5.4 knowning that
+> > I already have most of the patches that come with 5.4.
+> > 
+> > For me it's a matter of how one would budget a move from a kernel X LTS
+> > to kernel Y LTS, and I think that as that budget requirement grows it's
+> > actually harder to actually do it (and convince management), acting as a
+> > negative incentive to stay with whatever works now.
+> 
+> But where does the 'stable' aspect appear here?
+> 
+> I think it's reasonable to expect 'stable' to mean 'minimal number of 
+> changes needed to maintain stability of the kernel', and that I believe 
+> was the original purpose of stable tree.
+> 
+> Now you seem to be repurposing 'stable' as 'as close to upstream as 
+> possible in order to minimize cost of version updates'.
 
---aT9PWwzfKXlsBJM1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+"stable" means "All the bugfixes that we have in Linus's tree,
+backported to this one as well to resolve known issues".  That's all
+that is happening here with the autosel stuff.  There are a load of
+subsystems that still do not tag stuff for stable backporting, and
+sometimes even the maintainers miss them as well (I am guilty of that as
+well.)  So autosel finds those fixes and backports them, it's no
+different from a distro doing the exact same thing when a bug report
+comes into it, but it happens _BEFORE_ the bug report happens.
 
-Hi Geert,
+> I guess that's one of the reasons why distros are gradually turning away 
+> from stable tree the main purpose of distros is to provide stability, 
+> while it clearly is not minimizing acumulation of cost for future version 
+> updates.
 
-> > 1) we need a better distinction between Acked-by: and Reviewed-by: and =
-encourage
-> >    stricter use of that
->=20
-> Before we had "Reviewed-by", "Acked-by" meant "looks OK to me".
-> Then we got "Reviewed-by" for more thorough reviews.
+That's directly opposite of what I see happening with loads of
+real-world devices.
 
-This is what still makes most sense to me. You can express e.g. that you
-like a patch series and approve the general approach taken but haven't
-gone for the gory details -> Acked-by (a short explaining paragraph
-would make sense, then, too)
+As proof of this, and as part of a talk I gave a few weeks ago, I can
+quote the Android security team.  They kept track of all requests that
+they made to be backported to their device trees for 2018.  Out of 218
+requests, 201 of them were _ALREADY_ in the LTS release tree.  The other
+remaining ones were due to out-of-tree code being in the devices, or due
+to bugs in backports that were not upstream.
 
-Is that old fashioned?
+So again, bugs are being fixed _before_ people report them, which sounds
+exactly like what a distro needs to have happen for them :)
 
-Acked-by only for maintainers doesn't make sense to me. Neiher does when
-Acked-by has a different meaning for maintainers and non-maintainers.
+thanks,
 
-> > 3) trivial patches should rather get Acked-by
->=20
-> These days when given by a maintainer, "Acked-by" means that the
-> maintainer is happy for the patch going in through another subsystem.
-
-I still see this as a "looks OK to me" variant. A patch is good enough
-to enter my subsystem. Sometimes, I also use "Reviewed-by" for this,
-namely when I thoroughly looked at (=3Dreviewed) a patch.
-
-> > 2) A short paragraph will usually do. Of course, trust helps a lot, but=
- it
-> > doesn't solve everything. Trusted people can be in a hurry, too, etc. A=
-nd for
-> > people I don't know, the plain tag doesn't tell me much. Examples for s=
-hort
-> > descriptions: "I can't say much about the media part, but the I2C part =
-is
-> > proper" or "I also checked the documentation and I think this is a good
-> > approach to overcome the issue" or "All my concerns in the preceding
-> > discussions have been addressed"
->=20
-> Definitely good to have, but hard to enforce, without making the process
-> heavier.
-
-As I wrote before, I don't want to enforce that. But spread the word
-that it is good to have and should be done and common sense should apply.
-
-> I have a fifth thesis: many people (incl. guilty me) browse quickly
-> through many patches flying by on mailing lists, but don't always go to
-> the effort of replying if they don't see something wrong immediately.
-> This means we don't catch a share of the reviews happening.
-
-For me, Acked-by would do here.
-
-Thanks,
-
-   Wolfram
-
-
---aT9PWwzfKXlsBJM1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0jMDUACgkQFA3kzBSg
-KbYKLg/+I7GGmryC7CozEep9ep/YaPc5FcWY2HNsbYN2TrMnUboaXQEJ0UrK5CAi
-oqEjbmZVzd99Q2EmuORDDUs9SMf35RcrnOqrobg/2q3O0Yd8y9yXl8YMeiaodllv
-QHWSuvVgG9GPwZvT92sS0SfEpgcBgpC0/uSrpygc4dEvfHBYU+UJOMXB3HnPQ3d9
-EO4w/M7B4mSynr+LjcZm5/KMt4YrKKK/ZlaxOJKVNmDzpDAuuJxgrs3Gm3XZWDDd
-NlGiHbYcQA4uk0+LC25eEFIPyNjWXP1NJ2H10KtL+6tIEARD3RYdA7X9cvH1rXFH
-a+DasSAAHzvTZ5xn2YP3zA19bubGpbHQf/s3ZiVpYBCOQMwpjdcoaHCNgo5Jp5lf
-h564oaDAnMaXigwhTrik8FTqFkhqxD9uLJWt25O/D6T7i1IYSKzjg0erzUV64m1b
-e0atlOGPKjPIvBkk+Yp8Sq/FriqYljNODExpCvBBbtd5Dqz0WK8l6UCsvbLhjmRs
-byxJisbEbRt4zX1bh42Kb9q3wtRNILTUinlMzEPAyjEPQrHeN10If/up8BqHJELF
-gl60Bmcb8ZzGe5cxbQg76QCRGPQHq+hbCo+y+Ia+BhVWyRJocCKZOIgVh4CzcxvV
-szyQoFGa+px4kN8jtJ91PB4EmgITurQmmFLgzRI3XrYfUXgo7Xo=
-=cAD1
------END PGP SIGNATURE-----
-
---aT9PWwzfKXlsBJM1--
+greg k-h
