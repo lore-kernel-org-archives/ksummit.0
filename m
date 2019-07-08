@@ -1,28 +1,28 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <broonie@sirena.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA95B2565
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 73A162599
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 12:34:25 +0000 (UTC)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
-	[66.111.4.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2626887C
+	Mon,  8 Jul 2019 13:08:47 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1869826
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 12:34:25 +0000 (UTC)
-Date: Mon, 8 Jul 2019 14:34:21 +0200
-From: Greg KH <greg@kroah.com>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20190708123421.GA20112@kroah.com>
+	Mon,  8 Jul 2019 13:08:46 +0000 (UTC)
+Date: Mon, 8 Jul 2019 13:37:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Message-ID: <20190708123733.GC8576@sirena.org.uk>
 References: <20190703013557.GQ11506@sasha-vm>
 	<20190705164142.GC20625@sirena.org.uk>
 	<20190705201231.GI10104@sasha-vm>
 	<20190706003214.GE20625@sirena.org.uk>
 	<20190708110208.GN10104@sasha-vm>
-	<nycvar.YFH.7.76.1907081329580.5899@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NKoe5XOeduwbEQHU"
 Content-Disposition: inline
-In-Reply-To: <nycvar.YFH.7.76.1907081329580.5899@cbobk.fhfr.pm>
+In-Reply-To: <20190708110208.GN10104@sasha-vm>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] stable kernel process
  automation and improvement
@@ -35,62 +35,115 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 08, 2019 at 01:35:15PM +0200, Jiri Kosina wrote:
-> On Mon, 8 Jul 2019, Sasha Levin wrote:
-> > 
-> > >> If we were to start avoiding driver updates, it would act as an
-> > >> incentive for people not to upgrade their kernel.
-> > >
-> > >I'm not sure I follow the logic here?
-> > 
-> > The way I see it, the lower your "effective delta" is between to
-> > kernels, the easier it is to move forward. For example, if I have a
-> > product that runs on 4.19 and uses all our core kernel code + 10
-> > drivers, and I know that those drivers had most of the fixes backported
-> > to my LTS tree, I'd feel much more confident going to 5.4 knowning that
-> > I already have most of the patches that come with 5.4.
-> > 
-> > For me it's a matter of how one would budget a move from a kernel X LTS
-> > to kernel Y LTS, and I think that as that budget requirement grows it's
-> > actually harder to actually do it (and convince management), acting as a
-> > negative incentive to stay with whatever works now.
-> 
-> But where does the 'stable' aspect appear here?
-> 
-> I think it's reasonable to expect 'stable' to mean 'minimal number of 
-> changes needed to maintain stability of the kernel', and that I believe 
-> was the original purpose of stable tree.
-> 
-> Now you seem to be repurposing 'stable' as 'as close to upstream as 
-> possible in order to minimize cost of version updates'.
 
-"stable" means "All the bugfixes that we have in Linus's tree,
-backported to this one as well to resolve known issues".  That's all
-that is happening here with the autosel stuff.  There are a load of
-subsystems that still do not tag stuff for stable backporting, and
-sometimes even the maintainers miss them as well (I am guilty of that as
-well.)  So autosel finds those fixes and backports them, it's no
-different from a distro doing the exact same thing when a bug report
-comes into it, but it happens _BEFORE_ the bug report happens.
+--NKoe5XOeduwbEQHU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> I guess that's one of the reasons why distros are gradually turning away 
-> from stable tree the main purpose of distros is to provide stability, 
-> while it clearly is not minimizing acumulation of cost for future version 
-> updates.
+On Mon, Jul 08, 2019 at 07:02:08AM -0400, Sasha Levin wrote:
+> On Sat, Jul 06, 2019 at 01:32:14AM +0100, Mark Brown wrote:
 
-That's directly opposite of what I see happening with loads of
-real-world devices.
+> > I'm not saying leave it alone, it's more a question of how
+> > aggressive we are about picking up things we think might be
+> > relevant fixes but haven't had some sort of domain specific
+> > analysis of.  Testing is a good way to mitigate the potential
+> > risks here.
 
-As proof of this, and as part of a talk I gave a few weeks ago, I can
-quote the Android security team.  They kept track of all requests that
-they made to be backported to their device trees for 2018.  Out of 218
-requests, 201 of them were _ALREADY_ in the LTS release tree.  The other
-remaining ones were due to out-of-tree code being in the devices, or due
-to bugs in backports that were not upstream.
+> I agree, and for various subsystems and drivers where the maintainers
+> volunteer their domain specific expertise to send backports to stable, I
+> have "blacklisted" it from AUTOSEL since indeed it's a much better
+> option.
 
-So again, bugs are being fixed _before_ people report them, which sounds
-exactly like what a distro needs to have happen for them :)
+Hrm, it's definitely getting a bunch of stuff for my subsystems
+where I do tag things for stable...
 
-thanks,
+> > > This came up in the last MS, and the agreement there was that we expect
+> > > stable kernel users to test their workloads before throwing it into
+> > > production.
 
-greg k-h
+> > That's kind of the problem - if people are doing testing and end
+> > up finding problems coming back in the stable kernel that's the
+> > sort of thing that encourages them to not just take stable en
+> > masse as we say they should.  Part of the deal with stable is
+> > that it is conservative, people can trust it to be a low risk
+> > update.  That's not happening now as far as I'm aware but it does
+> > worry me that it might happen.
+
+> Right, and the rate at which AUTOSEL commits are reverted is lower than
+> commits that are actually tagged for stable. If AUTOSEL commits on their
+> own were being reverted left and right I'd agree we need to tone it
+> down, but I don't see it happening now.
+
+I'm not sure how many people will actually report problems they
+experience upstream rather than just fixing things locally and
+just moving on.  The more code is the more likely it is that one
+of the users will report things.
+
+> > > If we were to start avoiding driver updates, it would act as an
+> > > incentive for people not to upgrade their kernel.
+
+> > I'm not sure I follow the logic here?
+
+> The way I see it, the lower your "effective delta" is between to
+> kernels, the easier it is to move forward. For example, if I have a
+> product that runs on 4.19 and uses all our core kernel code + 10
+> drivers, and I know that those drivers had most of the fixes backported
+> to my LTS tree, I'd feel much more confident going to 5.4 knowning that
+> I already have most of the patches that come with 5.4.
+
+I see, that's definitely a new one to me.  The concerns people
+usually have about upgrading are more around the core kernel
+changing performance characteristics or something in a way that
+disrupts important workloads.  I'm not quite sure I follow the
+logic there TBH, it seems to be discounting new development
+rather too much - even if the drivers have been very static
+there's all the integration with the rest of the kernel to think
+about.
+
+> For me it's a matter of how one would budget a move from a kernel X LTS
+> to kernel Y LTS, and I think that as that budget requirement grows it's
+> actually harder to actually do it (and convince management), acting as a
+> negative incentive to stay with whatever works now.
+
+If the drivers are static enough to only be getting bug fixes
+surely the rest of the kernel is a massively more substantial
+concern?
+
+> I have a different experience with this. I'd like to think that we're a
+> bigger customer and this process wasn't working too well for us. My
+> thinking was that if it's broken for us I can only imagine how bad it is
+> for the smaller customers.
+
+...
+
+> This is where our story is different, which might explain my experience
+> being different: we usually require vendors to upstream everything, and
+> so they do. This means we don't have much of a out-of-tree patch
+> stacks/fixes from the vendor directly, and we expect to pick up patches
+> via the regular stable process, and that didn't happen all too well so
+> far.
+
+That sounds like they didn't pick up on the bit about getting
+things through LTS.  This sounds like a pretty unusual request
+for a vendor to be getting, it doesn't 100% surprise me that
+it might take a few goes for them to understand what you're
+looking for, or that you're having a worse time than most users.
+For enterprise type stuff AFAICT people are expecting people to
+get their stable versions from distros rather than raw LTS.
+
+--NKoe5XOeduwbEQHU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0jOPUACgkQJNaLcl1U
+h9Dtbgf/bXUHvpwFrCPFMtLugEstTM/+gcE59RibKB6n+tq2ElVlr0tn5VufLae4
+a2JCIIGmu1wSLGK6s37+KZcRz8Lzp9M8vz+Q3zI6pR08DdqShIYO2A6Lq/Dqkeg2
+iQV55HhGOrJvEbxa0ixhh1EuePEWo5FgSb2qiflmZMu4htkU3soX6mCU/6eUp2+b
+Nff3s+h7FHQQ06l7rDJ/cLV4vhBzGgLsUxfATwIaFMU8BOhotMchGKp6XY//HtPz
+fH8KXA3SURWy21oNLNWzHvlpZqu51GzWHcfzXIeCB+mSENtbgzhebNxCYHUox21U
+VWZhNDPfvgcvu5zhjii4lGv6g/gTAA==
+=unKh
+-----END PGP SIGNATURE-----
+
+--NKoe5XOeduwbEQHU--
