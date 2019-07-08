@@ -1,27 +1,25 @@
 Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2F2CB2468
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D5EB524CF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 11:47:24 +0000 (UTC)
+	Mon,  8 Jul 2019 11:59:51 +0000 (UTC)
 Received: from pokefinder.org (sauhun.de [88.99.104.3])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B59C48BF
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3B4CB884
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Jul 2019 11:47:23 +0000 (UTC)
-Date: Mon, 8 Jul 2019 13:47:21 +0200
+	Mon,  8 Jul 2019 11:59:51 +0000 (UTC)
+Date: Mon, 8 Jul 2019 13:59:50 +0200
 From: Wolfram Sang <wsa@the-dreams.de>
-To: Jan Kara <jack@suse.cz>
-Message-ID: <20190708114721.GB1050@kunai>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20190708115949.GC1050@kunai>
 References: <20190706142738.GA6893@kunai>
-	<20190706165214.GB18182@mtr-leonro.mtl.com>
-	<20190706171724.GA12534@kunai>
-	<20190708104716.GA20507@quack2.suse.cz>
+	<CAMuHMdUVtz6_3-9_+QLRWt6x7fauvA0K4p77eOcyVWo_oO9g5g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i0/AhcQY5QxfSsSZ"
+	protocol="application/pgp-signature"; boundary="aT9PWwzfKXlsBJM1"
 Content-Disposition: inline
-In-Reply-To: <20190708104716.GA20507@quack2.suse.cz>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <CAMuHMdUVtz6_3-9_+QLRWt6x7fauvA0K4p77eOcyVWo_oO9g5g@mail.gmail.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
 	meaningful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,69 +32,87 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---i0/AhcQY5QxfSsSZ
+--aT9PWwzfKXlsBJM1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+Hi Geert,
 
-> There are two things here: If I review a patch and I'm not confident I did
-> a good job for some parts (because I didn't have time or I just don't know
-> that part of the kernel), then I should write that to the reply with
-> Reviewed-by tag. That's IMHO a good rule but I don't think you can enforce
-> it in any way. You can just ask people that do reviews for your subsystem
-> if you think they're omitting this.
+> > 1) we need a better distinction between Acked-by: and Reviewed-by: and =
+encourage
+> >    stricter use of that
+>=20
+> Before we had "Reviewed-by", "Acked-by" meant "looks OK to me".
+> Then we got "Reviewed-by" for more thorough reviews.
 
-I agree to this. This is why I intentionally wrote my theses with words
-like "should" and "encourage" because I don't believe in "enforcing"
-such a thing.
+This is what still makes most sense to me. You can express e.g. that you
+like a patch series and approve the general approach taken but haven't
+gone for the gory details -> Acked-by (a short explaining paragraph
+would make sense, then, too)
 
-Nonetheless, having a clear statement worked well for commit messages, I
-think. We have spread the word how important good commit messages are
-and from what I observe they have become better. I wish for a similar
-process with reviews. And from my side, it could be as simple as
-"checked everything, all good".
+Is that old fashioned?
 
-> The second thing is that if human doesn't know something, then he/she has
-> a tendency to underestimate how much he/she doesn't know (this even has a
-> psychological term "cognitive bias"). So the self-evaluation of "how good is
-> my review" is always going to be subjective and it is upto maintainer to
-> judge what is the value of the review.
+Acked-by only for maintainers doesn't make sense to me. Neiher does when
+Acked-by has a different meaning for maintainers and non-maintainers.
 
-I still consider the mere description of what was reviewed in detail and
-what not already helpful. I agree that the maintainer still has to
-evaluate the review.
+> > 3) trivial patches should rather get Acked-by
+>=20
+> These days when given by a maintainer, "Acked-by" means that the
+> maintainer is happy for the patch going in through another subsystem.
 
-> To give an exaple, Ted Tso (ext4 maintainer) tends to just ignore "empty
-> Reviewed-by" replies from people that haven't built enough credit in the
-> kernel community by actually finding bugs with their reviews...
+I still see this as a "looks OK to me" variant. A patch is good enough
+to enter my subsystem. Sometimes, I also use "Reviewed-by" for this,
+namely when I thoroughly looked at (=3Dreviewed) a patch.
 
-This is good to know. I will apply some rules for I2C. Yet, it feels
-easier if I2C is not some obscure island but part of something.
+> > 2) A short paragraph will usually do. Of course, trust helps a lot, but=
+ it
+> > doesn't solve everything. Trusted people can be in a hurry, too, etc. A=
+nd for
+> > people I don't know, the plain tag doesn't tell me much. Examples for s=
+hort
+> > descriptions: "I can't say much about the media part, but the I2C part =
+is
+> > proper" or "I also checked the documentation and I think this is a good
+> > approach to overcome the issue" or "All my concerns in the preceding
+> > discussions have been addressed"
+>=20
+> Definitely good to have, but hard to enforce, without making the process
+> heavier.
+
+As I wrote before, I don't want to enforce that. But spread the word
+that it is good to have and should be done and common sense should apply.
+
+> I have a fifth thesis: many people (incl. guilty me) browse quickly
+> through many patches flying by on mailing lists, but don't always go to
+> the effort of replying if they don't see something wrong immediately.
+> This means we don't catch a share of the reviews happening.
+
+For me, Acked-by would do here.
 
 Thanks,
 
    Wolfram
 
 
---i0/AhcQY5QxfSsSZ
+--aT9PWwzfKXlsBJM1
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0jLUUACgkQFA3kzBSg
-KbZvAw/8DRsfOnURMeNOTZc84OuwQQCOmIMQfCkIPbZaVOAjQbzzi0ma+CJpgwBc
-kZ4dN8GKkNToiOMq/meKSYu+uLpsG+lKkTmE18dq9NUwsAmgeVExr96s/f2zuWvm
-rgDYqOGjwn75ZOb9N/wEl4Ds/chNu6x9+u8rm52U+W6QmEkH/T7g2B8A2jfZf5gq
-2t0DpHIe6TYpM4GZTY54m8IzitMo3HKcSHGWRM0zC5EoEnqvKw8MZAI8XN8NyMQf
-ooqxdIJdot1nVM8aoSDe51neLh0iLQ8pjyz2MRfsJHgvBZ2N/ZyET9s43ExHJYZS
-KvMz+gADuINhmd8IHblNNZGtKL0+k4Dhub/IEILVxLEvMJxMTecK79YnZ4G5eum/
-vghd/KVqIJ7VK8JKsZOlVqrQTn+tUh73xm/DTaFU1InS1nuznSY7CmamP5lOhJQH
-X0Y+A2PfspyZHNYg+g3HKbT7USb+ZzlfZhhQOIgrgsyZDB51PfxRgC6kzqdK2Lvl
-UYUVfVR/TeU6Qq7J6F1bfAaxgK4J+ln73dxbzdFyPorIBoyJr46bYDncfq/ZfYJT
-uonSrDWhuWRu19pxyyAWpwBVK43vUNJsrpaQ80lXJMNf0N2PYPHSyFNW0ZWOf0IU
-VGqwWkaZ4TKPfRqheRIc4X4WwlM4mr24hvnQAJgjVAWSuJO+X34=
-=ClzT
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0jMDUACgkQFA3kzBSg
+KbYKLg/+I7GGmryC7CozEep9ep/YaPc5FcWY2HNsbYN2TrMnUboaXQEJ0UrK5CAi
+oqEjbmZVzd99Q2EmuORDDUs9SMf35RcrnOqrobg/2q3O0Yd8y9yXl8YMeiaodllv
+QHWSuvVgG9GPwZvT92sS0SfEpgcBgpC0/uSrpygc4dEvfHBYU+UJOMXB3HnPQ3d9
+EO4w/M7B4mSynr+LjcZm5/KMt4YrKKK/ZlaxOJKVNmDzpDAuuJxgrs3Gm3XZWDDd
+NlGiHbYcQA4uk0+LC25eEFIPyNjWXP1NJ2H10KtL+6tIEARD3RYdA7X9cvH1rXFH
+a+DasSAAHzvTZ5xn2YP3zA19bubGpbHQf/s3ZiVpYBCOQMwpjdcoaHCNgo5Jp5lf
+h564oaDAnMaXigwhTrik8FTqFkhqxD9uLJWt25O/D6T7i1IYSKzjg0erzUV64m1b
+e0atlOGPKjPIvBkk+Yp8Sq/FriqYljNODExpCvBBbtd5Dqz0WK8l6UCsvbLhjmRs
+byxJisbEbRt4zX1bh42Kb9q3wtRNILTUinlMzEPAyjEPQrHeN10If/up8BqHJELF
+gl60Bmcb8ZzGe5cxbQg76QCRGPQHq+hbCo+y+Ia+BhVWyRJocCKZOIgVh4CzcxvV
+szyQoFGa+px4kN8jtJ91PB4EmgITurQmmFLgzRI3XrYfUXgo7Xo=
+=cAD1
 -----END PGP SIGNATURE-----
 
---i0/AhcQY5QxfSsSZ--
+--aT9PWwzfKXlsBJM1--
