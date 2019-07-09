@@ -1,37 +1,26 @@
-Return-Path: <labbott@redhat.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F12103A23
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 86BAA3266
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Jul 2019 15:22:04 +0000 (UTC)
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
-	[209.85.160.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 64E51148
+	Tue,  9 Jul 2019 15:50:57 +0000 (UTC)
+Received: from cloudserver094114.home.pl (cloudserver094114.home.pl
+	[79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9DA7D880
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Jul 2019 15:22:04 +0000 (UTC)
-Received: by mail-qt1-f195.google.com with SMTP id n11so21989809qtl.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 09 Jul 2019 08:22:04 -0700 (PDT)
-To: Greg KH <greg@kroah.com>, Takashi Iwai <tiwai@suse.de>
-References: <20190703013557.GQ11506@sasha-vm>
-	<20190705164142.GC20625@sirena.org.uk>
-	<20190705201231.GI10104@sasha-vm>
-	<20190706003214.GE20625@sirena.org.uk>
-	<20190708110208.GN10104@sasha-vm>
-	<20190708123733.GC8576@sirena.org.uk>
-	<102219fd-4ba0-e1ff-b2e3-9a0a43392c4c@roeck-us.net>
-	<s5h7e8swq87.wl-tiwai@suse.de> <20190708151040.GB1548@kroah.com>
-From: Laura Abbott <labbott@redhat.com>
-Message-ID: <fb0a8b03-a2c9-2250-14b7-3e65b5e9c87a@redhat.com>
-Date: Tue, 9 Jul 2019 11:21:56 -0400
+	Tue,  9 Jul 2019 15:50:56 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 09 Jul 2019 17:44:13 +0200
+Message-ID: <2859305.DT5vN9tDxJ@kreacher>
+In-Reply-To: <nycvar.YFH.7.76.1907082324440.5899@cbobk.fhfr.pm>
+References: <20190703013557.GQ11506@sasha-vm> <20190708151040.GB1548@kroah.com>
+	<nycvar.YFH.7.76.1907082324440.5899@cbobk.fhfr.pm>
 MIME-Version: 1.0
-In-Reply-To: <20190708151040.GB1548@kroah.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] stable kernel process
- automation and improvement
+	automation and improvement
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,87 +30,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 7/8/19 11:10 AM, Greg KH wrote:
-> On Mon, Jul 08, 2019 at 04:33:28PM +0200, Takashi Iwai wrote:
->> On Mon, 08 Jul 2019 16:05:44 +0200,
->> Guenter Roeck wrote:
->>>
->>> On 7/8/19 5:37 AM, Mark Brown wrote:
->>>> On Mon, Jul 08, 2019 at 07:02:08AM -0400, Sasha Levin wrote:
->>>>> On Sat, Jul 06, 2019 at 01:32:14AM +0100, Mark Brown wrote:
->>>>
->>>>>> I'm not saying leave it alone, it's more a question of how
->>>>>> aggressive we are about picking up things we think might be
->>>>>> relevant fixes but haven't had some sort of domain specific
->>>>>> analysis of.  Testing is a good way to mitigate the potential
->>>>>> risks here.
->>>>
->>>>> I agree, and for various subsystems and drivers where the maintainers
->>>>> volunteer their domain specific expertise to send backports to stable, I
->>>>> have "blacklisted" it from AUTOSEL since indeed it's a much better
->>>>> option.
->>>>
->>>> Hrm, it's definitely getting a bunch of stuff for my subsystems
->>>> where I do tag things for stable...
->>>>
->>>>>>> This came up in the last MS, and the agreement there was that we expect
->>>>>>> stable kernel users to test their workloads before throwing it into
->>>>>>> production.
->>>>
->>>>>> That's kind of the problem - if people are doing testing and end
->>>>>> up finding problems coming back in the stable kernel that's the
->>>>>> sort of thing that encourages them to not just take stable en
->>>>>> masse as we say they should.  Part of the deal with stable is
->>>>>> that it is conservative, people can trust it to be a low risk
->>>>>> update.  That's not happening now as far as I'm aware but it does
->>>>>> worry me that it might happen.
->>>>
->>>>> Right, and the rate at which AUTOSEL commits are reverted is lower than
->>>>> commits that are actually tagged for stable. If AUTOSEL commits on their
->>>>> own were being reverted left and right I'd agree we need to tone it
->>>>> down, but I don't see it happening now.
->>>>
->>>> I'm not sure how many people will actually report problems they
->>>> experience upstream rather than just fixing things locally and
->>>> just moving on.  The more code is the more likely it is that one
->>>> of the users will report things.
->>>>
->>>
->>> I for my part will most definitely report any such problems, since each
->>> regression in stable releases is used as argument against merging
->>> stable releases (even if the regression rate is negligible), and I am
->>> very interested in getting that regression rate as close to zero as
->>> possible. Reporting each and every regression is an essential part
->>> of that.
->>
->> BTW, regarding regression: currently we have no central regression
->> tracking.  This is another big missing piece, and a thing to be
->> discussed in KS, IMO.
+On Monday, July 8, 2019 11:31:45 PM CEST Jiri Kosina wrote:
+> On Mon, 8 Jul 2019, Greg KH wrote:
 > 
-> Well, I think the conversation will go just like it has in the past for
-> this issue:
-> 	"We need to have someone track regressions!"
-> 	"X said they would do it but they need to be paid, any company
-> 	willing to sponsor this?"
-> 	{crickets}
+> > Well, I think the conversation will go just like it has in the past for
+> > this issue:
+> > 	"We need to have someone track regressions!"
+> > 	"X said they would do it but they need to be paid, any company
+> > 	willing to sponsor this?"
+> > 	{crickets}
 > 
-> We know we need this, we have at least one talented and capable person
-> to do the work, but no company is willing to step up and fund it :(
+> SUSE has actually been funding this for quite some time (back when Rafael 
+> was doing it), but it's really tricky.
 > 
-> It's like where we were 5 years ago with testing, everyone knew there
-> was a problem, but no one was willing to do anything about it.  That
-> time I convinced some LF member companies to start doing work within
-> their companies toward this, but that really doesn't solve this type of
-> problem as being "distributed" isn't the issue here...
+> We of course realize it's very important long-term activity, from which 
+> everybody profits.
 > 
-> thanks,
+> At the same time, you need somebody who *really deeply* understands 
+> everything inside and around the kernel development, otherwise you get 
+> more harm and chaos than added value out of the whole excercise.
 > 
-> greg k-h
+> And if you have such a person (like we had Rafael), it's unlikely that 
+> person would want to do that work forever, and the funding company is also 
+> losing brainpower in other, more development-related areas (like PM in 
+> Rafael's case) at the same time.
+> 
+> So it's not as simple as "hey, you, company making money on linux, go pay 
+> someone to do this".
+> 
+> If I remember correctly (Rafael for sure would remember better), there 
+> were some attempts to have the regression tracking made by someone much 
+> more juniorish, but that person got of course immediately overwhelmed.
 
-There's two parts here: a centralized place to track bugs and regressions
-and person to help manage those. While having a person to manage everything
-would be good, getting the central tracking going without relying on a
-single person is important.
+There were such attempts and yes, the people dropped the ball eventually.
 
-Thanks,
-Laura
+Honestly, I don't agree with the idea that one person can practically track
+regression on the whole kernel basis today, because there is too many potential
+sources of information to follow.  You'd need to track all of the mailing lists used for
+development, bug tracking systems in many places and so on.
+
+When I was tracking regressions, it was more or less sufficient to follow the LKML,
+and that was hard enough already at that time, but it is not sufficient any more (and
+even the LKML itself has become much more of a fire hose since then).
+
+The tracking of regressions, to be effective, would need to scale at least in the
+same way as the development process does IMO.
