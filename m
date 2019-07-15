@@ -1,28 +1,27 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 74710B88
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4380ACAE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Jul 2019 16:11:41 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 03AC671C
+	Mon, 15 Jul 2019 17:00:54 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A93B7898
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Jul 2019 16:11:40 +0000 (UTC)
-Date: Mon, 15 Jul 2019 13:11:36 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Wolfram Sang <wsa@the-dreams.de>
-Message-ID: <20190715131136.6ec26015@coco.lan>
-In-Reply-To: <20190706171724.GA12534@kunai>
+	Mon, 15 Jul 2019 17:00:53 +0000 (UTC)
+Date: Mon, 15 Jul 2019 13:00:45 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190715170045.GB3068@mit.edu>
 References: <20190706142738.GA6893@kunai>
-	<20190706165214.GB18182@mtr-leonro.mtl.com>
-	<20190706171724.GA12534@kunai>
+	<CAMuHMdUVtz6_3-9_+QLRWt6x7fauvA0K4p77eOcyVWo_oO9g5g@mail.gmail.com>
+	<20190708115949.GC1050@kunai> <20190715125800.22a9a979@coco.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190715125800.22a9a979@coco.lan>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
- meaningful
+	meaningful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,39 +31,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sat, 6 Jul 2019 19:17:24 +0200
-Wolfram Sang <wsa@the-dreams.de> escreveu:
+On Mon, Jul 15, 2019 at 12:58:00PM -0300, Mauro Carvalho Chehab wrote:
+> On my case, when I receive an Acked-by, I assume that this came
+> from a maintainer (either a subsystem maintainer or a driver
+> maintainer) - as I expect that non-maintainers (and reviewers)
+> will either send me a reviewed-by or a tested-by.
 
-> The "problem" with a new reviewer is that I don't know if all aspects of
-> a patch have been reviewed or just a subset. 
+The problem is that the documentation doesn't exactly match your
+expectations:
 
-That's a good point.
+> When a review a code that will be merged via someone's else tree,
+> I usually either give:
+> 
+> - Acked-by - if it is something that touches the subsystem
+>   I maintain and will be merged via some other tree, but I 
+>   didn't make a comprehensive review;
+> 
+> - Reviewed-by - if I did a comprehensive review. I can either
+>   be the maintainer or not of the files touched by the patch.
+> 
+> So, I usually expect the others do about the same.
+> 
+> Looking at Documentation/process/5.Posting.rst:
+> 
+> 	 - Acked-by: indicates an agreement by another developer (often a
+> 	   maintainer of the relevant code) that the patch is appropriate for
+> 	   inclusion into the kernel.
+> 
+> 	 - Reviewed-by: the named developer has reviewed the patch for correctness;
+> 	   see the reviewer's statement in :ref:`Documentation/process/submitting-patches.rst <submittingpatches>`
+> 	   for more detail.
+> 
+> I guess the descriptions are already enough to describe those
+> tags.
 
-While receiving feedback from some -doc patches I wrote, I guess we
-currently have something that we can improve for acked-by/reviewed-by
-tag description: how to indicate a partial review/ack?
+I'd suggest changing the text to read:
 
-I received several such acks with things like:
+ 	 - Acked-by: indicates an agreement by the maintainer or
+	   reviewer of the the relevant code that the patch is
+	   appropriate for inclusion into the kernel.
 
-	For driver_foo:
+My concern is that if we have dozens of "Acked-by" by people who are
+not domain experts in any part of the code in the git log, it's just
+noise in the system.  Of course, we can't stop people from sending
+Acked-by's on the mailing list, but when I recently pointed out that
+I'm going to ignore an bare Acked-by by someone who I have no idea
+whether or not I can trust the source of that Acked-by, I got yelled
+at for not following the documented process.
 
-	Acked-by : me <my@email>
+That complaint isn't going to change how *I* interpret or decide to
+include Acked-by's, but if we have general agreement on the
+expectations Maintainers should have (and my expectations match
+yours), then perhaps we can adjust the documentation to make it more
+clear.
 
-I also received such acks as:
-
-	Acked-by : me <my@email> # driver_foo
-or:
-	Acked-by : me <my@email> # for driver_foo
-
-I guess we could agree on a "syntax" for that, with could be easily
-be parsed by scripts, documenting it at
-Documentation/process/5.Posting.rst.
-
-I'm in favor of:
-
-	Acked-by : me <my@email> # driver_foo
-and:
-	Reviewed-by : me <my@email> # driver_foo
-
-Thanks,
-Mauro
+					- Ted
