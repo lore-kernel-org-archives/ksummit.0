@@ -1,35 +1,39 @@
 Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42131DC3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 25AAEB7A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 16:05:55 +0000 (UTC)
-Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com
-	[209.85.167.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A15C58AA
+	Wed, 17 Jul 2019 16:09:55 +0000 (UTC)
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+	[209.85.208.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 91E328A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 16:05:54 +0000 (UTC)
-Received: by mail-lf1-f67.google.com with SMTP id c19so16904472lfm.10
+	Wed, 17 Jul 2019 16:09:54 +0000 (UTC)
+Received: by mail-lj1-f196.google.com with SMTP id x25so24224600ljh.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 09:05:54 -0700 (PDT)
+	Wed, 17 Jul 2019 09:09:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190706142738.GA6893@kunai> <20190714103509.2dd72c90@archlinux>
-	<alpine.DEB.2.21.1907141157410.1669@nanos.tec.linutronix.de>
-	<20190716211636.GA6679@kunai>
-	<CAOesGMgaw3Xq4gCkSsyHW_n8ETkpSKwe5f_oBsz_+s3c+XsnTA@mail.gmail.com>
-	<alpine.DEB.2.21.1907170026200.1767@nanos.tec.linutronix.de>
-	<bf269ea7-6a9c-25db-5b97-958d9e15bddd@infradead.org>
-	<20190717073130.GA1021@kunai>
-In-Reply-To: <20190717073130.GA1021@kunai>
+References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
+	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
+	<alpine.DEB.2.21.1906290802360.1802@nanos.tec.linutronix.de>
+	<20190629134329.GA4620@andrea>
+	<alpine.DEB.2.21.1906291714150.1802@nanos.tec.linutronix.de>
+	<20190630163120.GA13925@chatter.i7.local>
+	<20190701072013.GJ3402@hirez.programming.kicks-ass.net>
+	<alpine.DEB.2.21.1907010948310.1802@nanos.tec.linutronix.de>
+	<s5h5zomp4vh.wl-tiwai@suse.de> <20190717092313.GA3111@kadam>
+	<20190717092820.GA18953@kroah.com>
+In-Reply-To: <20190717092820.GA18953@kroah.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 17 Jul 2019 18:05:41 +0200
-Message-ID: <CACRpkdbydfyx8LMG8FzCzAYsTP9n57K0yw9_04wgtDSjm+B3iQ@mail.gmail.com>
-To: Wolfram Sang <wsa@the-dreams.de>
+Date: Wed, 17 Jul 2019 18:09:40 +0200
+Message-ID: <CACRpkdbVHHOm0KoK3cjxs-4DBhZ8nB8cNTE-yt17zTRpTfAgpw@mail.gmail.com>
+To: Greg KH <greg@kroah.com>, Kees Cook <keescook@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
-	meaningful
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
+ commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,28 +43,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 17, 2019 at 9:31 AM Wolfram Sang <wsa@the-dreams.de> wrote:
+On Wed, Jul 17, 2019 at 11:28 AM Greg KH <greg@kroah.com> wrote:
+> On Wed, Jul 17, 2019 at 12:23:13PM +0300, Dan Carpenter wrote:
 
-> Guys, I am just trying to better cope with an amount of patches I can't
-> handle on my own currently.
+> > We could add an option to `git am` to save the Message-ID automatically.
+>
+> Kees already posted a simple git hook to add it to the message when
+> using `git am`.  I've been using it for a week or so already, works
+> wonderfully.
 
-Maintainers don't scale right? :/
+I also picked Kees script and it works like a charm as long as
+you pick patches from a list that is stashed in lore.
 
-What I tend to do is git log on whatever is affected by a patch
-and then pick some people who touched the code recently
-and just add them to CC and ask them to help. This is especially
-nice with drivers as I can quickly see (by intuition) whether
-they are doing some general cleanup or actually are running
-and testing the hardware, even if they didn't sign up as
-maintainers. Sometimes nudge them to maintain the stuff
-they seem so intimate with by adding themselves to
-MAINTAINERS. If it was a while since they did the changes
-I often do git log and grep for their name as they often
-just changed email address.
+Kees, you script is highly valuable, can we put it inside
+Documentation/* somewhere?
 
-It would be really neat if get_maintainer could do this but I
-think it requires real intelligence rather than pattern-matching.
-
-Just my =E2=82=AC0.01
-
+Yours,
 Linus Walleij
