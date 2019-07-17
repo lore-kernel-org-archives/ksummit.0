@@ -1,17 +1,18 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A5CDFCB8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9AF51E39
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 09:28:10 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5803063D
+	Wed, 17 Jul 2019 09:28:26 +0000 (UTC)
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+	[64.147.123.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 22D7C63D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 09:28:09 +0000 (UTC)
-Date: Wed, 17 Jul 2019 12:27:53 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190717092753.GB3111@kadam>
+	Wed, 17 Jul 2019 09:28:26 +0000 (UTC)
+Date: Wed, 17 Jul 2019 18:28:20 +0900
+From: Greg KH <greg@kroah.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Message-ID: <20190717092820.GA18953@kroah.com>
 References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
 	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
 	<alpine.DEB.2.21.1906290802360.1802@nanos.tec.linutronix.de>
@@ -86,7 +87,10 @@ On Wed, Jul 17, 2019 at 12:23:13PM +0300, Dan Carpenter wrote:
 > 
 > We could add an option to `git am` to save the Message-ID automatically.
 
-Oh, there already is a --message-id option...  Duh.
+Kees already posted a simple git hook to add it to the message when
+using `git am`.  I've been using it for a week or so already, works
+wonderfully.
 
-regards,
-dan carpenter
+thanks,
+
+greg k-h
