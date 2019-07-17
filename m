@@ -1,31 +1,34 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 13B9FA7F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9549BCB8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 07:31:33 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5431B25A
+	Wed, 17 Jul 2019 09:23:52 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 03ED663D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Jul 2019 07:31:32 +0000 (UTC)
-Date: Wed, 17 Jul 2019 09:31:31 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <20190717073130.GA1021@kunai>
-References: <20190706142738.GA6893@kunai> <20190714103509.2dd72c90@archlinux>
-	<alpine.DEB.2.21.1907141157410.1669@nanos.tec.linutronix.de>
-	<20190716211636.GA6679@kunai>
-	<CAOesGMgaw3Xq4gCkSsyHW_n8ETkpSKwe5f_oBsz_+s3c+XsnTA@mail.gmail.com>
-	<alpine.DEB.2.21.1907170026200.1767@nanos.tec.linutronix.de>
-	<bf269ea7-6a9c-25db-5b97-958d9e15bddd@infradead.org>
+	Wed, 17 Jul 2019 09:23:51 +0000 (UTC)
+Date: Wed, 17 Jul 2019 12:23:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190717092313.GA3111@kadam>
+References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
+	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
+	<alpine.DEB.2.21.1906290802360.1802@nanos.tec.linutronix.de>
+	<20190629134329.GA4620@andrea>
+	<alpine.DEB.2.21.1906291714150.1802@nanos.tec.linutronix.de>
+	<20190630163120.GA13925@chatter.i7.local>
+	<20190701072013.GJ3402@hirez.programming.kicks-ass.net>
+	<alpine.DEB.2.21.1907010948310.1802@nanos.tec.linutronix.de>
+	<s5h5zomp4vh.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1yeeQ81UyVL57Vl7"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <bf269ea7-6a9c-25db-5b97-958d9e15bddd@infradead.org>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
-	meaningful
+In-Reply-To: <s5h5zomp4vh.wl-tiwai@suse.de>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
+ commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,55 +38,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, Jul 01, 2019 at 09:53:54AM +0200, Takashi Iwai wrote:
+> On Mon, 01 Jul 2019 09:49:56 +0200,
+> Thomas Gleixner wrote:
+> > 
+> > On Mon, 1 Jul 2019, Peter Zijlstra wrote:
+> > 
+> > > On Sun, Jun 30, 2019 at 12:31:20PM -0400, Konstantin Ryabitsev wrote:
+> > > > On Sat, Jun 29, 2019 at 05:16:18PM +0200, Thomas Gleixner wrote:
+> > > > > > Makes all sense to me.  One question/remark:
+> > > > > > 
+> > > > > > Documentation/process/submitting-patches.rst says:
+> > > > > > 
+> > > > > >  "If the patch follows from a mailing list discussion, give a URL to the
+> > > > > >   mailing list archive; use the https://lkml.kernel.org/ redirector with
+> > > > > >   a ``Message-Id``, to ensure that the links cannot become stale."
+> > > > > > 
+> > > > > > and it does not mention "lore.kernel.org": does this doc want an update?
+> > > > > 
+> > > > > Yes. lkml.kernel.org/r was the initial redirector, but lore is the new
+> > > > > thing.
+> > > > 
+> > > > FYI, lkml.kernel.org == lore.kernel.org in all respects. Using
+> > > > lore.kernel.org/r/<messageid> will match *any* mailing list archived at
+> > > > lore.kernel.org (for the full list, see https://lore.kernel.org/lists.html).
+> > > > I prefer people use lore.kernel.org because that name doesn't imply that the
+> > > > search will only match LKML.
+> > > 
+> > > I much prefer https://lkml.kernel.org/r/$msgid over lore, because I can
+> > > change it to marc.info with a single character change. And while lore
+> > > has improved, the thing is still a horrible horrible ugly site (an
+> > > actual fixed frame for the thread overview, and hiding that 'Reply
+> > > instructions' and 'LKML Archive on lore.kernel.org' somewhow would
+> > > already be a big improvement).
+> > 
+> > But lore allows to reference all mailinglists which are archived
+> > there, while lkml.k.org is hardcoded to lkml.
+> > 
+> > > Also, strlen("lkml.kernel.org/r/") < strlen("lore.kernel.org/lkml/").
+> > 
+> > Come on ....
+> 
+> If the size matters, how about just putting the message id?
+> Something like:
+>   Link: <alpine.DEB.2.21.1907010948310.1802@nanos.tec.linutronix.de>
 
---1yeeQ81UyVL57Vl7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+We could add an option to `git am` to save the Message-ID automatically.
 
-
-> > Right, if you commit it then you are responsible for it. It does not ma=
-tter
-> > whether you reviewed it yourself or relied on someone else review.
->=20
-> It's a bit amazing (and scary) that this is even being discussed (as thou=
-gh
-> it's unknown) after these many years.
-
-Guys, I am just trying to better cope with an amount of patches I can't
-handle on my own currently.
-
-My strategy to get more people involved is divide and conquer, e.g. look
-for people willing to maintain a single driver. That makes the "trust
-matrix" kind of complex. So, I still do think I can improve where to put
-my always-too-limited efforts by documenting where I put it in the past.
-
-I can keep track of that differently than a R-b tag, that is fine with
-me.
-
-I never had the intention of sneaking out of responsibility and I only
-sign patches I am sure they are ready to be upstreamed. This discussion
-exists because I want to keep this state.
-
-
---1yeeQ81UyVL57Vl7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0uzs4ACgkQFA3kzBSg
-KbapUw//dXT2iXQqrdT2fazUHBKY6LtFWIeVOdtlh5EQ0rx4UtlthMmGrH0G3boz
-jGa7YFMkvYYWJqLI7UolGg2LGnl3YX7ZMNoC8WRi3dGi4+i9u0pkMVHDRgorEc5M
-WJ54i+Ws10RcUpw9raZkZWBjeoDAWeFHhKGji0znL09F1HIJaP8QsFZmUvUwaJ2c
-6FL2urLSxmebKolAa1pEg+2w0W2Jr9xIEpYf5KAkJ4iJJrUwDtepCwHL1N+ysCny
-pMdT2Hk9G165IbldjWhXATN2LfQJKqUZ50lnwdG+Ludpm9BV2hhkx1NgqHQdQuED
-LvI3LjHoQ5eYkTU1Nl56UXKI/10W9oXBJGixKrIPwiR8QFJJlXTAygRrD8VgExw7
-D8KnvYxm2kRfgFzUVG+XKUfRjQah2ZilpUJlqq5ifgt5eBTXc/NuKyUbYe6GWPCg
-Ifcvtw9FUVAGPVzI1msWzRBhS8EC9IfYpW9Ikf1uPdk9KstsYTQOr0HDmTIi+T/U
-Tta4h01xdqOI3aFEmzD43oBDHykgrzdjDh7btoZd48S84ZC0gUAIXUkk0yDchzs3
-ohFf+Xaoy25/vKrEyuQzIiAZRQv2b/l7HNzK3+BOlRiC/uBl4jqOThNVSJ90fT9c
-cFtKJMVQHb7ytAuqC8zCs3qv8QVv7P8Xjm2Zqh14897FWjsP8aM=
-=LCEi
------END PGP SIGNATURE-----
-
---1yeeQ81UyVL57Vl7--
+regards,
+dan carpenter
