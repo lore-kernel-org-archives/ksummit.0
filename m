@@ -1,34 +1,33 @@
-Return-Path: <skhan@linuxfoundation.org>
+Return-Path: <laura@labbott.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 58894C52
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 138F2183E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Jul 2019 22:05:22 +0000 (UTC)
-Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
-	[209.85.166.43])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E62A35E4
+	Mon, 29 Jul 2019 13:11:25 +0000 (UTC)
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+	[209.85.222.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 90B1189D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Jul 2019 22:05:21 +0000 (UTC)
-Received: by mail-io1-f43.google.com with SMTP id o9so12313856iom.3
+	Mon, 29 Jul 2019 13:11:24 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id r6so44080110qkc.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Jul 2019 15:05:21 -0700 (PDT)
-To: Theodore Ts'o <tytso@mit.edu>
-References: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
-	<20190531021421.GA8123@mit.edu>
-	<a88ca2d1-27d7-5b80-3472-7110e7d2158c@linuxfoundation.org>
-	<20190603155102.GX2456@sirena.org.uk>
-	<b75ac5fd-3734-fbc1-a0af-bd143c70761e@linuxfoundation.org>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <8439c28e-ef1f-be85-bcf5-61f9fd1d4078@linuxfoundation.org>
-Date: Sun, 28 Jul 2019 16:05:19 -0600
-MIME-Version: 1.0
-In-Reply-To: <b75ac5fd-3734-fbc1-a0af-bd143c70761e@linuxfoundation.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] (withdrawn) Talking code
- or talking in code!
+	Mon, 29 Jul 2019 06:11:24 -0700 (PDT)
+Received: from lauras-mbp.fios-router.home
+	(pool-96-235-39-235.pitbpa.fios.verizon.net. [96.235.39.235])
+	by smtp.gmail.com with ESMTPSA id
+	b23sm37087674qte.19.2019.07.29.06.11.22
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 29 Jul 2019 06:11:22 -0700 (PDT)
+From: Laura Abbott <laura@labbott.name>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Message-Id: <4B8CE92E-C6B6-43B0-807F-932414A578D8@labbott.name>
+Date: Mon, 29 Jul 2019 09:09:56 -0400
+To: ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board -- call
+ for participation in a test vote
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,64 +37,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 6/3/19 11:39 AM, Shuah Khan wrote:
-> On 6/3/19 9:51 AM, Mark Brown wrote:
->> On Fri, May 31, 2019 at 09:42:52AM -0600, Shuah Khan wrote:
->>
->>> Let me go over my vision for this time slot at the Maintainers Summit
->>> if we choose to add it. This isn't going to be a long deep dive session
->>> on the research. I asked Isabella to work with the following outline:
->>
->>> - A short summary of Sentimine
->>> - A short survey of 2 or 3 emails. We do the survey - I can have her
->>>    share the survey format ahead of time. Based on my recollection of
->>>    the survey from OSLS presentation, it asks participants to identify
->>>    the tone of the email. Positive/negative/neutral.
->>> - Isabella compares these results to the tool's analysis. The goal
->>>    is to see how far off the tool's analysis from real developers
->>>    take on these emails.
->>
->> Does that need to be done at the summit or could it be done offline with
->> the summit attendees (or with a list of people pulled from the active
->> developers stats or something for that matter)?  But then...
->>
-> 
-> I like this idea. This helps us gather data from more developers than
-> just the Maintainer summit attendees. We can do this after the trial
-> run at the Maintainer summit, provided we do add the topic to the
-> agenda.
-> 
->>> In addition, I think the tool should also look at clarity of
->>> communication not just tone. To me this is the most useful part for
->>> us. My motivation and goal is to explore if we can take this opportunity
->>> to influence the direction of this research to look at what would be
->>> useful to us as a community.
->>
->> ...it does sound like a useful way of kicking off a discussion.  Perhaps
->> the survey could be done in advance and then the discussion jump
->> straight on to any differences in evaluation?  I do agree that clarity
->> is worth looking at, especially with regard to non-native English
->> speakers.
->>
-> 
-> Doing survey ahead of time would help us spend more time on differences
-> in evaluation and help identify areas for improvement in the tool and
-> the assumptions it is making.
-> 
-> If we chose to go this route, I can work with Isabella to send the
-> survey out a day or two in advance to gather data.
-> 
+Hi,
 
-Hi Ted,
+As a follow up to changes in voting procedures[1] for the Technical =
+Advisory
+Board (TAB), we are running a test vote. The goal is to let everyone see =
+what
+voting will look like and help the TAB members running the election sort =
+out
+any issues that may arise. We will be voting on two t-shirts for
+Greg Kroah-Hartman to wear at Linux Plumbers Conference 2019 in Lisbon,
+Portugal. Here are the options for what will be on the t-shirt:
 
-The research to get clarity of communication hasn't produced results
-that could of any value so far. It needs more work. Focusing on just
-tone in my mind is one dimensional and not useful.
+- Applied, Thanks!
+- This doesn't apply to my tree :(
+- Please report that to your distribution
+- One change per patch, please
+- Please resend with a proper subject
 
-I don't see the point in wasting cycles at Maintainer and Kernel summits
-on this topic.
+If you would like to participate, please e-mail me (off list preferably) =
+by
+August 18th, 23:59 UTC=E2=88=9204:00 (that's midnight EDT). The poll =
+will run from
+August 19th to August 23rd 23:59 UTC=E2=88=9204:00 and we will announce =
+the results
+here.=20
 
-I deiced to withdraw this proposal. Thanks for the time and discussion.
+Anyone may participate in this test poll and you are encouraged to give
+feedback. If you have any questions, feel free to contact the TAB at
+tab@lists.linux-foundation.org
 
-thanks,
--- Shuah
+Thanks,
+Laura
+
+[1] =
+https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/0065=
+82.html=
