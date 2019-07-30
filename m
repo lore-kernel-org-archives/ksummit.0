@@ -1,33 +1,29 @@
-Return-Path: <laura@labbott.name>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 138F2183E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0CB2C30C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Jul 2019 13:11:25 +0000 (UTC)
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
-	[209.85.222.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 90B1189D
+	Tue, 30 Jul 2019 16:55:12 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 601955E4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Jul 2019 13:11:24 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id r6so44080110qkc.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Jul 2019 06:11:24 -0700 (PDT)
-Received: from lauras-mbp.fios-router.home
-	(pool-96-235-39-235.pitbpa.fios.verizon.net. [96.235.39.235])
-	by smtp.gmail.com with ESMTPSA id
-	b23sm37087674qte.19.2019.07.29.06.11.22
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 29 Jul 2019 06:11:22 -0700 (PDT)
-From: Laura Abbott <laura@labbott.name>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Message-Id: <4B8CE92E-C6B6-43B0-807F-932414A578D8@labbott.name>
-Date: Mon, 29 Jul 2019 09:09:56 -0400
-To: ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board -- call
- for participation in a test vote
+	Tue, 30 Jul 2019 16:55:11 +0000 (UTC)
+Date: Tue, 30 Jul 2019 18:55:07 +0200
+From: Jan Kara <jack@suse.cz>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <20190730165507.GJ28829@quack2.suse.cz>
+References: <20190530055947.GA29812@mit.edu>
+	<20190724055226.GA15444@jagdpanzerIV>
+	<20190724080347.GA12744@jagdpanzerIV>
+	<CAOQ4uxhdJDnTiANsC4Cv42A5ooeYaTphtGvZgP9Wvp+LCCh1NA@mail.gmail.com>
+	<094f7a8233152e80f34b45982058b599d605864f.camel@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <094f7a8233152e80f34b45982058b599d605864f.camel@kernel.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Amir Goldstein <amir73il@gmail.com>, Trond Myklebust <trondmy@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Linux kernel SMB server (CIFSD)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,39 +33,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Wed 24-07-19 06:55:53, Jeff Layton wrote:
+> On Wed, 2019-07-24 at 13:50 +0300, Amir Goldstein wrote:
+> > On Wed, Jul 24, 2019 at 11:03 AM Sergey Senozhatsky
+> > <sergey.senozhatsky.work@gmail.com> wrote:
+> > > On (07/24/19 14:52), Sergey Senozhatsky wrote:
+> > > > On (05/30/19 01:59), Theodore Ts'o wrote:
+> > > > > From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
+> > > [..]
+> > > > To extend the topic with some discussion points:
+> > > > 
+> > > > - We are facing a rather familiar problem. Basically, SMB2 CHANGE_NOTIFY
+> > > >   [1] is something what fsnotify normally does, except that we can't use
+> > > >   it in cifsd kernel module. I see that NFS guys had [2] same issues some
+> > > >   time ago.
+> > > > 
+> > > >   So the question is - how to do fs notify style monitoring in a kernel
+> > > >   module (nfsd, cifsd)? Any chance the kernel can start exporting fsnotify
+> > > >   symbols?
+> > 
+> > I don't see a problem with exporting those symbols.
+> > As a matter of fact, I have a plan to use them also from overlayfs.
+> > At the time that Jeff posted his patches, there was no active fsnotify
+> > maintainer.
+> > Jeff, did you abandon this effort for nfsd?
+> > 
+> 
+> (cc'ing Trond)
+> 
+> Trond has been driving those patches more recently. He posted a revised
+> set of them recently, and they still use fsnotify to detect unlink
+> activity:
+> 
+> https://www.spinics.net/lists/linux-nfs/msg73692.html
 
-As a follow up to changes in voting procedures[1] for the Technical =
-Advisory
-Board (TAB), we are running a test vote. The goal is to let everyone see =
-what
-voting will look like and help the TAB members running the election sort =
-out
-any issues that may arise. We will be voting on two t-shirts for
-Greg Kroah-Hartman to wear at Linux Plumbers Conference 2019 in Lisbon,
-Portugal. Here are the options for what will be on the t-shirt:
+The fsnotify export bits look sane to me except perhaps
+fsnotify_put_group() and fsnotify_wait_marks_destroyed(). Their usage in
+"[PATCH 05/16] nfsd: add a new struct file caching facility to nfsd" looks
+buggy AFAICT. One is supposed to destroy a group with
+fsnotify_destroy_group() instead of just dropping the group reference (that
+does just the final cleanup but expects fsnotify_destroy_group() has been
+already called).
 
-- Applied, Thanks!
-- This doesn't apply to my tree :(
-- Please report that to your distribution
-- One change per patch, please
-- Please resend with a proper subject
-
-If you would like to participate, please e-mail me (off list preferably) =
-by
-August 18th, 23:59 UTC=E2=88=9204:00 (that's midnight EDT). The poll =
-will run from
-August 19th to August 23rd 23:59 UTC=E2=88=9204:00 and we will announce =
-the results
-here.=20
-
-Anyone may participate in this test poll and you are encouraged to give
-feedback. If you have any questions, feel free to contact the TAB at
-tab@lists.linux-foundation.org
-
-Thanks,
-Laura
-
-[1] =
-https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/0065=
-82.html=
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
