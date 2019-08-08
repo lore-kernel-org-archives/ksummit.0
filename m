@@ -1,36 +1,49 @@
-Return-Path: <sergey.senozhatsky.work@gmail.com>
+Return-Path: <ajd@linux.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1A1DB35ED
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 22AF7AF0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 31 Jul 2019 03:09:18 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
-	[209.85.210.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B71A92C6
+	Thu,  8 Aug 2019 05:25:04 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 39A3D7D2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 31 Jul 2019 03:09:17 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id t16so30935780pfe.11
+	Thu,  8 Aug 2019 05:25:02 +0000 (UTC)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+	x785I76d011669 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 8 Aug 2019 01:25:01 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 2u89gq7vtj-1
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Jul 2019 20:09:17 -0700 (PDT)
-Date: Wed, 31 Jul 2019 12:09:13 +0900
-From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Message-ID: <20190731030913.GA5614@jagdpanzerIV>
-References: <20190530055947.GA29812@mit.edu>
-	<20190724055226.GA15444@jagdpanzerIV>
-	<20190724080347.GA12744@jagdpanzerIV>
-	<CAOQ4uxhdJDnTiANsC4Cv42A5ooeYaTphtGvZgP9Wvp+LCCh1NA@mail.gmail.com>
-	<094f7a8233152e80f34b45982058b599d605864f.camel@kernel.org>
-	<20190725050059.GA30226@jagdpanzerIV>
-	<20190730170115.GK28829@quack2.suse.cz>
+	Thu, 08 Aug 2019 01:25:01 -0400
+Received: from localhost
+	by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<ajd@linux.ibm.com>; Thu, 8 Aug 2019 06:25:00 +0100
+From: Andrew Donnellan <ajd@linux.ibm.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	Mark Brown <broonie@kernel.org>
+References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
+	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
+	<s5hzhm0q3p1.wl-tiwai@suse.de>
+	<alpine.DEB.2.21.1906290906080.1802@nanos.tec.linutronix.de>
+	<s5hwoh4q2pn.wl-tiwai@suse.de> <20190629112055.GB2793@sirena.org.uk>
+	<20190630130154.1b5cf991@coco.lan>
+	<7d2e5632-819d-f5dd-072e-13d8b4e34abb@linux.ibm.com>
+Date: Thu, 8 Aug 2019 15:24:48 +1000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190730170115.GK28829@quack2.suse.cz>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Amir Goldstein <amir73il@gmail.com>, Jeff Layton <jlayton@kernel.org>,
-	Trond Myklebust <trondmy@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Linux kernel SMB server (CIFSD)
+In-Reply-To: <7d2e5632-819d-f5dd-072e-13d8b4e34abb@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-AU
+Content-Transfer-Encoding: 8bit
+Message-Id: <84339269-1575-83a0-87d1-1a9ee7e55f53@linux.ibm.com>
+Cc: "'patchwork@lists.ozlabs.org'" <patchwork@lists.ozlabs.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
+ commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,38 +53,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On (07/30/19 19:01), Jan Kara wrote:
-> On Thu 25-07-19 14:00:59, Sergey Senozhatsky wrote:
-> > On (07/24/19 06:55), Jeff Layton wrote:
-> > > (cc'ing Trond)
-> > > 
-> > > Trond has been driving those patches more recently. He posted a revised
-> > > set of them recently, and they still use fsnotify to detect unlink
-> > > activity:
-> > > 
-> > > https://www.spinics.net/lists/linux-nfs/msg73692.html
-> > 
-> > Jan, do you have objections?
-> > Would be great to have fsnotify export patch in linux-next, maybe.
+On 1/7/19 11:35 am, Andrew Donnellan wrote:
+> On 1/7/19 2:01 am, Mauro Carvalho Chehab wrote:
+>> Em Sat, 29 Jun 2019 12:20:55 +0100
+>> Mark Brown <broonie@kernel.org> escreveu:
+>>
+>>> On Sat, Jun 29, 2019 at 09:18:28AM +0200, Takashi Iwai wrote:
+>>>
+>>>> BTW, can the URL be reached from patchwork?  That'd be really handy.
+>>>
+>>> Even better, could patchwork add it to the mboxes you download from it
+>>> like acks and so on?  Currently you can get the message ID so it's easy
+>>> to construct the link for things that are on LKML.
+>>
+>> I'm all for it, but the problem with patchwork is that the tool may be 
+>> used
+>> on non-kernel development and/or the ML may not be in lore.
+>>
+>> Also, there are more than one patchwork instance. We use our own for
+>> Linux media (https://patchwork.linuxtv.org)[1].
+>>
+>> On media, patchwork is used for both Kernel development and VDR
+>> development (an userspace tool) - with is a completely unrelated
+>> project (with different people behind it - and even a different mailing
+>> list).
+>>
+>> So, whatever change at patchwork should be done in a way that the
+>> ML URL could be customized, and the new field would be added only
+>> if the URL is not blank.
 > 
-> I have no objections to export bits of fsnotify to modules. After all
-> kernel/audit_tree.c is another external user of the fsnotify bits, just it
-> happens not to be modularized so there was never need for exports.
+> [+ patchwork list]
+> 
+> I'll have a go at adding a project/list-specific archive prefix and 
+> exposing that in the web interface.
 
-That's great. At least we can expect that fsnotify will be exported
-at some point and can start playing with fsnotify-based smb2_notify
-implementation.
+I've now submitted patches to add a mailing list archive link for each 
+patch visible via the web interface and also via the REST API.
 
-> Once NFS guys (or someone else) have something that is close to inclusion,
-> I can push the export patch to my tree (just CC me, Amir, and fsdevel on the
-> series).
+> Regarding adding it to downloaded mboxes, if we do that I'd like it to 
+> be a separate option. A single patch can also land in patchwork multiple 
+> times via various lists, so the URL will depend on which project you're 
+> looking at.
 
-OK, both OverlayFS and NFS have some plans for fsnotify, so let's see.
+Haven't done this bit yet.
 
-> I prefer not to export symbols for something that is out of tree
-> and will not be getting upstream in a near future. After all the export
-> patch is easy to carry in your tree if you need it.
-
-Makes perfect sense.
-
-	-ss
+-- 
+Andrew Donnellan              OzLabs, ADL Canberra
+ajd@linux.ibm.com             IBM Australia Limited
