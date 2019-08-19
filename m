@@ -1,18 +1,19 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75628AF5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BE7DEAF5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Aug 2019 07:06:27 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 375D067F
+	Mon, 19 Aug 2019 07:06:31 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr
+	(mail3-relais-sop.national.inria.fr [192.134.164.104])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BE16389B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Aug 2019 07:06:27 +0000 (UTC)
-Date: Mon, 19 Aug 2019 09:06:17 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
+	Mon, 19 Aug 2019 07:06:28 +0000 (UTC)
+Date: Mon, 19 Aug 2019 09:06:26 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
 To: Jan Kara <jack@suse.cz>
 In-Reply-To: <20190819065710.GC20455@quack2.suse.cz>
-Message-ID: <nycvar.YFH.7.76.1908190905490.27147@cbobk.fhfr.pm>
+Message-ID: <alpine.DEB.2.21.1908190905110.3257@hadrien>
 References: <20190706142738.GA6893@kunai>
 	<CAMuHMdUVtz6_3-9_+QLRWt6x7fauvA0K4p77eOcyVWo_oO9g5g@mail.gmail.com>
 	<20190708115949.GC1050@kunai> <20190715125800.22a9a979@coco.lan>
@@ -34,8 +35,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+
+
 On Mon, 19 Aug 2019, Jan Kara wrote:
 
+> On Sat 17-08-19 21:35:29, Paul Walmsley wrote:
+> > On Mon, 15 Jul 2019, Theodore Y. Ts'o wrote:
+> >
+> > > I'd suggest changing the text to read:
+> > >
+> > >  	 - Acked-by: indicates an agreement by the maintainer or
+> > > 	   reviewer of the the relevant code that the patch is
+> > > 	   appropriate for inclusion into the kernel.
+> >
+> > This would be a positive step forward.  I would be in favor of this.
+> >
+> > It would also be good to state here, if it isn't stated already, that
+> > "reviewer" means "someone who is listed in an R: line in MAINTAINERS".
+>
 > I don't think that 'R:' entry in MAINTAINERS should be really asked for.
 > IMO that is unnecessary bureaucracy and discourages review from people
 > that are not core developers. Sure the quality of the review may be lower
@@ -43,13 +60,20 @@ On Mon, 19 Aug 2019, Jan Kara wrote:
 > leave it at the discretion of the maintainer whether he accepts or just
 > ignores Reviewed-by tag.
 
-I totally agree.
+Is there some other tag for "I'm interested in and reasonably
+knowledgeable about this change and it looks good to me"?
 
-Sure, Acked-by: (and other tags) is sometimes over-used by random people 
-just to get their name listed in the kernel changelog ... on the other 
-hand, restricting this only to "the MAINTAINERS club" is definitely not 
-how you invite more relevant reviewers to join and help.
+Note that there is a double "the" in the above text.
 
--- 
-Jiri Kosina
-SUSE Labs
+julia
+
+>
+> 								Honza
+> --
+> Jan Kara <jack@suse.com>
+> SUSE Labs, CR
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
