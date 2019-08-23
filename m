@@ -1,50 +1,34 @@
-Return-Path: <seanpaul@chromium.org>
+Return-Path: <brendanhiggins@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 173D8E4A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 34320CCE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 13:16:13 +0000 (UTC)
-Received: from mail-yw1-f65.google.com (mail-yw1-f65.google.com
-	[209.85.161.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8FB1B89B
+	Fri, 23 Aug 2019 00:03:52 +0000 (UTC)
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
+	[209.85.210.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A2B6B89B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 13:16:12 +0000 (UTC)
-Received: by mail-yw1-f65.google.com with SMTP id z64so3796360ywe.7
+	Fri, 23 Aug 2019 00:03:51 +0000 (UTC)
+Received: by mail-pf1-f196.google.com with SMTP id 196so5080140pfz.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 06:16:12 -0700 (PDT)
-Received: from mail-yw1-f43.google.com (mail-yw1-f43.google.com.
-	[209.85.161.43])
-	by smtp.gmail.com with ESMTPSA id j3sm533689ywf.35.2019.08.23.06.16.09
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 23 Aug 2019 06:16:10 -0700 (PDT)
-Received: by mail-yw1-f43.google.com with SMTP id i138so3792002ywg.8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 06:16:09 -0700 (PDT)
+	Thu, 22 Aug 2019 17:03:51 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
-	<CAHk-=whFbgy4RXG11c_=S7O-248oWmwB_aZOcWzWMVh3w7=RCw@mail.gmail.com>
-	<CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
-	<a6e7eedd-857c-bfe0-4a14-f4140d6fc21e@roeck-us.net>
-	<CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
-	<20190823013619.GA8130@mit.edu>
-	<CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
-	<CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
-In-Reply-To: <CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
-From: Sean Paul <seanpaul@chromium.org>
-Date: Fri, 23 Aug 2019 09:15:30 -0400
-Message-ID: <CAOw6vbJCCeM_62WARKECkthCafhfpxqWc-R9SBMnc6VVMZ0hkg@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+In-Reply-To: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Thu, 22 Aug 2019 17:03:39 -0700
+Message-ID: <CAFd5g46G6KvLU7+mkCB1mULPG2x=X5TfUmjmm0_mahpgEZ_9JA@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
 	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
 	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
 	Dmitry Vyukov <dvyukov@google.com>
 Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
- like it) in kernel commits
+	like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -54,57 +38,82 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Aug 22, 2019 at 11:04 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
+On Thu, Aug 22, 2019 at 4:40 PM Doug Anderson <dianders@chromium.org> wrote:
+[...]
+> Specifically, let me list the problems I'd like to solve:
 >
-> On Thu, Aug 22, 2019 at 7:58 PM Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
-> >
-> > So yes, I'd *much* rather see that "Link" line than try to make a
-> > "Change-ID" line be a thing.
->
-> Tangential note: since it looks like "Link:" lines are going to get
-> more common in general, maybe somebody with the right tck/tk-fu can
-> make a tool like 'gitk' be able to just do the hyperlinking thing (it
-> already does it for commit hashes in the commit message, but wouldn't
-> it be convenient to do that for web links too and open a browser
-> tab?).
->
-> And maybe we can even make git.kernel.org do it too (I think that uses cgit?).
->
-> I think that might make it just nicer in general to browse the logs
-> and actually follow the links without cut-and-paste games..
->
-> So using a generic "Link:" tag that can be used for multiple different
-> things sounds like a win in general over some specialized change-ID
-> tag. No?
+> 1. If I see a commit in Linux, I would like to be able to easily find
+> all of the mailing list discussions relevant to that commit.  I know
+> there are proposals about including the Message-Id of the final post
+> in the commit log and that is certainly better than nothing, but the
+> Message-Id will only get you a link to the final version of the patch.
+> If the relevant discussion happened on a previous version of that
+> patch then you need to find it yourself.  This gets harder if the
+> patch changed subject, touched different files, if parts of the series
+> landed at different times, and if multiple people were involved in
+> posting different versions of the patch.  If the commit in Linux has a
+> Change-Id then the old versions are logically linked and easier to
+> associated with one another.
 
-Only if you've uploaded the patch somewhere before sending it to the
-mailing list. I think this would satisfy the Gerrit crowd, since
-they're presumably uploading the patch to Gerrit, getting some review
-on it and then sending it upstream. They will have a link. If you're
-just interested in being archival tool friendly, you probably just
-want to add some uuid cookie to the patch and post it directly to the
-mailing list.
+Please correct me if I am wrong, but I believe this feature already
+exists in cregit[1]. I believe this is called Email2git[2].
 
-That said, I don't think Change-Id (or Uuid or whatever the cookie tag
-is named) needs to be committed to git. If people stuck their
-Change-Id tag below '---' in their mail, it would solve the issue of
-finding old revisions on the list. This would also allow tooling (like
-patchwork) to track across revisions. It's pretty easy to work
-backwards from a commit to _any_ one revision of the patch on the m-l,
-and that will give you the Change-Id.
+To be clear, I am not against the Change-Id tag, but I think we
+already have support for what you are describing here.
 
-If Change-Id becomes widely useful below '---', you could add support
-in patchwork to allow direct linking by Change-Id. This would allow
-people to add Link: <patchwork-server/change-id/<change-id> to their
-commit messages without first uploading it somewhere.
+> 2. If I do a search through old mailing list archives and I stumble
+> upon a patch that didn't land, I can more easily find different
+> versions of that patch if I have a Change-Id.  Some of these different
+> versions may have relevant discussions that explains why the patch
+> didn't land.  Finding these other patches without a Change-Id might be
+> hard, again because they may touch different files, have a different
+> subject, or have been posted by a different person.
 
-Sean
+Yes! I would love this, and I don't think Email2git handles this;
+nevertheless, I am not sure how difficult it would be to add support
+for that to Email2git.
 
 >
->               Linus
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> At the moment using a Change-Id in the way I described would require
+> searching through mailing lists for the Change-Id string to find other
+> versions of the same patch.  However, I would expect it would only be
+> a matter of time before tools like patchwork are able to use Change-Id
+> to associate one version of a patch with the next version.  I would
+> also expect that allowing Change-Id to exist would allow someone to
+> (perhaps) create a gerrit instance that watched the kernel mailing
+> list and mirrored mailing list discussions in the GUI.  In other
+> words, once such tools exist presumably Change-Id will be much more
+> useful: you will eventually be able to paste a Change-Id into a tool
+> and get links to all relevant discussion and related posts.
+>
+>
+> The basic summary is that I'd like there to be some way to track a
+> logical patch over its lifetime.  I don't believe there is a reliable
+> (non-heuristic) way to do this today and I think Change-Id provides a
+
+I am not sure what Email2git does (I assume it uses a heuristic), but
+it seems reasonably reliable after a couple of random spot checks.
+
+> nice solution.  While we could come up with a new and different
+> solution (because Change-Id was not invented here), it feels like
+> adopting Change-Id is convenient and easy and provides a true benefit.
+> Change-Id works super well with the decentralized/email workflow for
+> patches and can be phased in over time (or it can stay optional
+> forever).
+
+I have wanted to do some of this tracking a commit across multiple
+revisions and I have not found a simple way to do it. I keep meaning
+to look into Email2git more closely, but it is hard for me to imagine
+something more straightforward than something analogous to a
+Change-Id.
+
+So I like the idea, but I think it is probably worth first
+investigating Email2git and see if it solves the same use case. If
+Email2git is portable and is easy to build into a workflow outside of
+cregit, then it should be equally easy to represent the metadata that
+Change-Id provides outside of the mailing lists.
+
+Thanks for thinking about this!
+
+[1] https://cregit.linuxsources.org
+[2] https://www.linux.com/tutorials/email2git-matching-linux-code-its-mailing-list-discussions/
