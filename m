@@ -1,41 +1,43 @@
-Return-Path: <dianders@chromium.org>
+Return-Path: <torvalds@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 43D44EC0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 84393EB1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Aug 2019 23:40:02 +0000 (UTC)
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
-	[209.85.166.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E21E89B
+	Fri, 23 Aug 2019 00:17:27 +0000 (UTC)
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+	[209.85.208.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B5B237FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Aug 2019 23:40:01 +0000 (UTC)
-Received: by mail-io1-f67.google.com with SMTP id j4so7484499iog.11
+	Fri, 23 Aug 2019 00:17:26 +0000 (UTC)
+Received: by mail-lj1-f196.google.com with SMTP id m24so7185819ljg.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Aug 2019 16:40:01 -0700 (PDT)
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com.
-	[209.85.166.41]) by smtp.gmail.com with ESMTPSA id
-	n22sm1309797iob.37.2019.08.22.16.39.59
+	Thu, 22 Aug 2019 17:17:26 -0700 (PDT)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
+	[209.85.208.181]) by smtp.gmail.com with ESMTPSA id
+	n187sm262445lfa.30.2019.08.22.17.17.21
 	for <ksummit-discuss@lists.linuxfoundation.org>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 22 Aug 2019 16:39:59 -0700 (PDT)
-Received: by mail-io1-f41.google.com with SMTP id q22so15846055iog.4
+	Thu, 22 Aug 2019 17:17:22 -0700 (PDT)
+Received: by mail-lj1-f181.google.com with SMTP id e27so7191183ljb.7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Aug 2019 16:39:59 -0700 (PDT)
+	Thu, 22 Aug 2019 17:17:21 -0700 (PDT)
 MIME-Version: 1.0
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 22 Aug 2019 16:39:46 -0700
-Message-ID: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
+References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
+In-Reply-To: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 22 Aug 2019 17:17:05 -0700
+Message-ID: <CAHk-=whFbgy4RXG11c_=S7O-248oWmwB_aZOcWzWMVh3w7=RCw@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
-	Brendan Higgins <brendanhiggins@google.com>,
 	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
-	Dmitry Vyukov <dvyukov@google.com>
-Subject: [Ksummit-discuss] Allowing something Change-Id (or something like
-	it) in kernel commits
+	Dmitry Vyukov <dvyukov@google.com>, David Rientjes <rientjes@google.com>,
+	Dmitry Torokhov <dtor@chromium.org>
+Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
+ like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,97 +47,107 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Thu, Aug 22, 2019 at 4:40 PM Doug Anderson <dianders@chromium.org> wrote:
+>
+> The Linux kernel has always viewed these Change-Id tags as obnoxious
+> and useless spam.  Anyone who accidentally leaves a Change-Id in their
+> patch when posting to the mailing list is told to please re-post their
+> patch without the Change-Id.  In this email, I will attempt to argue
+> that the Linux kernel ought to relax this restriction and allow
+> (possibly even encourage) Change-Ids.
 
-As everyone is probably aware, when you use the gerrit code review
-system all of your commits get an extra line in them that looks
-something like:
+No.
 
-Change-Id: I6a007dfe91ee1077a437963cf26d91370fdd9556
+Not without some ground rules.
 
-The Linux kernel has always viewed these Change-Id tags as obnoxious
-and useless spam.  Anyone who accidentally leaves a Change-Id in their
-patch when posting to the mailing list is told to please re-post their
-patch without the Change-Id.  In this email, I will attempt to argue
-that the Linux kernel ought to relax this restriction and allow
-(possibly even encourage) Change-Ids.
+> To begin with, let me make sure we're on the same page about what
+> Change-Ids are.  As I understand it:
+>
+> * A change ID is much alike a UUID.  It is locally generated on a
+> developer's computer and is (in theory) unique across the universe.
 
+Completely irrelevant.
 
-To begin with, let me make sure we're on the same page about what
-Change-Ids are.  As I understand it:
+The point of an UUID is not just that it's unique, but THAT YOU CAN
+LOOK SOMETHING UP USING IT!
 
-* A change ID is much alike a UUID.  It is locally generated on a
-developer's computer and is (in theory) unique across the universe.
+A "change ID" that I can't use to look anything up with is completely
+pointless and should be removed from kernel history.
 
-* When a developer keeps the same Change-Id across two patches they
-are making the assertion that the two patches are either the same or
-should be treated as two versions of the same logical change.  For
-instance, v1, v2, and v3 of the same patch should have the same
-Change-Id.  Even if v2 and v3 of the patch have different subjects and
-touch different files, if they have the same Change-Id then the
-developer is asserting that v3 should be considered a new version of
-the same logical change as v2.  If it helps to think about it,
-Change-Id is used by gerrit servers to know that a new patch uploaded
-should replace an older version with the same Change-Id.
+But if you have something unique that is actually useful for looking
+things up, then by all means. But it needs to be useful for
+_everybody_.
 
+> * When a developer keeps the same Change-Id across two patches they
+> are making the assertion that the two patches are either the same or
+> should be treated as two versions of the same logical change.
 
-At the moment, Change-Ids are highly associated in people's minds with
-gerrit and many upstream developers dislike gerrit.  To be clear: I am
-not suggesting that kernel developers should endorse gerrit or be
-forced to use gerrit.  I am suggesting that the idea of Change-Ids is
-a good one independent of gerrit.  If we start using Change-Id then it
-will allow better tools to be created, making life better for kernel
-developers.
+.. and we have better ways to do that.
 
+For example, we are actively encouraging things like message ID's
+(which are _also_ a form of locally generated UUID, they just are more
+than the silly purely numerical one).
 
-Specifically, let me list the problems I'd like to solve:
+That gives you the origin of something, but it also gives you the
+development history and context.
 
-1. If I see a commit in Linux, I would like to be able to easily find
-all of the mailing list discussions relevant to that commit.  I know
-there are proposals about including the Message-Id of the final post
-in the commit log and that is certainly better than nothing, but the
-Message-Id will only get you a link to the final version of the patch.
-If the relevant discussion happened on a previous version of that
-patch then you need to find it yourself.  This gets harder if the
-patch changed subject, touched different files, if parts of the series
-landed at different times, and if multiple people were involved in
-posting different versions of the patch.  If the commit in Linux has a
-Change-Id then the old versions are logically linked and easier to
-associated with one another.
+But note that how when it comes to message ID's we encourage them in a
+form that actually also helps look that information up, ie the
+preferred form isn't just the message ID (although that exists), it's
+a link like
 
-2. If I do a search through old mailing list archives and I stumble
-upon a patch that didn't land, I can more easily find different
-versions of that patch if I have a Change-Id.  Some of these different
-versions may have relevant discussions that explains why the patch
-didn't land.  Finding these other patches without a Change-Id might be
-hard, again because they may touch different files, have a different
-subject, or have been posted by a different person.
+    Link: https://lore.kernel.org/r/20190723065733.4899-5-leon@kernel.org
 
+instead of
 
-At the moment using a Change-Id in the way I described would require
-searching through mailing lists for the Change-Id string to find other
-versions of the same patch.  However, I would expect it would only be
-a matter of time before tools like patchwork are able to use Change-Id
-to associate one version of a patch with the next version.  I would
-also expect that allowing Change-Id to exist would allow someone to
-(perhaps) create a gerrit instance that watched the kernel mailing
-list and mirrored mailing list discussions in the GUI.  In other
-words, once such tools exist presumably Change-Id will be much more
-useful: you will eventually be able to paste a Change-Id into a tool
-and get links to all relevant discussion and related posts.
+   Message-ID: 20190723065733.4899-5-leon@kernel.org
 
+even though technically they have just as much actual information in theory.
 
-The basic summary is that I'd like there to be some way to track a
-logical patch over its lifetime.  I don't believe there is a reliable
-(non-heuristic) way to do this today and I think Change-Id provides a
-nice solution.  While we could come up with a new and different
-solution (because Change-Id was not invented here), it feels like
-adopting Change-Id is convenient and easy and provides a true benefit.
-Change-Id works super well with the decentralized/email workflow for
-patches and can be phased in over time (or it can stay optional
-forever).
+Do you see people complaining about that kind of UUID? No.  Because it
+gives useful information to the project, and when something happens,
+people can look things up and _use_ that kind of UUID.
 
+> At the moment, Change-Ids are highly associated in people's minds with
+> gerrit and many upstream developers dislike gerrit.
 
-Thank you for reading
+No. That's not it at all. It's not "dislike gerrit".
 
--Doug
+It's "dislike pointless garbage".
+
+If the gerrit database is public and searchable using the uuid, then
+that would make the uuid useful to outsiders. And instead of just
+putting a UUID (which is hard to look up unless you know where it came
+from), make it be that "Link:" that gives not just the UUID, but also
+gives you the metadata for that UUID to be looked up.
+
+But so far, in every single case the uuid's I've ever seen have been
+pointless garbage, that aren't useful in general to public open source
+developers, and as such shouldn't be in the git tree.
+
+See the difference?
+
+So if you guys make the gerrit database actually public, and then
+start adding "Link: ..." tags so that we can see what they point to, I
+think people will be more than supportive of it.
+
+But if it's some stupid and pointless UUID that is useful to nobody
+outside of google (or special magical groups of people associated with
+it), then I will personally continue to be very much against it.
+
+If it's some internal database for your exclusive club, then you can
+just have your own internal database to look that UUID up using a
+commit ID (or a patch ID that is generated from the patch), and you
+don't need to pollute the public with non-public noise.
+
+Do people do that "pointless pullution" thing? Yes, I've seen various
+companies add their garbage to the commit logs. Sometimes it makes it
+through. But if I see an email with random noise in it, I will
+personally remove that random useless noise.
+
+This is part of what "open source" is all about. There aren't supposed
+to be special people with access to inside information that get
+preferential treatment. If you have your private stuff, then fine, but
+keep it private. It has no business being in the public tree.
+
+            Linus
