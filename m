@@ -1,18 +1,27 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <dianders@chromium.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E57CFCF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E3EDFCF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 15:48:59 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 057BE67F
+	Fri, 23 Aug 2019 15:50:02 +0000 (UTC)
+Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
+	[209.85.166.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D787567F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 15:48:58 +0000 (UTC)
-Date: Fri, 23 Aug 2019 17:48:55 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Sean Paul <seanpaul@chromium.org>
-In-Reply-To: <CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1908231740020.1896@nanos.tec.linutronix.de>
+	Fri, 23 Aug 2019 15:50:01 +0000 (UTC)
+Received: by mail-io1-f66.google.com with SMTP id 18so21069882ioe.10
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 23 Aug 2019 08:50:01 -0700 (PDT)
+Received: from mail-io1-f42.google.com (mail-io1-f42.google.com.
+	[209.85.166.42]) by smtp.gmail.com with ESMTPSA id
+	s12sm2663998ios.31.2019.08.23.08.49.58
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Fri, 23 Aug 2019 08:49:58 -0700 (PDT)
+Received: by mail-io1-f42.google.com with SMTP id e20so21053170iob.9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 23 Aug 2019 08:49:58 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
 	<CAHk-=whFbgy4RXG11c_=S7O-248oWmwB_aZOcWzWMVh3w7=RCw@mail.gmail.com>
 	<CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
@@ -24,8 +33,12 @@ References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
 	<CAOw6vbJCCeM_62WARKECkthCafhfpxqWc-R9SBMnc6VVMZ0hkg@mail.gmail.com>
 	<20190823151843.GH8130@mit.edu>
 	<CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 23 Aug 2019 08:49:44 -0700
+Message-ID: <CAD=FV=VcvTTO9k4idg9mA4HxKy-3zm47vvqHvS86yJW8G8cRRg@mail.gmail.com>
+To: Sean Paul <seanpaul@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -44,7 +57,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 23 Aug 2019, Sean Paul wrote:
+Hi,
+
+On Fri, Aug 23, 2019 at 8:31 AM Sean Paul <seanpaul@chromium.org> wrote:
+>
 > On Fri, Aug 23, 2019 at 11:18 AM Theodore Y. Ts'o <tytso@mit.edu> wrote:
 > >
 > > On Fri, Aug 23, 2019 at 09:15:30AM -0400, Sean Paul wrote:
@@ -63,57 +79,53 @@ On Fri, 23 Aug 2019, Sean Paul wrote:
 > >
 > > ... is a better choice.
 > >
-> 
+>
 > Agreed. If you have a url for the patch this makes sense.
-> 
+>
 > I don't upload my patches to Gerrit, but I am interested in enabling
 > patchwork (or equivalent tool) to do a better job of tracking revision
 > changes.
-> 
-> Currently I just link to all past revisions in the latest one (see
-> [1]) so folks can see the prior discussion. It'd be nice if there was
-> an easier way of achieving this.
 
-That's mostly a question of being careful about it. The initial submissions
-cover letter starts the whole thing. For any following version, the cover
-letter should have:
+Right.  I think the point that I've been trying to make is that just
+like Sean: I have no gerrit server involved when I submit patches to
+the list.  I do:
 
-    This is version X of this series. The previous version can be found
-    here:
+1. Write patch on my local machine.
+2. Post v1 to mailing list.
+3. Make changes.
+4. Post v2 to mailing list.
+5. Make changes.
+5. Post v3 to mailing list.
 
-	https://lkml.kernel.org/r/$MSGID_PREV_COVERLETTER
+I have never uploaded to a gerrit in this process.  THERE IS NO GERRIT
+LINK!  Yet, just like Sean Paul says, I would like patchwork (or any
+other system trawling through the mailing lists) to link my v1 to my
+v2 to my v3.
 
-So when the final version gets applied, then each commit gets a link:
+The key here is that Change-Id needs to be consumed by machines.  Yes,
+it's nice if humans can also find it useful by itself, but primarily
+we need programs (like patchwork) to be able to understand it and link
+v1 to v2 to v3.  Unless the link is in a super structured Canonical
+form then it is WORSE for a machine to consume than just a plain
+Change-Id.
 
-   Link: https://lkml.kernel.org/r/$MSGID_OF_PATCH_$N
+Personally I'd rather keep Change-Id as-is with no link because it
+means that those who already have a workflow can keep using it and
+just stop stripping Change-Id.  However, if people really want a link
+we can make one up.  Remember, though, that at the time of posting v1
+that link points to NOWHERE.  THERE IS NO SERVER.  Thus you are
+speculating that (presumably) that link will find the patch you posted
+because you know that the list will be scraped by a bot.
 
-Then it's just a matter of following the links and that can be automated.
+NOTE: I suppose I could do this today:
 
-For a single patch w/o cover letter this can be solved as well:
+https://lore.kernel.org/lkml/?q=Change-Id%3A+I23e218cd964f16c0b2b26127d4a5ca6529867673
 
-    Subject ....
+...and it would work.  Ironically Mark yelled about that not providing
+any use outside of the company's system, but I just effectively used
+it to find v1 and v2 of the patch and also link it to what landed in
+the kernel tree (where, apparently, Mark missed stripping the
+Change-Id).  ...and the "discussion" about the patch.
 
-    changelog
 
-    SOB
-    ---
-    V3: Fixed stuff
-    V2: https://lkml.kernel.org/r/$MSGID_OF_PATCH_V2
-
-    diffstat
-    ---
-    diff
-
-And looking at the above example, you can add even gerrit ids or whatever
-information into the '---' discard section. It's going to be in the mail
-archive and traceable by the commit Link.
-
-Yes, it's work for the submitter, but it's always work if the submitter
-wants to have a proper trace.
-
-For the committer it's a matter of tooling to add the link with the message
-id per patch. I'm doing that for years fully automated.
-
-Thanks,
-
-	tglx
+-Doug
