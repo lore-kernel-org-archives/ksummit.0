@@ -1,27 +1,15 @@
-Return-Path: <torvalds@linuxfoundation.org>
+Return-Path: <vbabka@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8087D12F9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47815F7E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 03:04:12 +0000 (UTC)
-Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
-	[209.85.208.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30C9967F
+	Fri, 23 Aug 2019 09:09:58 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CAD088A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 03:04:11 +0000 (UTC)
-Received: by mail-lj1-f196.google.com with SMTP id t14so7480283lji.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Aug 2019 20:04:11 -0700 (PDT)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
-	[209.85.208.182])
-	by smtp.gmail.com with ESMTPSA id b9sm405771ljd.52.2019.08.22.20.04.07
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 22 Aug 2019 20:04:08 -0700 (PDT)
-Received: by mail-lj1-f182.google.com with SMTP id t14so7480244lji.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Aug 2019 20:04:07 -0700 (PDT)
-MIME-Version: 1.0
+	Fri, 23 Aug 2019 09:09:56 +0000 (UTC)
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>
 References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
 	<CAHk-=whFbgy4RXG11c_=S7O-248oWmwB_aZOcWzWMVh3w7=RCw@mail.gmail.com>
 	<CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
@@ -29,12 +17,14 @@ References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
 	<CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
 	<20190823013619.GA8130@mit.edu>
 	<CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
+From: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <5801d0a8-a7c5-559e-7d92-3a233b00d9f7@suse.cz>
+Date: Fri, 23 Aug 2019 11:09:53 +0200
+MIME-Version: 1.0
 In-Reply-To: <CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 22 Aug 2019 20:03:51 -0700
-Message-ID: <CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -53,26 +43,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Aug 22, 2019 at 7:58 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
+On 8/23/19 4:58 AM, Linus Torvalds wrote:
 > So yes, I'd *much* rather see that "Link" line than try to make a
 > "Change-ID" line be a thing.
+> 
+> Of course, looking at that particular link, my initial reaction is
+> "people are bad spellers". The word 'amend' has a single 'm' ;)
+> 
+> And it _is_ important that the link in question is stable, of course.
+> Some systems have problems with that. Is that "c/1158" actually a
+> stable long-lived name that will stay around as the thing is modified?
+> I don't know how that system works.
 
-Tangential note: since it looks like "Link:" lines are going to get
-more common in general, maybe somebody with the right tck/tk-fu can
-make a tool like 'gitk' be able to just do the hyperlinking thing (it
-already does it for commit hashes in the commit message, but wouldn't
-it be convenient to do that for web links too and open a browser
-tab?).
+Looks like there are also links that include the change-id, and redirect
+to the shorter one, i.e.
+https://linux-review.googlesource.com/q/I3268f9036512c4378cde1da37e0612b43ed4d384
 
-And maybe we can even make git.kernel.org do it too (I think that uses cgit?).
-
-I think that might make it just nicer in general to browse the logs
-and actually follow the links without cut-and-paste games..
-
-So using a generic "Link:" tag that can be used for multiple different
-things sounds like a win in general over some specialized change-ID
-tag. No?
-
-              Linus
+Seems to me like that's "the best of both worlds" - a link you can
+click, and also a unique ID that can perhaps outlive the particular
+website and you can search for it elsewhere in the future, if there are
+other mirrors. Exactly like the message id's in links to lore.kernel.org.
