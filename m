@@ -1,45 +1,48 @@
 Return-Path: <dianders@chromium.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C3E0E38
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E47486D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 17:50:46 +0000 (UTC)
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
-	[209.85.166.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DBA2767F
+	Fri, 23 Aug 2019 18:00:35 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+	[209.85.166.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D66EF7FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 17:50:45 +0000 (UTC)
-Received: by mail-io1-f68.google.com with SMTP id o9so21994497iom.3
+	Fri, 23 Aug 2019 18:00:31 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id q22so22068749iog.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 10:50:45 -0700 (PDT)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com.
-	[209.85.166.48]) by smtp.gmail.com with ESMTPSA id
-	h18sm2847177iob.80.2019.08.23.10.50.42
+	Fri, 23 Aug 2019 11:00:31 -0700 (PDT)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com.
+	[209.85.166.45])
+	by smtp.gmail.com with ESMTPSA id l8sm3216760ioh.85.2019.08.23.11.00.29
 	for <ksummit-discuss@lists.linuxfoundation.org>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 23 Aug 2019 10:50:42 -0700 (PDT)
-Received: by mail-io1-f48.google.com with SMTP id t3so21890640ioj.12
+	Fri, 23 Aug 2019 11:00:29 -0700 (PDT)
+Received: by mail-io1-f45.google.com with SMTP id z3so22115627iog.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Aug 2019 10:50:42 -0700 (PDT)
+	Fri, 23 Aug 2019 11:00:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190823013619.GA8130@mit.edu>
+References: <CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
+	<a6e7eedd-857c-bfe0-4a14-f4140d6fc21e@roeck-us.net>
+	<CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
+	<20190823013619.GA8130@mit.edu>
 	<CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
 	<CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
 	<CAOw6vbJCCeM_62WARKECkthCafhfpxqWc-R9SBMnc6VVMZ0hkg@mail.gmail.com>
 	<20190823151843.GH8130@mit.edu>
 	<CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
-	<CAD=FV=VcvTTO9k4idg9mA4HxKy-3zm47vvqHvS86yJW8G8cRRg@mail.gmail.com>
-	<alpine.DEB.2.21.1908231751490.1896@nanos.tec.linutronix.de>
-	<alpine.DEB.2.21.1908231758320.1896@nanos.tec.linutronix.de>
-	<CAD=FV=WwghONxW_OzMoJ1-n7Fd4uyt=VPngOqv0NjNMkgd6Rhg@mail.gmail.com>
-	<20190823165018.GB19727@lunn.ch>
-In-Reply-To: <20190823165018.GB19727@lunn.ch>
+	<alpine.DEB.2.21.1908231740020.1896@nanos.tec.linutronix.de>
+	<20190823161947.GA112509@dtor-ws>
+	<CAJWu+ooOzZ3vFsW40ok8M0MbrZOcx8xJsrN8Ra_VVq0EavzQfQ@mail.gmail.com>
+	<CAD=FV=Wsk__UTAazrypFRFpc-ou6a04sasf+70qF0ft02m++-w@mail.gmail.com>
+	<CAJWu+oo++AVx-xsQkVCscWLVQyExA7QUPX8AxyQ=RWFw3FrmiQ@mail.gmail.com>
+In-Reply-To: <CAJWu+oo++AVx-xsQkVCscWLVQyExA7QUPX8AxyQ=RWFw3FrmiQ@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 23 Aug 2019 10:50:26 -0700
-Message-ID: <CAD=FV=VUm+6G9HFX0E_e=fnun+xs=a-M48krRWUdOgi6JzQY0Q@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
+Date: Fri, 23 Aug 2019 11:00:13 -0700
+Message-ID: <CAD=FV=UHnf2eCGPo9yH28tFCytWwE-WwsRVjH8oCV5Q+gg8K3g@mail.gmail.com>
+To: Joel Fernandes <joelaf@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
+Cc: Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
@@ -59,37 +62,54 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 Hi,
 
-On Fri, Aug 23, 2019 at 9:50 AM Andrew Lunn <andrew@lunn.ch> wrote:
+On Fri, Aug 23, 2019 at 9:54 AM Joel Fernandes <joelaf@google.com> wrote:
 >
-> > 1. Make it allowed or suggested to put a well-formed (machine
-> > parseable) Change-Id "after the cut" on mailing list posts, which
-> > would allow you to associate v1, v2, and v3.
-> >
-> > 2. Add "Link://lkml.kernel.org/r/$MSGID_PER_PATCH" to landed patches,
-> > which would allow you to recover the Change-Id even after a patch
-> > lands.
-> >
-> > ...then I will be happy (ish).  The biggest downside I see here is
-> > that it is much less likely that random committers out there will get
-> > this right.  The way committers naturally have the same Change-Id from
-> > v1 to v2 to v3 is because it's part of the commit message and when you
-> > amend to a previous change it stays there.  That means that these
-> > people will need to remember to move the Change-Id to "after the cut"
-> > unless we teach git-send-email to do this for you (though I guess
-> > maybe we could do that?).
+> On Fri, Aug 23, 2019 at 12:45 PM Doug Anderson <dianders@chromium.org> wrote:
+> [snip]
+> > Sure, if a given patch in the series is totally wrong and I re-write
+> > it (but still want the re-write to be considered a new version of the
+> > previous patch) then I have to manually copy the Change-Id for a
+> > gerrit upload.  ...but I'd also be OK if people just get a new
+> > Change-Id in this case.
 >
-> To make this reliable, we really need git to be doing the work. We
-> should also think about the typical developer workflow.
->
-> To create a v1 of a patch, i do a git commit. To make a v2, i'm likely
-> to be using git rebase -i; git commit --am.
->
-> So why not have the initial git commit allocate the UUID. git commit
-> --am leaves the UUID alone. git-format-patch can then put the UUID
-> after the ---. Can git-send-email generate the MSGID from the UUID?
+> Sometimes it is not "totally wrong" but just "done in a different
+> away" and is a new series. This happens a lot since upstream
+> development can be evolutionary. So your v1 may look nothing like v2
+> and is a whole new series. Yet the history linking the 2 series is
+> important. And no amount of automated commit ID generation can link
+> them. This is the scenario I was talking about. I know the git hook
+> works, but sometimes the Change-Id has to be manually copied. That's
+> not automatable. May be we are slightly on different tracks, but this
+> is the scenario that would be useful to trace IMO.
 
-Yes, if we can't agree to have Change-Id part of the commit that lands
-as part of the kernel, then trying to get some smarts into
-git-send-email and git-format-patch would definitely be the way to go.
+Agreed that it would be useful and (personally) I'd do it.  Maybe
+others who are used to the gerrit workflow would also do it.  ...but
+what I like is that the fallback for those that don't try to hard
+isn't that terrible.  Yes they'd end up with a new Change-Id in some
+cases, but presumably it still wouldn't be that hard for tools to help
+you.  Namely, if you have a series:
+
+Patch v1 1/3 - Add a frob - Change-Id A
+Patch v1 2/3 - Add a larb - Change-Id B
+Patch v1 3/3 - Use the frob to tweak the larb - Change-Id C
+
+...and you decide that you should be tweaking a sneech instead of a
+larb, you might end up with this if someone isn't careful to copy
+Change-Ids and their workflow is to throw away the old patch #2 and #3
+instead of amending.
+
+Patch v2 1/3 - Add a frob - Change-Id A
+Patch v2 2/3 - Add a sneech - Change-Id D
+Patch v2 3/3 - Use the frob to tweak the sneech - Change-Id E
+
+So you can't find v1 of patch #2 directly from v2 of patch #2.
+...but, a good tool could still help you here.  It would see that at
+least one patch in this series had the same Change-Id and it should
+help you find the whole v1 series.
+
+If all 3 patches were all totally new and lost Change IDs then I guess
+you're SOL, but maybe in that case it really should be considered a
+new series anyway?
+
 
 -Doug
