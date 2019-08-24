@@ -1,30 +1,28 @@
-Return-Path: <dianders@chromium.org>
+Return-Path: <torvalds@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E594D7F6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85450AA5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Aug 2019 16:53:33 +0000 (UTC)
-Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
-	[209.85.166.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4AC83A7
+	Sat, 24 Aug 2019 18:11:54 +0000 (UTC)
+Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
+	[209.85.208.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ABC04B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Aug 2019 16:53:33 +0000 (UTC)
-Received: by mail-io1-f65.google.com with SMTP id o9so27464098iom.3
+	Sat, 24 Aug 2019 18:11:53 +0000 (UTC)
+Received: by mail-lj1-f193.google.com with SMTP id x18so11686456ljh.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Aug 2019 09:53:33 -0700 (PDT)
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com.
-	[209.85.166.47]) by smtp.gmail.com with ESMTPSA id
-	t2sm10520644iod.81.2019.08.24.09.53.29
+	Sat, 24 Aug 2019 11:11:53 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com.
+	[209.85.167.45]) by smtp.gmail.com with ESMTPSA id
+	s10sm1243199ljm.35.2019.08.24.11.11.48
 	for <ksummit-discuss@lists.linuxfoundation.org>
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Sat, 24 Aug 2019 09:53:30 -0700 (PDT)
-Received: by mail-io1-f47.google.com with SMTP id p12so27508880iog.5
+	Sat, 24 Aug 2019 11:11:49 -0700 (PDT)
+Received: by mail-lf1-f45.google.com with SMTP id f21so4427737lfc.5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Aug 2019 09:53:29 -0700 (PDT)
+	Sat, 24 Aug 2019 11:11:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
-	<a6e7eedd-857c-bfe0-4a14-f4140d6fc21e@roeck-us.net>
-	<CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
+References: <CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
 	<20190823013619.GA8130@mit.edu>
 	<CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
 	<CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
@@ -34,23 +32,23 @@ References: <CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
 	<alpine.DEB.2.21.1908231740020.1896@nanos.tec.linutronix.de>
 	<20190823161947.GA112509@dtor-ws>
 	<CAJWu+ooOzZ3vFsW40ok8M0MbrZOcx8xJsrN8Ra_VVq0EavzQfQ@mail.gmail.com>
-	<CAD=FV=Wsk__UTAazrypFRFpc-ou6a04sasf+70qF0ft02m++-w@mail.gmail.com>
-	<CAJWu+oo++AVx-xsQkVCscWLVQyExA7QUPX8AxyQ=RWFw3FrmiQ@mail.gmail.com>
-	<CAD=FV=UHnf2eCGPo9yH28tFCytWwE-WwsRVjH8oCV5Q+gg8K3g@mail.gmail.com>
-	<CAJWu+or4Lur_q65yTtPQmh8wX2A7EaXaOWXmCnOq3ThRpnN=Tg@mail.gmail.com>
-In-Reply-To: <CAJWu+or4Lur_q65yTtPQmh8wX2A7EaXaOWXmCnOq3ThRpnN=Tg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Sat, 24 Aug 2019 09:53:14 -0700
-Message-ID: <CAD=FV=XogaeyrU1QitsiO6US-QYHNT7gAN6xFSat=r8jyx+uFQ@mail.gmail.com>
-To: Joel Fernandes <joelaf@google.com>
+	<20190823164602.GB112509@dtor-ws>
+	<alpine.DEB.2.21.1908232108580.1939@nanos.tec.linutronix.de>
+	<CAHrFyr6rQHiQAY4Wcv4WzUS2B5tBfrnWvyTjD4ktHvsEBMxkCw@mail.gmail.com>
+	<CAD=FV=XGySHprMN+dv6dDKmuTQXnmYg5NStyaOJg+KdNUOFZsQ@mail.gmail.com>
+In-Reply-To: <CAD=FV=XGySHprMN+dv6dDKmuTQXnmYg5NStyaOJg+KdNUOFZsQ@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 24 Aug 2019 11:11:32 -0700
+Message-ID: <CAHk-=whxp0Vm5V6MtaRNC0_ou0=U4-+Y7Ktzq6osU8JgHy_xhQ@mail.gmail.com>
+To: Doug Anderson <dianders@chromium.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Barret Rhoden <brho@google.com>,
+Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
 	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
-	Dmitry Vyukov <dvyukov@google.com>
+	Dmitry Vyukov <dvyukov@google.com>, David Rientjes <rientjes@google.com>,
+	Dmitry Torokhov <dtor@chromium.org>
 Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
  like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -62,97 +60,104 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
-
-On Fri, Aug 23, 2019 at 12:08 PM Joel Fernandes <joelaf@google.com> wrote:
+On Sat, Aug 24, 2019 at 9:35 AM Doug Anderson <dianders@chromium.org> wrote:
 >
-> On Fri, Aug 23, 2019 at 2:00 PM Doug Anderson <dianders@chromium.org> wrote:
-> [snip]
-> > > On Fri, Aug 23, 2019 at 12:45 PM Doug Anderson <dianders@chromium.org> wrote:
-> > > [snip]
-> > > > Sure, if a given patch in the series is totally wrong and I re-write
-> > > > it (but still want the re-write to be considered a new version of the
-> > > > previous patch) then I have to manually copy the Change-Id for a
-> > > > gerrit upload.  ...but I'd also be OK if people just get a new
-> > > > Change-Id in this case.
-> > >
-> > > Sometimes it is not "totally wrong" but just "done in a different
-> > > away" and is a new series. This happens a lot since upstream
-> > > development can be evolutionary. So your v1 may look nothing like v2
-> > > and is a whole new series. Yet the history linking the 2 series is
-> > > important. And no amount of automated commit ID generation can link
-> > > them. This is the scenario I was talking about. I know the git hook
-> > > works, but sometimes the Change-Id has to be manually copied. That's
-> > > not automatable. May be we are slightly on different tracks, but this
-> > > is the scenario that would be useful to trace IMO.
-> >
-> > Agreed that it would be useful and (personally) I'd do it.  Maybe
-> > others who are used to the gerrit workflow would also do it.  ...but
-> > what I like is that the fallback for those that don't try to hard
-> > isn't that terrible.  Yes they'd end up with a new Change-Id in some
-> > cases, but presumably it still wouldn't be that hard for tools to help
-> > you.  Namely, if you have a series:
-> >
-> > Patch v1 1/3 - Add a frob - Change-Id A
-> > Patch v1 2/3 - Add a larb - Change-Id B
-> > Patch v1 3/3 - Use the frob to tweak the larb - Change-Id C
-> >
-> > ...and you decide that you should be tweaking a sneech instead of a
-> > larb, you might end up with this if someone isn't careful to copy
-> > Change-Ids and their workflow is to throw away the old patch #2 and #3
-> > instead of amending.
-> >
-> > Patch v2 1/3 - Add a frob - Change-Id A
-> > Patch v2 2/3 - Add a sneech - Change-Id D
-> > Patch v2 3/3 - Use the frob to tweak the sneech - Change-Id E
-> >
-> > So you can't find v1 of patch #2 directly from v2 of patch #2.
-> > ...but, a good tool could still help you here.  It would see that at
-> > least one patch in this series had the same Change-Id and it should
-> > help you find the whole v1 series.
-> >
-> > If all 3 patches were all totally new and lost Change IDs then I guess
-> > you're SOL, but maybe in that case it really should be considered a
-> > new series anyway?
+> I have no gerrit server involved when I submit patches to the list.  I do:
 >
-> Maybe it should be. It is hard to generalize it to work all the time.
-> But I agree with you the above flow is better than nothing.
+> 1. Write patch on my local machine.
+> 2. Post v1 to mailing list.
+> 3. Make changes.
+> 4. Post v2 to mailing list.
+> 5. Make changes.
+> 5. Post v3 to mailing list.
 >
-> It does seem people need more convincing here though, that inserting a
-> unique ID into a commit message is acceptable.
->
-> Another thing that could be done is, have the git hook insert the
-> whatever-ID into the discardable part of the patch. The archive will
-> then have it even if the commit doesn't. Then something email2git or
-> patchwork can connect different patches in the archive with a
-> particular commit. I think Thomas Gleixner or someone else also
-> proposed something similar in this thread.  What's wrong with that
-> idea?
+> I have never uploaded to a gerrit in this process.  THERE IS NO GERRIT LINK!
 
-Right.  The thread is hard to follow, but earlier in the thread I said
-I would be happy (ish) with this.  If there is no resolution to this
-topic then I will likely start doing this myself and point to this
-thread when I get yelled at for it.  ;-)  Unless someone tells me that
-this would absolutely not be OK.
+First off, there *is* a link - just use the mailing list email link
+(preferably for the cover letter - so that a whole series has _one_
+ID, not separate ID's for every patch) just like everybody else does,
+which also means that you get the history of actual other developers
+replying to it (including after it has been committed).
 
-The reason that Change-Id after-the-cut is slightly less optimal is
-that this whole thing only becomes useful if patch submitters actually
-do it.  ...and patch submitters are VERY hard to train.  Patch
-submitters are already (accidentally) leaving the Change-Id before the
-cut because they already have a commit hook that puts it there for
-them.  Thus we have a built-in set of people for whom no training is
-needed and no new tools are needed.  That is a huge benefit.  There
-are others that already have the Change-Id and (today) have to
-manually remove it.  Presumably those people wouldn't need much
-training or convincing.
+The first time it gets magically and reliably created for you without
+you having to do a single thing. The second time, you just look it up.
 
-...so I guess I'll still leave a little hope that people will accept
-Change-Id as part of the commit message now that I've responded to the
-outstanding feedback and showed the benefits...
+Ta-daa - you have a "uuid" that is useful to others, and that
+describes the whole series unambiguously.
 
-Please know that I'm not trying to advance a hidden agenda to take
-over the world or make gerrit the one true tool or get rid of existing
-email workflows.  I'm just trying to get a tag to be allowed that
-seems to be genuinely useful.
+So the mailing list archive link is objectively better. You don't have
+to make up some new way to generate a unique ID - one already exists.
 
--Doug
+Any other UUID would be completely pointless. And don't try to argue
+that it is anything _but_ pointless. As far as everybody else in the
+whole wide world is concerned, it would be better if you just pointed
+to the original submission, not to some
+made-up-makes-sense-only-to-you UUID that others would have to google
+and hope for the best.
+
+End result: if you actually want to be useful to *other* people, then
+when you do your "v2" posting of the patch series, instead of that
+completely useless UUID, just link to the previous posted version in
+the new cover letter.
+
+Now that link exists and is useful for others too, both from a git
+history standpoint, but also from a "look, this is the last time I
+posted this, just to remind you, or you can go look at the comments
+then and verify that they got fixed up".
+
+In other words, stop arguing for an objectively much worse UUID.
+
+You can have it locally if you want to, but realize that NOBODY ELSE
+finds it the least useful at all. It's just random noise you yourself
+generated for your own use, and isn't interesting or relevant to
+anybody else.
+
+In contrast, if you actually put a link to a previous conversation,
+that link will be valid and useful even if
+
+ (a) it wasn't even a previous conversion on that mailing list at all,
+but a link to something like a bugzilla entry, or a CPU vendor errata
+sheet or whatever
+
+ (b) even if it was a previous conversation on the mailing list, maybe
+it wasn't one that you started, but you're instead basing your series
+(partially or wholly) on somebody elses earlier work.
+
+Notice how a UUID fundamentally could not handle either of the above
+obvious cases. Nobody else generates a uuid for you (except for that
+message-id-uuid that already exists).
+
+So stop arguing for UUID's. They are fundamentally a bad idea.
+
+The *only* actual valid reason I have ever seen for UUID's (and yes,
+this is not the first time they've been brought up, which is why I
+hate them with a passion) is to use it as a magic link inside some
+vendors private database when that vendor doesn't want to expose any
+actual real information.
+
+In other words: UUID's are bad and pointless. Their only "valid" use
+is explicitly against the whole point of open development.
+
+Use an actual open standard instead: a web link. It can be anything.
+It can be a link to a previous version, it can be a link to further
+documentation, it can be a link to _anything_ on the internet for
+later reference.
+
+And if it isn't on the internet visible to everybody else, then it
+should be described outright in the commit message itself. Or it
+shouldn't be there at all.
+
+Are there other possibly valid things? Yes. But they do not include UUID's.
+
+For example, if you want to refer to something in the physical world,
+and you can't find a link to it online, by all means use other
+standard and public ways to do that. Use the ISBN for a book or an
+ISSN for a magazine. Or use the address for a physical location,
+whatever. That's not a random and meaningless number, it's something
+useful that can be looked up later and thus quite possibly worth
+saving in a commit message.
+
+There are probably hundreds of those "useful to be looked up later"
+things. But a UUID is not one of them.
+
+              Linus
