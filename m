@@ -1,37 +1,36 @@
-Return-Path: <tytso@mit.edu>
+Return-Path: <gregkh@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 89F7E2F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7C203A7F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Aug 2019 23:13:29 +0000 (UTC)
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2397067F
+	Sun, 25 Aug 2019 03:11:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1866AA7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Aug 2019 23:13:29 +0000 (UTC)
-Date: Sat, 24 Aug 2019 19:13:05 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20190824231305.GC5163@mit.edu>
-References: <CAOw6vbJCCeM_62WARKECkthCafhfpxqWc-R9SBMnc6VVMZ0hkg@mail.gmail.com>
-	<20190823151843.GH8130@mit.edu>
-	<CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
+	Sun, 25 Aug 2019 03:11:46 +0000 (UTC)
+Date: Sun, 25 Aug 2019 05:11:43 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+Message-ID: <20190825031143.GA2590@kroah.com>
+References: <CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
 	<alpine.DEB.2.21.1908231740020.1896@nanos.tec.linutronix.de>
 	<20190823161947.GA112509@dtor-ws>
 	<CAJWu+ooOzZ3vFsW40ok8M0MbrZOcx8xJsrN8Ra_VVq0EavzQfQ@mail.gmail.com>
 	<20190823164602.GB112509@dtor-ws>
 	<alpine.DEB.2.21.1908232108580.1939@nanos.tec.linutronix.de>
-	<20190823193832.GE4791@pendragon.ideasonboard.com>
-	<alpine.DEB.2.21.1908232150580.1939@nanos.tec.linutronix.de>
+	<CAHrFyr6rQHiQAY4Wcv4WzUS2B5tBfrnWvyTjD4ktHvsEBMxkCw@mail.gmail.com>
+	<CAD=FV=XGySHprMN+dv6dDKmuTQXnmYg5NStyaOJg+KdNUOFZsQ@mail.gmail.com>
+	<CAHk-=whxp0Vm5V6MtaRNC0_ou0=U4-+Y7Ktzq6osU8JgHy_xhQ@mail.gmail.com>
+	<20190824230447.GA5163@mit.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/mixed; boundary="J2SCkAp4GZ/dPZZf"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.1908232150580.1939@nanos.tec.linutronix.de>
+In-Reply-To: <20190824230447.GA5163@mit.edu>
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
-	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
+	Dmitry Torokhov <dtor@chromium.org>, Jonathan Nieder <jrn@google.com>,
+	Tomasz Figa <tfiga@chromium.org>, Han-Wen Nienhuys <hanwen@google.com>,
+	Theodore Tso <tytso@google.com>, David Rientjes <rientjes@google.com>,
 	Dmitry Vyukov <dvyukov@google.com>
 Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
  like it) in kernel commits
@@ -44,26 +43,95 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 23, 2019 at 11:15:55PM +0200, Thomas Gleixner wrote:
-> For incoming stuff, I just mark a full mailthread or several of them in the
-> mail client, store it as mbox and then I have a script which creates a
-> quilt series out of it. That script does a bunch of things:
-> 
->     - Collect Reviewed-by, Acked-by, Tested-by tags either from individual
->       replies or replies to the cover letter. The latter apply to the whole
->       series.
-> 
->     - Adds my Signed-off-by
-> 
->     - Extract message-id for each patch and add the
->       Link: https://lkml.kernel.org/r/$MSGID
-> 
->     - A few magic things which I need for my emacs integration
 
-I use quilt for processing incoming changes for ext4 as well; would
-you mind sharing your script?  This sounds like it would be really
-useful for me.
+--J2SCkAp4GZ/dPZZf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks!!
+On Sat, Aug 24, 2019 at 07:04:47PM -0400, Theodore Y. Ts'o wrote:
+> On Sat, Aug 24, 2019 at 11:11:32AM -0700, Linus Torvalds wrote:
+> > The first time it gets magically and reliably created for you without
+> > you having to do a single thing. The second time, you just look it up.
+> 
+> Also, if you don't want to look it up, and want to have it generated
+> "locally", the Message-Id is generated locally by git send-email.
+> (That's right, Message-Id's are just as easy to generate locally as
+> UUID's.)  It will look like this:
+> 
+>      Message-Id: <20190824223355.12947-1-tytso@mit.edu>
 
-						- Ted
+I know we are getting "off-topic" here, but as people are sharing
+scripts, it turns out that I have been generating my own "message-ids"
+for the emails my scripts send out for accepted patches for years with
+the attached simple script.
+
+Odds are it was based on a bash script from akpm, but maybe it came from
+somewhere else, I've had it around for so long the history of it is
+long-lost.
+
+> So if someone wants to make life easier for people who want to send
+> out the V2 version of the patch, it would be possible for someone to
+> write some tooling which saves the generated Message-Id by git
+> send-email (and if you generate the message id and drop it into the
+> files generated by git format-patch, git send-email will use the
+> generated message id), so that can get used for the git commit
+> description for the next version of the commit, this can be done in a
+> completely automated way, without having to do any kind of lookups.
+
+When accepting patches from people, my old scripts used to do this
+properly and reply to the sent message-id.  Now that I use git, that's
+lost, except that I now am generating Link: tags in the commit message
+itself, like:
+	Link: https://lore.kernel.org/r/20190822213659.5501-1-hsiangkao@aol.com
+
+Hm, I guess I do now keep that info, and I can fix my scripts to
+properly thread things, let me go work on that later today...
+
+> As far as I'm concerned, Message-Id's or Link's are both strictly
+> superior than a random 16-byte Change-Id UUID.
+
+I totally agree, there's more data in a message-id than a change-id by
+far.
+
+Sorry Doug, but this thread turned out kind of like I expected it to,
+hopefully you have been convinced better than I did when we spoke in
+person :)
+
+thanks,
+
+greg k-h
+
+--J2SCkAp4GZ/dPZZf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename=make_message_id
+
+#!/usr/bin/perl
+
+# we make a "fake" message id by taking the current number of seconds
+# since the beginning of Unix time and tacking on two random numbers to
+# the end, in case we are called quicker than 1 second since the last
+# time we were called.
+
+use strict;
+
+my $date = `date "+\%s"`;
+my $hostname = `hostname -d`;
+chomp($date);
+chomp($hostname);
+
+my $pseudo_rand;
+
+open FILE, "<:raw", "/dev/urandom" or die "Couldn't open /dev/urandom !";
+
+sysread(FILE, $pseudo_rand, 1);
+my $rand1 = ord($pseudo_rand);
+
+sysread(FILE, $pseudo_rand, 1);
+my $rand2 = ord($pseudo_rand);
+
+my $message_id = "$date$rand1$rand2\@$hostname";
+print "$message_id";
+
+close FILE;
+
+--J2SCkAp4GZ/dPZZf--
