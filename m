@@ -1,29 +1,22 @@
-Return-Path: <paulus@ozlabs.org>
+Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EEDE1D4F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7C1DE86D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Aug 2019 22:19:57 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D9CA988E
+	Mon, 26 Aug 2019 23:02:40 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E2D0988E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Aug 2019 22:19:56 +0000 (UTC)
-Date: Tue, 27 Aug 2019 08:19:49 +1000
-From: Paul Mackerras <paulus@ozlabs.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20190826221949.GC7402@blackberry>
-References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
-	<CAHk-=whFbgy4RXG11c_=S7O-248oWmwB_aZOcWzWMVh3w7=RCw@mail.gmail.com>
-	<CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
-	<a6e7eedd-857c-bfe0-4a14-f4140d6fc21e@roeck-us.net>
-	<CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
-	<20190823013619.GA8130@mit.edu>
-	<CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
-	<CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
+	Mon, 26 Aug 2019 23:02:39 +0000 (UTC)
+Date: Mon, 26 Aug 2019 19:02:06 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Doug Anderson <dianders@chromium.org>
+Message-ID: <20190826230206.GC28066@mit.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
+In-Reply-To: <CAD=FV=WrGcfV-_0taGHB-LMZV8zN8oV3KMy=j09dor+hKRLPSg@mail.gmail.com>
+	<CAD=FV=WgbREZd5EiytrEOxQ+GQ33q+ohKqb-T6e3mhFJzWtpXA@mail.gmail.com>
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -42,23 +35,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Aug 22, 2019 at 08:03:51PM -0700, Linus Torvalds wrote:
-> On Thu, Aug 22, 2019 at 7:58 PM Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
-> >
-> > So yes, I'd *much* rather see that "Link" line than try to make a
-> > "Change-ID" line be a thing.
+On Mon, Aug 26, 2019 at 02:35:33PM -0700, Doug Anderson wrote:
+> * This requires extra tooling that I think nobody will adopt.  People
+> today already (accidentally) adopt Change-Id in the non-discardable
+> portion.  I think it would be easier to get everyone currently
+> removing Change-Id to start including it again than it will be to get
+> everyone to change their tools to move it to the discardable portion.
+
+The reason why people Change-Id's exist in commits today is because of
+tooling which is distributed as part of Gerrit.  That's why people are
+deeply suspicious of any solution that involves Change-Id in the
+non-discarded portion --- because the majority of Gerrit servers up
+until now are behind corporate firewalls and since Gerrit servers have
+robots.txt files, most Change-Id tend to be useless.
+
+If we come up with new tooling which is more useful, people will use
+it.  If it's not useful and doesn't makes life easier, people won't.
+
+
+
+On Mon, Aug 26, 2019 at 03:06:43PM -0700, Doug Anderson wrote:
+> 2. If, as I expect, Change-Id as part of the patch stays NAKed then I
+> will modify the tools I use to post upstream (currently patman) to
+> encode the Change-Id.  My naive proposal would be:
 > 
-> Tangential note: since it looks like "Link:" lines are going to get
-> more common in general, maybe somebody with the right tck/tk-fu can
-> make a tool like 'gitk' be able to just do the hyperlinking thing (it
-> already does it for commit hashes in the commit message, but wouldn't
-> it be convenient to do that for web links too and open a browser
-> tab?).
+> Message-Id: ChangeId-YYYY-MMDD-HHMMSS-PatchNum
+> 
+> If I try this and it works for me then I will post out and suggest
+> that any other like-minded people encode Change-Id into Message-Id in
+> a similar way.
 
-I just posted a patch to do that to the git mailing list (see
-https://marc.info/?l=git&m=156685770100577&w=2).  I'll commit it after
-people have had a chance to comment on the regexp for detecting links
-and the choice of web browser command for each platform.
+... and I would expect patches with this would get NACK'ed because
+they would be just as useless as Change-Id's are perceived to be
+today.  People who are gaming the rules will tend not to looked upon
+favorably; the same will apply to their patches.
 
-Paul.
+BTW, the Message-Id you've listed above is not legal, per RFC-5322.  A
+msg-id has to look like a e-mail address (left-hand-side@example.com).
+So something like this is legal as a message id:
+
+I3268f9036512c4378cde1da37e0612b43ed4d384@linux-review.googlesource.com
+
+... and indeed, that's more useful, because it tells us how to
+interpret I3268f9036512c4378cde1da37e0612b43ed4d384 --- it's a
+Change-Id assigned by the linux-review.googlesource.com Gerrit server.
+
+In contrast a bare "I3268f9036512c4378cde1da37e0612b43ed4d384" is
+going to be presumed to be useless.  And in fact, a Google search for
+this ID returns *nothing*.  Yet visiting the link
+https://linux-review.googlesource.com/c/1158 actually returns
+something useful.   That's why the latter is superior to the former.
+
+In summary,
+
+Not useful: (and will be probably nacked)
+
+Change-Id: I3268f9036512c4378cde1da37e0612b43ed4d384
+Message-Id: I3268f9036512c4378cde1da37e0612b43ed4d384
+
+Useful:
+
+Link: https://linux-review.googlesource.com/c/1158
+Link: https://lkml.kernel.org/r/20190826204407.17759-1-daniel.lezcano@linaro.org
+
+Not as useful: (people will prefer the Link example above)
+
+Message-Id: 20190826204407.17759-1-daniel.lezcano@linaro.org
+
+						- Ted
