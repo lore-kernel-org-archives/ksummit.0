@@ -1,34 +1,32 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <gregkh@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7315516FE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A1F041733
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Aug 2019 15:25:14 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 193BA756
+	Tue, 27 Aug 2019 15:33:47 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 60AC9887
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Aug 2019 15:25:14 +0000 (UTC)
-Date: Tue, 27 Aug 2019 08:25:05 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
+	Tue, 27 Aug 2019 15:33:47 +0000 (UTC)
+Date: Tue, 27 Aug 2019 17:33:44 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20190827152505.GE26530@linux.ibm.com>
-Reply-To: paulmck@kernel.org
+Message-ID: <20190827153344.GC534@kroah.com>
 References: <CAD=FV=WrGcfV-_0taGHB-LMZV8zN8oV3KMy=j09dor+hKRLPSg@mail.gmail.com>
 	<CAD=FV=WgbREZd5EiytrEOxQ+GQ33q+ohKqb-T6e3mhFJzWtpXA@mail.gmail.com>
 	<20190826230206.GC28066@mit.edu>
 	<CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
-	<CAMuHMdUxz4ufVzMjbrdA8hoNqH2XCccxNQHR+rsdM=kL9aEFbg@mail.gmail.com>
-	<CACT4Y+ZyE+0Q79mxD9KMY3NCe8Oxf4Jk=yCYNkdkH2Jhr-fS_Q@mail.gmail.com>
-	<20190827142826.GD26530@linux.ibm.com>
-	<alpine.DEB.2.21.1908271703240.1939@nanos.tec.linutronix.de>
+	<alpine.DEB.2.21.1908270806060.1939@nanos.tec.linutronix.de>
+	<CACT4Y+a2E9FBba4f2iEmQKzO=gNe0cdyW+Pqq8YyiMaOTOu3fg@mail.gmail.com>
+	<20190827134836.GB25038@kroah.com>
+	<dc1a4c98-5e29-094c-ead8-889df35de811@roeck-us.net>
+	<alpine.DEB.2.21.1908271607440.1939@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.1908271703240.1939@nanos.tec.linutronix.de>
+In-Reply-To: <alpine.DEB.2.21.1908271607440.1939@nanos.tec.linutronix.de>
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
 	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
 	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
@@ -44,39 +42,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 27, 2019 at 05:06:13PM +0200, Thomas Gleixner wrote:
-> On Tue, 27 Aug 2019, Paul E. McKenney wrote:
-> > On Tue, Aug 27, 2019 at 06:30:11AM -0700, Dmitry Vyukov via Ksummit-discuss wrote:
-> > > If I am reading git help correctly, this won't handle changes with
-> > > more than 1 version. Also maintainers will be prohibited from doing
-> > > any changed to patches during commit.
+On Tue, Aug 27, 2019 at 04:09:21PM +0200, Thomas Gleixner wrote:
+> On Tue, 27 Aug 2019, Guenter Roeck wrote:
+> > On 8/27/19 6:48 AM, Greg Kroah-Hartman wrote:
+> > > Note, we have 4000+ developers every year, it's hard enough to get them
+> > > all to agree on major things, let alone crazy stuff like this :)
+> > > 
 > > 
-> > Or we are required to add more Link: tags or other annotations describing
-> > what we changed and why.
+> > Is it really that crazy ?
+> > 
+> > I have to use a combination of subject analysis and patch content analysis
+> > using fuzzy text / string comparison, combined with an analysis of the patch
+> > description, to answer a simple question: Is this patch upstream, and what is
+> > its upstream SHA ? Having a UUID tag would make this a simple and
+> > straightforward operation. What is crazy is having to do all this analysis.
 > 
-> The point is that the Link: tag connects the commit to the email by
-> which it was submitted.
+> Again. If we agree on adding
 > 
-> If the committer fixes something up when committing, then this still stays
-> the same connection.
+>        Link: https://lkml.kernel.org/$Message-ID
 > 
-> So you have SHA1 + Message-ID. If the SHA1 changes and Message-ID stays
-> then same, then either the patch was amended or rebased. But you can figure
-> that out with diff.
+> then you have your UUID tag. The tip bot sends you a reply based on that
+> tag and I know you got some of them already.
 
-So I "git am" a patch after running your tool, and it has "Link:".  I run
-tests, find a bug, and update the commit with a fix (which admittedly
-is not the normal workflow).  I can presumably keep doing what I do now:
+I'm using:
+	    Link: https://lore.kernel.org/r/$message-id
 
-[ paulmck: Fix blablabla due to rcutorture failure blablabla. ]
+should we standardize on the lkml one instead as it's shorter?  The lore
+one handles any message id that is on any mailing list it handles, is
+the lkml one the same?
 
-Someone then reviews the patch and reports a bug.  I update the
-commit with a fix.  Now what I do is this:
+thanks,
 
-[ paulmck: Update based on blablabla feedback from So And So. ]
-
-I suppose I could add a second "Link:", which was what I was thinking
-when responding to Dmitry's email.  Sounds like I continue with the
-"[ paulmck: blablabla ]" approach  ;-)
-
-							Thanx, Paul
+greg k-h
