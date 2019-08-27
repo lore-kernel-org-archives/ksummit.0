@@ -1,37 +1,34 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CA2ABFC4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 78611102D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Aug 2019 07:02:44 +0000 (UTC)
-Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DBB8A1FB
+	Tue, 27 Aug 2019 07:33:54 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+	[209.85.210.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E4EA4756
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Aug 2019 07:02:41 +0000 (UTC)
-Date: Tue, 27 Aug 2019 17:02:38 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Paul Mackerras <paulus@ozlabs.org>
-Message-ID: <20190827170238.2807ddc1@canb.auug.org.au>
-In-Reply-To: <20190826221949.GC7402@blackberry>
-References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
-	<CAHk-=whFbgy4RXG11c_=S7O-248oWmwB_aZOcWzWMVh3w7=RCw@mail.gmail.com>
-	<CAOesGMgYisp--bwVK0_cTMqaUM_TaQ-qwhNDceBOsudBPHWR7g@mail.gmail.com>
-	<a6e7eedd-857c-bfe0-4a14-f4140d6fc21e@roeck-us.net>
-	<CAOesGMgryBghLuTSufjhOUFUFDvL2Jv7qJ3uwaZUwCkMXpEmng@mail.gmail.com>
-	<20190823013619.GA8130@mit.edu>
-	<CAHk-=wgqemMJqX4SzbK52KicWSiK4_1qUus=q1akkwdEqXOkvQ@mail.gmail.com>
-	<CAHk-=whrLfPipY7JHnCiFp7vbnshG1Om7tcesa8vqYwu=F=BkA@mail.gmail.com>
-	<20190826221949.GC7402@blackberry>
+	Tue, 27 Aug 2019 07:33:53 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id f17so17808021otq.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Aug 2019 00:33:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/TG=8ak+vUoWFeJjR/HB5HNo";
-	protocol="application/pgp-signature"; micalg=pgp-sha256
+References: <CAD=FV=WrGcfV-_0taGHB-LMZV8zN8oV3KMy=j09dor+hKRLPSg@mail.gmail.com>
+	<CAD=FV=WgbREZd5EiytrEOxQ+GQ33q+ohKqb-T6e3mhFJzWtpXA@mail.gmail.com>
+	<20190826230206.GC28066@mit.edu>
+	<CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
+In-Reply-To: <CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 27 Aug 2019 09:33:41 +0200
+Message-ID: <CAMuHMdUxz4ufVzMjbrdA8hoNqH2XCccxNQHR+rsdM=kL9aEFbg@mail.gmail.com>
+To: Dmitry Vyukov <dvyukov@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
-	Dmitry Torokhov <dtor@chromium.org>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
 	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Vyukov <dvyukov@google.com>
+	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>
 Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
  like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -43,55 +40,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/TG=8ak+vUoWFeJjR/HB5HNo
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Hi Dmitry,
 
-Hi Paul,
+On Tue, Aug 27, 2019 at 2:30 AM Dmitry Vyukov via Ksummit-discuss
+<ksummit-discuss@lists.linuxfoundation.org> wrote:
+> A somewhat related point re UUID/Change-ID.
+> For syzbot (or any other bug tracking system) we want to associate
+> bugs with fixes. It turned out there is no good identity of a change
+> that we could use. Commit hash is an obvious first thing to consider,
+> but (1) it changes in linux-next, (2) sometimes the change is not
+> committed yet when we do the association, (3) it is different when
+> backported to LTS (so not possible to say if a fix is in that stable
+> tree or not).
 
-On Tue, 27 Aug 2019 08:19:49 +1000 Paul Mackerras <paulus@ozlabs.org> wrote:
->
-> On Thu, Aug 22, 2019 at 08:03:51PM -0700, Linus Torvalds wrote:
-> > On Thu, Aug 22, 2019 at 7:58 PM Linus Torvalds
-> > <torvalds@linux-foundation.org> wrote: =20
-> > >
-> > > So yes, I'd *much* rather see that "Link" line than try to make a
-> > > "Change-ID" line be a thing. =20
-> >=20
-> > Tangential note: since it looks like "Link:" lines are going to get
-> > more common in general, maybe somebody with the right tck/tk-fu can
-> > make a tool like 'gitk' be able to just do the hyperlinking thing (it
-> > already does it for commit hashes in the commit message, but wouldn't
-> > it be convenient to do that for web links too and open a browser
-> > tab?). =20
->=20
-> I just posted a patch to do that to the git mailing list (see
-> https://marc.info/?l=3Dgit&m=3D156685770100577&w=3D2).  I'll commit it af=
-ter
-> people have had a chance to comment on the regexp for detecting links
-> and the choice of web browser command for each platform.
+For (3): LTS commits have "commit <sha1> upstream" in their description
+(perhaps some have "cherry picked from commit <sha1>"?).
 
-Looks good here.  And saves me the pain of relearning enough Tcl to do
-the patch myself :-)
+> We decided to use commit subject, which works to some degree, but also
+> has problems: (1) not necessary unique, (2) sometimes people change
+> subject during backporting (e.g. prepend some prefix), (3) has all the
+> same problems of email clients messing with text (e.g. I can't issue
+> #syz fix command for loo long commit subjects with my email client).
+> Some real UUID/Change-ID would solve all of these problems by giving
+> us capability to refer to changes rather than a commit in a particular
+> tree only.
 
---=20
-Cheers,
-Stephen Rothwell
+"git patch-id --stable <sha1>" may help, too.
 
---Sig_/TG=8ak+vUoWFeJjR/HB5HNo
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+For quick lookups, you need to generate/append to an index regularly.
 
------BEGIN PGP SIGNATURE-----
+Gr{oetje,eeting}s,
 
-iQEyBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAl1k1Y4ACgkQAVBC80lX
-0Gx/jQf3UyDOAbqhHh/4fIOo1DEc5LebbRyar/pIae44tdK74JSTQEkshVEXEr2Y
-vl48nzuylz2lduwbu/IZp321eDyg60P4X8RLtKsu53VbAwL7AHiAtipjtXfpM+qi
-qNImGhk7EYSKJ114BouctyVKdETP+Xnh3L9eRzbIPCzv2V5GuD42fyBBUMQlOMVI
-tSFgtDsq6s2vi3Ze4Jwwo1Y9DUv38Qo/S/633sL+YwJ2L5ALyfCHSIhX8BieC+Hk
-+3dQGKZ/xEVpfSmQRFPbE/3NywEWG35I1qZC9sSPCqJgmA/uaZE2Z1SFBt7i0R6S
-4oCwMa6Za0iAz1c9mI0pBLBt6kq+
-=OUPU
------END PGP SIGNATURE-----
+                        Geert
 
---Sig_/TG=8ak+vUoWFeJjR/HB5HNo--
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
