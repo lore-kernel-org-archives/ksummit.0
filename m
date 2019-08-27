@@ -1,35 +1,34 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DED7315AE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D5823170B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Aug 2019 14:28:32 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
-	[148.163.158.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 51CAE89B
+	Tue, 27 Aug 2019 15:06:17 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 572C442D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Aug 2019 14:28:32 +0000 (UTC)
-Date: Tue, 27 Aug 2019 07:28:26 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Dmitry Vyukov <dvyukov@google.com>
-Message-ID: <20190827142826.GD26530@linux.ibm.com>
-Reply-To: paulmck@kernel.org
+	Tue, 27 Aug 2019 15:06:17 +0000 (UTC)
+Date: Tue, 27 Aug 2019 17:06:13 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+In-Reply-To: <20190827142826.GD26530@linux.ibm.com>
+Message-ID: <alpine.DEB.2.21.1908271703240.1939@nanos.tec.linutronix.de>
 References: <CAD=FV=WrGcfV-_0taGHB-LMZV8zN8oV3KMy=j09dor+hKRLPSg@mail.gmail.com>
 	<CAD=FV=WgbREZd5EiytrEOxQ+GQ33q+ohKqb-T6e3mhFJzWtpXA@mail.gmail.com>
 	<20190826230206.GC28066@mit.edu>
 	<CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
 	<CAMuHMdUxz4ufVzMjbrdA8hoNqH2XCccxNQHR+rsdM=kL9aEFbg@mail.gmail.com>
 	<CACT4Y+ZyE+0Q79mxD9KMY3NCe8Oxf4Jk=yCYNkdkH2Jhr-fS_Q@mail.gmail.com>
+	<20190827142826.GD26530@linux.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACT4Y+ZyE+0Q79mxD9KMY3NCe8Oxf4Jk=yCYNkdkH2Jhr-fS_Q@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
 	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>
+	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
+	Dmitry Vyukov <dvyukov@google.com>
 Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
  like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,49 +40,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 27, 2019 at 06:30:11AM -0700, Dmitry Vyukov via Ksummit-discuss wrote:
-> On Tue, Aug 27, 2019 at 12:33 AM Geert Uytterhoeven
-> <geert@linux-m68k.org> wrote:
-> >
-> > Hi Dmitry,
-> >
-> > On Tue, Aug 27, 2019 at 2:30 AM Dmitry Vyukov via Ksummit-discuss
-> > <ksummit-discuss@lists.linuxfoundation.org> wrote:
-> > > A somewhat related point re UUID/Change-ID.
-> > > For syzbot (or any other bug tracking system) we want to associate
-> > > bugs with fixes. It turned out there is no good identity of a change
-> > > that we could use. Commit hash is an obvious first thing to consider,
-> > > but (1) it changes in linux-next, (2) sometimes the change is not
-> > > committed yet when we do the association, (3) it is different when
-> > > backported to LTS (so not possible to say if a fix is in that stable
-> > > tree or not).
-> >
-> > For (3): LTS commits have "commit <sha1> upstream" in their description
-> > (perhaps some have "cherry picked from commit <sha1>"?).
+On Tue, 27 Aug 2019, Paul E. McKenney wrote:
+> On Tue, Aug 27, 2019 at 06:30:11AM -0700, Dmitry Vyukov via Ksummit-discuss wrote:
+> > If I am reading git help correctly, this won't handle changes with
+> > more than 1 version. Also maintainers will be prohibited from doing
+> > any changed to patches during commit.
 > 
-> A change identification scheme would need to solve all of these. E.g.
-> non-committed changes look more problematic for anything that uses
-> commit hashes...
-> 
-> > > We decided to use commit subject, which works to some degree, but also
-> > > has problems: (1) not necessary unique, (2) sometimes people change
-> > > subject during backporting (e.g. prepend some prefix), (3) has all the
-> > > same problems of email clients messing with text (e.g. I can't issue
-> > > #syz fix command for loo long commit subjects with my email client).
-> > > Some real UUID/Change-ID would solve all of these problems by giving
-> > > us capability to refer to changes rather than a commit in a particular
-> > > tree only.
-> >
-> > "git patch-id --stable <sha1>" may help, too.
-> >
-> > For quick lookups, you need to generate/append to an index regularly.
-> 
-> It's not me, it's everybody ;)
-> If I am reading git help correctly, this won't handle changes with
-> more than 1 version. Also maintainers will be prohibited from doing
-> any changed to patches during commit.
+> Or we are required to add more Link: tags or other annotations describing
+> what we changed and why.
 
-Or we are required to add more Link: tags or other annotations describing
-what we changed and why.
+The point is that the Link: tag connects the commit to the email by
+which it was submitted.
 
-							Thanx, Paul
+If the committer fixes something up when committing, then this still stays
+the same connection.
+
+So you have SHA1 + Message-ID. If the SHA1 changes and Message-ID stays
+then same, then either the patch was amended or rebased. But you can figure
+that out with diff.
+
+Thanks,
+
+	tglx
