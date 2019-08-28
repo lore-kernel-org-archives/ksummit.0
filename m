@@ -1,17 +1,19 @@
-Return-Path: <martin.petersen@oracle.com>
+Return-Path: <broonie@sirena.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7023E2968
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB1682964
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 10:04:43 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 17A0F8B8
+	Wed, 28 Aug 2019 10:42:26 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3DC118C2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 10:04:42 +0000 (UTC)
+	Wed, 28 Aug 2019 10:42:26 +0000 (UTC)
+Date: Wed, 28 Aug 2019 11:42:19 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-References: <CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
-	<alpine.DEB.2.21.1908270806060.1939@nanos.tec.linutronix.de>
+Message-ID: <20190828104219.GC4298@sirena.co.uk>
+References: <alpine.DEB.2.21.1908270806060.1939@nanos.tec.linutronix.de>
 	<CACT4Y+a2E9FBba4f2iEmQKzO=gNe0cdyW+Pqq8YyiMaOTOu3fg@mail.gmail.com>
 	<20190827134836.GB25038@kroah.com>
 	<dc1a4c98-5e29-094c-ead8-889df35de811@roeck-us.net>
@@ -21,12 +23,11 @@ References: <CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
 	<20190827195351.GA30710@kroah.com>
 	<CAJWu+oq8jFnJ4iJ+R3swr-93eMwDgbWXe1W2Aiu-r+tuYSY5Ag@mail.gmail.com>
 	<20190828090837.GA31704@kroah.com>
-Date: Wed, 28 Aug 2019 06:04:33 -0400
-In-Reply-To: <20190828090837.GA31704@kroah.com> (Greg Kroah-Hartman's message
-	of "Wed, 28 Aug 2019 11:08:37 +0200")
-Message-ID: <yq1a7btvc5q.fsf@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ABTtc+pdwF7KHXCz"
+Content-Disposition: inline
+In-Reply-To: <20190828090837.GA31704@kroah.com>
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
@@ -34,7 +35,7 @@ Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
 	Dmitry Vyukov <dvyukov@google.com>
 Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
-	like it) in kernel commits
+ like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,19 +46,33 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
-Greg,
+--ABTtc+pdwF7KHXCz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> How about this, when sending a v2, you have it be in response to the
-> v1 patch?  Same for v3, have it be in response for the v2 one.  And so
-> on.
+On Wed, Aug 28, 2019 at 11:08:37AM +0200, Greg Kroah-Hartman wrote:
 
-I spend a ton of time tracking older versions of series (subjects often
-change).
+> How about this, when sending a v2, you have it be in response to the v1
+> patch?  Same for v3, have it be in response for the v2 one.  And so on.
 
-However, requiring proper follow-up headers is yet another thing for me
-to manually police. Maybe we could add a line of defense and make
-patchwork complain if somebody posts a -vN without a suitable
---in-reply-to?
+That seems like it might confuse mail readers and have them do
+interesting things with threading so they don't group the entire new
+version of the series together but instead split it through the earlier
+versions.
 
--- 
-Martin K. Petersen	Oracle Linux Engineering
+--ABTtc+pdwF7KHXCz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1mWooACgkQJNaLcl1U
+h9A4Rwf/dYHzWfKp2ix/gJ6aptjVCgcs9kioBuwrzrsviO+C8m0ecrSe2QjFVmUa
+c81WjLaG6pQ18GP/D+DAM6pe9jUdgLwBkLnEMZREd8h3jKHaIjGSeemy+CAsdlT5
+SjYni5xoY5VnO6VpqrSNPvNP0gKahB5DD8ZjohqTqZEdG8wDyen7IS4WSsRZfSNz
+eUQmE8yJobhiEzFH11yYvKJdWYv30Jh02il7xaXZ6u78FQJ88+PrfT43phUbG+R2
+V2pEF5NVfL/3BQP8rL+hvRjbGti/rCqXvJJynVI5amyDcy9ZqNuKChLYxvckPnY+
+V00ZKcAlTid/qdNFLvuxdpZ/jrR0Ug==
+=qaht
+-----END PGP SIGNATURE-----
+
+--ABTtc+pdwF7KHXCz--
