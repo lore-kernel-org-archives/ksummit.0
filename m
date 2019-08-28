@@ -1,33 +1,30 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10F9524DE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 615BA1B9B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 08:50:45 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9512BEC
+	Wed, 28 Aug 2019 08:57:52 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 07422EC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 08:50:44 +0000 (UTC)
-Date: Wed, 28 Aug 2019 10:50:40 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
-In-Reply-To: <alpine.DEB.2.21.1908262146050.1939@nanos.tec.linutronix.de>
-Message-ID: <alpine.DEB.2.21.1908281048520.1939@nanos.tec.linutronix.de>
-References: <CAOw6vbJCCeM_62WARKECkthCafhfpxqWc-R9SBMnc6VVMZ0hkg@mail.gmail.com>
-	<20190823151843.GH8130@mit.edu>
-	<CAOw6vb+1LH8t20S_3kC6xyGZAhrDa3Pe4ZptsJqoQzXf3WCOeg@mail.gmail.com>
-	<alpine.DEB.2.21.1908231740020.1896@nanos.tec.linutronix.de>
-	<20190823161947.GA112509@dtor-ws>
-	<CAJWu+ooOzZ3vFsW40ok8M0MbrZOcx8xJsrN8Ra_VVq0EavzQfQ@mail.gmail.com>
-	<20190823164602.GB112509@dtor-ws>
-	<alpine.DEB.2.21.1908232108580.1939@nanos.tec.linutronix.de>
-	<20190823193832.GE4791@pendragon.ideasonboard.com>
-	<alpine.DEB.2.21.1908232150580.1939@nanos.tec.linutronix.de>
-	<20190824231305.GC5163@mit.edu>
-	<alpine.DEB.2.21.1908250908360.1939@nanos.tec.linutronix.de>
-	<alpine.DEB.2.21.1908262146050.1939@nanos.tec.linutronix.de>
+	Wed, 28 Aug 2019 08:57:51 +0000 (UTC)
+Date: Wed, 28 Aug 2019 11:57:25 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Message-ID: <20190828085725.GG23584@kadam>
+References: <CAD=FV=WrGcfV-_0taGHB-LMZV8zN8oV3KMy=j09dor+hKRLPSg@mail.gmail.com>
+	<CAD=FV=WgbREZd5EiytrEOxQ+GQ33q+ohKqb-T6e3mhFJzWtpXA@mail.gmail.com>
+	<20190826230206.GC28066@mit.edu>
+	<CACT4Y+aMkb4OTPwbXP1U8wtoV2oaLh+P-FoxG9N5m63kt-kGyw@mail.gmail.com>
+	<CAMuHMdUxz4ufVzMjbrdA8hoNqH2XCccxNQHR+rsdM=kL9aEFbg@mail.gmail.com>
+	<CACT4Y+ZyE+0Q79mxD9KMY3NCe8Oxf4Jk=yCYNkdkH2Jhr-fS_Q@mail.gmail.com>
+	<20190827142826.GD26530@linux.ibm.com>
+	<alpine.DEB.2.21.1908271703240.1939@nanos.tec.linutronix.de>
+	<20190827152505.GE26530@linux.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190827152505.GE26530@linux.ibm.com>
 Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -46,16 +43,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 27 Aug 2019, Thomas Gleixner wrote:
-> As I did not get a repo set up on git.kernel.org for this yet, find
-> attached a git bundle which allows you to clone my repo for now. That works
-> like a regular clone
+On Tue, Aug 27, 2019 at 08:25:05AM -0700, Paul E. McKenney wrote:
+> Someone then reviews the patch and reports a bug.  I update the
+> commit with a fix.  Now what I do is this:
+> 
+> [ paulmck: Update based on blablabla feedback from So And So. ]
 
-I assumed that this should go under pub/scm/utils which requires
-permission, but Konstantin told me just to stick it into ..../tglx/. So here it is:
+It sort of bothers me that there isn't a proper tag for these so they're
+are not searchable.  Last week I fixed a bug and a reviewer noticed that
+there was a similar issue earlier in the function so I fixed that as
+well and sent a v2 but he only gets Reviewed-by credit.  Reviewed-by is
+the lamest sort of credit.
 
- git://git.kernel.org/pub/scm/linux/kernel/git/tglx/quilttools
+It should be that reviewers get credit for finding bugs in patches (no
+credit for complaining about checkpatch issues, that is its own reward).
 
-Thanks,
-
-	tglx
+regards,
+dan carpenter
