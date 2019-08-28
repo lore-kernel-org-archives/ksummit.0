@@ -1,34 +1,26 @@
-Return-Path: <laura@labbott.name>
+Return-Path: <christian.brauner@ubuntu.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 32A722AB8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A34512EFD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 17:47:41 +0000 (UTC)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
-	[209.85.222.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 95F7D13A
+	Wed, 28 Aug 2019 19:23:11 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+	[91.189.89.112])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EA904EC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 17:47:40 +0000 (UTC)
-Received: by mail-qk1-f169.google.com with SMTP id w18so554775qki.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Aug 2019 10:47:40 -0700 (PDT)
-Received: from lauras-mbp.fios-router.home
-	(pool-96-235-39-235.pitbpa.fios.verizon.net. [96.235.39.235])
-	by smtp.gmail.com with ESMTPSA id m9sm1398646qtp.27.2019.08.28.10.47.38
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 28 Aug 2019 10:47:38 -0700 (PDT)
-From: Laura Abbott <laura@labbott.name>
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Date: Wed, 28 Aug 2019 13:47:35 -0400
-References: <E24DF3AE-0595-4B9A-AE1C-9801A88BD5FF@labbott.name>
-To: ksummit-discuss@lists.linuxfoundation.org
-In-Reply-To: <E24DF3AE-0595-4B9A-AE1C-9801A88BD5FF@labbott.name>
-Message-Id: <44D37D71-113E-40BA-81B8-5D8F0962C13A@labbott.name>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections -- Call for nominations
+	Wed, 28 Aug 2019 19:23:10 +0000 (UTC)
+Date: Wed, 28 Aug 2019 21:23:08 +0200
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+Message-ID: <20190828192307.yvf372vnnx7f4iib@wittgenstein>
+References: <20190826212548.GA15967@mit.edu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20190826212548.GA15967@mit.edu>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] DRAFT Kernel Summit Track schedule
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,84 +30,85 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, Aug 26, 2019 at 05:25:48PM -0400, Theodore Ts'o wrote:
+> This is a draft kernel summit track schedule.  Please let me know of
+> any potential conflicts or schedule changes that you might like to
+> make.
 
-> On Aug 9, 2019, at 2:24 AM, Laura Abbott <laura@labbott.name> wrote:
->=20
-> Hello everyone,
->=20
-> Friendly reminder that the TAB elections are coming soon:
->=20
-> The Linux Foundation Technical Advisory Board (TAB) serves as the
-> interface between the kernel development community and the Linux
-> Foundation. The TAB advises the Foundation on kernel-related matters,
-> helps member companies learn to work with the community, and works to
-> resolve community-related problems before they get out of hand.  We
-> also support the Code of Conduct committee in their mission.
->=20
-> The board has ten members, one of whom sits on the Linux Foundation
-> board of directors.
->=20
-> The election to select five TAB members will be held at the 2019 =
-Kernel Summit
-> in Lisbon, Portugal September 9-11. As has been announced[2], we are =
-moving to
-> an electronic voting system this year. Further details about the exact =
-voting
-> procedures will be coming soon. Anyone is eligible to stand for =
-election,
-> simply send your nomination to:
->=20
-> tech-board-discuss at lists.linux-foundation.org
->=20
-> With your nomination, please include a short candidate statement. This =
-candidate
-> statement should focus on why you are running and what you hope to =
-accomplish
-> on the TAB. We will be collecting these statements and making them =
-publicly=20
-> available.
->=20
-> The deadline for receiving nominations is 9am GMT+1 on September 9th =
-(the first
-> day of Kernel Summit). Due to the use of electronic voting, this will =
-be a hard
-> deadline!
->=20
-> Current TAB members, and their election year:
->=20
-> Jon Corbet		2017
-> Greg Kroah-Hartman	2017
-> Steven Rostedt		2017
-> Ted Tso			2017
-> Tim Bird		2017
->=20
-> Chris Mason		2018
-> Laura Abbott		2018
-> Olof Johansson		2018
-> Kees Cook		2018
-> Dan Williams		2018
->=20
-> The five slots from 2017 are all up for election.  As always, please
-> let us know if you have questions, and please do consider running.
->=20
-> Thanks,
-> Laura
->=20
-> [1] TAB members sit for a term of two years, and half of the board is
-> up for election every year. Five of the seats are up for election now.
-> The other five are halfway through their term and will be up for
-> election next year.
->=20
-> [2] =
-https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/0065=
-82.html
+Hey Ted,
 
-Reminder to send in your candidate statements, you can see the
-current ones at=20
+Could we grab a slot for
+https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/006699.html
+please? It doesn't seem to appear in the list yet.
 
-=
-https://docs.google.com/document/d/1E3_W1c-xJMx9o2PCnKiGt3vqs-mPh77yNO4GSq=
-NipOQ
+Thanks!
+Christian
 
-Thanks,
-Laura
+> 
+> The Open Slots will be available for last minute scheduling requests,
+> unconference style.
+> 
+> Thanks!
+> 
+> 					- Ted
+> 
+> 
+> Monday September 9, 2019
+> 
+> AM MC's: Dist Kernels, Tracing MC, RISC-V
+> PM MC's PM: IoT, Scheduler, IOMMU
+> 
+> 10:00  Reworking of KVA allocator in Linux kernel
+> 10:45  Touch but don’t look: Running the kernel in execute only memory
+> 11:30  Break
+> 12:00  Upstream Graphics: Too little, too late
+> 12:45  The list is our process: An analysis of the kernel's email-based development process
+> 13:30  Lunch
+> 15:00  Maple Tree
+> 15:45  <Open slot>
+> 16:30  Break
+> 17:00  Inline Encryption Support
+> 17:45  <Open Slot>
+> 18:30  TAB Elections
+> 19:45  LPC Evening Event
+> 
+> 
+> Tuesday September 10, 2019
+> 
+> AM MC's: Open Printing, Toolchains, Testing and Fuzzing
+> PM MC's: Containers, Android, Power managemnt
+> 
+> 10:00  Memory management bits in arch/*
+> 10:45  replacing mmap_sem with finer grained locks
+> 11:30  Break
+> 12:00  Killing the mmap_sem's contention
+> 12:45  <Open Slot>
+> 13:30  Lunch
+> 15:00  Tracing Data Access Pattern with Bounded Overhead and Best-effort Accuracy
+> 15:45  Interrupt Message Store: A scalable interrupt mechanism for the cloud
+> 16:30  Break
+> 17:00  Kernel Documentation
+> 17:45  <Open Slot>
+> 
+> Wednesday, September 11, 2019
+> 
+> AM MC's: RDMA, Real Time, Databases
+> PM MC's: Live patching, BPF, System boot/security
+> 
+> 10:00  Moving the Linux ABI to userspace
+> 10:45  KUnit - Unit Testing for the Linux Kernel
+> 11:30  Break
+> 12:00  Reflections on kernel quality, development process and testing
+> 12:45  <Open Slot>
+> 13:30  Lunch
+> 15:00  Decoupling ZRAM from a specific backend
+> 15:45  <Open Slot>
+> 16:30  <Break>
+> 17:00  <Open Slot>
+> 17:45  <Room not available -- reconfiguration for Plenary>
+> 18:30  Closing Plenary
+> 20:00  LPC Closing Party
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
