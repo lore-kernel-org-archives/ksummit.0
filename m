@@ -1,27 +1,22 @@
 Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB6FB18B3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 650C41C0F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Sep 2019 00:12:34 +0000 (UTC)
+	Thu,  5 Sep 2019 00:19:14 +0000 (UTC)
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 33867A9
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC80C756
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Sep 2019 00:12:34 +0000 (UTC)
-Date: Wed, 4 Sep 2019 20:12:30 -0400
+	Thu,  5 Sep 2019 00:19:13 +0000 (UTC)
+Date: Wed, 4 Sep 2019 20:19:11 -0400
 From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20190905001230.GB25846@mit.edu>
-References: <20190826212548.GA15967@mit.edu>
-	<20190828192307.yvf372vnnx7f4iib@wittgenstein>
-	<20190830035117.GB5670@mit.edu> <201908292248.12974C32@keescook>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20190905001911.GA31869@mit.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <201908292248.12974C32@keescook>
-Cc: Christian Brauner <christian.brauner@ubuntu.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] DRAFT Kernel Summit Track schedule
+Content-Transfer-Encoding: 8bit
+Subject: [Ksummit-discuss] Kernel Summit Track Schedule [V2]
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,36 +26,70 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Aug 29, 2019 at 10:53:54PM -0700, Kees Cook wrote:
-> On Thu, Aug 29, 2019 at 11:51:17PM -0400, Theodore Y. Ts'o wrote:
-> > On Wed, Aug 28, 2019 at 09:23:08PM +0200, Christian Brauner wrote:
-> > > On Mon, Aug 26, 2019 at 05:25:48PM -0400, Theodore Ts'o wrote:
-> > > > This is a draft kernel summit track schedule.  Please let me know of
-> > > > any potential conflicts or schedule changes that you might like to
-> > > > make.
-> > > 
-> > > Could we grab a slot for
-> > > https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/006699.html
-> > > please? It doesn't seem to appear in the list yet.
-> > 
-> > I hadn't scheduled this because it seemed to be a fairly specialized
-> > topic, and one of the major contributors to the thread (Andy
-> > Lutomirski) won't be able to be there.  Will we have the right people
-> > to have this discussion in Lisbon?
-> 
-> I agree it would be better to have Andy there, but I don't think that's
-> reason enough to not discuss it. We had a rather large BoF meeting at LSS
-> about it with a circle of maybe 15-20 people where we made some headway
-> on understanding some of the larger requirements, but there was a lot
-> left to discuss. I know several people from that discussion will be in
-> Lisbon, though I agree it's somewhat specialized. I'm not sure what the
-> "interest level" cut-off is for a ksummit slot, but I know I'll need to
-> spend time talking with a bunch of people about it in person while I'm
-> there, so at least having some "unscheduled" slots for similar kinds of
-> discussions would be value.
+If you have any concerns or conflicts (especially if you are a speaker :-),
+please let me know.
 
-OK, I've scheduled "Deep Argument Inspection and Seccomp" at 15:45 on
-Monday.  Let me know if that slot doesn't work for anyone critical who
-needs to participate.
+       	      			- Ted
 
-					- Ted
+			 Kernel Summit Agenda
+
+Monday September 9, 2019
+
+AM MC's: Dist Kernels, Tracing MC, RISC-V
+PM MC's PM: IoT, Scheduler, IOMMU
+
+10:00  Reworking of KVA allocator in Linux kernel (Uladzislau Rezki)
+10:45  Touch but don’t look: Running the kernel in execute only memory
+	(Rick Edgecombe)       
+11:30  Break
+12:00  Maple Tree (Liam Howlett)
+12:45  The list is our process: An analysis of the kernel's
+	email-based development process (Ralf Ramsauer)
+13:30  Lunch
+15:00  Upstream Graphics: Too little, too late (Daniel Vetter)
+15:45  Deep Argument Inspection and Seccomp (Christian Brauner)
+16:30  Break
+17:00  Inline Encryption Support (Satya Tangirala)
+17:45  <Open Slot>
+18:30  TAB Elections Q&A
+19:45  LPC Evening Event
+
+
+Tuesday September 10, 2019
+
+AM MC's: Open Printing, Toolchains, Testing and Fuzzing
+PM MC's: Containers, Android, Power managemnt
+
+10:00  Memory management bits in arch/* (Mika Rapaport)
+10:45  replacing mmap_sem with finer grained locks (Michel Lespinasse)
+11:30  Break
+12:00  Killing the mmap_sem's contention (Jerome Glisse, et. al)
+12:45  <Open Slot>
+13:30  Lunch
+15:00  Tracing Data Access Pattern with Bounded Overhead and Best-effort
+	Accuracy (SeongJae Park)
+15:45  Interrupt Message Store: A scalable interrupt mechanism for the
+	cloud (Megha Day)
+16:30  Break
+17:00  Kernel Documentation (Jonathan Corbet)
+17:45  <Open Slot>
+
+Wednesday, September 11, 2019
+
+AM MC's: RDMA, Real Time, Databases
+PM MC's: Live patching, BPF, System boot/security
+
+10:00  Moving the Linux ABI to userspace (Dave Martin)
+10:45  KUnit - Unit Testing for the Linux Kernel (Brendan Higgins)
+11:30  Break
+12:00  Reflections on kernel quality, development process and testing
+	(Dmirty Vyukov)
+12:45  Discussions on kselftest (Shuah Kahn)
+13:30  Lunch
+15:00  Decoupling ZRAM from a specific backend (Vitaly Wool)
+15:45  <Open Slot>
+16:30  <Break>
+17:00  <Open Slot>
+17:45  <Room not available -- reconfiguration for Plenary>
+18:30  Closing Plenary
+20:00  LPC Closing Party
