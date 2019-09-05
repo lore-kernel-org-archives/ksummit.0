@@ -1,22 +1,30 @@
-Return-Path: <tytso@mit.edu>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 650C41C0F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81E06E56
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Sep 2019 00:19:14 +0000 (UTC)
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC80C756
+	Thu,  5 Sep 2019 07:00:36 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E82477DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Sep 2019 00:19:13 +0000 (UTC)
-Date: Wed, 4 Sep 2019 20:19:11 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20190905001911.GA31869@mit.edu>
+	Thu,  5 Sep 2019 07:00:35 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Laura Abbott <labbott@redhat.com>
+In-Reply-To: <CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
+References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
+	<CAPM=9tymLW8dS_3OD0J9mvSMWpmcs3WWBEQS=gtzX0Zyz-umHg@mail.gmail.com>
+	<20190902222240.GE3367@mit.edu>
+	<574c0ccd-730a-eada-966c-58f5de7c9477@redhat.com>
+	<CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
+Date: Thu, 05 Sep 2019 10:01:26 +0300
+Message-ID: <87o8zzw7jt.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [Ksummit-discuss] Kernel Summit Track Schedule [V2]
+Content-Type: text/plain
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,70 +34,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-If you have any concerns or conflicts (especially if you are a speaker :-),
-please let me know.
+On Tue, 03 Sep 2019, Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> I think some of the push-back to the GPU people wasn't from them not
+> inventing the group maintainership like Dave said, but from that being
+> presented as some kind of "this is the way to do it". When it's just
+> _one_ way to do it, and other groups have completely different
+> infrastructure and models..
 
-       	      			- Ted
+At least I've tried (and likely also failed) to merely describe what we
+do, what works for us, how we think we benefit, and how it just might
+benefit others. It's just sad when the pushback is strong enough to
+discourage people from sharing their experiences to begin with.
 
-			 Kernel Summit Agenda
+I know I've reduced talking about it outside of the GPU people bubble.
 
-Monday September 9, 2019
+> And "it has to be visible on a public list for review, and for
+> lore.kernel.org to archive the discussion, because things need not
+> just review, but _outside_ review" is pretty obvious for any big
+> changes.
+>
+> But even that second "obvious" thing equally obviously cannot be
+> applied to _every_ patch. Even if you ignore the special embargo
+> cases, you just have a lot of patches that are local fixes, rather
+> than big new features. We can't tell people "you can't fix an obvious
+> bug without having it reviewd on the mailing list first". That would
+> be frustrating any sane developer if we tried to make that a hard
+> rule. So even the "obvious" workflow that we all think about for big
+> development simply can't be some kind of "this is how it must be done"
+> rule.
 
-AM MC's: Dist Kernels, Tracing MC, RISC-V
-PM MC's PM: IoT, Scheduler, IOMMU
+Okay, I'll stick my neck out again.
 
-10:00  Reworking of KVA allocator in Linux kernel (Uladzislau Rezki)
-10:45  Touch but don’t look: Running the kernel in execute only memory
-	(Rick Edgecombe)       
-11:30  Break
-12:00  Maple Tree (Liam Howlett)
-12:45  The list is our process: An analysis of the kernel's
-	email-based development process (Ralf Ramsauer)
-13:30  Lunch
-15:00  Upstream Graphics: Too little, too late (Daniel Vetter)
-15:45  Deep Argument Inspection and Seccomp (Christian Brauner)
-16:30  Break
-17:00  Inline Encryption Support (Satya Tangirala)
-17:45  <Open Slot>
-18:30  TAB Elections Q&A
-19:45  LPC Evening Event
+In i915 it *is* a hard rule you can't push anything unless it was posted
+and reviewed on the public list and passed CI first. No exceptions. Sure
+it can be frustrating, but it's also so much less embarrassing when the
+bug in the obvious fix gets caught in review/CI rather than in
+mainline. And you tend to work on improving your process instead of
+making more exceptions and taking shortcuts.
+
+And since I'm one of those pesky "GPU people", YMMV a thousand times
+over. ;)
 
 
-Tuesday September 10, 2019
+BR,
+Jani.
 
-AM MC's: Open Printing, Toolchains, Testing and Fuzzing
-PM MC's: Containers, Android, Power managemnt
-
-10:00  Memory management bits in arch/* (Mika Rapaport)
-10:45  replacing mmap_sem with finer grained locks (Michel Lespinasse)
-11:30  Break
-12:00  Killing the mmap_sem's contention (Jerome Glisse, et. al)
-12:45  <Open Slot>
-13:30  Lunch
-15:00  Tracing Data Access Pattern with Bounded Overhead and Best-effort
-	Accuracy (SeongJae Park)
-15:45  Interrupt Message Store: A scalable interrupt mechanism for the
-	cloud (Megha Day)
-16:30  Break
-17:00  Kernel Documentation (Jonathan Corbet)
-17:45  <Open Slot>
-
-Wednesday, September 11, 2019
-
-AM MC's: RDMA, Real Time, Databases
-PM MC's: Live patching, BPF, System boot/security
-
-10:00  Moving the Linux ABI to userspace (Dave Martin)
-10:45  KUnit - Unit Testing for the Linux Kernel (Brendan Higgins)
-11:30  Break
-12:00  Reflections on kernel quality, development process and testing
-	(Dmirty Vyukov)
-12:45  Discussions on kselftest (Shuah Kahn)
-13:30  Lunch
-15:00  Decoupling ZRAM from a specific backend (Vitaly Wool)
-15:45  <Open Slot>
-16:30  <Break>
-17:00  <Open Slot>
-17:45  <Room not available -- reconfiguration for Plenary>
-18:30  Closing Plenary
-20:00  LPC Closing Party
+-- 
+Jani Nikula, Intel Open Source Graphics Center
