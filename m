@@ -1,25 +1,32 @@
-Return-Path: <e@80x24.org>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D99DA13E9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BD76113B7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Sep 2019 08:12:20 +0000 (UTC)
-Received: from dcvr.yhbt.net (dcvr.yhbt.net [64.71.152.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1781C7DB
+	Thu,  5 Sep 2019 08:20:12 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9A8177DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Sep 2019 08:12:20 +0000 (UTC)
-Date: Thu, 5 Sep 2019 08:12:19 +0000
-From: Eric Wong <e@80x24.org>
-To: Doug Anderson <dianders@chromium.org>
-Message-ID: <20190905081219.GA26003@dcvr>
-References: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
+	Thu,  5 Sep 2019 08:20:11 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+In-Reply-To: <20190904134706.GA14421@pure.paranoia.local>
+References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
+	<CAPM=9tymLW8dS_3OD0J9mvSMWpmcs3WWBEQS=gtzX0Zyz-umHg@mail.gmail.com>
+	<20190902222240.GE3367@mit.edu>
+	<574c0ccd-730a-eada-966c-58f5de7c9477@redhat.com>
+	<CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
+	<20190903172708.qrvaad2paze6ifhz@chatter.i7.local>
+	<20190904120843.GD4811@pendragon.ideasonboard.com>
+	<20190904134706.GA14421@pure.paranoia.local>
+Date: Thu, 05 Sep 2019 11:21:01 +0300
+Message-ID: <87lfv3w3v6.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=UPjPpUyFTPjF-Ogzj_6LJLE4PTxMhCoCEDmH1LXSSmpQ@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
- like it) in kernel commits
+Content-Type: text/plain
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,156 +36,125 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Doug Anderson <dianders@chromium.org> wrote:
-> Hi,
-> 
-> As everyone is probably aware, when you use the gerrit code review
-> system all of your commits get an extra line in them that looks
-> something like:
-> 
-> Change-Id: I6a007dfe91ee1077a437963cf26d91370fdd9556
-> 
-> The Linux kernel has always viewed these Change-Id tags as obnoxious
-> and useless spam.  Anyone who accidentally leaves a Change-Id in their
-> patch when posting to the mailing list is told to please re-post their
-> patch without the Change-Id.  In this email, I will attempt to argue
-> that the Linux kernel ought to relax this restriction and allow
-> (possibly even encourage) Change-Ids.
+On Wed, 04 Sep 2019, Konstantin Ryabitsev <konstantin@linuxfoundation.org> wrote:
+> On Wed, Sep 04, 2019 at 03:08:43PM +0300, Laurent Pinchart wrote:
+>> > - Just like Patchwork, it would keep track of new patches and series of 
+>> >   patches, recognize when new patch/series revisions are posted, track 
+>> >   reviewed-by's, tested-by's, etc, and provide useful maintainer 
+>> >   functionality, such as showing interdiffs between revisions.
+>> 
+>> I've been thinking about this for about a year now. One issue that makes
+>> this difficult is that many M[UTD]A software mangle e-mails in a way
+>> that make extracting information automatically pretty painful. Google's
+>> answer to this was Gerrit, which solved this particular issue, but
+>> disrupted the e-mail-based workflow in a way that is not acceptable to
+>> many developers (myself included). A better, in my opinion, solution
+>> would have been standardisation of a format to exchange review
+>> information. Quite obviously going for a markup language (be it XML,
+>> json, yaml or whatever is hype today) is a no-go, given that we would
+>> destroy everybody's workflow again. My idea was to use a review format
+>> that is as close to e-mail as possible (with > quote markers and
+>> everything that people are already familiar with). Of course M[UTD]A
+>> software would still mangle it, but given reasonable M[TD]As, I think we
+>> could teach some of the MUAs commonly used (mutt comes to mind) to
+>> behave properly (through plugins, scripts, settings files, ...). E-mails
+>> that would not be mangled through the process would be easily parsable
+>> by the tool you would like to develop. That would not give us full
+>> coverage, but if we manage to establish such an end-to-end solution, we
+>> could then push it to more MUAs. This would allow to tackle this complex
+>> problem one step at a time, while not alienating developers by asking
+>> them to leave their MUA. Over time we could the develop more tooling
+>> around that review exchange format, once a large enough portion of
+>> exchanged reviews will follow it.
+>
+> One way to prevent mail software from mangling message bodies is to send
+> them as multipart/signed -- at least most MTA/MDAs know not to touch
+> those. I know git-am handles multipart/signed patches just fine (though
+> it just ignores signatures), and most gui MUAs just shrug the signatures
+> off by showing them as useless attachments.
+>
+> Doesn't help much for cases where people use their own MUAs to send
+> patches, but at least we can prevent the transmission/display parts of
+> the equation from messing with structured mail content.
+>
+> (Of course, in my beautiful vision of the future we aren't using
+> mail clients at all any more, but let's leave that topic on the
+> sci-fi/fantasy shelf for now.)
 
-Hello Doug, sometimes-present public-inbox author here, chiming
-in late, replying off Mailman-mangled archives...
+The sci-fi doesn't turn to reality in massive disruptive jumps. There
+are realistic intermediate steps that could be taken.
 
-> To begin with, let me make sure we're on the same page about what
-> Change-Ids are.  As I understand it:
-> 
-> * A change ID is much alike a UUID.  It is locally generated on a
-> developer's computer and is (in theory) unique across the universe.
-> 
-> * When a developer keeps the same Change-Id across two patches they
-> are making the assertion that the two patches are either the same or
-> should be treated as two versions of the same logical change.  For
-> instance, v1, v2, and v3 of the same patch should have the same
-> Change-Id.  Even if v2 and v3 of the patch have different subjects and
-> touch different files, if they have the same Change-Id then the
-> developer is asserting that v3 should be considered a new version of
-> the same logical change as v2.  If it helps to think about it,
-> Change-Id is used by gerrit servers to know that a new patch uploaded
-> should replace an older version with the same Change-Id.
+I have been, and still am, a proponent of email based review.
 
-This sounds like the debates around rename-tracking in VCSes
-circa 2005.
+I've also contributed significantly to a MUA, and my observation is that
+email is a massively distributed fuzzing project for email software that
+allows message transmission in the sideband.
 
-Other VCSes at the time had explicit rename tracking; git was
-(and still is :) powerful enough to infer renames without extra
-input from the user.
+What if git push and pull operated on top of an unreliable and lossy
+transmission channel, without integrity checks, that you had to
+configure and set up yourself? That's pretty much what we're doing with
+git send-email and am, isn't it?
 
-Drawing inspiration from git from not having "arch-id:" tags
-or other cruft for rename-tracking; MY philosophy is to have
-"Really Powerful Search" being able to tie things together
-after-the-fact without user intervention.
+Generally I think there are more issues in the submission side; there
+are more people contributing than applying patches, more setups, more
+configuration that can go wrong. Roughly speaking the masses of
+contributors are less experienced than the maintainers. What if we tried
+to provide a way to contribute using something based on git push
+instead?
 
-The "Really Powerful Search" part is something I've been working
-on in public-inbox off-and-on for a few years :)
+I'm sure you'll think of a thousand things that would not work and why
+it would be just another broken github like thing, but consider this:
 
-> Specifically, let me list the problems I'd like to solve:
-> 
-> 1. If I see a commit in Linux, I would like to be able to easily find
-> all of the mailing list discussions relevant to that commit.  I know
-> there are proposals about including the Message-Id of the final post
-> in the commit log and that is certainly better than nothing, but the
-> Message-Id will only get you a link to the final version of the patch.
-> If the relevant discussion happened on a previous version of that
-> patch then you need to find it yourself.  This gets harder if the
-> patch changed subject, touched different files, if parts of the series
-> landed at different times, and if multiple people were involved in
-> posting different versions of the patch.  If the commit in Linux has a
-> Change-Id then the old versions are logically linked and easier to
-> associated with one another.
-> 
-> 2. If I do a search through old mailing list archives and I stumble
-> upon a patch that didn't land, I can more easily find different
-> versions of that patch if I have a Change-Id.  Some of these different
-> versions may have relevant discussions that explains why the patch
-> didn't land.  Finding these other patches without a Change-Id might be
-> hard, again because they may touch different files, have a different
-> subject, or have been posted by a different person.
+- The system would receive the changes by git push, and would mail out
+  the patches to the relevant lists itself. It would have SMTP figured
+  out. It would always mail the patches using the right git send-email
+  options. It could always send a cover letter with the right diffstat,
+  and with a git url to the commits.
 
-I'm curious if you're taking advantage some of the public-inbox
-search features (in lore.kernel.org) which is designed with
-patches in mind.
+- The system could decide what the relevant lists as well as maintainers
+  to Cc are, using up-to-date info from MAINTAINERS. It could provide a
+  way for maintainers and developers to opt in/out of Cc, in fine
+  grained ways, instead of leaving that decision to the contributor.
 
-1. "Phrase searching" with double quotes can be combined with the "s:"
-   prefix to search most commit titles/subjects (*).
+- The system would know what the message-ids of the patches are, because
+  it would generate them itself. Thus it would know what messages on the
+  list are patches it sent, and which versions of the patches and/or
+  series, and which replies are review. (It's incredibly hard for
+  patchwork to identify patch series and their versions just by reading
+  the list. It can get confused by review that contains a patch.)
 
-2. The dfa:/dfb: prefixes could be an alternative to "git blame"
-   for searching text (and works for pre-git patches)
+- New versions of patch series could automatically contain a diff
+  against the previous version of the patches/series. You could easily
+  tell if the previous review still holds or needs checking.
 
-3. dfpre:/dfpost:/dfblob: can find exact blob SHA-1s
+- You'd still retain the familiar email based review, but it would be
+  easier to find the various versions of the series, and you'd always
+  have the changes readily available in a git repo. (This ties to a
+  previous discussion about how to link patch series versions
+  together. It could be all taken care of, automatically.)
 
-4. date/author can also match the git commit authorship info
+- The maintainers could keep their email based flow, applying patches
+  from the list. But there'd be fewer email related technical problems
+  with them. Additionally, there'd be a way to pull the patches directly
+  from a git tree, possibly pre-amended with the Reviewed-by, Tested-by,
+  Link, etc. tags.
 
-5. all or any combination of the above can be combined in a single
-   search to improve results
+- You could add tons of useful git hooks on the contributions, ranging
+  from pre-merge testing to notifying linked bugs and whatnot.
 
-All the Xapian prefixes are documented at $INBOX_URL/_text/help/, e.g:
-<https://public-inbox.org/git/_/text/help/>
+Note that I'm not suggesting contributors should have git repos from
+which they send pull requests. Instead, you'd have a centralized repo
+for the project where you can push your submission. Sure, lots of
+details to work out there. But the git send-email part is, IMHO, a
+broken part of our process, even if the changes keep being distributed
+as emailed patches. It just doesn't seem that way to the people on this
+list, because we've figured all of this out eons ago for ourselves. We
+forget the long tail of contributors that we always brag about.
 
-I'm also planning to support searching for the output of
-"git patch-id --stable" in the future.  public-inbox also lacks
-pairity with "mairix -t" (being able to grab an entire thread
-if on message in the thread matches).
 
-> At the moment using a Change-Id in the way I described would require
-> searching through mailing lists for the Change-Id string to find other
-> versions of the same patch.  However, I would expect it would only be
-> a matter of time before tools like patchwork are able to use Change-Id
-> to associate one version of a patch with the next version.  I would
-> also expect that allowing Change-Id to exist would allow someone to
-> (perhaps) create a gerrit instance that watched the kernel mailing
-> list and mirrored mailing list discussions in the GUI.  In other
-> words, once such tools exist presumably Change-Id will be much more
-> useful: you will eventually be able to paste a Change-Id into a tool
-> and get links to all relevant discussion and related posts.
+BR,
+Jani.
 
-(*) I'm also linking the phrase searching through cgit to link
-    commit titles to mail discussions shown below:
 
-    https://80x24.org/mirrors/git.git/commit/?id=b777f3fd619ac2af507ffd3e7c5fe0d6e36e81f2
-    (following the "xdiff: clamp function context indices in post-image"
-     link brings the public-inbox.org/git discussion)
-
-    That's all done with a Lua script supported via cgit:
-    https://80x24.org/public-inbox.git/tree/examples/cgit-commit-filter.lua
-    It works OK in most cases, but would need to be combined (as
-    noted in 5.) for best results.
-
-    I haven't gotten dfpre/dfpost/dfblob/dfa/dfb links working via
-    cgit + Lua, yet.  It's on my personal roadmap, some hacking on
-    cgit will be needed to expose that info (and I keep getting
-    sidetracked on other stuff)
-
-> The basic summary is that I'd like there to be some way to track a
-> logical patch over its lifetime.  I don't believe there is a reliable
-> (non-heuristic) way to do this today and I think Change-Id provides a
-> nice solution.  While we could come up with a new and different
-> solution (because Change-Id was not invented here), it feels like
-> adopting Change-Id is convenient and easy and provides a true benefit.
-> Change-Id works super well with the decentralized/email workflow for
-> patches and can be phased in over time (or it can stay optional
-> forever).
-
-This sounds exactly like the "arch-id:" comments GNU arch users
-used to pollute their sources with for rename tracking :)
-
-It's ugly and made redundant by something which understands
-the content.
-
-Change-Id also won't work for historical patches (including
-pre-git stuff).  Even without relying on git blob IDs for search,
-matching on exact text/phrases is pretty good for pre-git
-patches, already.
-
-And back to rename tracking, one yet-to-be-realized promise from
-git's lack of explicit tracking was being able to track code
-movements (individual functions or hunks, not just entire files).
-Having a good search engine gets us there :)
+-- 
+Jani Nikula, Intel Open Source Graphics Center
