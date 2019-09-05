@@ -1,13 +1,24 @@
-Return-Path: <tytso@mit.edu>
-Date: Thu, 5 Sep 2019 17:51:54 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: tech-board-discuss@lists.linuxfoundation.org
-Message-ID: <20190905215154.GA7469@mit.edu>
+Return-Path: <jikos@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 021DE1C00
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  5 Sep 2019 21:58:18 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 05871A9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  5 Sep 2019 21:58:17 +0000 (UTC)
+Date: Thu, 5 Sep 2019 23:58:00 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+In-Reply-To: <20190905154702.GA21622@mit.edu>
+Message-ID: <nycvar.YFH.7.76.1909052354230.31470@cbobk.fhfr.pm>
+References: <20190905154702.GA21622@mit.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] TAB Nomination for Theodore Ts'o
+Subject: Re: [Ksummit-discuss] DRAFT Maintainer's Summit Agenda and Attendee
+ List
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -17,33 +28,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I've worked on the Linux Kernel still 1991, and have worked on the tty
-subsystem, serial driver, real-time linux, ext2/3/4 and e2fsprogs.  I
-served on the board of the Free Standards Group (one of the
-predecessor organizations to the Linux Foundations), as well as
-Usenix, and have served on the program committee of many conferences
-including Usenix ATC, FAST, Vault, LinuxCon, and the Linux
-Kernel/Maintaiiner's Summit.
+On Thu, 5 Sep 2019, Theodore Y. Ts'o wrote:
 
-If I am re-elected to the TAB, I'd like to work with the various
-conferences and workshops to better balance the technical work that
-gets done at these events, so that members of our community can meet
-with the people they need to meet, in a product setting, without
-certain conferences --- such as the Linux Plumbers Conference ---
-becoming heavily oversubscribed and over-crowded.  In my opinion, this
-means we need to create or strengthen a strong technical conference
-which meets in the first half the year, which can serve as a Linux
-Systems Conference as vital and as exciting as the LPC is in the
-second half of the year.  Clearly, we have a lot more technical work
-that we would like to do that can be accomodated by having a single
-really great conference once a year!
+> The agenda topics are of course subject to change (and often do, even
+> while we're having the discussion :-).  Any thoughts or comments are
+> of course welcome.
+> 
+> 						- Ted
+> 
+> 			 Maintainer's Summit
+> 	     Ametista Room at the Corinthia Hotel Lisbon
+> 			  September 12, 2019
+> 
+> 
+> 9:00  Hot breakfast and morning refreshments (sponsored by IBM)
+>       <Room available for hacking and informal discussions>
+> 12:00 Lunch (sponsored by Intel)
+> 13:00 Agenda Bashing
+> 13:30 Dealing with the high volume of automated bug finders (Shuah Kahn)
+> 14:00 Stable Kernel Process Automation and Improvement (Sasha Levin)
+> 14:30 Depth of the "pull network" (James Bottomley)
+> 15:00 Afternoon Break (Sponsored by IBM)
+> 15:30 Is Linus Happy?
+> 16:30 <Open Slot>
 
-I am also interested in helping to reinvigorate the Linux Foundation's
-Core Infrastructure Initiative (CII).  No, it's not completely dead,
-in that even in 2019, it's still funding some great work, but it
-certainly has the appearance of "Pining for the Fjords".  We need to
-improve its fund-raising capacity, remove cobwebs from its web site,
-and make sure it can be more responsive to proposals sent to it.
-While this isn't a TAB function, I think there are opportunities for
-the TAB as a body, and for individual TAB members, to help the CII
-be as successful as it was when it first started.
+I'd actually like to propose one more topic; last year, we've been 
+discussing the process around handling of HW security issues [1]. There 
+have been quite some developments since then (and there are still a few 
+unresolved companies^Wissues), and I believe it'd be appropriate to give a 
+brief update and discuss next steps.
+
+People necessary to discuss this are already on the attendee list, so all 
+is good there.
+
+[1] https://lwn.net/Articles/769417/
+
+Thanks,
+
+-- 
+Jiri Kosina
+SUSE Labs
