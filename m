@@ -1,36 +1,35 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <laura@labbott.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10D7B2127
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 060A01D65
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Sep 2019 10:51:02 +0000 (UTC)
-Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
-	[209.85.160.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3C980756
+	Fri,  6 Sep 2019 16:43:53 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+	[209.85.221.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 55C137DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Sep 2019 10:51:01 +0000 (UTC)
-Received: by mail-qt1-f193.google.com with SMTP id r5so6528818qtd.0
+	Fri,  6 Sep 2019 16:43:52 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id l11so7266513wrx.5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 06 Sep 2019 03:51:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
-	<CAPM=9tymLW8dS_3OD0J9mvSMWpmcs3WWBEQS=gtzX0Zyz-umHg@mail.gmail.com>
-	<20190902222240.GE3367@mit.edu>
-	<574c0ccd-730a-eada-966c-58f5de7c9477@redhat.com>
-	<CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
-	<20190903172708.qrvaad2paze6ifhz@chatter.i7.local>
-	<20190904120843.GD4811@pendragon.ideasonboard.com>
-	<20190904134706.GA14421@pure.paranoia.local> <87lfv3w3v6.fsf@intel.com>
-In-Reply-To: <87lfv3w3v6.fsf@intel.com>
-From: Rob Herring <robherring2@gmail.com>
-Date: Fri, 6 Sep 2019 11:50:47 +0100
-Message-ID: <CAL_Jsq+-bGRxaOxEbCH+57TQto6KUO7Fs+tMLswzeJEB=FWA+Q@mail.gmail.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
+	Fri, 06 Sep 2019 09:43:52 -0700 (PDT)
+Received: from [10.93.12.198] (110.8.30.213.rev.vodafone.pt. [213.30.8.110])
+	by smtp.gmail.com with ESMTPSA id
+	s26sm10591053wrs.63.2019.09.06.09.43.49
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 06 Sep 2019 09:43:49 -0700 (PDT)
+From: Laura Abbott <laura@labbott.name>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Date: Fri, 6 Sep 2019 12:43:43 -0400
+References: <E24DF3AE-0595-4B9A-AE1C-9801A88BD5FF@labbott.name>
+	<44D37D71-113E-40BA-81B8-5D8F0962C13A@labbott.name>
+To: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <44D37D71-113E-40BA-81B8-5D8F0962C13A@labbott.name>
+Message-Id: <DEFE2196-85E1-475C-9651-8255F8D54C96@labbott.name>
+Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections -- Call for nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,136 +39,91 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 5, 2019 at 9:20 AM Jani Nikula <jani.nikula@intel.com> wrote:
->
-> On Wed, 04 Sep 2019, Konstantin Ryabitsev <konstantin@linuxfoundation.org> wrote:
-> > On Wed, Sep 04, 2019 at 03:08:43PM +0300, Laurent Pinchart wrote:
-> >> > - Just like Patchwork, it would keep track of new patches and series of
-> >> >   patches, recognize when new patch/series revisions are posted, track
-> >> >   reviewed-by's, tested-by's, etc, and provide useful maintainer
-> >> >   functionality, such as showing interdiffs between revisions.
-> >>
-> >> I've been thinking about this for about a year now. One issue that makes
-> >> this difficult is that many M[UTD]A software mangle e-mails in a way
-> >> that make extracting information automatically pretty painful. Google's
-> >> answer to this was Gerrit, which solved this particular issue, but
-> >> disrupted the e-mail-based workflow in a way that is not acceptable to
-> >> many developers (myself included). A better, in my opinion, solution
-> >> would have been standardisation of a format to exchange review
-> >> information. Quite obviously going for a markup language (be it XML,
-> >> json, yaml or whatever is hype today) is a no-go, given that we would
-> >> destroy everybody's workflow again. My idea was to use a review format
-> >> that is as close to e-mail as possible (with > quote markers and
-> >> everything that people are already familiar with). Of course M[UTD]A
-> >> software would still mangle it, but given reasonable M[TD]As, I think we
-> >> could teach some of the MUAs commonly used (mutt comes to mind) to
-> >> behave properly (through plugins, scripts, settings files, ...). E-mails
-> >> that would not be mangled through the process would be easily parsable
-> >> by the tool you would like to develop. That would not give us full
-> >> coverage, but if we manage to establish such an end-to-end solution, we
-> >> could then push it to more MUAs. This would allow to tackle this complex
-> >> problem one step at a time, while not alienating developers by asking
-> >> them to leave their MUA. Over time we could the develop more tooling
-> >> around that review exchange format, once a large enough portion of
-> >> exchanged reviews will follow it.
-> >
-> > One way to prevent mail software from mangling message bodies is to send
-> > them as multipart/signed -- at least most MTA/MDAs know not to touch
-> > those. I know git-am handles multipart/signed patches just fine (though
-> > it just ignores signatures), and most gui MUAs just shrug the signatures
-> > off by showing them as useless attachments.
-> >
-> > Doesn't help much for cases where people use their own MUAs to send
-> > patches, but at least we can prevent the transmission/display parts of
-> > the equation from messing with structured mail content.
-> >
-> > (Of course, in my beautiful vision of the future we aren't using
-> > mail clients at all any more, but let's leave that topic on the
-> > sci-fi/fantasy shelf for now.)
->
-> The sci-fi doesn't turn to reality in massive disruptive jumps. There
-> are realistic intermediate steps that could be taken.
->
-> I have been, and still am, a proponent of email based review.
->
-> I've also contributed significantly to a MUA, and my observation is that
-> email is a massively distributed fuzzing project for email software that
-> allows message transmission in the sideband.
->
-> What if git push and pull operated on top of an unreliable and lossy
-> transmission channel, without integrity checks, that you had to
-> configure and set up yourself? That's pretty much what we're doing with
-> git send-email and am, isn't it?
->
-> Generally I think there are more issues in the submission side; there
-> are more people contributing than applying patches, more setups, more
-> configuration that can go wrong. Roughly speaking the masses of
-> contributors are less experienced than the maintainers. What if we tried
-> to provide a way to contribute using something based on git push
-> instead?
->
-> I'm sure you'll think of a thousand things that would not work and why
-> it would be just another broken github like thing, but consider this:
->
-> - The system would receive the changes by git push, and would mail out
->   the patches to the relevant lists itself. It would have SMTP figured
->   out. It would always mail the patches using the right git send-email
->   options. It could always send a cover letter with the right diffstat,
->   and with a git url to the commits.
 
-Independent of the exact process, a git branch for every series would
-be great. As a maintainer, I would love to be able to do 'git fetch
-some-remote <message-id>'. I don't really care to write and maintain
-code to apply series and figure out what branch they apply to. That
-code already exists and I'm sure is more robust. If the submitter
-provides the branch to begin with in a automatable way, then great,
-but that's a much bigger process change.
+> On Aug 28, 2019, at 1:47 PM, Laura Abbott <laura@labbott.name> wrote:
+>=20
+>=20
+>> On Aug 9, 2019, at 2:24 AM, Laura Abbott <laura@labbott.name> wrote:
+>>=20
+>> Hello everyone,
+>>=20
+>> Friendly reminder that the TAB elections are coming soon:
+>>=20
+>> The Linux Foundation Technical Advisory Board (TAB) serves as the
+>> interface between the kernel development community and the Linux
+>> Foundation. The TAB advises the Foundation on kernel-related matters,
+>> helps member companies learn to work with the community, and works to
+>> resolve community-related problems before they get out of hand.  We
+>> also support the Code of Conduct committee in their mission.
+>>=20
+>> The board has ten members, one of whom sits on the Linux Foundation
+>> board of directors.
+>>=20
+>> The election to select five TAB members will be held at the 2019 =
+Kernel Summit
+>> in Lisbon, Portugal September 9-11. As has been announced[2], we are =
+moving to
+>> an electronic voting system this year. Further details about the =
+exact voting
+>> procedures will be coming soon. Anyone is eligible to stand for =
+election,
+>> simply send your nomination to:
+>>=20
+>> tech-board-discuss at lists.linux-foundation.org
+>>=20
+>> With your nomination, please include a short candidate statement. =
+This candidate
+>> statement should focus on why you are running and what you hope to =
+accomplish
+>> on the TAB. We will be collecting these statements and making them =
+publicly=20
+>> available.
+>>=20
+>> The deadline for receiving nominations is 9am GMT+1 on September 9th =
+(the first
+>> day of Kernel Summit). Due to the use of electronic voting, this will =
+be a hard
+>> deadline!
+>>=20
+>> Current TAB members, and their election year:
+>>=20
+>> Jon Corbet		2017
+>> Greg Kroah-Hartman	2017
+>> Steven Rostedt		2017
+>> Ted Tso			2017
+>> Tim Bird		2017
+>>=20
+>> Chris Mason		2018
+>> Laura Abbott		2018
+>> Olof Johansson		2018
+>> Kees Cook		2018
+>> Dan Williams		2018
+>>=20
+>> The five slots from 2017 are all up for election.  As always, please
+>> let us know if you have questions, and please do consider running.
+>>=20
+>> Thanks,
+>> Laura
+>>=20
+>> [1] TAB members sit for a term of two years, and half of the board is
+>> up for election every year. Five of the seats are up for election =
+now.
+>> The other five are halfway through their term and will be up for
+>> election next year.
+>>=20
+>> [2] =
+https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/0065=
+82.html
+>=20
+> Reminder to send in your candidate statements, you can see the
+> current ones at=20
+>=20
+> =
+https://docs.google.com/document/d/1E3_W1c-xJMx9o2PCnKiGt3vqs-mPh77yNO4GSq=
+NipOQ
+>=20
+>=20
 
-> - The system could decide what the relevant lists as well as maintainers
->   to Cc are, using up-to-date info from MAINTAINERS. It could provide a
->   way for maintainers and developers to opt in/out of Cc, in fine
->   grained ways, instead of leaving that decision to the contributor.
->
-> - The system would know what the message-ids of the patches are, because
->   it would generate them itself. Thus it would know what messages on the
->   list are patches it sent, and which versions of the patches and/or
->   series, and which replies are review. (It's incredibly hard for
->   patchwork to identify patch series and their versions just by reading
->   the list. It can get confused by review that contains a patch.)
->
-> - New versions of patch series could automatically contain a diff
->   against the previous version of the patches/series. You could easily
->   tell if the previous review still holds or needs checking.
->
-> - You'd still retain the familiar email based review, but it would be
->   easier to find the various versions of the series, and you'd always
->   have the changes readily available in a git repo. (This ties to a
->   previous discussion about how to link patch series versions
->   together. It could be all taken care of, automatically.)
->
-> - The maintainers could keep their email based flow, applying patches
->   from the list. But there'd be fewer email related technical problems
->   with them. Additionally, there'd be a way to pull the patches directly
->   from a git tree, possibly pre-amended with the Reviewed-by, Tested-by,
->   Link, etc. tags.
->
-> - You could add tons of useful git hooks on the contributions, ranging
->   from pre-merge testing to notifying linked bugs and whatnot.
->
-> Note that I'm not suggesting contributors should have git repos from
-> which they send pull requests. Instead, you'd have a centralized repo
-> for the project where you can push your submission. Sure, lots of
-> details to work out there. But the git send-email part is, IMHO, a
-> broken part of our process, even if the changes keep being distributed
-> as emailed patches. It just doesn't seem that way to the people on this
-> list, because we've figured all of this out eons ago for ourselves. We
-> forget the long tail of contributors that we always brag about.
-
-I certainly agree that the steps between having a git branch ready and
-sending the patches could be improved. If we can automate taking a git
-branch and sending the emails on the server side, we could do it on
-the client side too. The same problems will exist and need to be
-solved: get_maintainers.pl is not completely accurate, who to Cc on
-individual patches vs. series, writing version history, etc.
-
-Rob
+Final reminder, the deadline is Monday September 9th at  9am UTC+1
+(that's 9am Lisbon time). Because we are doing electronic voting this is =
+a hard deadline!
