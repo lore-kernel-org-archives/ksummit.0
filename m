@@ -1,17 +1,17 @@
 Return-Path: <robherring2@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3AF5B1EA4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10D7B2127
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Sep 2019 10:21:40 +0000 (UTC)
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
-	[209.85.222.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9472E7DB
+	Fri,  6 Sep 2019 10:51:02 +0000 (UTC)
+Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
+	[209.85.160.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3C980756
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Sep 2019 10:21:39 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id z67so5039213qkb.12
+	Fri,  6 Sep 2019 10:51:01 +0000 (UTC)
+Received: by mail-qt1-f193.google.com with SMTP id r5so6528818qtd.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 06 Sep 2019 03:21:39 -0700 (PDT)
+	Fri, 06 Sep 2019 03:51:01 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
 	<CAPM=9tymLW8dS_3OD0J9mvSMWpmcs3WWBEQS=gtzX0Zyz-umHg@mail.gmail.com>
@@ -19,16 +19,17 @@ References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
 	<574c0ccd-730a-eada-966c-58f5de7c9477@redhat.com>
 	<CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
 	<20190903172708.qrvaad2paze6ifhz@chatter.i7.local>
-	<CABhMZUUzyMXyKthjt31qU-p-2=6s2Cvw5jb=bw3=T76kzfUyKA@mail.gmail.com>
-In-Reply-To: <CABhMZUUzyMXyKthjt31qU-p-2=6s2Cvw5jb=bw3=T76kzfUyKA@mail.gmail.com>
+	<20190904120843.GD4811@pendragon.ideasonboard.com>
+	<20190904134706.GA14421@pure.paranoia.local> <87lfv3w3v6.fsf@intel.com>
+In-Reply-To: <87lfv3w3v6.fsf@intel.com>
 From: Rob Herring <robherring2@gmail.com>
-Date: Fri, 6 Sep 2019 11:21:25 +0100
-Message-ID: <CAL_JsqJTpA68gAkT2k5ziHF8RbVsmKcf2ZLTGSexPkrwL6Vkzg@mail.gmail.com>
-To: bjorn@helgaas.com
+Date: Fri, 6 Sep 2019 11:50:47 +0100
+Message-ID: <CAL_Jsq+-bGRxaOxEbCH+57TQto6KUO7Fs+tMLswzeJEB=FWA+Q@mail.gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,104 +40,136 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 3, 2019 at 6:40 PM Bjorn Helgaas <bjorn.helgaas@gmail.com> wrote:
+On Thu, Sep 5, 2019 at 9:20 AM Jani Nikula <jani.nikula@intel.com> wrote:
 >
-> On Tue, Sep 3, 2019 at 12:27 PM Konstantin Ryabitsev
-> <konstantin@linuxfoundation.org> wrote:
+> On Wed, 04 Sep 2019, Konstantin Ryabitsev <konstantin@linuxfoundation.org> wrote:
+> > On Wed, Sep 04, 2019 at 03:08:43PM +0300, Laurent Pinchart wrote:
+> >> > - Just like Patchwork, it would keep track of new patches and series of
+> >> >   patches, recognize when new patch/series revisions are posted, track
+> >> >   reviewed-by's, tested-by's, etc, and provide useful maintainer
+> >> >   functionality, such as showing interdiffs between revisions.
+> >>
+> >> I've been thinking about this for about a year now. One issue that makes
+> >> this difficult is that many M[UTD]A software mangle e-mails in a way
+> >> that make extracting information automatically pretty painful. Google's
+> >> answer to this was Gerrit, which solved this particular issue, but
+> >> disrupted the e-mail-based workflow in a way that is not acceptable to
+> >> many developers (myself included). A better, in my opinion, solution
+> >> would have been standardisation of a format to exchange review
+> >> information. Quite obviously going for a markup language (be it XML,
+> >> json, yaml or whatever is hype today) is a no-go, given that we would
+> >> destroy everybody's workflow again. My idea was to use a review format
+> >> that is as close to e-mail as possible (with > quote markers and
+> >> everything that people are already familiar with). Of course M[UTD]A
+> >> software would still mangle it, but given reasonable M[TD]As, I think we
+> >> could teach some of the MUAs commonly used (mutt comes to mind) to
+> >> behave properly (through plugins, scripts, settings files, ...). E-mails
+> >> that would not be mangled through the process would be easily parsable
+> >> by the tool you would like to develop. That would not give us full
+> >> coverage, but if we manage to establish such an end-to-end solution, we
+> >> could then push it to more MUAs. This would allow to tackle this complex
+> >> problem one step at a time, while not alienating developers by asking
+> >> them to leave their MUA. Over time we could the develop more tooling
+> >> around that review exchange format, once a large enough portion of
+> >> exchanged reviews will follow it.
+> >
+> > One way to prevent mail software from mangling message bodies is to send
+> > them as multipart/signed -- at least most MTA/MDAs know not to touch
+> > those. I know git-am handles multipart/signed patches just fine (though
+> > it just ignores signatures), and most gui MUAs just shrug the signatures
+> > off by showing them as useless attachments.
+> >
+> > Doesn't help much for cases where people use their own MUAs to send
+> > patches, but at least we can prevent the transmission/display parts of
+> > the equation from messing with structured mail content.
+> >
+> > (Of course, in my beautiful vision of the future we aren't using
+> > mail clients at all any more, but let's leave that topic on the
+> > sci-fi/fantasy shelf for now.)
 >
-> > For quite some time now I've been trying to fund some client-side
-> > tooling development around public-inbox (the software that drives
-> > lore.kernel.org). Eric Wong (the principal author of public-inbox), and
-> > I have had lengthy chats about potential functionality of such tool, and
-> > what we envision can be described as "local patchwork with a mutt-like
-> > interface":
-> >
-> > - It would use public-inbox repositories to track new patches and
-> >   conversations, so it would no longer be necessary to subscribe to the
-> >   actual mailing list(s). Getting new mail would be equivalent to a "git
-> >   pull".
-> > - It would have an equivalent of notmuch search, so instead of needing
-> >   to go to lore.kernel.org, you could search the entire mailing list
-> >   locally and perform actions on the results found.
-> > - Just like Patchwork, it would keep track of new patches and series of
-> >   patches, recognize when new patch/series revisions are posted, track
-> >   reviewed-by's, tested-by's, etc, and provide useful maintainer
-> >   functionality, such as showing interdiffs between revisions.
-> > - Patches and series can be pre-filtered by keywords or file paths (e.g.
-> >   if you're only interested in arch/arm64/mm/.*, the tool would ignore
-> >   any patches/revisions not touching files in that dir).
-> > - It would support creating workflows and conditional response actions,
-> >   e.g. "create new branch, apply this series, run these test suites; if
-> >   tests succeed, merge into branch `for-linus`; if merge successful,
-> >   reply to submitter with 'thanks, applied!'; if all went well, archive
-> >   the series; if any steps failed, flag the series for my review".
-> > - The workflows would run in the background, including using external
-> >   systems if preferred. Maintainers can contribute their workflows to a
-> >   shared repository so others can easily copy and adapt them.
-> >
-> > That's obviously not a complete list, but it seems to me that something
-> > like this would be quite welcome by a lot of maintainers (at least,
-> > everyone I've talked to about this got really excited). Eric Wong is
-> > quite willing to work on something like this, but he is not in a
-> > position to donate so much of his time and effort (especially on top of
-> > maintaining public-inbox) -- so if we want to see this happen, we need
-> > to come up with some funds.
-> >
-> > I've inquired internally at the Foundation, and while there's general
-> > willingness to fund such initiatives, the People In Charge Of Money want
-> > to see a buy-in from maintainers. The natural instinct is to talk to
-> > Greg, but I believe he's quite happy with his workflow, so while I'm
-> > sure he'd be happy to feign excitement, he's unlikely to be interested
-> > in the tool. Linus is not the right person to talk to either, because he
-> > doesn't deal with patches and tests, so wouldn't benefit from such tool.
-> >
-> > So, my plan was to track down Shuah (who's also at the Foundation) and
-> > Laura (who is on the TAB) at the upcoming summit to float this idea with
-> > them to see what they think. However, since we're talking about
-> > lore.kernel.org, tooling and workflows quite a bit already, I figured
-> > I'll bring this up here as well.
-> >
-> > It just seems that every maintainer I spoke with is generally making
-> > things "sort-of work well enough" by applying a lot of baling wire
-> > around mail clients, patchwork.kernel.org, gitlab, or all of the above,
-> > and I'm wondering if everyone is happy to do that, or only doing that
-> > because a good tool written to fit with the "kernel development model"
-> > doesn't exist.
-> >
-> > So:
-> >
-> > - would a tool with such functionality be useful, or would every
-> >   maintainer prefer to continue doing their own thing (in slightly
-> >   different ways)?
+> The sci-fi doesn't turn to reality in massive disruptive jumps. There
+> are realistic intermediate steps that could be taken.
 >
-> I would find something like this incredibly useful.  I currently use
-> patchwork, but I am really sick of the only-when-online, mouse-around,
-> clickety-click, wait-for-the-web model.
+> I have been, and still am, a proponent of email based review.
+>
+> I've also contributed significantly to a MUA, and my observation is that
+> email is a massively distributed fuzzing project for email software that
+> allows message transmission in the sideband.
+>
+> What if git push and pull operated on top of an unreliable and lossy
+> transmission channel, without integrity checks, that you had to
+> configure and set up yourself? That's pretty much what we're doing with
+> git send-email and am, isn't it?
+>
+> Generally I think there are more issues in the submission side; there
+> are more people contributing than applying patches, more setups, more
+> configuration that can go wrong. Roughly speaking the masses of
+> contributors are less experienced than the maintainers. What if we tried
+> to provide a way to contribute using something based on git push
+> instead?
+>
+> I'm sure you'll think of a thousand things that would not work and why
+> it would be just another broken github like thing, but consider this:
+>
+> - The system would receive the changes by git push, and would mail out
+>   the patches to the relevant lists itself. It would have SMTP figured
+>   out. It would always mail the patches using the right git send-email
+>   options. It could always send a cover letter with the right diffstat,
+>   and with a git url to the commits.
 
-You might like my set of bailing wire using patchwork and mutt. It
-works offline if you download the patchwork state beforehand and
-queues up state changes. The basic flow is:
+Independent of the exact process, a git branch for every series would
+be great. As a maintainer, I would love to be able to do 'git fetch
+some-remote <message-id>'. I don't really care to write and maintain
+code to apply series and figure out what branch they apply to. That
+code already exists and I'm sure is more robust. If the submitter
+provides the branch to begin with in a automatable way, then great,
+but that's a much bigger process change.
 
-Load the "New" list from PW (my PW instance is pre-filtered on paths,
-so I don't have to sort thru everything on the DT list)
-Check for multiple versions of patches, auto email on failure to add
-my review tag, check for already applied (to next).
-Iterate thru the patch list:
-  - Run checkpatch.pl
-  - open mutt for each patch. Mutt has the full DT list, so I can look
-at the rest of the series if I want.
-  - After exiting mutt, prompt for PW state change
-  - Possibly apply it
-  - Generate replies for applied, reviewed-by or acked-by
+> - The system could decide what the relevant lists as well as maintainers
+>   to Cc are, using up-to-date info from MAINTAINERS. It could provide a
+>   way for maintainers and developers to opt in/out of Cc, in fine
+>   grained ways, instead of leaving that decision to the contributor.
+>
+> - The system would know what the message-ids of the patches are, because
+>   it would generate them itself. Thus it would know what messages on the
+>   list are patches it sent, and which versions of the patches and/or
+>   series, and which replies are review. (It's incredibly hard for
+>   patchwork to identify patch series and their versions just by reading
+>   the list. It can get confused by review that contains a patch.)
+>
+> - New versions of patch series could automatically contain a diff
+>   against the previous version of the patches/series. You could easily
+>   tell if the previous review still holds or needs checking.
+>
+> - You'd still retain the familiar email based review, but it would be
+>   easier to find the various versions of the series, and you'd always
+>   have the changes readily available in a git repo. (This ties to a
+>   previous discussion about how to link patch series versions
+>   together. It could be all taken care of, automatically.)
+>
+> - The maintainers could keep their email based flow, applying patches
+>   from the list. But there'd be fewer email related technical problems
+>   with them. Additionally, there'd be a way to pull the patches directly
+>   from a git tree, possibly pre-amended with the Reviewed-by, Tested-by,
+>   Link, etc. tags.
+>
+> - You could add tons of useful git hooks on the contributions, ranging
+>   from pre-merge testing to notifying linked bugs and whatnot.
+>
+> Note that I'm not suggesting contributors should have git repos from
+> which they send pull requests. Instead, you'd have a centralized repo
+> for the project where you can push your submission. Sure, lots of
+> details to work out there. But the git send-email part is, IMHO, a
+> broken part of our process, even if the changes keep being distributed
+> as emailed patches. It just doesn't seem that way to the people on this
+> list, because we've figured all of this out eons ago for ourselves. We
+> forget the long tail of contributors that we always brag about.
 
-Happy to demo it at LPC if you are interested. You can find it
-here[1]. The main script is pw-review.
-
-Of course I would happily switch to something else like this proposal
-if it shrinks the scripts I have to maintain. Especially for
-generating quoted email replies as dealing with mime, utf-8, base64,
-quoted printable is "fun".
+I certainly agree that the steps between having a git branch ready and
+sending the patches could be improved. If we can automate taking a git
+branch and sending the emails on the server side, we could do it on
+the client side too. The same problems will exist and need to be
+solved: get_maintainers.pl is not completely accurate, who to Cc on
+individual patches vs. series, writing version history, etc.
 
 Rob
-
-[1] https://gitlab.com/robherring/pw-utils
