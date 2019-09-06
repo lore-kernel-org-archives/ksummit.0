@@ -1,35 +1,46 @@
-Return-Path: <laura@labbott.name>
+Return-Path: <torvalds@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 060A01D65
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7B5001701
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Sep 2019 16:43:53 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
-	[209.85.221.41])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 55C137DB
+	Fri,  6 Sep 2019 19:21:56 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+	[209.85.167.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CCD57823
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Sep 2019 16:43:52 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id l11so7266513wrx.5
+	Fri,  6 Sep 2019 19:21:55 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id d10so5962378lfi.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 06 Sep 2019 09:43:52 -0700 (PDT)
-Received: from [10.93.12.198] (110.8.30.213.rev.vodafone.pt. [213.30.8.110])
-	by smtp.gmail.com with ESMTPSA id
-	s26sm10591053wrs.63.2019.09.06.09.43.49
+	Fri, 06 Sep 2019 12:21:55 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com.
+	[209.85.208.172]) by smtp.gmail.com with ESMTPSA id
+	d13sm1279159lfm.21.2019.09.06.12.21.52
 	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 06 Sep 2019 09:43:49 -0700 (PDT)
-From: Laura Abbott <laura@labbott.name>
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Date: Fri, 6 Sep 2019 12:43:43 -0400
-References: <E24DF3AE-0595-4B9A-AE1C-9801A88BD5FF@labbott.name>
-	<44D37D71-113E-40BA-81B8-5D8F0962C13A@labbott.name>
-To: ksummit-discuss@lists.linuxfoundation.org
-In-Reply-To: <44D37D71-113E-40BA-81B8-5D8F0962C13A@labbott.name>
-Message-Id: <DEFE2196-85E1-475C-9651-8255F8D54C96@labbott.name>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections -- Call for nominations
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Fri, 06 Sep 2019 12:21:52 -0700 (PDT)
+Received: by mail-lj1-f172.google.com with SMTP id y23so6997358lje.9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 06 Sep 2019 12:21:52 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
+	<CAPM=9tymLW8dS_3OD0J9mvSMWpmcs3WWBEQS=gtzX0Zyz-umHg@mail.gmail.com>
+	<20190902222240.GE3367@mit.edu>
+	<574c0ccd-730a-eada-966c-58f5de7c9477@redhat.com>
+	<CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
+	<20190903172708.qrvaad2paze6ifhz@chatter.i7.local>
+	<20190904120843.GD4811@pendragon.ideasonboard.com>
+	<20190904134706.GA14421@pure.paranoia.local> <87lfv3w3v6.fsf@intel.com>
+	<CAL_Jsq+-bGRxaOxEbCH+57TQto6KUO7Fs+tMLswzeJEB=FWA+Q@mail.gmail.com>
+In-Reply-To: <CAL_Jsq+-bGRxaOxEbCH+57TQto6KUO7Fs+tMLswzeJEB=FWA+Q@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 6 Sep 2019 12:21:36 -0700
+Message-ID: <CAHk-=whovSzsjL0HrfVbYTP8RCcCQj6u3g1LsfOiNeQmzfy2mA@mail.gmail.com>
+To: Rob Herring <robherring2@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,91 +50,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Sep 6, 2019 at 3:51 AM Rob Herring <robherring2@gmail.com> wrote:
+>
+> Independent of the exact process, a git branch for every series would
+> be great.
 
-> On Aug 28, 2019, at 1:47 PM, Laura Abbott <laura@labbott.name> wrote:
->=20
->=20
->> On Aug 9, 2019, at 2:24 AM, Laura Abbott <laura@labbott.name> wrote:
->>=20
->> Hello everyone,
->>=20
->> Friendly reminder that the TAB elections are coming soon:
->>=20
->> The Linux Foundation Technical Advisory Board (TAB) serves as the
->> interface between the kernel development community and the Linux
->> Foundation. The TAB advises the Foundation on kernel-related matters,
->> helps member companies learn to work with the community, and works to
->> resolve community-related problems before they get out of hand.  We
->> also support the Code of Conduct committee in their mission.
->>=20
->> The board has ten members, one of whom sits on the Linux Foundation
->> board of directors.
->>=20
->> The election to select five TAB members will be held at the 2019 =
-Kernel Summit
->> in Lisbon, Portugal September 9-11. As has been announced[2], we are =
-moving to
->> an electronic voting system this year. Further details about the =
-exact voting
->> procedures will be coming soon. Anyone is eligible to stand for =
-election,
->> simply send your nomination to:
->>=20
->> tech-board-discuss at lists.linux-foundation.org
->>=20
->> With your nomination, please include a short candidate statement. =
-This candidate
->> statement should focus on why you are running and what you hope to =
-accomplish
->> on the TAB. We will be collecting these statements and making them =
-publicly=20
->> available.
->>=20
->> The deadline for receiving nominations is 9am GMT+1 on September 9th =
-(the first
->> day of Kernel Summit). Due to the use of electronic voting, this will =
-be a hard
->> deadline!
->>=20
->> Current TAB members, and their election year:
->>=20
->> Jon Corbet		2017
->> Greg Kroah-Hartman	2017
->> Steven Rostedt		2017
->> Ted Tso			2017
->> Tim Bird		2017
->>=20
->> Chris Mason		2018
->> Laura Abbott		2018
->> Olof Johansson		2018
->> Kees Cook		2018
->> Dan Williams		2018
->>=20
->> The five slots from 2017 are all up for election.  As always, please
->> let us know if you have questions, and please do consider running.
->>=20
->> Thanks,
->> Laura
->>=20
->> [1] TAB members sit for a term of two years, and half of the board is
->> up for election every year. Five of the seats are up for election =
-now.
->> The other five are halfway through their term and will be up for
->> election next year.
->>=20
->> [2] =
-https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2019-July/0065=
-82.html
->=20
-> Reminder to send in your candidate statements, you can see the
-> current ones at=20
->=20
-> =
-https://docs.google.com/document/d/1E3_W1c-xJMx9o2PCnKiGt3vqs-mPh77yNO4GSq=
-NipOQ
->=20
->=20
+That actually sounds really nice. Especially if the cover-letter is
+then done as a tag (probably not signed), so that when you fetch it
+you get the overview automatically - and if you actually do "git pull"
+it would fill the merge editor with the cover letter thing.
 
-Final reminder, the deadline is Monday September 9th at  9am UTC+1
-(that's 9am Lisbon time). Because we are doing electronic voting this is =
-a hard deadline!
+Even if you then don't really merge it as-is, it would be a lovely way
+to just get the whole series to work with locally.
+
+Of course, I'm likely biased. Since I do almost everything with git
+(occasional random one-off patches and Andrew's patch-bomb being the
+exceptions), I end up just doing a lot of "git fetch" and then looking
+at the results. Despite still probably being able to edit patches in
+my sleep after decades of looking at them, these days I find that
+easier and more powerful to look at things in git than working on
+patches.
+
+I end up often doing things like just doing "gitk ..FETCH_HEAD" and
+then increasing the context window to see more of the code around the
+patch etc.
+
+Of course, right now I only do it with people who use git branches
+(doing the "git fetch" for the next pull request while the previous is
+going through my build tests, or when people post pointers WIP
+branches etc). Being able to do it for random 50-patch series sounds
+lovely, particularly when you then can limit the gitk to only the
+parts you care about, while _having_ the whole series.
+
+                 Linus
