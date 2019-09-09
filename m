@@ -1,14 +1,39 @@
-Return-Path: <wsa@the-dreams.de>
-Date: Mon, 9 Sep 2019 01:48:36 +0100
-From: Wolfram Sang <wsa@the-dreams.de>
-To: ksummit-discuss@lists.linuxfoundation.org,
-	tech-board-discuss@lists.linuxfoundation.org
-Message-ID: <20190909004836.GA2015@kunai>
+Return-Path: <mpe@ellerman.id.au>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 50076DC1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon,  9 Sep 2019 08:14:25 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 24A2BEC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon,  9 Sep 2019 08:14:23 +0000 (UTC)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Mark Brown <broonie@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+In-Reply-To: <20190827105153.GB23391@sirena.co.uk>
+References: <alpine.DEB.2.21.1908231740020.1896@nanos.tec.linutronix.de>
+	<20190823161947.GA112509@dtor-ws>
+	<CAJWu+ooOzZ3vFsW40ok8M0MbrZOcx8xJsrN8Ra_VVq0EavzQfQ@mail.gmail.com>
+	<20190823164602.GB112509@dtor-ws>
+	<alpine.DEB.2.21.1908232108580.1939@nanos.tec.linutronix.de>
+	<CAHrFyr6rQHiQAY4Wcv4WzUS2B5tBfrnWvyTjD4ktHvsEBMxkCw@mail.gmail.com>
+	<CAD=FV=XGySHprMN+dv6dDKmuTQXnmYg5NStyaOJg+KdNUOFZsQ@mail.gmail.com>
+	<CAHk-=whxp0Vm5V6MtaRNC0_ou0=U4-+Y7Ktzq6osU8JgHy_xhQ@mail.gmail.com>
+	<20190824230447.GA5163@mit.edu> <20190825031143.GA2590@kroah.com>
+	<20190827105153.GB23391@sirena.co.uk>
+Date: Mon, 09 Sep 2019 18:14:19 +1000
+Message-ID: <871rwpdgys.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6TrnltStXW4iwmi0"
-Content-Disposition: inline
-Subject: [Ksummit-discuss] TAB Nomination - Wolfram Sang
+Content-Type: text/plain
+Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
+	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
+	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
+	Dmitry Vyukov <dvyukov@google.com>
+Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
+	like it) in kernel commits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,51 +43,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Mark Brown <broonie@kernel.org> writes:
+> On Sun, Aug 25, 2019 at 05:11:43AM +0200, Greg Kroah-Hartman wrote:
+>
+>> When accepting patches from people, my old scripts used to do this
+>> properly and reply to the sent message-id.  Now that I use git, that's
+>> lost, except that I now am generating Link: tags in the commit message
+>> itself, like:
+>> 	Link: https://lore.kernel.org/r/20190822213659.5501-1-hsiangkao@aol.com
+>
+>> Hm, I guess I do now keep that info, and I can fix my scripts to
+>> properly thread things, let me go work on that later today...
+>
+> What I'm doing for this is that when I apply the patch I save a
+> git note with the message ID and various other things then when I
+> push the patch out and generate the "applied, thanks" e-mail I
+> look for the git note and use that.
 
---6TrnltStXW4iwmi0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I was doing something similar with git notes, but the beauty of a
+Link: that includes the message id is it gives you everything you need
+to send those "applied" mails without any extra state.
 
+I also have a local message-id <=> patchwork id mapping, and that means
+I can also do the patchwork state update based purely off the Link: tag.
 
-I am hacking on the Linux Kernel since 2008 mostly in the embedded space
-and maintain the I2C subsystem since 2012. I have spoken at various
-conferences around the globe about technical and workflow topics ever
-since. I care for a vibrant and healthy community.
+There is an open patchwork issue to allow lookup by message id, which
+would make that local mapping unnecessary too:
 
-I have not been on the TAB before. I'd like to figure out for myself
-which possibilities it offers to keep the Linux community going strong.
-I am currently most concerned about the lack of maintainers and
-reviewers. I'd like to see if this is a place which can spark
-initiatives here and there.
+  https://github.com/getpatchwork/patchwork/issues/106
 
-Also, while I see the TAB has become more transparent and visible in the
-last two years, I think there is more potential there. I want to
-contribute to that, too.
+If only the patchwork maintainers weren't all volunteers they could get
+that implemented some time ;)
 
-I work as a consultant, so views of an individual developer are known to
-me as well as views of larger companies. I'd call myself an experienced
-Kernel developer, but I haven't been around since the beginning. I'd
-like to bring this mix to the table of the TAB.
-
-
---6TrnltStXW4iwmi0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl11oWAACgkQFA3kzBSg
-KbZ3hQ/+OuC+XYyQYR0/kZtGS7QKGJAgorj5A2r3XRiBQyS5Q2o5FjeanBY+zzQI
-hyHVnJ2rJQt724EzJcHNVjVi2wGRxSl0v9Dnj5vad3MHQD7ZzK6dcFHsZKuiAq8o
-ks1BSMPaE3vUxgVFKeJ/lq86Q3I4wKr/7QxFMcGP2uFEKTRbqVQK5hnCgFum1VDG
-1HnamRwJPK87UNj15lZjo/io9fDUjGU8euR13LqhSN8usxuxSRM+IVcbrhbfsP/j
-I7F7krONJLdqMyVqoe81ZuG9D9DsXK2K4ANwbO2+oVorUra0rCG4Mr2mOmaXnj4Q
-whX1qFqaZWaKYoWHq8aT3EsD47jyzg3cTlnPOo/ViUwsIAzY6vszRIIZOyE+RD0b
-nH7Q/KJgvvr/YC7aREMej2yW61eXItSZDMO2nmxAwIXuFqep9/izkXjZWzsf1AMs
-NmYMIiHOMTJ8Ni9YQQZMjMdutNWbMgEwTqE8A5ghvY640DAIIgNqbefMiBeRuPcC
-hw3ZaheiyfmrviZWsdHUB6aNG3yWaSWXSUizJBPjwrIoL7P35hHhHa8dIO3RMHfS
-0FTnllOvNx23BHf2p45/Q7M4Auq+1aVC8fbtaCDRA4yDCK+HxjvW4LaIMQARtr8R
-2zM4g3gRnGAFL4YQ+CI594bcQ58n7wPZCid42yx5T3k0ujf4z9M=
-=tHOq
------END PGP SIGNATURE-----
-
---6TrnltStXW4iwmi0--
+cheers
