@@ -1,41 +1,29 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A7BB5FF8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6548C1062
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Sep 2019 12:09:23 +0000 (UTC)
+	Mon,  9 Sep 2019 12:18:59 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
 	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 31E0781A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D243D82B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Sep 2019 12:09:23 +0000 (UTC)
-Date: Mon, 9 Sep 2019 13:09:16 +0100
+	Mon,  9 Sep 2019 12:18:58 +0000 (UTC)
+Date: Mon, 9 Sep 2019 13:18:56 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Michael Ellerman <mpe@ellerman.id.au>
-Message-ID: <20190909120916.GE2036@sirena.org.uk>
-References: <CAJWu+ooOzZ3vFsW40ok8M0MbrZOcx8xJsrN8Ra_VVq0EavzQfQ@mail.gmail.com>
-	<20190823164602.GB112509@dtor-ws>
-	<alpine.DEB.2.21.1908232108580.1939@nanos.tec.linutronix.de>
-	<CAHrFyr6rQHiQAY4Wcv4WzUS2B5tBfrnWvyTjD4ktHvsEBMxkCw@mail.gmail.com>
-	<CAD=FV=XGySHprMN+dv6dDKmuTQXnmYg5NStyaOJg+KdNUOFZsQ@mail.gmail.com>
-	<CAHk-=whxp0Vm5V6MtaRNC0_ou0=U4-+Y7Ktzq6osU8JgHy_xhQ@mail.gmail.com>
-	<20190824230447.GA5163@mit.edu> <20190825031143.GA2590@kroah.com>
-	<20190827105153.GB23391@sirena.co.uk>
-	<871rwpdgys.fsf@mpe.ellerman.id.au>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20190909121855.GF2036@sirena.org.uk>
+References: <CAPM=9tx7toB7Bsif6RDo51HNxcGbbHDPHD7DjmF9i+zs-J0HRQ@mail.gmail.com>
+	<1568025855.6613.5.camel@HansenPartnership.com>
+	<20190909115338.GD2036@sirena.org.uk>
+	<1568030467.6613.19.camel@HansenPartnership.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="y2zxS2PfCDLh6JVG"
+	protocol="application/pgp-signature"; boundary="1Ow488MNN9B9o/ov"
 Content-Disposition: inline
-In-Reply-To: <871rwpdgys.fsf@mpe.ellerman.id.au>
-Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
-	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>,
-	Dmitry Vyukov <dvyukov@google.com>
-Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
- like it) in kernel commits
+In-Reply-To: <1568030467.6613.19.camel@HansenPartnership.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] vague topic for maintainers summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -46,50 +34,62 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---y2zxS2PfCDLh6JVG
+--1Ow488MNN9B9o/ov
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Sep 09, 2019 at 06:14:19PM +1000, Michael Ellerman wrote:
-> Mark Brown <broonie@kernel.org> writes:
+On Mon, Sep 09, 2019 at 01:01:07PM +0100, James Bottomley wrote:
+> On Mon, 2019-09-09 at 12:53 +0100, Mark Brown wrote:
 
-> > What I'm doing for this is that when I apply the patch I save a
-> > git note with the message ID and various other things then when I
-> > push the patch out and generate the "applied, thanks" e-mail I
-> > look for the git note and use that.
+> > That's often a corporate problem as well, if the company has a
+> > big investment in whatever approach or codebase they have they
+> > may not want to spend the time on substantial rework.  Often it
+> > seems fairly clear that the people doing the upstreaming have
+> > inherited something from other engineers rather than having done
+> > the design and original implementation themselves.  In my more
+> > embedded experience I'd say that the corporate investment is a
+> > more common issue than developers.
 
-> I was doing something similar with git notes, but the beauty of a
-> Link: that includes the message id is it gives you everything you need
-> to send those "applied" mails without any extra state.
+> Actually, I find the inherited code part easier because usually the
+> person pushing it isn't wedded to someone else's design and is happier
+> to do a rework because it makes it more their code.  My biggest problem
+> has been with the original author trying to push their design as the
+> only possible way and then trying to bring corporate pressure to bear
+> when it became clear this wouldn't be accepted.
 
-Yeah, you can definitely do that - I originally did it that way
-but converted to notes because I want to make sure that I can
-send out the applied mails if the push succeeds even if the
-network is slow or spotty.
+Yeah, both are issues - the corporate one is usually basically a
+"we've decided we need to get this done in X timeframe" or a "we
+have a massive investment in testing that we couldn't possibly
+repeat without which any other solution much worse" so it goes
+beyond the individual developer.  The developers might be happy
+to do the reworks (they sometimes thank me offline for saying
+what they've been saying internally already) but are being told
+to push the existing code.
 
-> I also have a local message-id <=> patchwork id mapping, and that means
-> I can also do the patchwork state update based purely off the Link: tag.
+> > I'm not sure I have any particularly bright ideas other than
+> > being clear with people about what the issues are and asking for
+> > clearer explanations of what's being done and why it's different
+> > to everything else.
 
-...
+> Trying to explain that it's a maintenance and consistency issue more
+> than anything else does seem to help.
 
-> If only the patchwork maintainers weren't all volunteers they could get
-> that implemented some time ;)
+Those problems do tend to be a bit easier to get over to the
+management people.
 
-Indeed.
-
---y2zxS2PfCDLh6JVG
+--1Ow488MNN9B9o/ov
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl12QOsACgkQJNaLcl1U
-h9Bwcwf/QEFmUL/xMjQSOfTGrUTI6Ln3LmZJAuT+ZGirN/VdV86NSDmNZOtcwxq+
-f9TeUHt2V4ErDel5YNvIpsPDR7hhReEVfkORgjzkNv7R4TctyLX6QmHEXEh6311D
-ERrkrB8yh2YoAg5mbK1qZQagWuLUYxlGJurp8UBRImBi3COkJjVeIV3Ax+DW3Bsr
-db6zH/HanY2S2KdH/yCo224/KvBof+gNqN95n4AXK/a0pUMYAzsEjgbF7lBG5TEK
-NHGz9Gq+BG1k2P9Gb6gR+PvRNjiialdH4pfhrB5QUIKqqgg6HBBL9nE16QxepSHp
-LepU0JX9xIP71cWnXcKBdXfdayokgw==
-=RFB9
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl12Qy8ACgkQJNaLcl1U
+h9DwmQf/dtrqxpXfA44jU6+ymfuZyyT8m5RaQQB38R3C+P9yDnlL9yyKanpWYtVi
+yX04y3J9c5mGMbgaOpPkoyAetb3e0nv/MqEbMDDaJdH/6buDzJdhN0AATv5fpYtL
+l4ZSiCXCU7Akr3FP7viLJu9MCLFnqjut/MfigBoKM/JpbSyEThvMOu9DBDQm53vt
+rgcWUNC4z/z+YozkD55BtviJ1D+T2gANxwUDEQtFrTMLHYYd7/bBNHNb0egmz/J2
+Cuq5JcR6pdqAhdNTAsNIXq9YYfIRC+6yxjppunToetMqRg9wQLLXd+wCBxppx7N6
+FlBYJMbQ/OdbuK4kmGBE7RMoikLk2w==
+=J85U
 -----END PGP SIGNATURE-----
 
---y2zxS2PfCDLh6JVG--
+--1Ow488MNN9B9o/ov--
