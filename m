@@ -1,37 +1,27 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E722E8A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ADCB6FD5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Sep 2019 10:59:40 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
-	[209.85.210.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3B4367DB
+	Mon,  9 Sep 2019 11:53:43 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9196A7DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Sep 2019 10:59:39 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id 21so11958954otj.11
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 09 Sep 2019 03:59:39 -0700 (PDT)
+	Mon,  9 Sep 2019 11:53:41 +0000 (UTC)
+Date: Mon, 9 Sep 2019 12:53:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20190909115338.GD2036@sirena.org.uk>
+References: <CAPM=9tx7toB7Bsif6RDo51HNxcGbbHDPHD7DjmF9i+zs-J0HRQ@mail.gmail.com>
+	<1568025855.6613.5.camel@HansenPartnership.com>
 MIME-Version: 1.0
-References: <CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
-	<20190903172708.qrvaad2paze6ifhz@chatter.i7.local>
-	<20190904120843.GD4811@pendragon.ideasonboard.com>
-	<20190904134706.GA14421@pure.paranoia.local> <87lfv3w3v6.fsf@intel.com>
-	<CAL_Jsq+-bGRxaOxEbCH+57TQto6KUO7Fs+tMLswzeJEB=FWA+Q@mail.gmail.com>
-	<CAHk-=whovSzsjL0HrfVbYTP8RCcCQj6u3g1LsfOiNeQmzfy2mA@mail.gmail.com>
-	<CAOesGMjpsQYL2gK3M1fvxmCHp=ZZj9Hx4JcFASMvKQXMfyfXBA@mail.gmail.com>
-	<87imq1x3q2.fsf@intel.com>
-	<CAMuHMdXVJuRv1n1zvmVUYOj_DCkYu-n3mub9rSdePf6M1nEObw@mail.gmail.com>
-	<20190909101606.GB9452@pure.paranoia.local>
-In-Reply-To: <20190909101606.GB9452@pure.paranoia.local>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 9 Sep 2019 12:59:26 +0200
-Message-ID: <CAMuHMdXxcJhNqPZBpf4QHpECN=aDXe7uYv3F2S4re04YaRUypA@mail.gmail.com>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DrWhICOqskFTAXiy"
+Content-Disposition: inline
+In-Reply-To: <1568025855.6613.5.camel@HansenPartnership.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] vague topic for maintainers summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,49 +31,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Konstantin,
 
-On Mon, Sep 9, 2019 at 12:16 PM Konstantin Ryabitsev
-<konstantin@linuxfoundation.org> wrote:
-> On Mon, Sep 09, 2019 at 11:49:48AM +0200, Geert Uytterhoeven wrote:
-> > > We can still have the review on emailed patches, and we could still use
-> > > git am to apply patches from email, with better reliability if the
-> > > sending was done by a service in, say, kernel.org control. Though if we
-> > > had the series automatically available in a branch, I'd think people
-> > > would move over to picking up the commits from git. And email would only
-> > > be used for communication, not data transfer.
-> >
-> > Do we trust the branch to contain the exact same commits as the
-> > patches reviewed on the mailing list?
-> > For an automatic service on kernel.org, we could.
->
-> But we really shouldn't, considering kernel.org is the exact kind of
-> target that attackers would go after if it was implicitly trusted by
+--DrWhICOqskFTAXiy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Sure.
+On Mon, Sep 09, 2019 at 11:44:15AM +0100, James Bottomley wrote:
 
-> developers. Once patches have been reviewed by maintainers and merged
-> into their tree, we should be using cryptographic attestation for all
-> git-centric operations after that -- regardless of whether you pulled
-> from kernel.org or any other location.
+> I haven't really found corporations attempting to apply pressure to get
+> their patches merged as is, although I've heard of others having this
 
-We already use cryptographic attestations for the later operations.
+I've definitely faced this in various forms, mostly coming from
+companies in the embedded space.  It feels like it's got better
+over time as companies have become less prone to going on
+substantial out of tree adventures but it's still there.
 
-So the weakest link seems to be the step between public review and
-import into git by the maintainer.  E.g.
-  - The review chain on multiple submissions: Vn+1 may contain an evil
-     change that was not in Vn.  As this happens in public, it may be
-     noticed by reviewers.
-  - The path between patch submission and git-am:  if a patchwork
-    instance is compromised, evil changes may sneak in.
+> problem.  My usual problem is that the creator of the patch is deeply
+> wedded to their design and doesn't want to change so it's an individual
+> rather than a corporate issue.
 
-Gr{oetje,eeting}s,
+That's often a corporate problem as well, if the company has a
+big investment in whatever approach or codebase they have they
+may not want to spend the time on substantial rework.  Often it
+seems fairly clear that the people doing the upstreaming have
+inherited something from other engineers rather than having done
+the design and original implementation themselves.  In my more
+embedded experience I'd say that the corporate investment is a
+more common issue than developers.
 
-                        Geert
+I'm not sure I have any particularly bright ideas other than
+being clear with people about what the issues are and asking for
+clearer explanations of what's being done and why it's different
+to everything else.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--DrWhICOqskFTAXiy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl12PT4ACgkQJNaLcl1U
+h9AZ6wf7BKya2b9zNvqhob+lVdcgUS5ro1a96F5+QQas2/PU5r8w/9qg3SsJeXUq
+sTbmg8GcdPCsPBqqcOSKIGc9VNoJH5bPiEzMNd+AczRmyVJaok7PqhKKSHa6psUy
+TqYNCDtWD10JDcPkerpByTbRLCmwHiuXFchbE+o6zccwI6M/8MvrFxgqEoAPTVEo
+y8DBncf6o6dLOztbFgAZOoj0mizFep7iW/gtPdJCow8e73mtvpsbuH186A9R1Wn2
+RdyP97TXwa/OOUWRH7s8nBN07ZNJSHRhLm2MxXlbTHB1asohFevRTRHQmATcB1JE
+vBEmrcXyGV2BWg2JV156xeVd5Ls8Cw==
+=gKRr
+-----END PGP SIGNATURE-----
+
+--DrWhICOqskFTAXiy--
