@@ -1,38 +1,82 @@
-Return-Path: <konstantin@linuxfoundation.org>
+Return-Path: <SRS0=nyTE=XF=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 156C8C49ED8
+	for <ksummit-discuss@archiver.kernel.org>; Tue, 10 Sep 2019 14:47:27 +0000 (UTC)
+Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id DA03C21019
+	for <ksummit-discuss@archiver.kernel.org>; Tue, 10 Sep 2019 14:47:26 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YkLtlN1i"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA03C21019
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
+Received: from mail.linux-foundation.org (localhost [127.0.0.1])
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 416CADB5;
+	Tue, 10 Sep 2019 14:47:26 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E4A261077
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 256FDDA2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Sep 2019 12:37:41 +0000 (UTC)
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
-	[209.85.222.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 617B37DB
+	Tue, 10 Sep 2019 14:47:24 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.7.6
+Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
+	[209.85.166.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C198D8A2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Sep 2019 12:37:41 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id h126so5130867qke.10
+	Tue, 10 Sep 2019 14:47:23 +0000 (UTC)
+Received: by mail-io1-f49.google.com with SMTP id d25so38129631iob.6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 09 Sep 2019 05:37:41 -0700 (PDT)
-Date: Mon, 9 Sep 2019 08:37:35 -0400
+	Tue, 10 Sep 2019 07:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=date:from:to:subject:message-id:mail-followup-to:mime-version
+	:content-disposition:user-agent;
+	bh=jFstMxP5ArhjV/XloGk8uAEQ+P4dzxlPol5tGxNgdAA=;
+	b=YkLtlN1ijW9j9ZG2xNl6R/U4PO0lbkqjQ+//em/W4hYlntZ4O1VSi4ffnOli1Jk/a0
+	/vAwia3X1fn+ptJLaJUKxA2edCUZVKBaOjpoQmRsUKbZ76U7UpgcxX4e9Vs3/UvuxqTY
+	KHlAPGUAwj6WoVfhJHy9q62/TqnOFBipTkP8U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:date:from:to:subject:message-id:mail-followup-to
+	:mime-version:content-disposition:user-agent;
+	bh=jFstMxP5ArhjV/XloGk8uAEQ+P4dzxlPol5tGxNgdAA=;
+	b=uQk5cZU72J03dou+7dbzy6hgh6NgJZN+6MllHzTFYhcfUY7m8FIJlcIqzLXAKL4N8d
+	41lTrjDg+yIormoAs62vMPgu1Zmt9Uu9NIgFU3XuyhmTjlSTikbnyeIZH1Zt0NQZ+cM+
+	pae2Gl/rlew211Q4ga/yxLj+NJBwsAPIwO1+zk33AavFdL/C4UrtlSlysAHEndLZ+PoI
+	fEHkmX7zoXK0vdN/4BO9g9g6s6YAzfyrdCQGMimmdTbpdnzfTQqPp80maW+jaOPY1Gev
+	Gu1umiDZom024MSUtCpTSKXhbRl1Nl46oahmvIyd9CMOaycxbpC/aRBRRtOv2EOUOxjt
+	DiCQ==
+X-Gm-Message-State: APjAAAUgBF6Djdm5kcQig5dqAnw90oqPnZlVBVWm3/5WPj+ncDbpKhmn
+	Zgm79qb+0U//JtUHk9kpIKE4yW6Q9EvWS2N9SyA=
+X-Google-Smtp-Source: APXvYqz2j8/zWcV1Sypz3rIKRhg3lE/uAYtHjPx0KGixSn2KW/HRkLX2poCMUKgOCkTx9mDV8F0UTA==
+X-Received: by 2002:a02:9983:: with SMTP id a3mr32273349jal.49.1568126842796; 
+	Tue, 10 Sep 2019 07:47:22 -0700 (PDT)
+Received: from pure.paranoia.local ([87.101.92.157])
+	by smtp.gmail.com with ESMTPSA id
+	m11sm13744886ioc.42.2019.09.10.07.47.21
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Tue, 10 Sep 2019 07:47:22 -0700 (PDT)
+Date: Tue, 10 Sep 2019 10:47:17 -0400
 From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20190909123735.GA10854@pure.paranoia.local>
-References: <20190904120843.GD4811@pendragon.ideasonboard.com>
-	<20190904134706.GA14421@pure.paranoia.local>
-	<87lfv3w3v6.fsf@intel.com>
-	<CAL_Jsq+-bGRxaOxEbCH+57TQto6KUO7Fs+tMLswzeJEB=FWA+Q@mail.gmail.com>
-	<CAHk-=whovSzsjL0HrfVbYTP8RCcCQj6u3g1LsfOiNeQmzfy2mA@mail.gmail.com>
-	<CAOesGMjpsQYL2gK3M1fvxmCHp=ZZj9Hx4JcFASMvKQXMfyfXBA@mail.gmail.com>
-	<87imq1x3q2.fsf@intel.com>
-	<CAMuHMdXVJuRv1n1zvmVUYOj_DCkYu-n3mub9rSdePf6M1nEObw@mail.gmail.com>
-	<20190909101606.GB9452@pure.paranoia.local>
-	<CAMuHMdXxcJhNqPZBpf4QHpECN=aDXe7uYv3F2S4re04YaRUypA@mail.gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20190910144717.GA20115@pure.paranoia.local>
+Mail-Followup-To: ksummit-discuss@lists.linuxfoundation.org
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdXxcJhNqPZBpf4QHpECN=aDXe7uYv3F2S4re04YaRUypA@mail.gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Subject: [Ksummit-discuss] ksummit-discuss is now on lore.kernel.org
+X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
+X-Mailman-Version: 2.1.12
+Precedence: list
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,88 +85,19 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
+Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Mon, Sep 09, 2019 at 12:59:26PM +0200, Geert Uytterhoeven wrote:
-> So the weakest link seems to be the step between public review and
-> import into git by the maintainer.  E.g.
->   - The review chain on multiple submissions: Vn+1 may contain an evil
->      change that was not in Vn.  As this happens in public, it may be
->      noticed by reviewers.
+Hello:
 
-Theoretically, a tool that is able to show interdiffs between
-patches/series would be able to help identify those.
+By (very) popular demand, ksummit-discuss archives can now be accessed
+via https://lore.kernel.org/ksummit-discuss/.
 
->   - The path between patch submission and git-am:  if a patchwork
->     instance is compromised, evil changes may sneak in.
-
-I'm not sure we can fix this problem in any way that would be
-meaningful. I did have some thoughts about this -- for example, we could
-run an API service on lore.kernel.org that would allow issuing queries
-like:
-- do you have a record of a patch
-  - with patch-id c052719edde5b0c648b2e4629a7fbd72fd948652
-  - sent by shengjiu.wang@nxp.com
-  - sent to list with id linux-kernel.vger.kernel.org
-  - sent on 2019-09-09
-
-If the query returns "True" then you know that at least lore.kernel.org
-has received the same patch, but I'm not sure if we'd be solving
-anything in the grander scheme of things. We still have to trust
-kernel.org, plus an attacker could have sent a malicious patch to LKML
-with a forged "From" to make this check return true. Nobody really reads
-LKML, so sneaking something unnoticed would be fairly easy.
-
-Alternatively, a developer could require that all submitted patches
-must include a cryptographic signature. It could even be made relatively
-painless, especially if we taught git tools to do it.
-
-For git-format-patch we'd need something like this:
-
-- generate a patch-id (using `git patch-id --stable`)
-- generate a signify-compatible signature for the patch-id
-- add 'Patch-id-sig' and 'Patch-id-key' into the basement (under "---")
-
-E.g., for the same patch as the example I used above:
-
-------
-Subject: [PATCH 1/3] ASoC: fsl_asrc: Use in(out)put_format instead of in(out)put_word_width
-
-snd_pcm_format_t is more formal than enum asrc_word_width, which has
-two property, width and physical width, which is more accurate than
-enum asrc_word_width. So it is better to use in(out)put_format
-instead of in(out)put_word_width.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_asrc.c | 56 +++++++++++++++++++++++++++-------------
- sound/soc/fsl/fsl_asrc.h |  4 +--
- 2 files changed, 40 insertions(+), 20 deletions(-)
-
- Patch-id-sig: RWT9fcUvSnHPLrCB+miMdp13r39W9az07CWW+b4OLz5zdtPUaj0N9qnfdNB+cbs8T1jYzHPIWfaf+B6z/ZvSVG9rfE1/Xx6+EgU=
- Patch-id-key: RWT9fcUvSnHPLqqyfLbkGBMEscBWciFFp2iBj2XnZPzW69OVIoYwZ25q
-
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-...etc...
-------
-
-Then we teach git-am to keep a trust-on-first-use (TOFU) database of
-public keys, so that:
-
-- if there are no entries matching the email in From:, the key is
-  added and automatically considered trusted
-- if there are entries matching From:, the public key is compared
-  with the TOFU database
-  - if match, the key is used to validate that the patch-id hasn't
-    changed
-  - if no match, generate a warning and let the developer decide if they
-    trust the new key or not
-- if there are entries matching From: in the local TOFU db but the patch
-  does not have a "Patch-id-sig", generate a warning
-
-This would be more workable than using PGP signatures, but this would
-still be a significant pain point for everyone, so I'm not sure how many
-would consider using this. What seems reasonable from the security
-high-horse I'm sitting on is not always reasonable for others.
-:)
-
+Regards,
 -K
+_______________________________________________
+Ksummit-discuss mailing list
+Ksummit-discuss@lists.linuxfoundation.org
+https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
