@@ -2,49 +2,72 @@ Return-Path: <SRS0=FsAW=XH=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-1.0 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FFEEC4CED7
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 11:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BED3C4CECB
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 11:36:26 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DC10208C2
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 11:00:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DC10208C2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mit.edu
+	by mail.kernel.org (Postfix) with ESMTPS id 3FECF20693
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 11:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FECF20693
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id EFE1ED98;
-	Thu, 12 Sep 2019 11:00:43 +0000 (UTC)
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2035DD85
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A15DDD94;
+	Thu, 12 Sep 2019 11:36:25 +0000 (UTC)
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7F52D91
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Sep 2019 11:00:42 +0000 (UTC)
-X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9E87F89B
+	Thu, 12 Sep 2019 11:36:24 +0000 (UTC)
+X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
+Received: from smtprelay.hostedemail.com (smtprelay0185.hostedemail.com
+	[216.40.44.185])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 644601DAA7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Sep 2019 11:00:41 +0000 (UTC)
-Received: from callcc.thunk.org (38.85.69.148.rev.vodafone.pt [148.69.85.38]
-	(may be forged)) (authenticated bits=0)
-	(User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id x8CB0cYD014606
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 12 Sep 2019 07:00:40 -0400
-Received: by callcc.thunk.org (Postfix, from userid 15806)
-	id 8726242049E; Thu, 12 Sep 2019 07:00:37 -0400 (EDT)
-Date: Thu, 12 Sep 2019 07:00:37 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20190912110037.GA24843@mit.edu>
+	Thu, 12 Sep 2019 11:36:24 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave02.hostedemail.com (Postfix) with ESMTP id 926D218012B52
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 12 Sep 2019 10:18:10 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+	[216.40.38.60])
+	by smtprelay06.hostedemail.com (Postfix) with ESMTP id D459A18225E0D;
+	Thu, 12 Sep 2019 10:18:07 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-HE-Tag: body44_46c106f754330
+X-Filterd-Recvd-Size: 2921
+Received: from XPS-9350.home (unknown [47.151.152.152])
+	(Authenticated sender: joe@perches.com)
+	by omf16.hostedemail.com (Postfix) with ESMTPA;
+	Thu, 12 Sep 2019 10:18:06 +0000 (UTC)
+Message-ID: <e9cb9bc8bd7fe38a5bb6ff7b7222b512acc7b018.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Dan Williams
+	<dan.j.williams@intel.com>
+Date: Thu, 12 Sep 2019 03:18:04 -0700
+In-Reply-To: <CANiq72k2so3ZcqA3iRziGY=Shd_B1=qGoXXROeAF7Y3+pDmqyA@mail.gmail.com>
+References: <156821692280.2951081.18036584954940423225.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<20190911184332.GL20699@kadam>
+	<9132e214-9b57-07dc-7ee2-f6bc52e960c5@kernel.dk>
+	<CAPcyv4ij3s+9uO0f9aLHGj3=ACG7hAjZ0Rf=tyFmpt3+uQyymw@mail.gmail.com>
+	<CANiq72k2so3ZcqA3iRziGY=Shd_B1=qGoXXROeAF7Y3+pDmqyA@mail.gmail.com>
+User-Agent: Evolution 3.32.1-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: [Ksummit-discuss] Maintainer's Summit Agenda (V2)
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	bpf@vger.kernel.org, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [PATCH v2 3/3] libnvdimm,
+ MAINTAINERS: Maintainer Entry Profile
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -61,60 +84,37 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-			 Maintainer's Summit
-	     Ametista Room at the Corinthia Hotel Lisbon
-			  September 12, 2019
+On Thu, 2019-09-12 at 10:24 +0200, Miguel Ojeda wrote:
+> On Thu, Sep 12, 2019 at 9:43 AM Dan Williams <dan.j.williams@intel.com> wrote:
+> > Now I come to find that CodingStyle has settled on clang-format (in
+> > the last 15 months) as the new standard which is a much better answer
+> > to me than a manually specified style open to interpretation. I'll
+> > take a look at getting libnvdimm converted over.
+> 
+> Note that clang-format cannot do everything as we want within the
+> kernel just yet, but it is a close enough approximation -- it is near
+> the point where we could simply agree to use it and stop worrying
+> about styling issues. However, that would mean everyone needs to have
+> a recent clang-format available, which I think is the biggest obstacle
+> at the moment.
 
+I don't think that's close to true yet for clang-format.
 
-9:00  Hot breakfast and morning refreshments (sponsored by IBM)
-      <Room available for hacking and informal discussions>
-12:00 Lunch (sponsored by Intel)
-13:00 Agenda Bashing
-13:15 Reflections on Kernel Development Process (Dmitry Vyukov)
-14:00 Dealing with the high volume of automated bug finders (Shuah Kahn)
-14:30 Stable Kernel Process Automation and Improvement (Sasha Levin)
-15:00 Afternoon Break (Sponsored by IBM)
-15:30 Is Linus Happy?
-16:30 Depth of the "pull network" (James Bottomley)
-17:00 HW Security Update
-17:15 Maintainer Summit: What went well, what can we do better?
-17:30 Group Photo
-18:30 Bus Transportation to Evening Event
+For instance: clang-format does not do anything with
+missing braces, or coalescing multi-part strings,
+or any number of other nominal coding style defects
+like all the for_each macros, aligning or not aligning
+columnar contents appropriately, etc...
 
+clang-format as yet has no taste.
 
-Attendee List
--------------
-Alexei Starovoitov
-Andrew Morton
-Bjorn Helgaas
-Christoph Hellwig
-Dan Williams
-Daniel Borkmann
-David Airlie
-David Miller
-Dmtiry Vyukov
-Greg Kroah-Hartman
-Jan Kara
-Jiri Kosina
-Jonathan Corbet
-Kees Cook
-Konstantin Ryabitsev
-Laura Abbott
-Linus Torvalds
-Linus Walleij
-Michael Ellerman
-Olof Johansson
-Peter Zijlstra
-Rafael Wysocki
-Sasha Levin
-Shuah Khan
-Stephen Rothwell
-Steven Rostedt
-Takashi Iwai
-Theodore Ts'o
-Thomas Gleixner
-Vasily Gorbik
-Will Deacon
+I believe it'll take a lot of work to improve it to a point
+where its formatting is acceptable and appropriate.
+
+An AI rather than a table based system like clang-format is
+more likely to be a real solution, but training that AI
+isn't a thing that I want to do.
+
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
