@@ -2,61 +2,81 @@ Return-Path: <SRS0=FsAW=XH=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BEB6C49ED6
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 02:26:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34526ECDE27
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 07:41:40 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D84E62085B
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 02:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D84E62085B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0AB0720830
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 12 Sep 2019 07:41:39 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel-com.20150623.gappssmtp.com header.i=@intel-com.20150623.gappssmtp.com header.b="r5iciw4g"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AB0720830
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 47F26CC4;
-	Thu, 12 Sep 2019 02:26:54 +0000 (UTC)
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9ABAEB59
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7FB54C21;
+	Thu, 12 Sep 2019 07:41:39 +0000 (UTC)
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F2CEBB79
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Sep 2019 02:26:52 +0000 (UTC)
-X-Greylist: delayed 05:55:54 by SQLgrey-1.7.6
-Received: from smtprelay.hostedemail.com (smtprelay0185.hostedemail.com
-	[216.40.44.185])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 380A01DD99
+	Thu, 12 Sep 2019 07:41:37 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.7.6
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
+	[209.85.167.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 696F481A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Sep 2019 02:26:52 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave01.hostedemail.com (Postfix) with ESMTP id 529941802ACBC
+	Thu, 12 Sep 2019 07:41:37 +0000 (UTC)
+Received: by mail-oi1-f194.google.com with SMTP id 11so1043209oix.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Sep 2019 20:30:58 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
-	[216.40.38.60])
-	by smtprelay04.hostedemail.com (Postfix) with ESMTP id E1B2718025E8E;
-	Wed, 11 Sep 2019 20:30:55 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: paste13_7c63038856825
-X-Filterd-Recvd-Size: 1990
-Received: from XPS-9350.home (unknown [47.151.152.152])
-	(Authenticated sender: joe@perches.com)
-	by omf19.hostedemail.com (Postfix) with ESMTPA;
-	Wed, 11 Sep 2019 20:30:54 +0000 (UTC)
-Message-ID: <37a9f105f85b7accb5eefe788f8d129e9fddaa2c.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org
-Date: Wed, 11 Sep 2019 13:30:53 -0700
-In-Reply-To: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	Thu, 12 Sep 2019 00:41:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=o8LTeC4govd1fNBJO0ioJqcSmCWQfNIKLUUZIaiAhHg=;
+	b=r5iciw4g8aqTCdevxlX7Yl1qKRDD/phXv4v2oTTELHQGit1wxhO/OmSHjpMCzaPPrC
+	Vr8pfrqAPKZP/QRditALJa3T7m3utIzI7knIH43NmnrLOYeWwUlpJTX+V+qEIHPXtDWk
+	i+S3TBIunng9amNi6owpSMAwGYmTOzTOg39UCXWUFCAs9mW/cRdQ9TrieNsVwozqYGMY
+	ud38gNVy7hASRzjURWmOVrK8Lm1bGKmNLt/QqIPlK0Zbi79sDGl94Y4HvgRcvzJv2owV
+	GO/6yFDyIZBlsfIr5xvExb4PHDGHZscKuenTgOys/I73OMjRL8cbQsLrUCTP+Fo1/Uy7
+	k13A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=o8LTeC4govd1fNBJO0ioJqcSmCWQfNIKLUUZIaiAhHg=;
+	b=LtsKPnwPNoF0LK929APDZdSj0twrhKOrocTxelWish9ocMxBh7k+rYUisgcxOE31fa
+	t35Oa4SS8uvYWTjSsdt2nX3pXJar+8d1szdT5UTwADeDR2YlsaJsCIDnHXVoGD0QNMtB
+	Ch2SumZgZKrAPVy+cUdEmRa8tFsq5UgX8QqwlscW2ZZSbf4J2yV8HVlk51pdsyrkHQoU
+	FiTUuGNcxdiz4Rvf+5FvPDa8mE3vSGmCAAcqo3zZp8rkd6sfshNgH6CjB6wTK3dbR9lB
+	9Cb/ClU1jKeZHOnhazh5OFv/7FOGAV4QY6BdViAFqQ5tjFrA24LU8uXKnGG84FSM1OOX
+	JTWQ==
+X-Gm-Message-State: APjAAAXXNYg1zZdpN5lSKRTvwJs89kYHvB1Bzk8Ao6V7sYv9decPWhd0
+	AXDfbFOjQO5gFBIq6qpI32ZR3q3vpYxwvvEjBeMqjQ==
+X-Google-Smtp-Source: APXvYqw0A8Lqk6qX7CD0ZjUAfqaCMtvOeZCnyqiVzGAx3LVFCio/Y9Fb+8rbJ3TzTxR704q9l8iceiToxbjJgcESn2g=
+X-Received: by 2002:aca:eb09:: with SMTP id j9mr7724558oih.105.1568274096350; 
+	Thu, 12 Sep 2019 00:41:36 -0700 (PDT)
+MIME-Version: 1.0
 References: <156821692280.2951081.18036584954940423225.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
-User-Agent: Evolution 3.32.1-2 
-MIME-Version: 1.0
-Cc: Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org
+	<20190911184332.GL20699@kadam>
+	<9132e214-9b57-07dc-7ee2-f6bc52e960c5@kernel.dk>
+In-Reply-To: <9132e214-9b57-07dc-7ee2-f6bc52e960c5@kernel.dk>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Thu, 12 Sep 2019 00:41:24 -0700
+Message-ID: <CAPcyv4ij3s+9uO0f9aLHGj3=ACG7hAjZ0Rf=tyFmpt3+uQyymw@mail.gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	bpf@vger.kernel.org, Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [PATCH v2 3/3] libnvdimm,
  MAINTAINERS: Maintainer Entry Profile
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
@@ -75,33 +95,59 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Wed, 2019-09-11 at 08:48 -0700, Dan Williams wrote:
-> Document the basic policies of the libnvdimm subsystem and provide a first
-> example of a Maintainer Entry Profile for others to duplicate and edit.
-[]
-> +Coding Style Addendum
-> +---------------------
-> +libnvdimm expects multi-line statements to be double indented. I.e.
-> +
-> +        if (x...
-> +                        && ...y) {
+On Wed, Sep 11, 2019 at 3:11 PM Jens Axboe <axboe@kernel.dk> wrote:
+>
+> On 9/11/19 12:43 PM, Dan Carpenter wrote:
+> > On Wed, Sep 11, 2019 at 08:48:59AM -0700, Dan Williams wrote:
+> >> +Coding Style Addendum
+> >> +---------------------
+> >> +libnvdimm expects multi-line statements to be double indented. I.e.
+> >> +
+> >> +        if (x...
+> >> +                        && ...y) {
+> >
+> > That looks horrible and it causes a checkpatch warning.  :(  Why not
+> > do it the same way that everyone else does it.
+> >
+> >       if (blah_blah_x && <-- && has to be on the first line for checkpatch
+> >           blah_blah_y) { <-- [tab][space][space][space][space]blah
+> >
+> > Now all the conditions are aligned visually which makes it readable.
+> > They aren't aligned with the indent block so it's easy to tell the
+> > inside from the if condition.
+> >
+> > I kind of hate all this extra documentation because now everyone thinks
+> > they can invent new hoops to jump through.
+>
+> FWIW, I completely agree with Dan (Carpenter) here. I absolutely
+> dislike having these kinds of files, and with subsystems imposing weird
+> restrictions on style (like the quoted example, yuck).
+>
+> Additionally, it would seem saner to standardize rules around when
+> code is expected to hit the maintainers hands for kernel releases. Both
+> yours and Martins deals with that, there really shouldn't be the need
+> to have this specified in detail per sub-system.
 
-I don't find a good reason to do this.
+So this is *the* point of the exercise.
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-[]
-> @@ -9185,6 +9185,7 @@ M:	Dan Williams <dan.j.williams@intel.com>
->  M:	Vishal Verma <vishal.l.verma@intel.com>
->  M:	Dave Jiang <dave.jiang@intel.com>
->  L:	linux-nvdimm@lists.01.org
-> +P:	Documentation/nvdimm/maintainer-entry-profile.rst
+I picked up this indentation habit a long while back in response to
+review feedback on a patch to a subsystem that formatted code this
+way. At the time CodingStyle did not contradict the maintainer's
+preference, so I adopted it across the board.
 
-I also think the indirection to a separate
-file is not a good thing.
+Now I come to find that CodingStyle has settled on clang-format (in
+the last 15 months) as the new standard which is a much better answer
+to me than a manually specified style open to interpretation. I'll
+take a look at getting libnvdimm converted over.
 
-Separate styles for individual subsystems is
-not something I would want to encourage.
+If we can take that further and standardize all of the places where
+contributors see variations across subsystems on the fundamental
+questions of style, timing, follow-up, and unit test invocation the
+Maintainer Entry Profile can be superseded with common guidelines.
 
+Otherwise, yes I completely agree with you that a "Maintainer Entry
+Profile" is a sad comment on the state of what contributors need to
+navigate, but that's today's reality that needs to be addressed.
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
