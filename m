@@ -2,75 +2,100 @@ Return-Path: <SRS0=CRNu=XI=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC980C49ED7
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 20:51:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 869E3C49ED7
+	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 21:44:51 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D5642054F
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 20:51:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7D5642054F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id 587F720830
+	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 21:44:51 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="MoNr9Mbc"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 587F720830
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2B9B4E46;
-	Fri, 13 Sep 2019 20:51:30 +0000 (UTC)
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5ADC6CF6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C442CDCB;
+	Fri, 13 Sep 2019 21:44:50 +0000 (UTC)
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB4DDDB4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Sep 2019 20:51:28 +0000 (UTC)
-X-Greylist: delayed 21:49:39 by SQLgrey-1.7.6
-Received: from smtprelay.hostedemail.com (smtprelay0199.hostedemail.com
-	[216.40.44.199])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 21CBF1DCF0
+	Fri, 13 Sep 2019 21:44:48 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E58F81A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Sep 2019 20:51:27 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 98B991801548E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Sep 2019 20:33:20 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
-	[216.40.38.60])
-	by smtprelay06.hostedemail.com (Postfix) with ESMTP id F12BD18224D86;
-	Fri, 13 Sep 2019 20:33:17 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: tub87_73cd010985e19
-X-Filterd-Recvd-Size: 3342
-Received: from XPS-9350.home (unknown [47.151.152.152])
-	(Authenticated sender: joe@perches.com)
-	by omf10.hostedemail.com (Postfix) with ESMTPA;
-	Fri, 13 Sep 2019 20:33:15 +0000 (UTC)
-Message-ID: <8be2df9936fb405ffaee75d6e24bbac0e938a653.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Date: Fri, 13 Sep 2019 13:33:14 -0700
-In-Reply-To: <20190913161731.6e3405a3@coco.lan>
+	Fri, 13 Sep 2019 21:44:48 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+	by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8DLhWXb132747; Fri, 13 Sep 2019 21:44:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=to : cc : subject :
+	from : references : date : in-reply-to : message-id : mime-version :
+	content-type; s=corp-2019-08-05;
+	bh=wnF8ywzVvXMffOXwXnD9nBENtpO8KLHMv3TdJiXOPzI=;
+	b=MoNr9MbcVeXC3+gsrSAxNWIpe6pUGsKqbjVfu/gzfBk8M/lVVx++UXfntcaHTPUXvTAB
+	gxhev4FV4QXjLAOwsNKyxYlXowV/f8pcpBCu88JhOMdCnMAZXEmnZ9xv4ryiIqW+ZAVs
+	4xESpto0Ptjpzxno3LQ0fMVsqUH43TWc80eF69GoEHxR2tjtZFlDoQHgKJDIEwzsIkkv
+	TY4OZLKZDJVVW1r6cOcXvUHt2UY/utssTsL5JKWL8euVs6nfJUo7Hi9voAJd7rQvOJrZ
+	k+QE5U39T9wjxgWNqtDxtUll9Ud48g0tiblhu4P5FEJArABf7xKw9xTp/niweOkw3g2m
+	HA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by aserp2120.oracle.com with ESMTP id 2uytd3771d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 13 Sep 2019 21:44:44 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8DLhJAL095154; Fri, 13 Sep 2019 21:44:43 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+	by userp3020.oracle.com with ESMTP id 2uytdncjqh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 13 Sep 2019 21:44:43 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+	by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8DLig3u013887;
+	Fri, 13 Sep 2019 21:44:42 GMT
+Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Fri, 13 Sep 2019 14:44:41 -0700
+To: Jens Axboe <axboe@kernel.dk>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+Organization: Oracle Corporation
 References: <156821692280.2951081.18036584954940423225.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<yq1o8zqeqhb.fsf@oracle.com>
-	<6fe45562-9493-25cf-afdb-6c0e702a49b4@acm.org>
-	<44c08faf43fa77fb271f8dbb579079fb09007716.camel@perches.com>
-	<74984dc0-d5e4-f272-34b9-9a78619d5a83@acm.org>
-	<4299c79e33f22e237e42515ea436f187d8beb32e.camel@perches.com>
-	<CAL_JsqJju36BZPK6DJab28Ne-ORpEyPpxH0H4DuymxFMabpMRQ@mail.gmail.com>
-	<78f67ee934f167b433517da81c6a0d3f35c4b123.camel@perches.com>
-	<20190913161731.6e3405a3@coco.lan>
-User-Agent: Evolution 3.32.1-2 
+	<156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<20190911184332.GL20699@kadam>
+	<9132e214-9b57-07dc-7ee2-f6bc52e960c5@kernel.dk>
+Date: Fri, 13 Sep 2019 17:44:39 -0400
+In-Reply-To: <9132e214-9b57-07dc-7ee2-f6bc52e960c5@kernel.dk> (Jens Axboe's
+	message of "Wed, 11 Sep 2019 16:11:29 -0600")
+Message-ID: <yq1y2yrdg6w.fsf@oracle.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1.92 (gnu/linux)
 MIME-Version: 1.0
-Cc: Dave Jiang <dave.jiang@intel.com>, Bart Van Assche <bvanassche@acm.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	linux-nvdimm <linux-nvdimm@lists.01.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dmitry Vyukov <dvyukov@google.com>, Steve French <stfrench@microsoft.com>,
-	"Tobin C. Harding" <me@tobin.cc>
-Subject: Re: [Ksummit-discuss] [PATCH v2 0/3] Maintainer Entry Profiles
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9379
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+	malwarescore=0
+	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.0.1-1908290000 definitions=main-1909130216
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9379
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+	definitions=main-1909130216
+Cc: ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [PATCH v2 3/3] libnvdimm,
+	MAINTAINERS: Maintainer Entry Profile
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -87,53 +112,42 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Fri, 2019-09-13 at 16:17 -0300, Mauro Carvalho Chehab wrote:
-> Em Fri, 13 Sep 2019 11:42:38 -0700
-> Joe Perches <joe@perches.com> escreveu:
-[]
-> > Just fyi:  for an x86-64 defconfig with gcc 8.3
-> > 
-> > $ { make clean ; make defconfig ; make -j4 W=1 ; } > make.log 2>&1
-> > 
-> > There are ~300 W=1 for non kernel-doc -W<foo> warnings.
-> > 
-> > $ grep -i -P -oh '\[\-W[\w\-]+\]' make.log |sort | uniq -c | sort -rn
-> >     163 [-Wmissing-prototypes]
-> >      69 [-Wunused-but-set-variable]
-> >      16 [-Wempty-body]
-> >      10 [-Wtype-limits]
-> >       6 [-Woverride-init]
-> >       2 [-Wstringop-truncation]
-> >       2 [-Wcast-function-type]
-> >       1 [-Wunused-but-set-parameter]
-> 
-> On my eyes, it doesn't sound too much.
 
-In general, I agree and most of these are pretty
-trivial to remove.  It'd just take some time to
-remove most of the missing-prototypes and
-unused-but-set warnings before being able to
-enable the warnings at the default W=0.
+Jens,
 
-> I suspect that, 
-> with gcc-9, it should produce more warnings, though.
+> Additionally, it would seem saner to standardize rules around when
+> code is expected to hit the maintainers hands for kernel
+> releases. Both yours and Martins deals with that, there really
+> shouldn't be the need to have this specified in detail per sub-system.
 
-It doesn't though.
-At least not so far as I can tell.
-gcc-9.1 produces the same output.
+Yeah. There is basically nothing specific about SCSI in my write-up
+outside of the branch naming.
 
-$ { make clean ; make defconfig ; make CC=/usr/bin/gcc-9 -j4 W=1 V=1 ; } > make_gcc9.log 2>&1
-$  grep -i -P -oh '\[\-W[\w\-]+\]' make_gcc9.log | sort | uniq -c | sort -rn
-    163 [-Wmissing-prototypes]
-     69 [-Wunused-but-set-variable]
-     16 [-Wempty-body]
-     10 [-Wtype-limits]
-      6 [-Woverride-init]
-      2 [-Wstringop-truncation]
-      2 [-Wcast-function-type]
-      1 [-Wunused-but-set-parameter]
+I deliberately didn't mention coding style preferences. We have so much
+20+ year old cruft in SCSI that's impossible to even entertain. But I do
+request new code to follow coding-style.rst. BYOXT.
 
+Also note that the original target audience for my document. It was
+aimed at onboarding new driver contributors from hardware companies. So
+people that don't live and breathe Linux development and who are not
+intimately familiar with the kernel development process. It's possible
+that we have this information in Documentation/ these days; I'll go
+look. But it didn't exist when this doc was written. And in my
+experience nobody coming to Linux development from the outside
+understands what the "merge window" is. And when the appropriate time is
+to submit patches and features. I think this would be a great area to
+have a common set of guidelines and documentation. I'd prefer for this
+to be global and then let maintainers apply their own wiggle room
+instead of documenting particular rules for a given subsystem.
 
+One pet peeve I have is that people are pretty bad at indicating the
+intended target tree. I often ask for it in private mail but the
+practice doesn't seem to stick. I spend a ton of time guessing whether a
+patch is a fix for a new feature in the x+1 queue or a fix for the
+current release. It is not always obvious.
+
+-- 
+Martin K. Petersen	Oracle Linux Engineering
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
