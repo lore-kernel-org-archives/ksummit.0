@@ -2,74 +2,74 @@ Return-Path: <SRS0=CRNu=XI=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+X-Spam-Status: No, score=-1.0 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0965BC4CEC8
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 18:15:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F0175C4CECA
+	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 18:51:31 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB7D2206A5
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 18:15:21 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Sp/PFCJ5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB7D2206A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id BEC232084F
+	for <ksummit-discuss@archiver.kernel.org>; Fri, 13 Sep 2019 18:51:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BEC232084F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4F0B2E53;
-	Fri, 13 Sep 2019 18:15:21 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 62273E6E;
+	Fri, 13 Sep 2019 18:51:31 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4DCC0E48
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8D0E9E6C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Sep 2019 18:15:20 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 72F398A3
+	Fri, 13 Sep 2019 18:51:30 +0000 (UTC)
+X-Greylist: delayed 22:16:34 by SQLgrey-1.7.6
+Received: from smtprelay.hostedemail.com (smtprelay0109.hostedemail.com
+	[216.40.44.109])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D8D17DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Sep 2019 18:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209;
-	h=Resent-To:Resent-Message-ID:Subject:
-	Resent-From:Resent-Date:Sender:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-Id:Date:Cc:To:From:Reply-To:Content-Type:
-	Content-ID:Content-Description:Resent-Sender:Resent-Cc:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=awYbIkISAQqRNu3/BAy47wyj42SZ4LuMhUuD0B9TR9M=;
-	b=Sp/PFCJ5wpbMZVYbLLGwblpNYK
-	aCV6e5O1GBgcUcg8J4H4tVniA9DhiBoPIcYsNZ7lqQEsSl0+kbZUwoxWjJlSzXLffwT2WIuuIwyEf
-	0cyVqjZqiA1W8KcizEwGEgWKippC7cKCJxvGhwwr6a6+/OisBstw7QxDVKOALQfziCBDQdw5FW5Ls
-	zm1pn+ociWLoYJ4gQ+RXAaNOwt9QF5Z3eFVuagc6P/vvyE27G047KG6vH5889pQPoqnr+30dnG355
-	0Z73Ntt+/cVNQVqPon+y4nIXD/lH75h3/gvQIrptXaCnz7gQx7BoZDCovgTKXZ8iY0qjNjZXNMYna
-	UJikg/fA==;
-Received: from 177.96.232.144.dynamic.adsl.gvt.net.br ([177.96.232.144]
-	helo=coco.lan)
-	by bombadil.infradead.org with esmtpsa (Exim 4.92.2 #3 (Red Hat Linux))
-	id 1i8q6I-0003EL-7h for ksummit-discuss@lists.linuxfoundation.org;
-	Fri, 13 Sep 2019 18:15:18 +0000
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org> (by way of Mauro
-	Carvalho Chehab <mchehab@kernel.org>)
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Date: Fri, 13 Sep 2019 13:19:21 -0300
-Message-Id:
- <434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
-References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	Fri, 13 Sep 2019 18:51:29 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 04F59180154AD
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 13 Sep 2019 18:42:45 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+	[216.40.38.60])
+	by smtprelay03.hostedemail.com (Postfix) with ESMTP id 4ED4D801A6AF;
+	Fri, 13 Sep 2019 18:42:42 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-HE-Tag: crook21_174f32285e930
+X-Filterd-Recvd-Size: 10261
+Received: from XPS-9350.home (unknown [47.151.152.152])
+	(Authenticated sender: joe@perches.com)
+	by omf03.hostedemail.com (Postfix) with ESMTPA;
+	Fri, 13 Sep 2019 18:42:40 +0000 (UTC)
+Message-ID: <78f67ee934f167b433517da81c6a0d3f35c4b123.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Rob Herring <robherring2@gmail.com>
+Date: Fri, 13 Sep 2019 11:42:38 -0700
+In-Reply-To: <CAL_JsqJju36BZPK6DJab28Ne-ORpEyPpxH0H4DuymxFMabpMRQ@mail.gmail.com>
+References: <156821692280.2951081.18036584954940423225.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<yq1o8zqeqhb.fsf@oracle.com>
+	<6fe45562-9493-25cf-afdb-6c0e702a49b4@acm.org>
+	<44c08faf43fa77fb271f8dbb579079fb09007716.camel@perches.com>
+	<74984dc0-d5e4-f272-34b9-9a78619d5a83@acm.org>
+	<4299c79e33f22e237e42515ea436f187d8beb32e.camel@perches.com>
+	<CAL_JsqJju36BZPK6DJab28Ne-ORpEyPpxH0H4DuymxFMabpMRQ@mail.gmail.com>
+User-Agent: Evolution 3.32.1-2 
 MIME-Version: 1.0
-Resent-Date: Fri, 13 Sep 2019 15:15:15 -0300
-Resent-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-Resent-Message-ID: <20190913151515.5d06d902@coco.lan>
-Resent-To: ksummit-discuss@lists.linuxfoundation.org
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] [PATCH] media: add a subsystem profile
-	documentation
+Cc: Dave Jiang <dave.jiang@intel.com>, Bart Van Assche <bvanassche@acm.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Steve French <stfrench@microsoft.com>, "Tobin C. Harding" <me@tobin.cc>
+Subject: Re: [Ksummit-discuss] [PATCH v2 0/3] Maintainer Entry Profiles
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -81,200 +81,262 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
-Message-ID: <20190913161921.vdwH2Fa4wTGJrqGnLWavdT0dfL8dxkaPb5tx_zV9AtQ@z>
 
-Document the basic policies of the media subsystem profile.
+On Fri, 2019-09-13 at 15:26 +0100, Rob Herring wrote:
+> On Fri, Sep 13, 2019 at 3:12 PM Joe Perches <joe@perches.com> wrote:
+> > On Thu, 2019-09-12 at 13:01 -0700, Bart Van Assche wrote:
+> > 
+> > > Another argument in favor of W=1 is that the formatting of kernel-doc
+> > > headers is checked only if W=1 is passed to make.
+> > 
+> > Actually, but for the fact there are far too many
+> > to generally enable that warning right now,
+> > (an x86-64 defconfig has more than 1000)
+> > that sounds pretty reasonable to me.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
----
+> It's in the 1000s on arm because W=1 turns on more checks in building
+> .dts files. There are lots of duplicates as most of the dts content is
+> as an include file (e.g. board dts includes soc dts).
 
-That's basically a modified version of:
-    https://patchwork.linuxtv.org/patch/52999/
+Yeah, dts[i] files in arm compilations are very noisy at W=1
+so moving those message types to W=2 seems sensible.
 
-Applied to the new template
+$ { opt="ARCH=arm CROSS_COMPILE=arm-unknown-linux-gnueabi-" ; make $opt clean ; make $opt defconfig ; make $opt W=1 -j4 ; } > arm_make.log 2>&1
 
- Documentation/media/index.rst                 |   1 +
- .../media/maintainer-entry-profile.rst        | 140 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 3 files changed, 142 insertions(+)
- create mode 100644 Documentation/media/maintainer-entry-profile.rst
+$ grep -i -P 'dtsi?:.*warning' arm_make.log | wc -l
+69164
 
-diff --git a/Documentation/media/index.rst b/Documentation/media/index.rst
-index 0301c25ff887..ac94685b822a 100644
---- a/Documentation/media/index.rst
-+++ b/Documentation/media/index.rst
-@@ -12,6 +12,7 @@ Linux Media Subsystem Documentation
- .. toctree::
-    :maxdepth: 2
- 
-+   maintainer-entry-profile
-    media_uapi
-    media_kapi
-    dvb-drivers/index
-diff --git a/Documentation/media/maintainer-entry-profile.rst b/Documentation/media/maintainer-entry-profile.rst
-new file mode 100644
-index 000000000000..81d3b0f9c36a
---- /dev/null
-+++ b/Documentation/media/maintainer-entry-profile.rst
-@@ -0,0 +1,140 @@
-+Media Subsystem Profile
-+=======================
-+
-+Overview
-+--------
-+
-+The media subsystem cover support for a variety of devices: stream
-+capture, analog and digital TV, cameras, remote controllers, HDMI CEC
-+and media pipeline control.
-+
-+It covers, mainly, the contents of those directories:
-+
-+  - drivers/media
-+  - drivers/staging/media
-+  - Documentation/media
-+  - include/media
-+
-+Both media userspace and Kernel APIs are documented and should be kept in
-+sync with the API changes. It means that all patches that add new
-+features to the subsystem should also bring changes to the corresponding
-+API files.
-+
-+Also, patches for device drivers that changes the Open Firmware/Device
-+Tree bindings should be reviewed by the Device Tree maintainers.
-+
-+Due to the size and wide scope of the media subsystem, media's
-+maintainership model is to have sub-maintainers that have a broad
-+knowledge of an specific aspect of the subsystem. It is a
-+sub-maintainers task to review the patches, providing feedback to users
-+if the patches are following the subsystem rules and are properly using
-+the media internal and external APIs.
-+
-+Patches for the media subsystem should be sent to the media mailing list
-+at linux-media@vger.kernel.org as plain text only e-mail. Emails with
-+HTML will be automatically rejected by the mail server. There's no need
-+to copy the maintainer or sub-maintainer(s).
-+
-+Media's workflow is heavily based on Patchwork, meaning that, once a patch
-+is submitted, it should appear at:
-+
-+   - https://patchwork.linuxtv.org/project/linux-media/list/
-+
-+If it doesn't automatically appear there after a few minutes, then
-+probably something got wrong on your submission. Please check if the
-+email is in plain text only and if your emailer is not mangling with
-+whitespaces before complaining or submit it again.
-+
-+Sub-maintainers
-++++++++++++++++
-+
-+At the media subsystem, we have a group of senior developers that are
-+responsible for doing the code reviews at the drivers (called
-+sub-maintainers), and another senior developer responsible for the
-+subsystem as a hole. For core changes, whenever possible, multiple
-+media (sub-)maintainers do the review.
-+
-+The sub-maintainers work on specific areas of the subsystem, as
-+described below:
-+
-+Digital TV:
-+  Sean Young <sean@mess.org>
-+
-+HDMI CEC:
-+  Hans Verkuil <hverkuil@xs4all.nl>
-+
-+Media controller drivers:
-+  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-+
-+Remote Controllers:
-+  Sean Young <sean@mess.org>
-+
-+Sensor drivers:
-+  Sakari Ailus <sakari.ailus@linux.intel.com>
-+
-+V4L2 drivers:
-+  Hans Verkuil <hverkuil@xs4all.nl>
-+
-+Submit Checklist Addendum
-+-------------------------
-+
-+There is a set of compliance tools at https://git.linuxtv.org/v4l-utils.git/
-+that should be used in order to check if the drivers are properly
-+implementing the media APIs.
-+
-+Those tests need to be passed before the patches go upstream.
-+
-+Also, please notice that we build the Kernel with::
-+
-+	make CF=-D__CHECK_ENDIAN__ CONFIG_DEBUG_SECTION_MISMATCH=y C=1 W=1 CHECK=check_script
-+
-+Where the check script is::
-+
-+	#!/bin/bash
-+	/devel/smatch/smatch -p=kernel $@ >&2
-+	/devel/sparse/sparse $@ >&2
-+
-+Be sure to not introduce new warnings on your patches.
-+
-+Key Cycle Dates
-+---------------
-+
-+New submissions can be sent at any time, but if they intend to hit the
-+next merge window they should be sent before -rc5, and ideally stabilized
-+in the linux-media branch by -rc6.
-+
-+Coding Style Addendum
-+---------------------
-+
-+Media development uses checkpatch on strict mode to verify the code style, e. g.::
-+
-+	$ ./script/checkpatch.pl --strict
-+
-+Review Cadence
-+--------------
-+
-+Provided that your patch is at https://patchwork.linuxtv.org, it should
-+be sooner or later handled, so you don't need to re-submit a patch.
-+
-+Except for bug fixes, we don't usually add new patches to the development
-+tree between -rc6 and the next -rc1.
-+
-+Please notice that the media subsystem is a high traffic one, so it
-+could take a while for us to be able to review your patches. Feel free
-+to ping if you don't get a feedback on a couple of weeks or to ask
-+other developers to publicly add Reviewed-by and, more importantly,
-+Tested-by tags.
-+
-+Please notice that we expect a detailed description for Tested-by,
-+identifying what boards were used at the test and what it was tested.
-+
-+Style Cleanup Patches
-+---------------------
-+
-+Style-cleanups are welcome when they come together with other changes
-+at the files where the style changes will affect.
-+
-+We may accept pure standalone style-cleanups, but they should be grouped
-+per directory. So, for example, if you're doing a cleanup at drivers
-+under drivers/media, please send a single patch for all drivers under
-+drivers/media/pci, another one for drivers/media/usb and so on.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7c62b45201d7..e7f44ec05a42 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10077,6 +10077,7 @@ W:	https://linuxtv.org
- Q:	http://patchwork.kernel.org/project/linux-media/list/
- T:	git git://linuxtv.org/media_tree.git
- S:	Maintained
-+P:	Documentation/media/maintainer-entry-profile.rst
- F:	Documentation/devicetree/bindings/media/
- F:	Documentation/media/
- F:	drivers/media/
--- 
-2.21.0
+Just fyi:  for an x86-64 defconfig with gcc 8.3
+
+$ { make clean ; make defconfig ; make -j4 W=1 ; } > make.log 2>&1
+
+There are ~300 W=1 for non kernel-doc -W<foo> warnings.
+
+$ grep -i -P -oh '\[\-W[\w\-]+\]' make.log |sort | uniq -c | sort -rn
+    163 [-Wmissing-prototypes]
+     69 [-Wunused-but-set-variable]
+     16 [-Wempty-body]
+     10 [-Wtype-limits]
+      6 [-Woverride-init]
+      2 [-Wstringop-truncation]
+      2 [-Wcast-function-type]
+      1 [-Wunused-but-set-parameter]
+
+And there are ~1000 kernel-doc only messages in various files
+
+$ grep -i 'function parameter' make.log | cut -f1 -d: | sort | uniq -c
+      6 arch/x86/events/intel/pt.c
+      2 arch/x86/kernel/apic/apic.c
+     10 arch/x86/kernel/cpu/mtrr/generic.c
+      5 arch/x86/kernel/crash_dump_64.c
+      1 arch/x86/kernel/i8259.c
+      3 arch/x86/kernel/smpboot.c
+      3 arch/x86/kernel/tsc.c
+      2 arch/x86/kernel/uprobes.c
+      1 arch/x86/lib/cmdline.c
+      1 arch/x86/lib/insn.c
+      2 arch/x86/lib/insn-eval.c
+      4 arch/x86/lib/msr.c
+      2 arch/x86/lib/usercopy_64.c
+      1 arch/x86/mm/pat.c
+     13 arch/x86/mm/pgtable.c
+      1 arch/x86/pci/i386.c
+      2 arch/x86/power/cpu.c
+      2 arch/x86/power/hibernate.c
+      8 certs/system_keyring.c
+      4 crypto/asymmetric_keys/asymmetric_type.c
+      3 crypto/asymmetric_keys/pkcs7_trust.c
+     16 crypto/jitterentropy.c
+      3 drivers/acpi/acpi_apd.c
+      3 drivers/acpi/bus.c
+      2 drivers/acpi/cppc_acpi.c
+      5 drivers/acpi/device_sysfs.c
+      2 drivers/acpi/dock.c
+      2 drivers/acpi/nvs.c
+      1 drivers/acpi/pci_root.c
+      5 drivers/acpi/property.c
+      4 drivers/acpi/sleep.c
+      7 drivers/acpi/utils.c
+      1 drivers/ata/libata-acpi.c
+      2 drivers/ata/libata-pmp.c
+      6 drivers/ata/libata-transport.c
+      4 drivers/ata/pata_amd.c
+      4 drivers/base/attribute_container.c
+      1 drivers/base/devcon.c
+      3 drivers/base/platform-msi.c
+      3 drivers/base/power/runtime.c
+      5 drivers/base/power/wakeup.c
+      2 drivers/char/agp/backend.c
+      3 drivers/char/agp/generic.c
+      2 drivers/clk/clk.c
+      1 drivers/clk/clk-fixed-factor.c
+      1 drivers/clk/clk-fixed-rate.c
+      3 drivers/connector/cn_proc.c
+     31 drivers/cpufreq/cpufreq.c
+      3 drivers/cpufreq/cpufreq_governor.c
+      7 drivers/cpufreq/freq_table.c
+      1 drivers/cpufreq/intel_pstate.c
+      6 drivers/cpuidle/sysfs.c
+      1 drivers/dma-buf/dma-buf.c
+      1 drivers/dma-buf/dma-fence-chain.c
+      6 drivers/dma/dmaengine.c
+      7 drivers/firewire/init_ohci1394_dma.c
+      2 drivers/firmware/efi/memmap.c
+      1 drivers/firmware/efi/vars.c
+     20 drivers/gpu/drm/drm_agpsupport.c
+      8 drivers/hid/hid-core.c
+      3 drivers/hid/hid-quirks.c
+      5 drivers/hid/usbhid/hid-pidff.c
+      3 drivers/input/mouse/synaptics.c
+      2 drivers/iommu/amd_iommu_init.c
+      2 drivers/iommu/dmar.c
+      1 drivers/iommu/intel-pasid.c
+      1 drivers/iommu/iommu.c
+      2 drivers/leds/led-class.c
+      2 drivers/mailbox/pcc.c
+      6 drivers/net/ethernet/intel/e1000/e1000_hw.c
+     21 drivers/net/ethernet/intel/e1000/e1000_main.c
+      1 drivers/net/ethernet/intel/e1000e/80003es2lan.c
+      6 drivers/net/ethernet/intel/e1000e/ich8lan.c
+     42 drivers/net/ethernet/intel/e1000e/netdev.c
+      3 drivers/net/ethernet/intel/e1000e/phy.c
+      2 drivers/net/ethernet/intel/e1000e/ptp.c
+      1 drivers/net/netconsole.c
+      3 drivers/net/phy/mdio-boardinfo.c
+      2 drivers/net/phy/mdio_device.c
+      2 drivers/pci/ats.c
+      3 drivers/pci/hotplug/acpi_pcihp.c
+      4 drivers/pci/pcie/aer.c
+      2 drivers/pci/pcie/pme.c
+      1 drivers/pci/setup-bus.c
+      1 drivers/pci/vc.c
+     22 drivers/pcmcia/cistpl.c
+     13 drivers/pcmcia/pcmcia_cis.c
+     13 drivers/pcmcia/pcmcia_resource.c
+     11 drivers/pcmcia/rsrc_nonstatic.c
+      1 drivers/pnp/system.c
+     11 drivers/rtc/interface.c
+      3 drivers/rtc/sysfs.c
+      2 drivers/thermal/step_wise.c
+      2 drivers/thermal/user_space.c
+      6 drivers/tty/n_tty.c
+      4 drivers/tty/pty.c
+      7 drivers/tty/tty_audit.c
+      7 drivers/tty/tty_baudrate.c
+     13 drivers/tty/tty_buffer.c
+     25 drivers/tty/tty_io.c
+      5 drivers/tty/tty_jobctrl.c
+      6 drivers/tty/tty_ldisc.c
+      6 drivers/tty/tty_port.c
+      5 drivers/tty/vt/consolemap.c
+      4 drivers/tty/vt/vt.c
+      3 drivers/tty/vt/vt_ioctl.c
+     12 drivers/usb/common/debug.c
+      1 drivers/usb/host/pci-quirks.c
+      1 drivers/usb/host/xhci.c
+      6 drivers/usb/host/xhci-mem.c
+      2 drivers/video/backlight/backlight.c
+      1 drivers/video/fbdev/core/fbmon.c
+      2 drivers/video/fbdev/core/fb_notify.c
+      7 fs/devpts/inode.c
+      4 fs/direct-io.c
+      3 fs/eventpoll.c
+      6 fs/fat/dir.c
+      3 fs/fat/misc.c
+      6 fs/fat/nfs.c
+      4 fs/fs_context.c
+      1 fs/fs_parser.c
+      2 fs/fs-writeback.c
+      5 fs/ioctl.c
+      1 fs/libfs.c
+      3 fs/namespace.c
+      2 fs/nfs_common/grace.c
+      2 fs/open.c
+      3 fs/posix_acl.c
+      1 fs/proc/proc_net.c
+      2 fs/proc/vmcore.c
+      2 fs/read_write.c
+      1 fs/super.c
+      5 fs/xattr.c
+      2 kernel/cgroup/cpuset.c
+      1 kernel/cpu.c
+      4 kernel/events/core.c
+      2 kernel/events/hw_breakpoint.c
+      5 kernel/fork.c
+     27 kernel/irq/irqdomain.c
+      3 kernel/irq/matrix.c
+      1 kernel/kprobes.c
+      5 kernel/locking/rtmutex.c
+      1 kernel/notifier.c
+      3 kernel/power/main.c
+      2 kernel/power/qos.c
+     51 kernel/power/snapshot.c
+      2 kernel/power/suspend.c
+     14 kernel/power/swap.c
+      1 kernel/reboot.c
+      4 kernel/seccomp.c
+      2 kernel/stacktrace.c
+      4 kernel/time/alarmtimer.c
+      1 kernel/time/clockevents.c
+      4 kernel/time/posix-cpu-timers.c
+      1 kernel/time/tick-broadcast.c
+      6 kernel/time/tick-oneshot.c
+      3 kernel/time/tick-sched.c
+      3 kernel/time/timeconv.c
+     23 kernel/time/timekeeping.c
+      9 kernel/trace/ring_buffer.c
+      8 kernel/trace/trace_events_filter.c
+      2 kernel/trace/trace_events_trigger.c
+      1 kernel/trace/trace_seq.c
+      1 lib/argv_split.c
+      1 lib/cpumask.c
+      5 lib/genalloc.c
+      4 lib/iov_iter.c
+      2 lib/nlattr.c
+      3 lib/percpu_counter.c
+      6 lib/radix-tree.c
+      2 lib/scatterlist.c
+      3 lib/win_minmax.c
+      1 mm/compaction.c
+      2 mm/oom_kill.c
+      1 mm/page_vma_mapped.c
+      2 mm/swap_state.c
+      1 mm/vmalloc.c
+      1 mm/vmscan.c
+      8 net/ipv4/cipso_ipv4.c
+      3 net/ipv4/ipmr.c
+      1 net/ipv4/tcp_input.c
+      5 net/ipv4/tcp_output.c
+      2 net/ipv4/tcp_timer.c
+      3 net/ipv4/udp.c
+      4 net/ipv6/calipso.c
+      1 net/ipv6/exthdrs.c
+      1 net/ipv6/ip6_output.c
+      3 net/ipv6/udp.c
+      1 net/mac80211/tx.c
+      5 net/netlabel/netlabel_calipso.c
+      2 net/netlabel/netlabel_domainhash.c
+      3 net/sched/ematch.c
+      1 net/socket.c
+      1 net/wireless/radiotap.c
+      4 net/wireless/reg.c
+      6 security/commoncap.c
+      1 security/lsm_audit.c
+     12 security/selinux/avc.c
+      7 security/selinux/netlabel.c
+      2 security/selinux/netport.c
+      4 security/selinux/ss/mls.c
+     34 security/selinux/ss/services.c
+      3 sound/hda/hdac_bus.c
+      1 sound/hda/hdac_component.c
+      2 sound/hda/hdac_controller.c
+     10 sound/hda/hdac_device.c
+      2 sound/hda/hdac_stream.c
+      1 sound/pci/hda/hda_codec.c
 
 
 _______________________________________________
