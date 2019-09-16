@@ -2,60 +2,100 @@ Return-Path: <SRS0=iitZ=XL=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E60FCC49ED7
-	for <ksummit-discuss@archiver.kernel.org>; Mon, 16 Sep 2019 14:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8473FC49ED7
+	for <ksummit-discuss@archiver.kernel.org>; Mon, 16 Sep 2019 17:09:41 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5A2E214D9
-	for <ksummit-discuss@archiver.kernel.org>; Mon, 16 Sep 2019 14:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5A2E214D9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ubuntu.com
+	by mail.kernel.org (Postfix) with ESMTPS id 57CA1214D9
+	for <ksummit-discuss@archiver.kernel.org>; Mon, 16 Sep 2019 17:09:41 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="rMOFMhCl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57CA1214D9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 592B8177A;
-	Mon, 16 Sep 2019 14:11:46 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 033C31A45;
+	Mon, 16 Sep 2019 17:09:41 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2B9D1176A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A6F1D1A3F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Sep 2019 14:11:30 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from youngberry.canonical.com (youngberry.canonical.com
-	[91.189.89.112])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 503498A6
+	Mon, 16 Sep 2019 17:08:57 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4023E832
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Sep 2019 14:11:29 +0000 (UTC)
-Received: from static-dcd-cqq-121001.business.bouyguestelecom.com
-	([212.194.121.1] helo=wittgenstein)
-	by youngberry.canonical.com with esmtpsa
-	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
-	(envelope-from <christian.brauner@ubuntu.com>)
-	id 1i9riw-0006YJ-00; Mon, 16 Sep 2019 14:11:26 +0000
-Date: Mon, 16 Sep 2019 16:11:25 +0200
-From: Christian Brauner <christian.brauner@ubuntu.com>
-To: Doug Anderson <dianders@chromium.org>, Dmitry Vyukov <dvyukov@google.com>
-Message-ID: <20190916141124.e7s3bjr4sp3bmtbp@wittgenstein>
-References: <CAD=FV=WrGcfV-_0taGHB-LMZV8zN8oV3KMy=j09dor+hKRLPSg@mail.gmail.com>
-	<CAD=FV=WgbREZd5EiytrEOxQ+GQ33q+ohKqb-T6e3mhFJzWtpXA@mail.gmail.com>
-	<20190826230206.GC28066@mit.edu>
-	<CAD=FV=UGX0L+HdGO5ZHvmMMR8ZBUDhMdYdfYSn7csc+cPg+KFw@mail.gmail.com>
+	Mon, 16 Sep 2019 17:08:57 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8GH4P1W001292; Mon, 16 Sep 2019 17:08:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=to : cc : subject :
+	from : references : date : in-reply-to : message-id : mime-version :
+	content-type; s=corp-2019-08-05;
+	bh=+CZoGIQCmtw4Dmg5SfXe3o0NnRs6559XxydCd+jVXQ8=;
+	b=rMOFMhClnL2bIb+8Nz8OOxOVySEHQDVF7v5WrTP6O4DOPNid6vSs20yqRmykr5Gz5S6r
+	kEQ5I/e5q2a4124rN0SL0FLm7yDDepFxrRU5MeEjRmyTvMjBM3shn8py2/utRNjBM04Q
+	QeEE+SNMHy4EAv9/Di9znLR20SBcE56LvHiTeEyHCODmUGR8tEUUVaP0zsRWHlTbV+gu
+	Lz9yFjcsQfR1LsSgw1fOIqsIxFKcLEhKZLwHYZdhrW7OkRyqO27JQWpZB9oAS5pFCM04
+	X1akAgK9WEOHgAUqMW4IfDbFQBSvsi0g60nm6MJvt/dq09kWrKwqQzSp7DxhKqVSvqTa
+	xg== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by userp2120.oracle.com with ESMTP id 2v0ruqgv7h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 16 Sep 2019 17:08:54 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8GH4QLn087910; Mon, 16 Sep 2019 17:08:54 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+	by userp3030.oracle.com with ESMTP id 2v0nb51tta-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 16 Sep 2019 17:08:54 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+	by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8GH8qL5007286;
+	Mon, 16 Sep 2019 17:08:53 GMT
+Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Mon, 16 Sep 2019 10:08:52 -0700
+To: Dan Carpenter <dan.carpenter@oracle.com>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+Organization: Oracle Corporation
+References: <156821692280.2951081.18036584954940423225.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<20190911184332.GL20699@kadam>
+	<9132e214-9b57-07dc-7ee2-f6bc52e960c5@kernel.dk>
+	<yq1y2yrdg6w.fsf@oracle.com> <20190916070101.GE18977@kadam>
+Date: Mon, 16 Sep 2019 13:08:45 -0400
+In-Reply-To: <20190916070101.GE18977@kadam> (Dan Carpenter's message of "Mon, 
+	16 Sep 2019 10:01:01 +0300")
+Message-ID: <yq1blvkb23m.fsf@oracle.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1.92 (gnu/linux)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=UGX0L+HdGO5ZHvmMMR8ZBUDhMdYdfYSn7csc+cPg+KFw@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Joel Fernandes <joelaf@google.com>, Barret Rhoden <brho@google.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Nieder <jrn@google.com>, Tomasz Figa <tfiga@chromium.org>,
-	Han-Wen Nienhuys <hanwen@google.com>, Theodore Tso <tytso@google.com>,
-	David Rientjes <rientjes@google.com>, Dmitry Torokhov <dtor@chromium.org>
-Subject: Re: [Ksummit-discuss] Allowing something Change-Id (or something
- like it) in kernel commits
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9382
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+	malwarescore=0
+	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.0.1-1908290000 definitions=main-1909160169
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9382
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+	definitions=main-1909160169
+Cc: ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [Ksummit-discuss] [PATCH v2 3/3] libnvdimm,
+	MAINTAINERS: Maintainer Entry Profile
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -72,118 +112,38 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Mon, Aug 26, 2019 at 04:11:12PM -0700, Doug Anderson wrote:
-> Hi,
-> 
-> On Mon, Aug 26, 2019 at 4:02 PM Theodore Y. Ts'o <tytso@mit.edu> wrote:
-> >
-> > On Mon, Aug 26, 2019 at 02:35:33PM -0700, Doug Anderson wrote:
-> > > * This requires extra tooling that I think nobody will adopt.  People
-> > > today already (accidentally) adopt Change-Id in the non-discardable
-> > > portion.  I think it would be easier to get everyone currently
-> > > removing Change-Id to start including it again than it will be to get
-> > > everyone to change their tools to move it to the discardable portion.
-> >
-> > The reason why people Change-Id's exist in commits today is because of
-> > tooling which is distributed as part of Gerrit.  That's why people are
-> > deeply suspicious of any solution that involves Change-Id in the
-> > non-discarded portion --- because the majority of Gerrit servers up
-> > until now are behind corporate firewalls and since Gerrit servers have
-> > robots.txt files, most Change-Id tend to be useless.
-> >
-> > If we come up with new tooling which is more useful, people will use
-> > it.  If it's not useful and doesn't makes life easier, people won't.
-> 
-> Unfortunately the tooling won't come up until Change-Id is there and
-> Change-Id can't be there till the tooling is there.  ;-)
-> 
-> 
-> > On Mon, Aug 26, 2019 at 03:06:43PM -0700, Doug Anderson wrote:
-> > > 2. If, as I expect, Change-Id as part of the patch stays NAKed then I
-> > > will modify the tools I use to post upstream (currently patman) to
-> > > encode the Change-Id.  My naive proposal would be:
-> > >
-> > > Message-Id: ChangeId-YYYY-MMDD-HHMMSS-PatchNum
-> > >
-> > > If I try this and it works for me then I will post out and suggest
-> > > that any other like-minded people encode Change-Id into Message-Id in
-> > > a similar way.
-> >
-> > ... and I would expect patches with this would get NACK'ed because
-> > they would be just as useless as Change-Id's are perceived to be
-> > today.  People who are gaming the rules will tend not to looked upon
-> > favorably; the same will apply to their patches.
-> 
-> Sigh.  Email is so hard to communicate over.  I'm not intending to
-> include the Message-Id in the commit.  I'm intending to use the
-> Change-Id _in_ the Message-Id.  The Message-Id already has a bunch of
-> random characters in it.  Why not make them useful for something?
-> 
-> 
-> > BTW, the Message-Id you've listed above is not legal, per RFC-5322.  A
-> > msg-id has to look like a e-mail address (left-hand-side@example.com).
-> > So something like this is legal as a message id:
-> >
-> > I3268f9036512c4378cde1da37e0612b43ed4d384@linux-review.googlesource.com
-> 
-> I think this is the same comment that Thomas Gleixner had.  I will
-> certainly make sure my Message-Ids are formed correctly.  Thank you
-> both for pointing this out to me.  Presumably I would have noticed it
-> when actually trying to implement this but now I definitely will.
-> 
-> 
-> > ... and indeed, that's more useful, because it tells us how to
-> > interpret I3268f9036512c4378cde1da37e0612b43ed4d384 --- it's a
-> > Change-Id assigned by the linux-review.googlesource.com Gerrit server.
-> >
-> > In contrast a bare "I3268f9036512c4378cde1da37e0612b43ed4d384" is
-> > going to be presumed to be useless.  And in fact, a Google search for
-> > this ID returns *nothing*.  Yet visiting the link
-> > https://linux-review.googlesource.com/c/1158 actually returns
-> > something useful.   That's why the latter is superior to the former.
-> 
-> Sure, except that in my case there is no gerrit server to provide a
-> link to.  I use an upstream-first approach which means that all
-> initial work is done with mailing lists.  There is no server to
-> provide context to.  I think we are re-hashing old emails in this
-> thread.
-> 
-> 
-> > In summary,
-> >
-> > Not useful: (and will be probably nacked)
-> >
-> > Change-Id: I3268f9036512c4378cde1da37e0612b43ed4d384
-> > Message-Id: I3268f9036512c4378cde1da37e0612b43ed4d384
-> >
-> > Useful:
-> >
-> > Link: https://linux-review.googlesource.com/c/1158
-> > Link: https://lkml.kernel.org/r/20190826204407.17759-1-daniel.lezcano@linaro.org
-> >
-> > Not as useful: (people will prefer the Link example above)
-> >
-> > Message-Id: 20190826204407.17759-1-daniel.lezcano@linaro.org
-> 
-> Presumably all the above is because you thought I was including the
-> Message-Id in the commit.  I'm not.  Locally I will have Change-Id in
-> my commit.  The scripts I use to post to the mailing lists will strip
-> the Change-Id out and use it to make the actual Message-Id.  I will
 
-Hm, I've spoken in favour of the Link: approach for upstream purposes.
-But I do see the point in making it possible for people to somehow have
-a workflow involving change-ids that does not interfer with regular
-upstream expectations, i.e. no Change-Ids in commit messages.
+Dan,
 
-One thing that came up was to place stuff like Change-Id after the ---
-which git format-patch would leave out. This still has the problem
-though that a git merge will keep the stuff after the --- and so a git
-tag followed by a git request-pull would have the stuff in there as well
-afaict. So I wonder if you couldn't simply enable Gerrit to look for
-stuff like Change-Ids in git notes. They wouldn't show up on merges and
-pulls afaict...
+>> One pet peeve I have is that people are pretty bad at indicating the
+>> intended target tree. I often ask for it in private mail but the
+>> practice doesn't seem to stick. I spend a ton of time guessing whether a
+>> patch is a fix for a new feature in the x+1 queue or a fix for the
+>> current release. It is not always obvious.
+>
+> The Fixes tag doesn't help?
 
-Christian
+Always.
+
+> Of course, you've never asked me or anyone on kernel-newbies that
+> question.  We don't normally know the answer either.  I do always try
+> to figure it out for networking, but it's kind of a pain in the butt
+> and I mess up surpisingly often for how much effort I put into getting
+> it right.
+
+It's not a big issue for your patches. These are inevitably fixes and
+I'll pick an appropriate tree depending on where we are in the cycle,
+how likely one is to hit the issue, whether the driver is widely used,
+etc.
+
+Vendor driver submissions, however, are generally huge. Sometimes 50+
+patches per submission window. And during this window I often get on the
+order of 10 to 20 patches for the same driver in the fixes tree. It is
+not always easy to determine whether a bug fix series is for one tree or
+the other.
+
+-- 
+Martin K. Petersen	Oracle Linux Engineering
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
