@@ -2,67 +2,63 @@ Return-Path: <SRS0=pgec=XN=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18C25C4CEC4
-	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 14:12:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5ACFAC4CECE
+	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 17:27:20 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E1D3421907
-	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 14:12:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 32E69208C0
+	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 17:27:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="S/PEL4lw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1D3421907
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jw45SSEn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32E69208C0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5D667DA1;
-	Wed, 18 Sep 2019 14:12:00 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B98F7D3E;
+	Wed, 18 Sep 2019 17:27:19 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3ADD5D9F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C7E47CC7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Sep 2019 14:11:59 +0000 (UTC)
+	Wed, 18 Sep 2019 17:27:18 +0000 (UTC)
 X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 84D5C8B8
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1BFA6875
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Sep 2019 14:11:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:
-	From:Date:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Yohvd0Idt9XF7Z6aLd86ae0gny3xbIPIECy+nZxQfLE=;
-	b=S/PEL4lw1qOMpx3VheqesgCV1
-	AIiEYbnI2+76xp2AdoZPxn99nn4aBnFFjMqZDtORB/z7ZMSmPUc8cQgoQ+zPzDCZMzxEwMNI2Xisv
-	7Kt8c+FOSVluINCBfYJCFxm9YCOt8RvGMA+E9yntY3tGoE+taqsw2dB1Y3aeOw2GXqOH66/bK+39F
-	DpBuzmAmm4vHuSOsaIPBL4rSbm/3ziVEeebXN9NwQ8syvEOt2bDqZ70gcln9F2e8GgQMQQgpmegct
-	UQUPONz3+M1pb3nEeAfnBgNDdMo7gr9gQQcsO8K8cOYzdoFXSXXe3K9qefRYIbKQ6yIzlHfqXVpAc
-	Kl+PGB/QQ==;
-Received: from 177.96.192.152.dynamic.adsl.gvt.net.br ([177.96.192.152]
-	helo=coco.lan)
-	by bombadil.infradead.org with esmtpsa (Exim 4.92.2 #3 (Red Hat Linux))
-	id 1iAagX-0002oN-EH; Wed, 18 Sep 2019 14:11:57 +0000
-Date: Wed, 18 Sep 2019 11:11:53 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@collabora.com>
-Message-ID: <20190918111153.6f52c651@coco.lan>
-In-Reply-To: <1e479f17-dbc8-b44d-bd1e-4229a6dbf151@collabora.com>
-References: <20190918123620.GA6306@pendragon.ideasonboard.com>
-	<9cdbab30b9e0a435b97113b90645e647e8165225.1568815176.git.mchehab+samsung@kernel.org>
-	<1e479f17-dbc8-b44d-bd1e-4229a6dbf151@collabora.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+	Wed, 18 Sep 2019 17:27:16 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (unknown [62.28.174.186])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7E2A1325;
+	Wed, 18 Sep 2019 19:27:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1568827634;
+	bh=bYvBbIYT68EmjsrFSdEGpIVQg/3JOMM3J1uCsKf6UFQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jw45SSEn95/tZJdlohm9zsZdynqtcn92L3hfrNgwU6tYwQdNBuWDyQX0DI0PlT3ey
+	S7L3yKzhaUpO7Y7P63i68mon++s6/t7+LTZz4Bki8xgMVhtWfQXyEEHFZimFjSBUqH
+	DzOUeDk/pFYxLqfFQgbJNDyHUSl9RJxNf8vwKKEM=
+Date: Wed, 18 Sep 2019 20:27:05 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190918172705.GC4734@pendragon.ideasonboard.com>
+References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
+	<20190918123620.GA6306@pendragon.ideasonboard.com>
+	<20190918105728.24e7eb48@coco.lan>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190918105728.24e7eb48@coco.lan>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Linux Media Mailing List <linux-media@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH v2] media: add a subsystem profile
-	documentation
+Subject: Re: [Ksummit-discuss] [PATCH] media: add a subsystem profile
+ documentation
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -74,75 +70,435 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-RW0gV2VkLCAxOCBTZXAgMjAxOSAxMTowNzoxNiAtMDMwMApBbmRyw6kgQWxtZWlkYSA8YW5kcmVh
-bG1laWRAY29sbGFib3JhLmNvbT4gZXNjcmV2ZXU6Cgo+IEhlbGxvIE1hdXJvLAo+IAo+IE9uIDkv
-MTgvMTkgMTA6NTkgQU0sIE1hdXJvIENhcnZhbGhvIENoZWhhYiB3cm90ZToKPiA+IERvY3VtZW50
-IHRoZSBiYXNpYyBwb2xpY2llcyBvZiB0aGUgbWVkaWEgc3Vic3lzdGVtIHByb2ZpbGUuCj4gPiAK
-PiA+IFNpZ25lZC1vZmYtYnk6IE1hdXJvIENhcnZhbGhvIENoZWhhYiA8bWNoZWhhYitzYW1zdW5n
-QGtlcm5lbC5vcmc+Cj4gPiAtLS0KPiA+ICBEb2N1bWVudGF0aW9uL21lZGlhL2luZGV4LnJzdCAg
-ICAgICAgICAgICAgICAgfCAgIDEgKwo+ID4gIC4uLi9tZWRpYS9tYWludGFpbmVyLWVudHJ5LXBy
-b2ZpbGUucnN0ICAgICAgICB8IDE1NyArKysrKysrKysrKysrKysrKysKPiA+ICBNQUlOVEFJTkVS
-UyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDEgKwo+ID4gIDMgZmlsZXMg
-Y2hhbmdlZCwgMTU5IGluc2VydGlvbnMoKykKPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1l
-bnRhdGlvbi9tZWRpYS9tYWludGFpbmVyLWVudHJ5LXByb2ZpbGUucnN0Cj4gPiAKPiA+IGRpZmYg
-LS1naXQgYS9Eb2N1bWVudGF0aW9uL21lZGlhL2luZGV4LnJzdCBiL0RvY3VtZW50YXRpb24vbWVk
-aWEvaW5kZXgucnN0Cj4gPiBpbmRleCAwMzAxYzI1ZmY4ODcuLmFjOTQ2ODViODIyYSAxMDA2NDQK
-PiA+IC0tLSBhL0RvY3VtZW50YXRpb24vbWVkaWEvaW5kZXgucnN0Cj4gPiArKysgYi9Eb2N1bWVu
-dGF0aW9uL21lZGlhL2luZGV4LnJzdAo+ID4gQEAgLTEyLDYgKzEyLDcgQEAgTGludXggTWVkaWEg
-U3Vic3lzdGVtIERvY3VtZW50YXRpb24KPiA+ICAuLiB0b2N0cmVlOjoKPiA+ICAgICA6bWF4ZGVw
-dGg6IDIKPiA+ICAKPiA+ICsgICBtYWludGFpbmVyLWVudHJ5LXByb2ZpbGUKPiA+ICAgICBtZWRp
-YV91YXBpCj4gPiAgICAgbWVkaWFfa2FwaQo+ID4gICAgIGR2Yi1kcml2ZXJzL2luZGV4Cj4gPiBk
-aWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9tZWRpYS9tYWludGFpbmVyLWVudHJ5LXByb2ZpbGUu
-cnN0IGIvRG9jdW1lbnRhdGlvbi9tZWRpYS9tYWludGFpbmVyLWVudHJ5LXByb2ZpbGUucnN0Cj4g
-PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMDAwMDAwLi42OGQ2NDJhYmUy
-YzEKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vbWVkaWEvbWFpbnRh
-aW5lci1lbnRyeS1wcm9maWxlLnJzdAo+ID4gQEAgLTAsMCArMSwxNTcgQEAKPiA+ICtNZWRpYSBT
-dWJzeXN0ZW0gUHJvZmlsZQo+ID4gKz09PT09PT09PT09PT09PT09PT09PT09Cj4gPiArCj4gPiAr
-T3ZlcnZpZXcKPiA+ICstLS0tLS0tLQo+ID4gKwo+ID4gK1RoZSBtZWRpYSBzdWJzeXN0ZW0gY292
-ZXJzIHN1cHBvcnQgZm9yIGEgdmFyaWV0eSBvZiBkZXZpY2VzOiBzdHJlYW0KPiA+ICtjYXB0dXJl
-LCBhbmFsb2cgYW5kIGRpZ2l0YWwgVFYsIGNhbWVyYXMsIHJlbW90ZSBjb250cm9sbGVycywgSERN
-SSBDRUMKPiA+ICthbmQgbWVkaWEgcGlwZWxpbmUgY29udHJvbC4KPiA+ICsKPiA+ICtJdCBjb3Zl
-cnMsIG1haW5seSwgdGhlIGNvbnRlbnRzIG9mIHRob3NlIGRpcmVjdG9yaWVzOgo+ID4gKwo+ID4g
-KyAgLSBkcml2ZXJzL21lZGlhCj4gPiArICAtIGRyaXZlcnMvc3RhZ2luZy9tZWRpYQo+ID4gKyAg
-LSBEb2N1bWVudGF0aW9uL21lZGlhCj4gPiArICAtIGluY2x1ZGUvbWVkaWEKPiA+ICsKPiA+ICtC
-b3RoIG1lZGlhIHVzZXJzcGFjZSBhbmQgS2VybmVsIEFQSXMgYXJlIGRvY3VtZW50ZWQgYW5kIHNo
-b3VsZCBiZSBrZXB0IGluCj4gPiArc3luYyB3aXRoIHRoZSBBUEkgY2hhbmdlcy4gSXQgbWVhbnMg
-dGhhdCBhbGwgcGF0Y2hlcyB0aGF0IGFkZCBuZXcKPiA+ICtmZWF0dXJlcyB0byB0aGUgc3Vic3lz
-dGVtIHNob3VsZCBhbHNvIGJyaW5nIGNoYW5nZXMgdG8gdGhlIGNvcnJlc3BvbmRpbmcKPiA+ICtB
-UEkgZmlsZXMuCj4gPiArCj4gPiArQWxzbywgcGF0Y2hlcyB0aGF0IGNoYW5nZXMgdGhlIE9wZW4g
-RmlybXdhcmUvRGV2aWNlIFRyZWUgYmluZGluZ3Mgc2hvdWxkCj4gPiArYWxzbyBiZSByZXZpZXdl
-ZCBieSB0aGUgRGV2aWNlIFRyZWUgbWFpbnRhaW5lcnMuCj4gPiArCj4gPiArRHVlIHRvIHRoZSBz
-aXplIGFuZCB3aWRlIHNjb3BlIG9mIHRoZSBtZWRpYSBzdWJzeXN0ZW0sIG1lZGlhJ3MKPiA+ICtt
-YWludGFpbmVyc2hpcCBtb2RlbCBpcyB0byBoYXZlIHN1Yi1tYWludGFpbmVycyB0aGF0IGhhdmUg
-YSBicm9hZAo+ID4gK2tub3dsZWRnZSBvZiBhbiBzcGVjaWZpYyBhc3BlY3Qgb2YgdGhlIHN1YnN5
-c3RlbS4gSXQgaXMgYQo+ID4gK3N1Yi1tYWludGFpbmVyJ3MgdGFzayB0byByZXZpZXcgdGhlIHBh
-dGNoZXMsIHByb3ZpZGluZyBmZWVkYmFjayB0byB1c2Vycwo+ID4gK2lmIHRoZSBwYXRjaGVzIGFy
-ZSBmb2xsb3dpbmcgdGhlIHN1YnN5c3RlbSBydWxlcyBhbmQgYXJlIHByb3Blcmx5IHVzaW5nCj4g
-PiArdGhlIG1lZGlhIGludGVybmFsIGFuZCBleHRlcm5hbCBBUElzLgo+ID4gKwo+ID4gK1BhdGNo
-ZXMgZm9yIHRoZSBtZWRpYSBzdWJzeXN0ZW0gc2hvdWxkIGJlIHNlbnQgdG8gdGhlIG1lZGlhIG1h
-aWxpbmcgbGlzdAo+ID4gK2F0IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZyBhcyBwbGFpbiB0
-ZXh0IG9ubHkgZS1tYWlsLiBFbWFpbHMgd2l0aAo+ID4gK0hUTUwgd2lsbCBiZSBhdXRvbWF0aWNh
-bGx5IHJlamVjdGVkIGJ5IHRoZSBtYWlsIHNlcnZlci4gSXQgY291bGQgYmUgd2lzZQo+ID4gK3Rv
-IGFsc28gY29weSB0aGUgc3ViLW1haW50YWluZXIocykuCj4gPiArCj4gPiArTWVkaWEncyB3b3Jr
-ZmxvdyBpcyBoZWF2aWx5IGJhc2VkIG9uIFBhdGNod29yaywgbWVhbmluZyB0aGF0LCBvbmNlIGEg
-cGF0Y2gKPiA+ICtpcyBzdWJtaXR0ZWQsIGl0IHNob3VsZCBhcHBlYXIgYXQ6Cj4gPiArCj4gPiAr
-ICAgLSBodHRwczovL3BhdGNod29yay5saW51eHR2Lm9yZy9wcm9qZWN0L2xpbnV4LW1lZGlhL2xp
-c3QvCj4gPiArCj4gPiArSWYgaXQgZG9lc24ndCBhdXRvbWF0aWNhbGx5IGFwcGVhciB0aGVyZSBh
-ZnRlciBhIGZldyBtaW51dGVzLCB0aGVuCj4gPiArcHJvYmFibHkgc29tZXRoaW5nIGdvdCB3cm9u
-ZyBvbiB5b3VyIHN1Ym1pc3Npb24uIFBsZWFzZSBjaGVjayBpZiB0aGUKPiA+ICtlbWFpbCBpcyBp
-biBwbGFpbiB0ZXh0IG9ubHkgYW5kIGlmIHlvdXIgZW1haWxlciBpcyBub3QgbWFuZ2xpbmcgd2l0
-aAo+ID4gK3doaXRlc3BhY2VzIGJlZm9yZSBjb21wbGFpbmluZyBvciBzdWJtaXQgaXQgYWdhaW4u
-Cj4gPiArCj4gPiArU3ViLW1haW50YWluZXJzCj4gPiArKysrKysrKysrKysrKysrICAKPiAKPiBX
-aGF0IGlzIHRoZSBtb3RpdmF0aW9uIGZvciB1c2luZyAiKysrIiBpbnN0ZWFkIG9mICItLS0iPwoK
-SnVzdCBjb3NtZXRpY3MuCgpUaGlzIGNoYXB0ZXIgZG9lc24ndCBleGlzdCBhdCB0aGUgb3JpZ2lu
-YWwgcHJvZmlsZSwgYXMgc3ViLW1haW50YWluZXJzLApjby1tYWludGFpbmVycywgZXRjLiBhcmUg
-dXNlZCBvbmx5IG9uIGEgZmV3IHN1YnN5c3RlbXMuIAoKU28sIEknbSBhZGRpbmcgaXQgYXMgYSBz
-dWItY2hhcHRlci4KClRoYW5rcywKTWF1cm8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KS3N1bW1pdC1kaXNjdXNzIG1haWxpbmcgbGlzdApLc3VtbWl0LWRp
-c2N1c3NAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZwpodHRwczovL2xpc3RzLmxpbnV4Zm91bmRh
-dGlvbi5vcmcvbWFpbG1hbi9saXN0aW5mby9rc3VtbWl0LWRpc2N1c3MK
+Hi Mauro,
+
+On Wed, Sep 18, 2019 at 10:57:28AM -0300, Mauro Carvalho Chehab wrote:
+> Em Wed, 18 Sep 2019 15:36:20 +0300 Laurent Pinchart escreveu:
+> > On Fri, Sep 13, 2019 at 01:19:21PM -0300, Mauro Carvalho Chehab wrote:
+> > > Document the basic policies of the media subsystem profile.
+> > > 
+> > > Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> > > ---
+> > > 
+> > > That's basically a modified version of:
+> > >     https://patchwork.linuxtv.org/patch/52999/
+> > > 
+> > > Applied to the new template
+> > > 
+> > >  Documentation/media/index.rst                 |   1 +
+> > >  .../media/maintainer-entry-profile.rst        | 140 ++++++++++++++++++
+> > >  MAINTAINERS                                   |   1 +
+> > >  3 files changed, 142 insertions(+)
+> > >  create mode 100644 Documentation/media/maintainer-entry-profile.rst
+> > > 
+> > > diff --git a/Documentation/media/index.rst b/Documentation/media/index.rst
+> > > index 0301c25ff887..ac94685b822a 100644
+> > > --- a/Documentation/media/index.rst
+> > > +++ b/Documentation/media/index.rst
+> > > @@ -12,6 +12,7 @@ Linux Media Subsystem Documentation
+> > >  .. toctree::
+> > >     :maxdepth: 2
+> > >  
+> > > +   maintainer-entry-profile
+> > >     media_uapi
+> > >     media_kapi
+> > >     dvb-drivers/index
+> > > diff --git a/Documentation/media/maintainer-entry-profile.rst b/Documentation/media/maintainer-entry-profile.rst
+> > > new file mode 100644
+> > > index 000000000000..81d3b0f9c36a
+> > > --- /dev/null
+> > > +++ b/Documentation/media/maintainer-entry-profile.rst
+> > > @@ -0,0 +1,140 @@
+> > > +Media Subsystem Profile
+> > > +=======================
+> > > +
+> > > +Overview
+> > > +--------
+> > > +
+> > > +The media subsystem cover support for a variety of devices: stream  
+> > 
+> > s/cover/covers/
+> > 
+> > > +capture, analog and digital TV, cameras, remote controllers, HDMI CEC
+> > > +and media pipeline control.
+> > > +
+> > > +It covers, mainly, the contents of those directories:
+> > > +
+> > > +  - drivers/media
+> > > +  - drivers/staging/media
+> > > +  - Documentation/media
+> > > +  - include/media
+> > > +
+> > > +Both media userspace and Kernel APIs are documented and should be kept in
+> > > +sync with the API changes. It means that all patches that add new
+> > > +features to the subsystem should also bring changes to the corresponding
+> > > +API files.
+> > > +
+> > > +Also, patches for device drivers that changes the Open Firmware/Device
+> > > +Tree bindings should be reviewed by the Device Tree maintainers.  
+> > 
+> > You may want to make it clear that this covers bindings only, not driver
+> > code that parses the DT. I would just remove "for device drivers", as
+> > the rule should also apply to DT bindings documentation that is not
+> > driver-specific.
+> > 
+> > > +Due to the size and wide scope of the media subsystem, media's
+> > > +maintainership model is to have sub-maintainers that have a broad
+> > > +knowledge of an specific aspect of the subsystem. It is a
+> > > +sub-maintainers task to review the patches, providing feedback to users  
+> > 
+> > s/sub-maintainers/sub-maintainer's/
+> > 
+> > > +if the patches are following the subsystem rules and are properly using
+> > > +the media internal and external APIs.
+> > > +
+> > > +Patches for the media subsystem should be sent to the media mailing list
+> > > +at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> > > +HTML will be automatically rejected by the mail server. There's no need
+> > > +to copy the maintainer or sub-maintainer(s).  
+> > 
+> > There's too much traffic on mailing lists for me to follow everything, I
+> > much prefer being CC'ed on patches.
+> 
+> Well, by using patchwork, the best is to take a look on it at least for
+> the patches that you're interested. You could script something using
+> pwclient in order to make it easier.
+> 
+> Anyway, not sure if the other sub-maintainers see the same way. From my side,
+> I prefer not to be c/c, as this is just more noise, as I just rely on
+> patchwork for media patches. What about changing this to:
+> 
+> 	Patches for the media subsystem should be sent to the media mailing list
+> 	at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> 	HTML will be automatically rejected by the mail server. It could be wise 
+> 	to also copy the sub-maintainer(s).
+
+That works for me. As this is really a personal preference, is there a
+way it could be encoded in MAINTAINERS in a per-person fashion ?
+Something that would allow you to opt-out from CC from linux-media (but
+possibly opt-in for other parts of the kernel), and allow me to opt-in
+for the drivers I maintain ?
+
+> > > +Media's workflow is heavily based on Patchwork, meaning that, once a patch
+> > > +is submitted, it should appear at:
+> > > +
+> > > +   - https://patchwork.linuxtv.org/project/linux-media/list/
+> > > +
+> > > +If it doesn't automatically appear there after a few minutes, then
+> > > +probably something got wrong on your submission. Please check if the
+> > > +email is in plain text only and if your emailer is not mangling with
+> > > +whitespaces before complaining or submit it again.
+> > > +
+> > > +Sub-maintainers
+> > > ++++++++++++++++
+> > > +
+> > > +At the media subsystem, we have a group of senior developers that are  
+> > 
+> > How about "experienced" instead of "senior" ? Quality doesn't always
+> > come with age, neither for people nor wine :-)
+> > 
+> > > +responsible for doing the code reviews at the drivers (called
+> > > +sub-maintainers), and another senior developer responsible for the
+> > > +subsystem as a hole. For core changes, whenever possible, multiple
+> > > +media (sub-)maintainers do the review.
+> > > +
+> > > +The sub-maintainers work on specific areas of the subsystem, as
+> > > +described below:
+> > > +
+> > > +Digital TV:
+> > > +  Sean Young <sean@mess.org>
+> > > +
+> > > +HDMI CEC:
+> > > +  Hans Verkuil <hverkuil@xs4all.nl>
+> > > +
+> > > +Media controller drivers:
+> > > +  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > +
+> > > +Remote Controllers:
+> > > +  Sean Young <sean@mess.org>
+> > > +
+> > > +Sensor drivers:
+> > > +  Sakari Ailus <sakari.ailus@linux.intel.com>
+> > > +
+> > > +V4L2 drivers:
+> > > +  Hans Verkuil <hverkuil@xs4all.nl>
+> > > +
+> > > +Submit Checklist Addendum
+> > > +-------------------------
+> > > +
+> > > +There is a set of compliance tools at https://git.linuxtv.org/v4l-utils.git/
+> > > +that should be used in order to check if the drivers are properly
+> > > +implementing the media APIs.
+> > > +
+> > > +Those tests need to be passed before the patches go upstream.  
+> > 
+> > s/need to be passed/need to pass/
+> > 
+> > > +
+> > > +Also, please notice that we build the Kernel with::
+> > > +
+> > > +	make CF=-D__CHECK_ENDIAN__ CONFIG_DEBUG_SECTION_MISMATCH=y C=1 W=1 CHECK=check_script
+> > > +
+> > > +Where the check script is::
+> > > +
+> > > +	#!/bin/bash
+> > > +	/devel/smatch/smatch -p=kernel $@ >&2
+> > > +	/devel/sparse/sparse $@ >&2
+> > > +
+> > > +Be sure to not introduce new warnings on your patches.  
+> > 
+> > While static analysers deliver value, I fear this is a high barrier to
+> > entry for new contributors.
+> 
+> Will change this to:
+> 
+> 	Be sure to not introduce new warnings on your patches without a 
+> 	very good reason.
+> 
+> Especially for new contributors, I really expect patches to not introduce
+> new warnings, as it is usually a lot more painful to fix them later than
+> to ask devs to do things right at the first place.
+
+I fully agree with the goal, but asking a drive-by contributor, who
+usually has to go through issues with sending patches through e-mail
+already, to install smatch and sparse and use them, is setting the bar
+high. I think automating those checks is the way to go.
+
+> > > +
+> > > +Key Cycle Dates
+> > > +---------------
+> > > +
+> > > +New submissions can be sent at any time, but if they intend to hit the
+> > > +next merge window they should be sent before -rc5, and ideally stabilized
+> > > +in the linux-media branch by -rc6.
+> > > +
+> > > +Coding Style Addendum
+> > > +---------------------
+> > > +
+> > > +Media development uses checkpatch on strict mode to verify the code style, e. g.::
+> > > +
+> > > +	$ ./script/checkpatch.pl --strict  
+> > 
+> > But we still accept some warnings. I think this should be documented.
+> 
+> True, but not sure if we should enter into too specific details here.
+> 
+> What about adding something like:
+> 
+> 	Please notice that the goal here is to improve code readability. On a few 
+> 	cases, checkpatch may actually point to	something that would look worse. 
+> 
+> 	So, you	should use good	send sense here, being prepared to justify any 
+
+s/send sense/sense/
+
+> 	coding style decision.
+
+"being prepared to justify" sounds a bit harsh :-) But the general
+message is good.
+
+> 
+> 	Please also notice that, on some cases,	when you fix one issue,	you may
+> 	receive	warnings about lines longer than 80 columns. It	is fine	to have
+> 	longer lines if	this means that	other warnings will be fixed by	that.
+> 
+> 	Yet, if	you're having more than	80 columns on a	line, please consider 
+> 	simplifying the	code - if too idented -	or to use shorter names	for 
+> 	variables.
+
+That's already quite specific for my taste. We can keep it as-is if you
+think it's fine, but we clearly shouldn't go into more details.
+
+> > > +
+> > > +Review Cadence
+> > > +--------------
+> > > +
+> > > +Provided that your patch is at https://patchwork.linuxtv.org, it should
+> > > +be sooner or later handled, so you don't need to re-submit a patch.
+> > > +
+> > > +Except for bug fixes, we don't usually add new patches to the development
+> > > +tree between -rc6 and the next -rc1.
+> > > +
+> > > +Please notice that the media subsystem is a high traffic one, so it
+> > > +could take a while for us to be able to review your patches. Feel free
+> > > +to ping if you don't get a feedback on a couple of weeks or to ask  
+> > 
+> > s/on a/in a/
+> > 
+> > > +other developers to publicly add Reviewed-by and, more importantly,
+> > > +Tested-by tags.
+> > > +
+> > > +Please notice that we expect a detailed description for Tested-by,  
+> > 
+> > s/notice/note/
+> > 
+> > > +identifying what boards were used at the test and what it was tested.
+> > > +
+> > > +Style Cleanup Patches
+> > > +---------------------
+> > > +
+> > > +Style-cleanups are welcome when they come together with other changes
+> > > +at the files where the style changes will affect.
+> > > +
+> > > +We may accept pure standalone style-cleanups, but they should be grouped
+> > > +per directory. So, for example, if you're doing a cleanup at drivers
+> > > +under drivers/media, please send a single patch for all drivers under
+> > > +drivers/media/pci, another one for drivers/media/usb and so on.  
+> > 
+> > How about also stating that if the cleanup is low volume, a single patch
+> > for the whole subsystem is preferred ? I think that should actually be
+> > the rule, with a split to ease review only when the patch would be too
+> > big.
+> > 
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 7c62b45201d7..e7f44ec05a42 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -10077,6 +10077,7 @@ W:	https://linuxtv.org
+> > >  Q:	http://patchwork.kernel.org/project/linux-media/list/
+> > >  T:	git git://linuxtv.org/media_tree.git
+> > >  S:	Maintained
+> > > +P:	Documentation/media/maintainer-entry-profile.rst
+> > >  F:	Documentation/devicetree/bindings/media/
+> > >  F:	Documentation/media/
+> > >  F:	drivers/media/  
+> > 
+> 
+> I'm enclosing the diff against the past version. I'll send a final version
+> once the profiles patchset arrives upstream.
+> 
+> diff --git a/Documentation/media/maintainer-entry-profile.rst b/Documentation/media/maintainer-entry-profile.rst
+> index 81d3b0f9c36a..68d642abe2c1 100644
+> --- a/Documentation/media/maintainer-entry-profile.rst
+> +++ b/Documentation/media/maintainer-entry-profile.rst
+> @@ -4,7 +4,7 @@ Media Subsystem Profile
+>  Overview
+>  --------
+>  
+> -The media subsystem cover support for a variety of devices: stream
+> +The media subsystem covers support for a variety of devices: stream
+>  capture, analog and digital TV, cameras, remote controllers, HDMI CEC
+>  and media pipeline control.
+>  
+> @@ -20,20 +20,20 @@ sync with the API changes. It means that all patches that add new
+>  features to the subsystem should also bring changes to the corresponding
+>  API files.
+>  
+> -Also, patches for device drivers that changes the Open Firmware/Device
+> -Tree bindings should be reviewed by the Device Tree maintainers.
+> +Also, patches that changes the Open Firmware/Device Tree bindings should
+> +also be reviewed by the Device Tree maintainers.
+>  
+>  Due to the size and wide scope of the media subsystem, media's
+>  maintainership model is to have sub-maintainers that have a broad
+>  knowledge of an specific aspect of the subsystem. It is a
+> -sub-maintainers task to review the patches, providing feedback to users
+> +sub-maintainer's task to review the patches, providing feedback to users
+>  if the patches are following the subsystem rules and are properly using
+>  the media internal and external APIs.
+>  
+>  Patches for the media subsystem should be sent to the media mailing list
+>  at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> -HTML will be automatically rejected by the mail server. There's no need
+> -to copy the maintainer or sub-maintainer(s).
+> +HTML will be automatically rejected by the mail server. It could be wise
+> +to also copy the sub-maintainer(s).
+>  
+>  Media's workflow is heavily based on Patchwork, meaning that, once a patch
+>  is submitted, it should appear at:
+> @@ -48,8 +48,8 @@ whitespaces before complaining or submit it again.
+>  Sub-maintainers
+>  +++++++++++++++
+>  
+> -At the media subsystem, we have a group of senior developers that are
+> -responsible for doing the code reviews at the drivers (called
+> +At the media subsystem, we have a group of experienced developers that
+> +are responsible for doing the code reviews at the drivers (called
+>  sub-maintainers), and another senior developer responsible for the
+>  subsystem as a hole. For core changes, whenever possible, multiple
+>  media (sub-)maintainers do the review.
+> @@ -82,7 +82,7 @@ There is a set of compliance tools at https://git.linuxtv.org/v4l-utils.git/
+>  that should be used in order to check if the drivers are properly
+>  implementing the media APIs.
+>  
+> -Those tests need to be passed before the patches go upstream.
+> +Those tests need to pass before the patches go upstream.
+>  
+>  Also, please notice that we build the Kernel with::
+>  
+> @@ -94,7 +94,8 @@ Where the check script is::
+>  	/devel/smatch/smatch -p=kernel $@ >&2
+>  	/devel/sparse/sparse $@ >&2
+>  
+> -Be sure to not introduce new warnings on your patches.
+> +Be sure to not introduce new warnings on your patches without a
+> +very good reason.
+>  
+>  Key Cycle Dates
+>  ---------------
+> @@ -110,6 +111,20 @@ Media development uses checkpatch on strict mode to verify the code style, e. g.
+>  
+>  	$ ./script/checkpatch.pl --strict
+>  
+> +Please notice that the goal here is to improve code readability. On a few
+> +cases, checkpatch may actually point to something that would look worse.
+> +
+> +So, you should use good send sense here, being prepared to justify any
+> +coding style decision.
+> +
+> +Please also notice that, on some cases, when you fix one issue, you may
+> +receive warnings about lines longer than 80 columns. It is fine to have
+> +longer lines if this means that other warnings will be fixed by that.
+> +
+> +Yet, if you're having more than 80 columns on a line, please consider
+> +simplifying the code - if too idented - or to use shorter names for
+> +variables.
+> +
+>  Review Cadence
+>  --------------
+>  
+> @@ -121,11 +136,11 @@ tree between -rc6 and the next -rc1.
+>  
+>  Please notice that the media subsystem is a high traffic one, so it
+>  could take a while for us to be able to review your patches. Feel free
+> -to ping if you don't get a feedback on a couple of weeks or to ask
+> +to ping if you don't get a feedback in a couple of weeks or to ask
+>  other developers to publicly add Reviewed-by and, more importantly,
+>  Tested-by tags.
+>  
+> -Please notice that we expect a detailed description for Tested-by,
+> +Please note that we expect a detailed description for Tested-by,
+>  identifying what boards were used at the test and what it was tested.
+>  
+>  Style Cleanup Patches
+> @@ -134,7 +149,9 @@ Style Cleanup Patches
+>  Style-cleanups are welcome when they come together with other changes
+>  at the files where the style changes will affect.
+>  
+> -We may accept pure standalone style-cleanups, but they should be grouped
+> -per directory. So, for example, if you're doing a cleanup at drivers
+> -under drivers/media, please send a single patch for all drivers under
+> -drivers/media/pci, another one for drivers/media/usb and so on.
+> +We may accept pure standalone style-cleanups, but they should ideally
+> +be one patch for the hole subsystem (if the cleanup is low volume),
+
+s/hole/whole/
+
+> +or at least be grouped per directory. So, for example, if you're doing
+> +big cleanup changes at drivers under drivers/media, please send a single
+> +patch for all drivers under drivers/media/pci, another one for
+> +drivers/media/usb and so on.
+
+-- 
+Regards,
+
+Laurent Pinchart
+_______________________________________________
+Ksummit-discuss mailing list
+Ksummit-discuss@lists.linuxfoundation.org
+https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
