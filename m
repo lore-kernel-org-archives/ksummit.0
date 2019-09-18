@@ -2,69 +2,62 @@ Return-Path: <SRS0=pgec=XN=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F14C4CEC9
-	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 11:23:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9687C4CEC9
+	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 12:36:36 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E123214AF
-	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 11:23:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AD5AA20665
+	for <ksummit-discuss@archiver.kernel.org>; Wed, 18 Sep 2019 12:36:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="nnU7WIin"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E123214AF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Io2DbQQ6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD5AA20665
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id A3239CC0;
-	Wed, 18 Sep 2019 11:23:32 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 5F1DCAC7;
+	Wed, 18 Sep 2019 12:36:36 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 724E1C03
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6765A265
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Sep 2019 11:23:31 +0000 (UTC)
+	Wed, 18 Sep 2019 12:36:34 +0000 (UTC)
 X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E2CAC876
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30EC3876
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Sep 2019 11:23:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:
-	From:Date:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=t0QzdYXoFpP0e7VCW5HdOQ2MGUfEADSAd4kzwTTpSdU=;
-	b=nnU7WIinQ8o6BSH6dEFCRFjdF
-	OzCZk1sJskPk0hhWb8mQHQqtzuIq1Ujeen50ISIC60Rh+CgogYOFG2zU3DfJn6bc3sEr+n8XPl9+4
-	ACFF8AU44fr39WB6gTbonir+5XPfG/PQT7ohpmXeNw3ZIwd2iS9pVAYclu+7Wk9NWEbAZCa/vVaOR
-	ofC3AbZ0NUazEKcLaoVy3dV9hLIIv4FOs2Y87qS0zDJsUDLMk4+gLfxALWY4G9MvgTuMBOp1SgtLI
-	2ldZ+rmHUEdZivcDQLi902HEFwOgBtln+u3xYBGNS9qo4OWOAU9uXrPN8qLvqq7pLYG70diH9WnC4
-	qfxOzkr3Q==;
-Received: from 177.96.192.152.dynamic.adsl.gvt.net.br ([177.96.192.152]
-	helo=coco.lan)
-	by bombadil.infradead.org with esmtpsa (Exim 4.92.2 #3 (Red Hat Linux))
-	id 1iAY3V-0007Xh-I9; Wed, 18 Sep 2019 11:23:29 +0000
-Date: Wed, 18 Sep 2019 08:23:26 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20190918082326.49a19a24@coco.lan>
-In-Reply-To: <201909170930.B8AD840@keescook>
+	Wed, 18 Sep 2019 12:36:33 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (126.92.103.87.rev.vodafone.pt
+	[87.103.92.126])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 80CDB325;
+	Wed, 18 Sep 2019 14:36:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1568810190;
+	bh=NOVNl24Y7oM1bDK7i444lWq36V0g5k8mcsJROEDiqz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Io2DbQQ6oM1EUCIuPh/CnBfsNMtdAKWvryZWDKanRPMT4ByQq1jEnjozM2Zn6OJxl
+	BfnfNfpc6Xk12RN0KHE2g20q1PoI2rtMqDv79dQFxKXAEQQOH+Nuy1iHvlVa/DjuQC
+	GJ0HBHkJODvxoYzX9UNJsuAGVQjAENFDflt1z18Y=
+Date: Wed, 18 Sep 2019 15:36:20 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190918123620.GA6306@pendragon.ideasonboard.com>
 References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
-	<201909162032.F4462D3@keescook> <20190917102817.263517b5@coco.lan>
-	<201909170930.B8AD840@keescook>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Linux Media Mailing List <linux-media@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] single maintainer profile directory (was Re:
- [PATCH] media: add a subsystem profile documentation)
+Subject: Re: [Ksummit-discuss] [PATCH] media: add a subsystem profile
+ documentation
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -81,116 +74,240 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-Em Tue, 17 Sep 2019 09:33:11 -0700
-Kees Cook <keescook@chromium.org> escreveu:
+Hi Mauro,
 
-> On Tue, Sep 17, 2019 at 10:28:17AM -0300, Mauro Carvalho Chehab wrote:
-> > No matter where the profiles will physically be stored, its contents belong 
-> > to subsystem-specific documentation, and should be visible at the same index 
-> > file as the kAPI docs is located, as anyone interested on submitting patches
-> > for a subsystem should be aware about the subsystem specific policies and
-> > details.  
+On Fri, Sep 13, 2019 at 01:19:21PM -0300, Mauro Carvalho Chehab wrote:
+> Document the basic policies of the media subsystem profile.
 > 
-> That's a good point. I think your other suggestions below address my
-> "find them all" case...
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> ---
 > 
-> > So, my vote is to store them at Documentation/*/<subsystem> (together
-> > with the kAPI book).
-> >   
-> > > since there are
-> > > two ways someone would want to read profiles:
-> > > 
-> > > 1) a single profile, based on a MAINTAINERS entry which includes the path  
-> > 
-> > That is the common case. The problem is that the MAINTAINERS file
-> > currently doesn't generate html output. This is not a problem for
-> > "old school" devs, but a newbie wanting to collaborate to a single
-> > specific subsystem may not notice - or understand - the importance
-> > of the MAINTAINERS file[1].
-> > 
-> > [1] btw, that's why I submitted a RFC, several years ago, a patch
-> > converting it to ReST - and later - another patch that would be parsing
-> > its contents and producing a ReST output.
-> > 
-> > That's, by far, the most relevant usecase for the profiles, as the
-> > audience is the ~4k Kernel developers.  
+> That's basically a modified version of:
+>     https://patchwork.linuxtv.org/patch/52999/
 > 
-> Oh yes, having a .rst of the MAINTAINERS file would be pretty great.
-> Seems like it could just be a build target (and then dependency) for the
-> sphinx targets?
+> Applied to the new template
+> 
+>  Documentation/media/index.rst                 |   1 +
+>  .../media/maintainer-entry-profile.rst        | 140 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  3 files changed, 142 insertions(+)
+>  create mode 100644 Documentation/media/maintainer-entry-profile.rst
+> 
+> diff --git a/Documentation/media/index.rst b/Documentation/media/index.rst
+> index 0301c25ff887..ac94685b822a 100644
+> --- a/Documentation/media/index.rst
+> +++ b/Documentation/media/index.rst
+> @@ -12,6 +12,7 @@ Linux Media Subsystem Documentation
+>  .. toctree::
+>     :maxdepth: 2
+>  
+> +   maintainer-entry-profile
+>     media_uapi
+>     media_kapi
+>     dvb-drivers/index
+> diff --git a/Documentation/media/maintainer-entry-profile.rst b/Documentation/media/maintainer-entry-profile.rst
+> new file mode 100644
+> index 000000000000..81d3b0f9c36a
+> --- /dev/null
+> +++ b/Documentation/media/maintainer-entry-profile.rst
+> @@ -0,0 +1,140 @@
+> +Media Subsystem Profile
+> +=======================
+> +
+> +Overview
+> +--------
+> +
+> +The media subsystem cover support for a variety of devices: stream
 
-You can't simply rename MAINTAINERS to .rst and let Sphinx handle it,
-as:
+s/cover/covers/
 
-	- The instructions at the top will be badly parsed;
-	- It will also parse wrong the entries.
+> +capture, analog and digital TV, cameras, remote controllers, HDMI CEC
+> +and media pipeline control.
+> +
+> +It covers, mainly, the contents of those directories:
+> +
+> +  - drivers/media
+> +  - drivers/staging/media
+> +  - Documentation/media
+> +  - include/media
+> +
+> +Both media userspace and Kernel APIs are documented and should be kept in
+> +sync with the API changes. It means that all patches that add new
+> +features to the subsystem should also bring changes to the corresponding
+> +API files.
+> +
+> +Also, patches for device drivers that changes the Open Firmware/Device
+> +Tree bindings should be reviewed by the Device Tree maintainers.
 
-On the patches I wrote several years ago, I fixed the instructions
-to make them to produce something that would produce a good output.
-That's the easiest part.
+You may want to make it clear that this covers bindings only, not driver
+code that parses the DT. I would just remove "for device drivers", as
+the rule should also apply to DT bindings documentation that is not
+driver-specific.
 
-For the entries contents, the simplest solution would be something like:
+> +Due to the size and wide scope of the media subsystem, media's
+> +maintainership model is to have sub-maintainers that have a broad
+> +knowledge of an specific aspect of the subsystem. It is a
+> +sub-maintainers task to review the patches, providing feedback to users
 
-	diff --git a/MAINTAINERS b/MAINTAINERS
-	index 6b4bc320e6ab..ae2afb14ae01 100644
-	--- a/MAINTAINERS
-	+++ b/MAINTAINERS
-	@@ -147,4 +147,4 @@ F:	drivers/net/ethernet/3com/3c59x.c
-	-M:	David Dillow <dave@thedillows.org>
-	-L:	netdev@vger.kernel.org
-	-S:	Maintained
-	-F:	drivers/net/ethernet/3com/typhoon*
-	+:M:	David Dillow <dave@thedillows.org>
-	+:L:	netdev@vger.kernel.org
-	+:S:	Maintained
-	+:F:	drivers/net/ethernet/3com/typhoon*
+s/sub-maintainers/sub-maintainer's/
 
-A trivial change for a normal file, but doing this at MAINTAINERS
-will be really painful, as it will cause lots of conflicts.
+> +if the patches are following the subsystem rules and are properly using
+> +the media internal and external APIs.
+> +
+> +Patches for the media subsystem should be sent to the media mailing list
+> +at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> +HTML will be automatically rejected by the mail server. There's no need
+> +to copy the maintainer or sub-maintainer(s).
 
-So, IMO, the best way to do it is to have a script (or to teach
-get_maintainers.pl) to produce a ReST output that would do the
-above.
+There's too much traffic on mailing lists for me to follow everything, I
+much prefer being CC'ed on patches.
 
-The latest RFC about that with I sent was this one:
+> +Media's workflow is heavily based on Patchwork, meaning that, once a patch
+> +is submitted, it should appear at:
+> +
+> +   - https://patchwork.linuxtv.org/project/linux-media/list/
+> +
+> +If it doesn't automatically appear there after a few minutes, then
+> +probably something got wrong on your submission. Please check if the
+> +email is in plain text only and if your emailer is not mangling with
+> +whitespaces before complaining or submit it again.
+> +
+> +Sub-maintainers
+> ++++++++++++++++
+> +
+> +At the media subsystem, we have a group of senior developers that are
 
-	https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1238576.html
+How about "experienced" instead of "senior" ? Quality doesn't always
+come with age, neither for people nor wine :-)
 
-I would probably address this on a different way those days.
+> +responsible for doing the code reviews at the drivers (called
+> +sub-maintainers), and another senior developer responsible for the
+> +subsystem as a hole. For core changes, whenever possible, multiple
+> +media (sub-)maintainers do the review.
+> +
+> +The sub-maintainers work on specific areas of the subsystem, as
+> +described below:
+> +
+> +Digital TV:
+> +  Sean Young <sean@mess.org>
+> +
+> +HDMI CEC:
+> +  Hans Verkuil <hverkuil@xs4all.nl>
+> +
+> +Media controller drivers:
+> +  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> +
+> +Remote Controllers:
+> +  Sean Young <sean@mess.org>
+> +
+> +Sensor drivers:
+> +  Sakari Ailus <sakari.ailus@linux.intel.com>
+> +
+> +V4L2 drivers:
+> +  Hans Verkuil <hverkuil@xs4all.nl>
+> +
+> +Submit Checklist Addendum
+> +-------------------------
+> +
+> +There is a set of compliance tools at https://git.linuxtv.org/v4l-utils.git/
+> +that should be used in order to check if the drivers are properly
+> +implementing the media APIs.
+> +
+> +Those tests need to be passed before the patches go upstream.
 
-A simple/lazy solution would be to apply the enclosed patch - or a
-variant of it that would place the contents of MAINTAINERS outside
-process/index.html, and add instructions about how to use
-get_maintainers.pl.
+s/need to be passed/need to pass/
 
-Jon,
+> +
+> +Also, please notice that we build the Kernel with::
+> +
+> +	make CF=-D__CHECK_ENDIAN__ CONFIG_DEBUG_SECTION_MISMATCH=y C=1 W=1 CHECK=check_script
+> +
+> +Where the check script is::
+> +
+> +	#!/bin/bash
+> +	/devel/smatch/smatch -p=kernel $@ >&2
+> +	/devel/sparse/sparse $@ >&2
+> +
+> +Be sure to not introduce new warnings on your patches.
 
-Please let me know if you're willing to accept something like that.
+While static analysers deliver value, I fear this is a high barrier to
+entry for new contributors.
 
-Thanks,
-Mauro
+> +
+> +Key Cycle Dates
+> +---------------
+> +
+> +New submissions can be sent at any time, but if they intend to hit the
+> +next merge window they should be sent before -rc5, and ideally stabilized
+> +in the linux-media branch by -rc6.
+> +
+> +Coding Style Addendum
+> +---------------------
+> +
+> +Media development uses checkpatch on strict mode to verify the code style, e. g.::
+> +
+> +	$ ./script/checkpatch.pl --strict
 
-[PATCH RFC] docs: process: add MAINTAINERS file contents
+But we still accept some warnings. I think this should be documented.
 
-Anyone working with the Kernel need to consider the contents of the
-MAINTAINERS file. So, add it to the ReST output.
+> +
+> +Review Cadence
+> +--------------
+> +
+> +Provided that your patch is at https://patchwork.linuxtv.org, it should
+> +be sooner or later handled, so you don't need to re-submit a patch.
+> +
+> +Except for bug fixes, we don't usually add new patches to the development
+> +tree between -rc6 and the next -rc1.
+> +
+> +Please notice that the media subsystem is a high traffic one, so it
+> +could take a while for us to be able to review your patches. Feel free
+> +to ping if you don't get a feedback on a couple of weeks or to ask
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+s/on a/in a/
 
-diff --git a/Documentation/process/index.rst b/Documentation/process/index.rst
-index e2c9ffc682c5..22e5b42b8470 100644
---- a/Documentation/process/index.rst
-+++ b/Documentation/process/index.rst
-@@ -59,6 +59,9 @@ lack of a better place.
-    volatile-considered-harmful
-    clang-format
- 
-+.. include:: ../../MAINTAINERS
-+   :literal:
-+
- .. only::  subproject and html
- 
-    Indices
+> +other developers to publicly add Reviewed-by and, more importantly,
+> +Tested-by tags.
+> +
+> +Please notice that we expect a detailed description for Tested-by,
+
+s/notice/note/
+
+> +identifying what boards were used at the test and what it was tested.
+> +
+> +Style Cleanup Patches
+> +---------------------
+> +
+> +Style-cleanups are welcome when they come together with other changes
+> +at the files where the style changes will affect.
+> +
+> +We may accept pure standalone style-cleanups, but they should be grouped
+> +per directory. So, for example, if you're doing a cleanup at drivers
+> +under drivers/media, please send a single patch for all drivers under
+> +drivers/media/pci, another one for drivers/media/usb and so on.
+
+How about also stating that if the cleanup is low volume, a single patch
+for the whole subsystem is preferred ? I think that should actually be
+the rule, with a split to ease review only when the patch would be too
+big.
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7c62b45201d7..e7f44ec05a42 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -10077,6 +10077,7 @@ W:	https://linuxtv.org
+>  Q:	http://patchwork.kernel.org/project/linux-media/list/
+>  T:	git git://linuxtv.org/media_tree.git
+>  S:	Maintained
+> +P:	Documentation/media/maintainer-entry-profile.rst
+>  F:	Documentation/devicetree/bindings/media/
+>  F:	Documentation/media/
+>  F:	drivers/media/
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
