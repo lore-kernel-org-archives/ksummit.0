@@ -2,84 +2,98 @@ Return-Path: <SRS0=kjsK=XO=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A74DC4CEC4
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 01:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AEDD8C49ED7
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 06:57:10 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2B8E9218AE
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 01:48:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7E64D21848
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 06:57:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l18z6PSk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B8E9218AE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="CnqHXzbt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E64D21848
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 90C53D9B;
-	Thu, 19 Sep 2019 01:48:05 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D3483D9A;
+	Thu, 19 Sep 2019 06:57:09 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA827C3F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C9BCD9A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Sep 2019 01:48:03 +0000 (UTC)
-X-Greylist: whitelisted by SQLgrey-1.7.6
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
-	[209.85.166.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0AA5A81A
+	Thu, 19 Sep 2019 06:57:09 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A38E676D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Sep 2019 01:48:02 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id a1so3907006ioc.6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Sep 2019 18:48:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-	:subject:to:cc;
-	bh=j7UplxfvlaNssCr6oCt4Jqh0D1Ecm9XiJyM1NfVqkHk=;
-	b=l18z6PSkHLvLsBCEMcUB7eO/ydKKYvS6qeiwmcO36wdJs7BYWKO5JLOPssUfvQ2uur
-	+vL/+UNFUOWMxcsPFa0WyY+2q1Bg+Vd1TNzdVPUda1V4BVS+AxFcqLy7/BCuvlCjKlBh
-	VOzwfyFfUt7rJt39fI4ig1CH6AeVTNEDocXdpDORnng5w4cJcWp90EE9RbzeD6uzH5JV
-	TeJ3o6iM+/l922fURD4LY+N0Dfe5qKFqiGKJ/KcjePh+FUmU2sQ0x0hs6MVg4WO8E8lw
-	9101IFelQ5nO01F5nkCcaunEnXXdr9RAtKXrMbbPX3BLlUdQHRrkuPeptJqBv8K088mi
-	tkVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-	:from:date:message-id:subject:to:cc;
-	bh=j7UplxfvlaNssCr6oCt4Jqh0D1Ecm9XiJyM1NfVqkHk=;
-	b=PW7JOtIFeK+/BVPE4QYKD50NuYICd7VBsZa3lHAq4LkG/wniRHHOvAIeA3lIEBFtJH
-	uRDUuBkSJc3E4nqDlue6DccCpof+sK4OHcMfAfeF/g5IS2mJLqu4rxkE9PZpJ5drGjTc
-	llqeG1/11/wbmx9zndwOl5sBQ9QgXyG2P7SWK0UlclbvUHaVIkHhFFWyRKPdpFlvP3qP
-	Ph3LFGV/hkcYYvpRLG+kNuHxfzC/+M7IV64tXbPHwZWfnAV20wALilsKcYB+Npv6s6eH
-	GjIIr27tnpH/7n+Yc+Sjn7qhON1qP3hQe8Vz1DxdoieLEP2Nrb6DZFo+NcvahYY0AFgG
-	RalA==
-X-Gm-Message-State: APjAAAW1ROBQc0hkuxGZJEqyT+NBDblsidpd34owifGW5ATlp9N2xqPg
-	kvpChQq+0uR0hvv0ZgSrjzqKyxzSV3311c3zXhI=
-X-Google-Smtp-Source: APXvYqwetCc8lEv/f6F4xhvR02QljMkMN9Uc/5z14jUzfhj2TZQOzq+1VbtZ3ZxR4rW+yN9WLOPkJd0/qD5R9+95Y2c=
-X-Received: by 2002:a6b:640a:: with SMTP id t10mr7985846iog.37.1568857682126; 
-	Wed, 18 Sep 2019 18:48:02 -0700 (PDT)
+	Thu, 19 Sep 2019 06:57:08 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+	by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8J6roDM092821; Thu, 19 Sep 2019 06:56:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+	h=date : from : to : cc
+	: subject : message-id : references : mime-version : content-type :
+	in-reply-to; s=corp-2019-08-05;
+	bh=ty/R+tqGV2wRl7yqxixcHvAVmjcsptBtUQFz1cn/vUQ=;
+	b=CnqHXzbtrH0O8kUBDgw64RY0nnK4Sq/qL/j1OjHOydCfzaqEOtL4NXQZgfn/EMeEJHzb
+	/ElfIg+rRbVVkPWqlfHItkiPxKNTs8nHZci++7bcZfWdAJyMRPXjgv9ZsQJgnREKV3i1
+	scg5CGFu/Dt81tRZWQ9H/QueX6zhhQvWKKh6Y61WpLOmi3ZNVyKMrCAZDSFhwnK0xbQW
+	YX+mb9ImzNfg4yzwgz0fO9j+Czhlndu3RAX2/W2wV2KnfgP7jsJp1g+mF8HYUaX1hO31
+	Ke54OMzK9sptk3OENQqLm4Wxx3fLDTugXkWaVG7jj6BBuvyUPZHlM8CHzRIhXDMFwYIV
+	bg== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2130.oracle.com with ESMTP id 2v3vb51r96-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 19 Sep 2019 06:56:57 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8J6roZM168035; Thu, 19 Sep 2019 06:56:57 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+	by userp3020.oracle.com with ESMTP id 2v3vb4x2v8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 19 Sep 2019 06:56:56 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x8J6urfI021115;
+	Thu, 19 Sep 2019 06:56:54 GMT
+Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Thu, 19 Sep 2019 06:56:53 +0000
+Date: Thu, 19 Sep 2019 09:56:44 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190919065447.GF2959@kadam>
+References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
+	<20190918123620.GA6306@pendragon.ideasonboard.com>
+	<20190918105728.24e7eb48@coco.lan>
 MIME-Version: 1.0
-References: <20190830031720.GA7490@mit.edu> <20190830135857.GF7013@google.com>
-	<CAPM=9tymLW8dS_3OD0J9mvSMWpmcs3WWBEQS=gtzX0Zyz-umHg@mail.gmail.com>
-	<20190902222240.GE3367@mit.edu>
-	<574c0ccd-730a-eada-966c-58f5de7c9477@redhat.com>
-	<CAHk-=wh1v7FK_VctdRo3fsuHJU4Dm95siC=vM9seuuapBgdg+A@mail.gmail.com>
-	<20190903172708.qrvaad2paze6ifhz@chatter.i7.local>
-	<CABhMZUUzyMXyKthjt31qU-p-2=6s2Cvw5jb=bw3=T76kzfUyKA@mail.gmail.com>
-	<CAL_JsqJTpA68gAkT2k5ziHF8RbVsmKcf2ZLTGSexPkrwL6Vkzg@mail.gmail.com>
-In-Reply-To: <CAL_JsqJTpA68gAkT2k5ziHF8RbVsmKcf2ZLTGSexPkrwL6Vkzg@mail.gmail.com>
-From: Bjorn Helgaas <bjorn.helgaas@gmail.com>
-Date: Wed, 18 Sep 2019 20:47:50 -0500
-Message-ID: <CABhMZUXq5Qy4seNYfc_0CDz=jqhB0kUgL2+dNxWq84=VcpPQOA@mail.gmail.com>
-To: Rob Herring <robherring2@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Topics for the Maintainer's Summit
+Content-Disposition: inline
+In-Reply-To: <20190918105728.24e7eb48@coco.lan>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9384
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+	malwarescore=0
+	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.0.1-1908290000 definitions=main-1909190064
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9384
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+	definitions=main-1909190064
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH] media: add a subsystem profile
+ documentation
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -91,51 +105,56 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Reply-To: bjorn@helgaas.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Fri, Sep 6, 2019 at 5:21 AM Rob Herring <robherring2@gmail.com> wrote:
-> You might like my set of bailing wire using patchwork and mutt. It
-> works offline if you download the patchwork state beforehand and
-> queues up state changes. The basic flow is:
->
-> Load the "New" list from PW (my PW instance is pre-filtered on paths,
-> so I don't have to sort thru everything on the DT list)
-> Check for multiple versions of patches, auto email on failure to add
-> my review tag, check for already applied (to next).
-> Iterate thru the patch list:
->   - Run checkpatch.pl
->   - open mutt for each patch. Mutt has the full DT list, so I can look
-> at the rest of the series if I want.
->   - After exiting mutt, prompt for PW state change
->   - Possibly apply it
->   - Generate replies for applied, reviewed-by or acked-by
->
-> Happy to demo it at LPC if you are interested. You can find it
-> here[1]. The main script is pw-review.
+On Wed, Sep 18, 2019 at 10:57:28AM -0300, Mauro Carvalho Chehab wrote:
+> > > +Patches for the media subsystem should be sent to the media mailing list
+> > > +at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> > > +HTML will be automatically rejected by the mail server. There's no need
+> > > +to copy the maintainer or sub-maintainer(s).  
+> > 
+> > There's too much traffic on mailing lists for me to follow everything, I
+> > much prefer being CC'ed on patches.
+> 
+> Well, by using patchwork, the best is to take a look on it at least for
+> the patches that you're interested. You could script something using
+> pwclient in order to make it easier.
+> 
+> Anyway, not sure if the other sub-maintainers see the same way. From my side,
+> I prefer not to be c/c, as this is just more noise, as I just rely on
+> patchwork for media patches. What about changing this to:
+> 
+> 	Patches for the media subsystem should be sent to the media mailing list
+> 	at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> 	HTML will be automatically rejected by the mail server. It could be wise 
+> 	to also copy the sub-maintainer(s).
 
-Thanks for the demo at LPC!  I'm trying to understand how all the
-pieces fit together.
+The documentation should say "Use get_maintainer.pl" and do what it
+says.  Everything else is too complicated.
 
-How do you download the patchwork state beforehand for working
-offline?  For me, actually working offline is nice but rare; my
-complaint is that I have to wait for every little interaction
-(delegating, superseding, changing state, etc) to talk to the server.
-The waits aren't long, but they make the whole process feel sluggish.
+Occasionally staging maintainers will complain that they aren't CC'd
+even though the staging/driver/README says to CC them and I am tell them
+"No, the responsibility is for you to add yourself to MAINTAINERS.  It
+doesn't matter what the documentation says, you messed up so you need to
+stop getting annoyed with newbies for not reading the documentation when
+it's your fault you weren't CC'd."
 
-You mentioned some CI bits (to run checkpatch, change patchwork state,
-etc).  Is there a way to look at that?  I'm guessing you also have
-some mutt keybindings or macros?
+When I sent a patch, I use get_maintainer.pl then I add whoever the
+wrote the commit from the Fixes tag.  Then I remove Colin King and Kees
+Cook from the CC list because they worked all over the tree and I know
+them.  I also normally remove LKML if there is another mailing list but
+at least one subsystem uses LKML for patchwork so this isn't safe.
 
-Is http://patchwork.ozlabs.org/project/devicetree-bindings/list/ the
-patchwork you're using?  ISTR one that showed the CI results.
+So the safest instructions are "Use get_matainer.pl and add the person
+who wrote the commit in the Fixes tag".
 
-I guess you keep your mbox trimmed somehow?  Starting mutt on my
-linux-pci folder takes 5-10 seconds.  But for this purpose there
-wouldn't really be a need to have the *entire* history, I guess.
+regards,
+dan carpenter
+
+
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
