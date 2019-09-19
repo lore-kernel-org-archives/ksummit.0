@@ -2,100 +2,68 @@ Return-Path: <SRS0=kjsK=XO=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B2C3C4CEC4
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 07:09:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3D91C49ED7
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 07:23:00 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 639BD21924
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 07:09:33 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="eR2tIJqR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 639BD21924
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id B1266217D6
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 19 Sep 2019 07:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1266217D6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E246AD6A;
-	Thu, 19 Sep 2019 07:09:32 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 540F6F01;
+	Thu, 19 Sep 2019 07:23:00 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B6C67AB9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 34E75AE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Sep 2019 07:09:30 +0000 (UTC)
-X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5A92C76D
+	Thu, 19 Sep 2019 07:22:58 +0000 (UTC)
+X-Greylist: whitelisted by SQLgrey-1.7.6
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+	[209.85.210.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 90B1476D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Sep 2019 07:09:30 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-	by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	x8J78wLP105263; Thu, 19 Sep 2019 07:09:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
-	h=date : from : to : cc
-	: subject : message-id : references : mime-version : content-type :
-	in-reply-to; s=corp-2019-08-05;
-	bh=ftyCRpFwN+KpMYGA2UsFQaAal3rvYUjVRKG0h7Vp0HY=;
-	b=eR2tIJqR1wLXUDwg48LJdMtBYwxn931nfCRXedima0iV7lB5uLP6kbmeXlkXpRKtx9Ly
-	HUvLy6htD+7fjMyneNHN7IqgoLgpMHMqhXLv4Y3+6OKJrch71amLs678KkzkYIcjnPci
-	wEP+gUvSXuKFiAmTQytiE8xTnzfF7JHoEEQa/eo1m3q1VlkZuPV+ty0VY8aYZglemvL+
-	aqOlwvGGJtESb6+1GTKc+80WV2VnfiSvxtVMYsaF4eL0Sqnb+2kJ+TnjxxiHVf3ceawl
-	cZjq0qousp/fBTscRQabisxg2vPWpFb91gix85Yx7PK0X/lGFFIlTfpExzCsenqil5ZI
-	Ew== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
-	by userp2130.oracle.com with ESMTP id 2v3vb51t6p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 19 Sep 2019 07:09:25 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
-	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	x8J79Ko1012015; Thu, 19 Sep 2019 07:09:25 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userp3020.oracle.com with ESMTP id 2v3vb4xt2n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 19 Sep 2019 07:09:22 +0000
-Received: from abhmp0022.oracle.com (abhmp0022.oracle.com [141.146.116.28])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x8J792bD020840;
-	Thu, 19 Sep 2019 07:09:02 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Thu, 19 Sep 2019 00:09:02 -0700
-Date: Thu, 19 Sep 2019 10:08:56 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Message-ID: <20190919070856.GG2959@kadam>
+	Thu, 19 Sep 2019 07:22:57 +0000 (UTC)
+Received: by mail-ot1-f65.google.com with SMTP id k32so2211744otc.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 19 Sep 2019 00:22:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=3sG+3s1s6lDcclslDZn6hgAJ4oiqNYT+viVoed7uT0g=;
+	b=m4i5mkN1+FsiOOH6APp105mhRkr6XCqWByXYcCnBGJ8ITIkNyAiPVimwS2JaZQ5fRF
+	wGR2uTgs9yXb8QZK+suD1hcDOjZlZFNI84X65TW6RJD1ybkDfrIBQGOsd+WZH3IP8TF+
+	A6S1X1tGcACc4iafFe4n+2W71Vf/KWpDVVth53ZF5YKkNimyZh7A16LoVgtQJN1dploz
+	rQEJZPKVib7xoKpksB+cPBv7FbRQinUPjsllJ5/Pg6+vmF4Mf1HlhsuzdC8OxLhkRH++
+	4HJjPlEsMVvnj/U5cmFTomK18liUA5Hq3iNPexRAAPSbsL9ktiPbE59Qm8sqptrDNAXi
+	euqg==
+X-Gm-Message-State: APjAAAX3Vi95hmx3DSVemLo5R0upEm5jcAQplntUxXtWemLWzWLNdsNL
+	tgWGHCcT/pGHvzGFgnwnmhpEIREaqPy3g2//15c=
+X-Google-Smtp-Source: APXvYqwnGjVAeK3BoOff9zuxt0f65jyCajeOlN4Y8YbB0ntuD7h/XG1+2B/UoqaBx0su9BGY3NzCiwDFK2oWAxvRmrk=
+X-Received: by 2002:a9d:5784:: with SMTP id q4mr5331426oth.107.1568877776771; 
+	Thu, 19 Sep 2019 00:22:56 -0700 (PDT)
+MIME-Version: 1.0
 References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
 	<20190918123620.GA6306@pendragon.ideasonboard.com>
-	<20190918105728.24e7eb48@coco.lan>
-	<20190918172705.GC4734@pendragon.ideasonboard.com>
-	<20190918154831.3dd0d040@coco.lan>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190918154831.3dd0d040@coco.lan>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9384
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	malwarescore=0
-	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
-	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.0.1-1908290000 definitions=main-1909190067
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9384
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
-	priorityscore=1501 malwarescore=0
-	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
-	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
-	adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
-	definitions=main-1909190067
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+	<20190918105728.24e7eb48@coco.lan> <20190919065447.GF2959@kadam>
+In-Reply-To: <20190919065447.GF2959@kadam>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 19 Sep 2019 09:22:45 +0200
+Message-ID: <CAMuHMdU10J5zgQ0r8uoA+LFHRbyLB=AG6xygTmsxwc7T-ffdDw@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Linux Media Mailing List <linux-media@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] [PATCH] media: add a subsystem profile
- documentation
+	documentation
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.12
 Precedence: list
@@ -112,40 +80,56 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Wed, Sep 18, 2019 at 03:48:31PM -0300, Mauro Carvalho Chehab wrote:
-> Em Wed, 18 Sep 2019 20:27:05 +0300
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
-> 
-> > > Anyway, not sure if the other sub-maintainers see the same way. From my side,
-> > > I prefer not to be c/c, as this is just more noise, as I just rely on
-> > > patchwork for media patches. What about changing this to:
-> > > 
-> > > 	Patches for the media subsystem should be sent to the media mailing list
-> > > 	at linux-media@vger.kernel.org as plain text only e-mail. Emails with
-> > > 	HTML will be automatically rejected by the mail server. It could be wise 
-> > > 	to also copy the sub-maintainer(s).  
-> > 
-> > That works for me. As this is really a personal preference, is there a
-> > way it could be encoded in MAINTAINERS in a per-person fashion ?
-> > Something that would allow you to opt-out from CC from linux-media (but
-> > possibly opt-in for other parts of the kernel), and allow me to opt-in
-> > for the drivers I maintain ?
-> 
-> I don't think so. Perhaps we could add, instead, something like that at the
-> sub-maintainers section of the profile.
+On Thu, Sep 19, 2019 at 8:57 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> On Wed, Sep 18, 2019 at 10:57:28AM -0300, Mauro Carvalho Chehab wrote:
+> > > > +Patches for the media subsystem should be sent to the media mailing list
+> > > > +at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> > > > +HTML will be automatically rejected by the mail server. There's no need
+> > > > +to copy the maintainer or sub-maintainer(s).
+> > >
+> > > There's too much traffic on mailing lists for me to follow everything, I
+> > > much prefer being CC'ed on patches.
+> >
+> > Well, by using patchwork, the best is to take a look on it at least for
+> > the patches that you're interested. You could script something using
+> > pwclient in order to make it easier.
+> >
+> > Anyway, not sure if the other sub-maintainers see the same way. From my side,
+> > I prefer not to be c/c, as this is just more noise, as I just rely on
+> > patchwork for media patches. What about changing this to:
+> >
+> >       Patches for the media subsystem should be sent to the media mailing list
+> >       at linux-media@vger.kernel.org as plain text only e-mail. Emails with
+> >       HTML will be automatically rejected by the mail server. It could be wise
+> >       to also copy the sub-maintainer(s).
+>
+> The documentation should say "Use get_maintainer.pl" and do what it
+> says.  Everything else is too complicated.
 
-Of course there is a way to add yourself as a maintainer for a specific
-.c file...  Maybe people feel like MAINTAINERS is too crowded?
++1
 
-We could update get_maintainer.pl to grep the .c files for a specific
-tag instead of putting everything in a centralized MAINTAINERS file.
-But it doesn't make sense to try store that information MY BRAIN!  I
-can't remember anything from one minute to the next so I have no idea
-who maintains media submodules...
+> When I sent a patch, I use get_maintainer.pl then I add whoever the
+> wrote the commit from the Fixes tag.  Then I remove Colin King and Kees
+> Cook from the CC list because they worked all over the tree and I know
+> them.  I also normally remove LKML if there is another mailing list but
+> at least one subsystem uses LKML for patchwork so this isn't safe.
+>
+> So the safest instructions are "Use get_matainer.pl and add the person
+> who wrote the commit in the Fixes tag".
 
-regards,
-dan carpenter
+Better: perhaps get_maintainer.pl can be taught to add the author of the
+commit pointed to by the Fixes tag, if present?
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
