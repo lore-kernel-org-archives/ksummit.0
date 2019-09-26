@@ -2,71 +2,55 @@ Return-Path: <SRS0=WLkl=XV=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51B66C4360C
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 26 Sep 2019 15:53:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8E1DC4360C
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 26 Sep 2019 16:11:48 +0000 (UTC)
 Received: from mail.linuxfoundation.org (mail.linuxfoundation.org [140.211.169.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2082A222C6
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 26 Sep 2019 15:53:14 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="EOV9nbdX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2082A222C6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	by mail.kernel.org (Postfix) with ESMTPS id ABDB0222C7
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 26 Sep 2019 16:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABDB0222C7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from mail.linux-foundation.org (localhost [127.0.0.1])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 86732AF7;
-	Thu, 26 Sep 2019 15:53:13 +0000 (UTC)
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 60DB4B43;
+	Thu, 26 Sep 2019 16:11:48 +0000 (UTC)
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0047FAF5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 211BFAD8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 26 Sep 2019 15:53:12 +0000 (UTC)
-X-Greylist: whitelisted by SQLgrey-1.7.6
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
-	[209.85.215.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8B249844
+	Thu, 26 Sep 2019 16:11:47 +0000 (UTC)
+X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
+Received: from smtprelay.hostedemail.com (smtprelay0185.hostedemail.com
+	[216.40.44.185])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 78BF38AD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 26 Sep 2019 15:53:12 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id t14so1808547pgs.3
+	Thu, 26 Sep 2019 16:11:46 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave02.hostedemail.com (Postfix) with ESMTP id D72361803D601
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 26 Sep 2019 08:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-disposition:in-reply-to;
-	bh=x2ZtsiLZ+kw3/v3oYhsQVM4bKUJxpQ2h0TdonjKHc1k=;
-	b=EOV9nbdXnQCKPBtCCBZmtnBDRzrPIfa5lsb1/TMYl39MUoQbGoSV446jt7o+yIgbSr
-	IO8fnJ7V85D4cMjuINTd+MMR3Zb9XBlf8mBo66HWYmspjadLf3AffJnKpBan0E4iwuI3
-	H5FXmF3ulhqsAGrTVrL6eSIjZGWk1o1zBRl+c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=x2ZtsiLZ+kw3/v3oYhsQVM4bKUJxpQ2h0TdonjKHc1k=;
-	b=rbC4ybDFlPa6kzWu2AU65JE2MeQsZxK/YhQAHgBbiOJpmza9TUFIA6MJ6g0gBT3pGI
-	OYYaQd3t7TCPxhl1pbqex1/3gUA9vRktJOM6cSU5toTeVHyrEgUh7CUupmg9esCIEiuu
-	SOwtBAYvHxYDpNA5hUNn6vLqSxI0s2UBoNE+BW0V9ZL+EpXXMhgwpXwtHAyvUYHTbFnr
-	9cuLaR379W7uKRP5zf/AGnbrXTD0OTQzQEd2p/RbzB5llca82V4FpSw9Im8bkczO35qk
-	Nsl0mxWfYueQ8PTy0LwYOJhqLoKpzoHj4IkugEhGULKw1AfyF+v/Rd6Tyelwf0Nz7ewL
-	jqqQ==
-X-Gm-Message-State: APjAAAUFcKziKlz1JEcTjoRmkYuyj0x+X6+B1gZ4rrifFIgaf2ZTwQNO
-	OPiVLm30EeapHDK7amHtnhvsHQ==
-X-Google-Smtp-Source: APXvYqwbQdqxbvH0rRx4Ow/CbsOjuecD+mffAid+26LrGXvPQ5t5wv4MXwXa+V0zJfK5dso7v7G32Q==
-X-Received: by 2002:aa7:8bcc:: with SMTP id s12mr4417785pfd.93.1569513192061; 
-	Thu, 26 Sep 2019 08:53:12 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
-	by smtp.gmail.com with ESMTPSA id
-	22sm2655117pfo.131.2019.09.26.08.53.10
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 26 Sep 2019 08:53:11 -0700 (PDT)
-Date: Thu, 26 Sep 2019 08:53:10 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Joe Perches <joe@perches.com>
-Message-ID: <201909260848.B429B7DF@keescook>
+	Thu, 26 Sep 2019 16:02:15 +0000 (UTC)
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+	[216.40.38.60])
+	by smtprelay03.hostedemail.com (Postfix) with ESMTP id 29A4E8368EEF;
+	Thu, 26 Sep 2019 16:02:13 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-HE-Tag: boys03_6a50161859d57
+X-Filterd-Recvd-Size: 4430
+Received: from XPS-9350 (unknown [113.161.34.234])
+	(Authenticated sender: joe@perches.com)
+	by omf11.hostedemail.com (Postfix) with ESMTPA;
+	Thu, 26 Sep 2019 16:02:10 +0000 (UTC)
+Message-ID: <b2e180a2d2d1d205c426ec02051a002f2c77832e.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Kees Cook <keescook@chromium.org>
+Date: Thu, 26 Sep 2019 09:02:07 -0700
+In-Reply-To: <201909260848.B429B7DF@keescook>
 References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<434c05bddd2b364e607e565227487910a8dd9793.1568391461.git.mchehab+samsung@kernel.org>
 	<20190918123620.GA6306@pendragon.ideasonboard.com>
@@ -74,9 +58,9 @@ References: <156821693963.2951081.11214256396118531359.stgit@dwillia2-desk3.amr.
 	<5d71311232fd6d4aa0fab038512eab933c13a722.camel@perches.com>
 	<201909251127.D0C517171E@keescook>
 	<4eca5297a213357995c05b90c74a8bc638f54f02.camel@perches.com>
+	<201909260848.B429B7DF@keescook>
+User-Agent: Evolution 3.32.1-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4eca5297a213357995c05b90c74a8bc638f54f02.camel@perches.com>
 Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
 	ksummit-discuss@lists.linuxfoundation.org,
 	Dan Carpenter <dan.carpenter@oracle.com>,
@@ -99,70 +83,87 @@ Content-Transfer-Encoding: 7bit
 Sender: ksummit-discuss-bounces@lists.linuxfoundation.org
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 
-On Thu, Sep 26, 2019 at 08:14:03AM -0700, Joe Perches wrote:
-> On Wed, 2019-09-25 at 11:40 -0700, Kees Cook wrote:
-> > Is "6" a safe lower bound here? I thought 12 was the way to go?
-> []
-> > $ git log | egrep 'Fixes: [a-f0-9]{1,40}' | col2 | awk '{print length }' | sort | uniq -c | sort -n | tail
-> >     238 8
-> >     300 7
-> >     330 14
-> >     344 6
-> >     352 11
-> >     408 40
-> >     425 10
-> >     735 16
-> >    1866 13
-> >   31446 12
+On Thu, 2019-09-26 at 08:53 -0700, Kees Cook wrote:
+> On Thu, Sep 26, 2019 at 08:14:03AM -0700, Joe Perches wrote:
+> > On Wed, 2019-09-25 at 11:40 -0700, Kees Cook wrote:
+> > > Is "6" a safe lower bound here? I thought 12 was the way to go?
+> > []
+> > > $ git log | egrep 'Fixes: [a-f0-9]{1,40}' | col2 | awk '{print length }' | sort | uniq -c | sort -n | tail
+> > >     238 8
+> > >     300 7
+> > >     330 14
+> > >     344 6
+> > >     352 11
+> > >     408 40
+> > >     425 10
+> > >     735 16
+> > >    1866 13
+> > >   31446 12
+> > > 
+> > > Hmpf, 6 is pretty high up there...
 > > 
-> > Hmpf, 6 is pretty high up there...
+> > Yes, but your grep then col2 isn't right.
+> > You are counting all the 'Fixes: commit <foo>' output
+> > as 6 because that's the length of 'commit'.
 > 
-> Yes, but your grep then col2 isn't right.
-> You are counting all the 'Fixes: commit <foo>' output
-> as 6 because that's the length of 'commit'.
+> the [a-f0-9]{1,40} already excludes "commit".
 
-the [a-f0-9]{1,40} already excludes "commit".
+No it doesn't as commit starts with c which matches [a-f0-9]{1,40}
 
-> I also think the length of the hex commit value doesn't
-> matter much as it's got to be a specific single commit
-> SHA1 anyway, otherwise the commit id lookup will fail.
+Try your original egrep command line yourself.
 
-Fail enough. We do already have 6-digit SHA1 collisions, so it seemed
-like using more than 6 would be nicer? *shrug* I don't have a strong
-opinion. :)
+Maybe use:
 
+$ git log | egrep 'Fixes: [a-f0-9]{1,40}' | awk '{ if (length($2) == 6) { print $0;} }'
+
+The first few matches are
+
+    the commit referenced in Fixes: below replaced the call to
+    Fixes: commit 18a992787896 ("ARM: ux500: move soc_id driver to drivers/soc")
+    Fixes: commit 0580dde59438 ("ASoC: simple-card-utils: add asoc_simple_debug_info()")
+    Since Fixes: 8c5421c016a4 ("perf pmu: Display pmu name when printing
+    Fixes: commit 961fb3c206dc ("ASoC: rockchip: rk3399_gru_sound: don't select unnecessary Platform")
+
+> > I also think the length of the hex commit value doesn't
+> > matter much as it's got to be a specific single commit
+> > SHA1 anyway, otherwise the commit id lookup will fail.
 > 
-> > > > @@ -1031,6 +1040,7 @@ MAINTAINER field selection options:
-> > >      --roles => show roles (status:subsystem, git-signer, list, etc...)
-> > >      --rolestats => show roles and statistics (commits/total_commits, %)
-> > >      --file-emails => add email addresses found in -f file (default: 0 (off))
-> > > +    --fixes => for patches, add signatures of commits with 'Fixes: <commit>' (default: 1 (on))
+> Fail enough. We do already have 6-digit SHA1 collisions, so it seemed
+> like using more than 6 would be nicer? *shrug* I don't have a strong
+> opinion. :)
+> 
+> > > > > @@ -1031,6 +1040,7 @@ MAINTAINER field selection options:
+> > > >      --roles => show roles (status:subsystem, git-signer, list, etc...)
+> > > >      --rolestats => show roles and statistics (commits/total_commits, %)
+> > > >      --file-emails => add email addresses found in -f file (default: 0 (off))
+> > > > +    --fixes => for patches, add signatures of commits with 'Fixes: <commit>' (default: 1 (on))
+> > > 
+> > > Should "Tested-by" and "Co-developed-by" get added to @signature_tags ?
 > > 
-> > Should "Tested-by" and "Co-developed-by" get added to @signature_tags ?
+> > All "<foo>-by:" signatures are added.
 > 
-> All "<foo>-by:" signatures are added.
-
-Ah, I'd missed where that happened. I do note that's only when
-git-all-signature-types is set, which is default 0. (/me goes to add
-this to his invocations...)
-
-my $email_git_all_signature_types = 0;
-...
-    if ($email_git_all_signature_types) {
-        $signature_pattern = "(.+?)[Bb][Yy]:";
-    } else {
-        $signature_pattern = "\(" . join("|", @signature_tags) . "\)";
-    }
-
-> > @commit_authors is unused?
+> Ah, I'd missed where that happened. I do note that's only when
+> git-all-signature-types is set, which is default 0. (/me goes to add
+> this to his invocations...)
 > 
-> Yes, authors are already required to sign-off so
-> it's just duplicating already existing signatures.
+> my $email_git_all_signature_types = 0;
+> ...
+>     if ($email_git_all_signature_types) {
+>         $signature_pattern = "(.+?)[Bb][Yy]:";
+>     } else {
+>         $signature_pattern = "\(" . join("|", @signature_tags) . "\)";
+>     }
+> 
+> > > @commit_authors is unused?
+> > 
+> > Yes, authors are already required to sign-off so
+> > it's just duplicating already existing signatures.
+> 
+> Sure, it just seemed odd to populate it if it wasn't going to be used.
 
-Sure, it just seemed odd to populate it if it wasn't going to be used.
+It's a generic function.
 
--- 
-Kees Cook
+
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
