@@ -6,84 +6,86 @@ X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1219C433DF
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 11 Jun 2020 08:21:40 +0000 (UTC)
-Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F33CAC433E0
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 11 Jun 2020 14:48:38 +0000 (UTC)
+Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 683962072F
-	for <ksummit-discuss@archiver.kernel.org>; Thu, 11 Jun 2020 08:21:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A64A9206C3
+	for <ksummit-discuss@archiver.kernel.org>; Thu, 11 Jun 2020 14:48:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="KjbcT1LV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 683962072F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AHu9aoMD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A64A9206C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by silver.osuosl.org (Postfix) with ESMTP id 1A6BD2667E;
-	Thu, 11 Jun 2020 08:21:40 +0000 (UTC)
+	by fraxinus.osuosl.org (Postfix) with ESMTP id 2F8B387A58;
+	Thu, 11 Jun 2020 14:48:38 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from silver.osuosl.org ([127.0.0.1])
+Received: from fraxinus.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id IHhIv4IFDZuw; Thu, 11 Jun 2020 08:21:38 +0000 (UTC)
+	with ESMTP id zbY86wlMmEsv; Thu, 11 Jun 2020 14:48:37 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by silver.osuosl.org (Postfix) with ESMTP id B53F320335;
-	Thu, 11 Jun 2020 08:21:38 +0000 (UTC)
+	by fraxinus.osuosl.org (Postfix) with ESMTP id B272A87A5E;
+	Thu, 11 Jun 2020 14:48:37 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 86333C0178;
-	Thu, 11 Jun 2020 08:21:38 +0000 (UTC)
-Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
- by lists.linuxfoundation.org (Postfix) with ESMTP id A6287C016F
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 829EBC0178;
+	Thu, 11 Jun 2020 14:48:37 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 313CDC016F
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 11 Jun 2020 08:21:37 +0000 (UTC)
+ Thu, 11 Jun 2020 14:48:36 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by silver.osuosl.org (Postfix) with ESMTP id 7357220335
+ by whitealder.osuosl.org (Postfix) with ESMTP id 1BFFE88530
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 11 Jun 2020 08:21:37 +0000 (UTC)
+ Thu, 11 Jun 2020 14:48:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from silver.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id lOavlDPsV1u9
+ with ESMTP id jpma7j03E04Z
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 11 Jun 2020 08:21:36 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- by silver.osuosl.org (Postfix) with ESMTPS id 3CC961FF59
+ Thu, 11 Jun 2020 14:48:35 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
+ [209.85.167.65])
+ by whitealder.osuosl.org (Postfix) with ESMTPS id 115E88837C
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 11 Jun 2020 08:21:36 +0000 (UTC)
-Received: by mail-ot1-f67.google.com with SMTP id t6so3911302otk.9
+ Thu, 11 Jun 2020 14:48:35 +0000 (UTC)
+Received: by mail-lf1-f65.google.com with SMTP id z206so3664164lfc.6
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 11 Jun 2020 01:21:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ Thu, 11 Jun 2020 07:48:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jhw0d3JB3Pvnx2eaaTNsF9w1mVYxFcu51roB8Fb+A2Q=;
- b=KjbcT1LVgkl5KJnxkjvOwfBvO7FToxKLrHamW/x3tVP3lMqbEa8SW++Cz57gzrU3ML
- pZSe7ym10GHVU2u2EsjpWW6HFhyYWv3VL+BfzwFND4dseZqhbZIzq9SajRXDgvnc9cpy
- T6U9v6CU8S7tv3Ji7inYSEjzwYUWNCiQFOY7M=
+ :cc; bh=SsjapID2C1+lzEI0Y6+LBgYZpWcvqWg5SYqB6L2wQ6M=;
+ b=AHu9aoMD765gN68lPkrjapQwmVS4siD7pRJQ1NSA6SmFU6wEeF0p0VlceKMlqKp8qy
+ 9I24yPcPxTIVmrJAQwZ1jo0MMgdn9vEy+/KrKBDELZLL8eRTgulutB2yDHDGU+3S++pA
+ V6G00fy6LLRoBFjbbIveGStuZxWqH33FhrKbKDq2SoB3Ys3i4vv3kJ6zrmdAY8tIKgKV
+ SKqwgfXo93DOtnh9pBhYhCTDsQfYpvxbGA1YSOaxu4OEihCScRieWDhj8PwLiF2kijSB
+ lLh8KQbmQwrIbjUiA9NKlOhNtWCKUEU934EzXr7Q8t4fLslvtqpReJgYtI+XuI0x2Hgl
+ TaiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=jhw0d3JB3Pvnx2eaaTNsF9w1mVYxFcu51roB8Fb+A2Q=;
- b=Tg7k4K84jaGeHgdOL3oXLbkH5W4Ic9bo6MajnZoKyZ9nPGE8NSvbXVKitsjaSKkKF6
- KwtTGh4QrUI5dd1BE76UmdjqTgkPxAOzrnzoenTLT8/P/q7KTB+rFB6upFVjehRIGC3V
- NXHcKDBK0rTFOcAWo5iQatlFHvJFd6spskq9SegFkAL2XIpf4yZa5XZ6Ut1m1wU8Wi4Z
- c3QcLavogumX0ZafyQCKdBm79AI81KmSI/2fDQzwskk6AAs6ovtzIAflxqPLwouzCSK0
- Dy6Tb0+foBZnuIpDorNNKTNUXKZm+OyR52m82fpiYrbBy8iq/HxWHowYuL5pX8zlQB16
- 9zHA==
-X-Gm-Message-State: AOAM530qfZqSxrxFHr2gfPLqNRXQ6tN83judCtK776xzlLBcRAbNmTbC
- i7l+R3THvd2wlROnyTzYLFTpXigQVU+NTU7YbgKL+w==
-X-Google-Smtp-Source: ABdhPJzDl3yl6G8x26StsgmuyjR2FkgUHD8BCZXfNsk1WH5LvlyQGJrLNPRzWDaDUelOvgxdeqLz1AuxNSRPbKF0v5w=
-X-Received: by 2002:a05:6830:150d:: with SMTP id
- k13mr5537688otp.303.1591863695284; 
- Thu, 11 Jun 2020 01:21:35 -0700 (PDT)
+ bh=SsjapID2C1+lzEI0Y6+LBgYZpWcvqWg5SYqB6L2wQ6M=;
+ b=U9ChGogarK52mXYTAVvLxvOVQ2NrYgApjik+BaCzPcrhBIcKuzDQugh4a1TAN0G9Ea
+ 5TVo5k0PtDKPWHvLk4YR4sMUjfFj0QGaCSiKjYW7wAPIsK/OdH3P28V5Dc12XS/fo1HF
+ bm+7MC95M5XCqcxJOJSa1tNIgtxUNgAEPeReVidgmM+PpwxQyjrhWQnPGu8QKdt/INNP
+ BvpqeiaBJXehV6sCCKWweMm8Z3kOf40E46QzBZN99LbqrtwkPguAg5Jj1Bpq1HwcU3a8
+ N0mtHQOp+e4XwgCK4cQse1wEhauGZd/idD7mnAhkfbrYUi7orKrLNYsrPzqU1CFcid0g
+ ewYQ==
+X-Gm-Message-State: AOAM531XapV3IMyk7TUuXW54IX8b0AWgRx86cIh//UTvL7Q79qTauuHG
+ 2EanHmTiVAfoMBcs4d/lQt+G0map2fwJMKcNAg2kmr2TXB308g==
+X-Google-Smtp-Source: ABdhPJzhkKyGb+eeg0r4vO4g3q4Ce1s0kZXRl239HrjTgaLRTxZhzXrcR8IRVv4YRHMBv5x+RcoyUZ2CrWKY9gYK+eM=
+X-Received: by 2002:ac2:5cd1:: with SMTP id f17mr4250509lfq.4.1591886912776;
+ Thu, 11 Jun 2020 07:48:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200609145353.628a342d@lwn.net> <20200610084906.GA4151@kadam>
-In-Reply-To: <20200610084906.GA4151@kadam>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 11 Jun 2020 10:21:24 +0200
-Message-ID: <CAKMK7uEpGUnZ6v-z3tThxcwNDfj_MyxQq8d-1_pzSqxrBrssAw@mail.gmail.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
+References: <20200609145353.628a342d@lwn.net>
+In-Reply-To: <20200609145353.628a342d@lwn.net>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 11 Jun 2020 16:48:21 +0200
+Message-ID: <CACRpkdZOxaA9fpd0zFa_GGo1boOEbOoxNbaUavXbewp=CLbEDg@mail.gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
@@ -102,69 +104,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Wed, Jun 10, 2020 at 10:51 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
->
-> On Tue, Jun 09, 2020 at 02:53:53PM -0600, Jonathan Corbet wrote:
-> > The long process of converting the kernel's documentation into RST is
-> > finally coming to an end...what has that bought us?  We have gone from a
-> > chaotic pile of incomplete, crufty, and un-integrated docs to a slightly
-> > better organized pile of incomplete, crufty, slightly better integrated
-> > docs.  Plus we have the infrastructure to make something better from here.
-> >
-> > What are the next steps for kernel documentation?  What would we really
-> > like our docs to look like, and how might we find the resources to get
-> > them to that point?  What sorts of improvements to the build
-> > infrastructure would be useful?  I'll come with some ideas (some of which
-> > you've certainly heard before) but will be more interested in listening.
->
-> The truth is that I only ever read the documentation in front of the
-> function implementations.  And LDD.  ;)
->
-> There are some subsystems which document their functions in the
-> Documentation directory.  For example, pm_request_resume() is documented
-> in Documentation/power/runtime_pm.rst where it describes why it might
-> return 1 on success.  It would be awesome if we had an automated way to
-> find this.
+On Tue, Jun 9, 2020 at 10:54 PM Jonathan Corbet <corbet@lwn.net> wrote:
 
-My recommendation is to move these into the code, as kerneldoc. And
-then pull it into the .rst using one of the kerneldoc include
-directives.
+> What are the next steps for kernel documentation?  What would we really
+> like our docs to look like, and how might we find the resources to get
+> them to that point?
 
-Large chunks of Documentation/gpu/*.rst files are just scaffolding to
-pull the comments out of source files. The only thing we have in .rst
-files is the big picture overview stuff - even local overview stuff is
-simply done as DOC: kerneldoc comments in source code.
--Daniel
+We have a whole slew of quite basic introductory materials to the very
+fundamental kernel data structures that are scattered all over the planet
+and in the LWN kernel archive. All in often slightly dated variants.
+Examples:
+https://www.kernel.org/doc/gorman/html/understand/understand006.html
+http://vger.kernel.org/~davem/skb_data.html
 
+I suppose technical writers could benefit from a global TODO list with
+this kind of subjects such as "document the basic arch interface",
+"document what an skb is", "document how the page directory works".
 
->
-> I wish that there were a replacement for cscope which showed results in
-> a sorted order:
->
-> Global Implementation
-> Documentation
-> Local Implemenatations
-> (For me the struct device is my 995th result...  Cscope is terrible.
-> But it's what I use as my default search in the kernel source.  I just
-> would like to have one search for everything that would find
-> documentation as well).
->
-> regards,
-> dan carpenter
->
->
->
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+Right now it is a mixture of read the code, "everybody knows how that
+works" and random sources on the Internet, which isn't very helpful
+to newcomers.
 
+I second Vetters point to tie this documentation in tightly with the code
+implementing it even pretty substantial text chunks IMO, the idea can be
+attributed to Donald Knuth's book on literate programming from 1984,
+and while he was a bit enthusiastic the idea isn't bad at all.
 
-
---
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Yours,
+Linus Walleij
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
