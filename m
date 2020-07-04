@@ -2,93 +2,93 @@ Return-Path: <SRS0=o/nk=AP=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26FC7C433DF
-	for <ksummit-discuss@archiver.kernel.org>; Sat,  4 Jul 2020 23:39:47 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECA3CC433E1
+	for <ksummit-discuss@archiver.kernel.org>; Sat,  4 Jul 2020 23:42:02 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF53320772
-	for <ksummit-discuss@archiver.kernel.org>; Sat,  4 Jul 2020 23:39:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B5A9821556
+	for <ksummit-discuss@archiver.kernel.org>; Sat,  4 Jul 2020 23:42:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kup5Q35r"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF53320772
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh0cIo/Z"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5A9821556
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id DA0B6875DA;
-	Sat,  4 Jul 2020 23:39:45 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 5CC0588331;
+	Sat,  4 Jul 2020 23:42:02 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from fraxinus.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 47ugBimzDQFK; Sat,  4 Jul 2020 23:39:45 +0000 (UTC)
+	with ESMTP id xJy7l1t4+oUY; Sat,  4 Jul 2020 23:42:01 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id E40E987542;
-	Sat,  4 Jul 2020 23:39:44 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id C1DC488328;
+	Sat,  4 Jul 2020 23:42:01 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id C54A3C088C;
-	Sat,  4 Jul 2020 23:39:44 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 41AC1C0733;
- Sat,  4 Jul 2020 23:39:44 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 8CB23C088C;
+	Sat,  4 Jul 2020 23:42:01 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 94816C0733;
+ Sat,  4 Jul 2020 23:42:00 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hemlock.osuosl.org (Postfix) with ESMTP id 304EF88B4E;
- Sat,  4 Jul 2020 23:39:44 +0000 (UTC)
+ by whitealder.osuosl.org (Postfix) with ESMTP id 8D5968832B;
+ Sat,  4 Jul 2020 23:42:00 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id VrPVXWszDhOR; Sat,  4 Jul 2020 23:39:42 +0000 (UTC)
+ with ESMTP id 5rhFElfSEWPG; Sat,  4 Jul 2020 23:41:59 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- by hemlock.osuosl.org (Postfix) with ESMTPS id 905D888B10;
- Sat,  4 Jul 2020 23:39:42 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id d18so25704785edv.6;
- Sat, 04 Jul 2020 16:39:42 -0700 (PDT)
+Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
+ [209.85.218.65])
+ by whitealder.osuosl.org (Postfix) with ESMTPS id A232E88328;
+ Sat,  4 Jul 2020 23:41:59 +0000 (UTC)
+Received: by mail-ej1-f65.google.com with SMTP id rk21so38627632ejb.2;
+ Sat, 04 Jul 2020 16:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wiOQQZ02XFm/BV4L3Jk1shIvr/SgSyC6/7/Nw0lQ+ZA=;
- b=kup5Q35rKbLnb1mEjO8X6MKkJrcWslIPp6mdkMvRY0G1dR/BCUgniv2XMdUgQx8BP0
- WdqSljKF6PIRc+5Q5lO0Q3uBGpO7GjIrgaIaeNHJyDnaQkmMJQeGlF9rT2UJXyErJ8EJ
- 0NiEJ0pu6U74hLy+C1UpY2QxTCIQSUH7362ciYBgckTfc7auJkrziYcZmVBweBxWyPwa
- mC6xVATf6Vp4gS4WRuTtPM8aHV7dA9K6+GeNdqWUfzDUtHlI2edaTooIYe1QZp5BVdvD
- QnQchV6QQJKykJE9sWiUSF5lW6Th9AQe2GMYD4g0PuITzvM9Mv2qVkWh75Edu5Ov9yt/
- 0DOw==
+ :cc; bh=sWyN/3WNtV7VRIdJ8FuzrwB0Ews8dbEmWLEqUU8aH3Y=;
+ b=Kh0cIo/ZsIAxjW9Q//BSRJhntuBYewSUFD5usVcoOci+eW1UJqiUpT7+DYj5/t0dXU
+ ptxDt8Kobg2fPoYCw8FZdCueMA9WI4np9bQslZPwKDlSJvdeOaoTsEcj+yzhc+Zj2teo
+ tIhalQL4RV7zge44nchGuWcrdhEQ0vc5cOeyv3NBK7utaVLrwWbwHBEJDlNos/YyI2tX
+ IypEXDqHEmHZFbz/Bk+8Qkszk5f+onYfU90ufaYONfD3/I9RjlBeLhr+j+KdLLo3jqd8
+ fzFzttljI+WklUAHUyJZrP9vwN061KoXidBWAcVAzOcGeG1/IMULDziOIjTOK7idgyeR
+ A5Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=wiOQQZ02XFm/BV4L3Jk1shIvr/SgSyC6/7/Nw0lQ+ZA=;
- b=JbH1T8yDhL/e15jQrbwPLLkKYiiVC5swhPOi5tnFjqLywFOgoSA8FonYQlgwenEXE9
- F7Gs2kQzZ6PL93E4VelPxAlXEY+DtvzBA8kv9o0QeViSDCOXHiXFa7sfDpq4nKaa1s2C
- GFf4I6YyC3DkAMAsmRk5tL4fsGx4v1uqEIIyUOoENFE93neyCri6YfxV7ITaxUFRCp0F
- DIE8NpnmJxq+srOnWO4ECYgXXaT3HJsdoGfXqlrBoTC3rpxhBUUNJWKq6ovZAGK973eW
- yGRAlOr4/KfEZaY0yTSLNlTndauX0X2XqOXgr4MwXx1SG08eLJC6T57JkikMP/MFaVJZ
- GSwA==
-X-Gm-Message-State: AOAM531RD+/TAIBCThhKdpLGZGa/My7hqmsjSb3jWokeaZUAHl0YcT4R
- 4NoLBJfp4D7KfMTrSrqhsD9oUyiEmu8bNP/TWj4=
-X-Google-Smtp-Source: ABdhPJzbei+YhbyxBBky+9dDKnl8xs2AYHFFXGBEnxjE+lcFPY0N5s9i6KJs6PQtIT40TdEoIG90VJW5+1F1Of5ao3E=
-X-Received: by 2002:a50:f08c:: with SMTP id v12mr47055813edl.119.1593905981048; 
- Sat, 04 Jul 2020 16:39:41 -0700 (PDT)
+ bh=sWyN/3WNtV7VRIdJ8FuzrwB0Ews8dbEmWLEqUU8aH3Y=;
+ b=GfoijPblPOiFLaSlod2XJJ+h9BwzvHW8NUlWUmRxZWZKAEmMx39T2638qJ9t+hd3Dz
+ kSxz7F9/kWfWo916xKDKFbO4Y8yBtV+Aeq1q1c2uEdhvuj64i3BT38s7aJmsZZIWV2ib
+ f6E28gnAFFnMHlAROx3WGxZhmd7fjz2RjI7yXwYV4zlKwlesh71gE6Qf7MnUbggooCsq
+ Py99Tns51S1InBcQDghMNw5dG0JIEJwMJ3b2TAz0YXG2z1CuvEpx/BCuZ2oQmikahz7m
+ z6bI9ZmpejSISVI7F/hirS3sYnehODcVRm2hysQvKx0ArnpcRzVYe1eSrP7SiK4kc1g/
+ rqtA==
+X-Gm-Message-State: AOAM530j5g2C276i8W/J66ZSo+70QOpt8nxkArAzEB671BmKxx4zLmDW
+ vsLufDz0cuIp8baSoW/4YCvcZUh14eV6JJU2saU=
+X-Google-Smtp-Source: ABdhPJwWS0Ma5bRs5z3IeTaszufOAuFwKp2kgb8VjlRm/RwxTJR6CiDakIznepbcBwH7i8b/fobZciNMZO2mDh57nT8=
+X-Received: by 2002:a17:906:f88a:: with SMTP id
+ lg10mr37142718ejb.317.1593906118215; 
+ Sat, 04 Jul 2020 16:41:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
- <1593897917.7058.11.camel@HansenPartnership.com>
-In-Reply-To: <1593897917.7058.11.camel@HansenPartnership.com>
+ <920e6dc0-628b-9bad-926a-d1238a373cda@infradead.org>
+In-Reply-To: <920e6dc0-628b-9bad-926a-d1238a373cda@infradead.org>
 From: Dave Airlie <airlied@gmail.com>
-Date: Sun, 5 Jul 2020 09:39:29 +1000
-Message-ID: <CAPM=9tyjdzU-O2nAWFngGSE=aSfUsaRer9x3bk8hpyhCOX0Bew@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Date: Sun, 5 Jul 2020 09:41:47 +1000
+Message-ID: <CAPM=9ty0tiL_qM_UFv0S0VtARKz_f-Anngc+amDM5LjGAHazhA@mail.gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  LKML <linux-kernel@vger.kernel.org>,
  tech-board-discuss@lists.linuxfoundation.org, Chris Mason <clm@fb.clm>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] [PATCH] CodingStyle:
- Inclusive Terminology
+Subject: Re: [Ksummit-discuss] [PATCH] CodingStyle: Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,45 +105,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Sun, 5 Jul 2020 at 07:25, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
+'. Colors to represent a policy requires an indirection. The
 >
-> On Sat, 2020-07-04 at 13:02 -0700, Dan Williams wrote:
-> [...]
-> > diff --git a/Documentation/process/inclusive-terminology.rst
-> > b/Documentation/process/inclusive-terminology.rst
-> > new file mode 100644
-> > index 000000000000..a8eb26690eb4
-> > --- /dev/null
-> > +++ b/Documentation/process/inclusive-terminology.rst
->
-> Could we just lose this entire document?  The one thing we should learn
-> from recent history is that we really want prevent people distracting
-> from the good inclusive (and technically more accurate) terminology
-> will do.  One way the detractors do this by engaging in ultimately
-> pointless arguments about historical accuracy of supporting statements.
->   By making pejorative statements about history (which are open to
-> challenge on several fronts), this document acts as a magnet for such
-> attention.  Simply leave it out and the detractors will have nothing to
-> attack except the bald statement of desiring more inclusive language.
-> I'd much rather defend why we want inclusive and more descriptive
-> language than get into a pointless argument over whether the Ottoman
-> slave trade was more or less evil than the American one.
+> how about:
+>               Using colors to represent a policy requires an indirection.
 
-I don't totally agree on that, because like the CoC discussion, people
-need concrete examples. People need reasons, saying simply "be
-inclusive" doesn't work.
+I'd totally submit that red/black trees while in no way racist, are a
+horrible indirection, as it means nothing if you've never interacted
+with gambling culture, (and maybe James Bond movies).
 
-You say "be inclusive" people don't think about it, they just go "I'm
-inclusive" and proceed, never questioning what it means to be
-inclusive, they normalise inclusivity to their self image and within
-their lives where they might never confront anything like this.
-
-I don't doubt we get the American/Ottoman/Barbery coast people and the
-correct answer to those people is to tell them to examine why they
-suddenly care about Barbery slavery now when they have never even
-heard or worried about it before. Why haven't they submitted patches
-removing slavery terminology from the kernel before?
+left/right trees make naturally more sense and translate into more
+languages, so yes I think removal of color naming is a good thing even
+for non-racist reasonings.
 
 Dave.
 _______________________________________________
