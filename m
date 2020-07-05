@@ -7,90 +7,88 @@ X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DC28C433E0
-	for <ksummit-discuss@archiver.kernel.org>; Sun,  5 Jul 2020 02:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79AECC433DF
+	for <ksummit-discuss@archiver.kernel.org>; Sun,  5 Jul 2020 02:56:39 +0000 (UTC)
 Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C64D320885
-	for <ksummit-discuss@archiver.kernel.org>; Sun,  5 Jul 2020 02:54:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 45D3F208E4
+	for <ksummit-discuss@archiver.kernel.org>; Sun,  5 Jul 2020 02:56:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NiDqrpMf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C64D320885
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4Zl3xGH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45D3F208E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by hemlock.osuosl.org (Postfix) with ESMTP id 6212B886C4;
-	Sun,  5 Jul 2020 02:54:33 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id 2C2B888343;
+	Sun,  5 Jul 2020 02:56:39 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from hemlock.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id LoZxLpp7wLkT; Sun,  5 Jul 2020 02:54:32 +0000 (UTC)
+	with ESMTP id eS3Us5YBUKww; Sun,  5 Jul 2020 02:56:38 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by hemlock.osuosl.org (Postfix) with ESMTP id B800A8867D;
-	Sun,  5 Jul 2020 02:54:32 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id AA5AE882BD;
+	Sun,  5 Jul 2020 02:56:38 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 846D3C0888;
-	Sun,  5 Jul 2020 02:54:32 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
- by lists.linuxfoundation.org (Postfix) with ESMTP id B08A5C0733;
- Sun,  5 Jul 2020 02:54:31 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 74F20C08A5;
+	Sun,  5 Jul 2020 02:56:38 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 0AB27C0733;
+ Sun,  5 Jul 2020 02:56:38 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by fraxinus.osuosl.org (Postfix) with ESMTP id AC86086D20;
- Sun,  5 Jul 2020 02:54:31 +0000 (UTC)
+ by silver.osuosl.org (Postfix) with ESMTP id F38DE20467;
+ Sun,  5 Jul 2020 02:56:37 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from fraxinus.osuosl.org ([127.0.0.1])
+Received: from silver.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id BkuTgrw-Vfcj; Sun,  5 Jul 2020 02:54:30 +0000 (UTC)
+ with ESMTP id jZE8VDZ1wDf2; Sun,  5 Jul 2020 02:56:36 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
- [209.85.208.67])
- by fraxinus.osuosl.org (Postfix) with ESMTPS id 54C3F86CB3;
- Sun,  5 Jul 2020 02:54:30 +0000 (UTC)
-Received: by mail-ed1-f67.google.com with SMTP id b15so31653888edy.7;
- Sat, 04 Jul 2020 19:54:30 -0700 (PDT)
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ by silver.osuosl.org (Postfix) with ESMTPS id 5158B20463;
+ Sun,  5 Jul 2020 02:56:36 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id d18so26013806edv.6;
+ Sat, 04 Jul 2020 19:56:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=dvqshmDN/tsxghSmW5OA1k02BKJNMJmYoR6UGK4L9Lg=;
- b=NiDqrpMf/AJsvghlpr+Lt8VZU0ifVzoi9xQN5xZ9wUxz12wjosKVh7dkVnC5Kz+rSv
- fDUhm8HZAeEiZ2dx8QgVZyiHKp3dEeqIGmJyaV1r5cQ9RkGWT1v9XYnZdMbdLWXa3T47
- lBlY6I8D9ySNLODit4mDwh6Vyxsm23NM9aUDMJZ1iXdX+UCI/KQ4WmQLYcBS6GH4qwxx
- AJcW4YV3cQRABe9qVGtqqEs80wfl9JeYpPwOS5EfMJom1CnNjteO7xuafuTFt9rkFAZ/
- BJVLVZcI7VeD8jzQnFDZ0fMYSQ4VTjB+Ihv+K662F0Sk7r1XoQJcoSc7vJFjiX3eFVdB
- y/xw==
+ :cc; bh=vBRoyIDDEXWuOdpKocJGfyLVUig4XuQim58BgYt5AW4=;
+ b=B4Zl3xGH6a9uCdz1vSO6zx/aNHbXpsWUt8vWTJ5Krm1HzMg8CAN/BFWnHDOCaDmET0
+ uAU1hhXbUfdKLPDcOI3/Ah1ui0QeLjz1f5HIow0Zpu+oUK/nnu+YiqQ8XDND4Odm4hnZ
+ yABCGSQIbZtvKQCUeOyFXc/64ukaqwyge6uXTdiQGCHm0MS2Bl68ezENCMy6ZO4V/6w6
+ Jjyj9wHfIBPN6JXyZn+iMZ7n0gWkyMREyOXa0EdxJEo0QPbfTSxDLJDc2EUqtQAuyKw4
+ 13nmOZaNiWnNtWHGRXiPjR8+9dOyi8vZ2Hr/P3UD9xmLunmJ3QM++aozNg9m+MQ3Y4IB
+ U6QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=dvqshmDN/tsxghSmW5OA1k02BKJNMJmYoR6UGK4L9Lg=;
- b=NjDSjdYtjMMNVYBl6DJ0sNDFJR1kb5HragE+ytjfsFnTT5EyLn2qjZ0aYOb6jlxigj
- 8A4ENg2FuylQV4Rz0icMzgwyd5iptehXHCX4JWqSqKJRr1/s7Ibl5DfWDORGkzRplWtO
- J+r5ogrgjnftjNTzA9zC6zepgtT7XTAYMqbuev3AI2oF0PcmuRjb2aFfliAekRxSzemU
- ZM8agHJyiR0CORAl2Y4wP/2JgqaaDiN4JC/PMRM2LKL1J7bJ4BrM1fup7udfZp2M2CKv
- WpwDz/vc79Yxgw7f6mSFN0kkpSum9oS/pJWwnducJlCH9PIV7nHmQO4iarTwkHxBW2CC
- MStg==
-X-Gm-Message-State: AOAM532VCjFZ9pGUQCw6hXZ1mK/YWkRfdKV8YxurgVxDsnlGpA0DnbZz
- iZQIAq+HIp9YD4hhjVLi2/oQIkMrgvCmPV7l8fU=
-X-Google-Smtp-Source: ABdhPJwsIgz43ZzWE+J2JD/Bh+9Jueukwp1CnUfHkq5hnTEl+gW/egfyKyE+uVLoskAeK4yKwxHQ6juZC9NEdeccJNw=
-X-Received: by 2002:a05:6402:796:: with SMTP id
- d22mr50886256edy.78.1593917668742; 
- Sat, 04 Jul 2020 19:54:28 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=vBRoyIDDEXWuOdpKocJGfyLVUig4XuQim58BgYt5AW4=;
+ b=K7juIr1Wub4H6T0vRI12RSwAqln9Tsvh+FVds8KOxdSAaWB6RFV8bt3UBddf8dcU+y
+ u1JYMCIdyA265V6Pp1xL+XbV6jv9nPch8jNjniN4co76u0MJjZaswbAUH+BbaunOi7Oq
+ cg0x+KcUGJi6gaRJwm9rObRVXMoebFCwYda36LKta8yL6taKDYFXOG8rU8IdllmiZcMs
+ PoaYqCeWPRBjMqct4PeLYzOYH0x67K2fWAFzIkEvmRpjnCTZue7sd/JC/BjK6meZay6I
+ qp+3CAH/QjAdzm7cR16MQVK6+4fpRVwwH4qrG2GKgfcsVHF4KiSmQD+XnFs2YbV+HcdX
+ qXJw==
+X-Gm-Message-State: AOAM530NTcNxGQ2W0ubml/gUdUQbJpEn0qr8JxhSlm9cb7VQ4BRuBXDO
+ 1QeMg3JK5sLg3f0FjrwmrOExgx1Uzp3dnY2kObQ=
+X-Google-Smtp-Source: ABdhPJwqBqdhktxvnACOO8QFCSHxYt2PEzHgR/vybRWWfR8D9Gqp/tUd4idtWY5ESjf64gys/SOtFc2NeN2pKWzosz4=
+X-Received: by 2002:a50:f08c:: with SMTP id v12mr47609189edl.119.1593917794873; 
+ Sat, 04 Jul 2020 19:56:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
- <920e6dc0-628b-9bad-926a-d1238a373cda@infradead.org>
- <CAPM=9ty0tiL_qM_UFv0S0VtARKz_f-Anngc+amDM5LjGAHazhA@mail.gmail.com>
- <CAFhKne9MA_G-UsvBFfX-gZRcu9Gb7Xt7UxQ14MTppdU3X1VYdQ@mail.gmail.com>
-In-Reply-To: <CAFhKne9MA_G-UsvBFfX-gZRcu9Gb7Xt7UxQ14MTppdU3X1VYdQ@mail.gmail.com>
+ <20200705064348.71d4d51f@canb.auug.org.au>
+ <CAPM=9txOgRYc7RM3fzohB4=Ejcp_xMGLBX_OOCOD=r+W6D678A@mail.gmail.com>
+ <20200705121216.2ce2dd46@canb.auug.org.au>
+In-Reply-To: <20200705121216.2ce2dd46@canb.auug.org.au>
 From: Dave Airlie <airlied@gmail.com>
-Date: Sun, 5 Jul 2020 12:54:17 +1000
-Message-ID: <CAPM=9txhJvp8dvJA7HWa=dEaTgKCzrNc5evof+z7ZW8+e=cKTQ@mail.gmail.com>
-To: Matthew Wilcox <willy6545@gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Date: Sun, 5 Jul 2020 12:56:23 +1000
+Message-ID: <CAPM=9txud3xg+++205X9s9R5wnxobpNSJWLUu=bp8BOhnX_8hQ@mail.gmail.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ tech-board-discuss@lists.linuxfoundation.org,
  LKML <linux-kernel@vger.kernel.org>,
- tech-board-discuss@lists.linuxfoundation.org, Chris Mason <clm@fb.clm>
+ ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [PATCH] CodingStyle: Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
@@ -108,28 +106,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Sun, 5 Jul 2020 at 10:10, Matthew Wilcox <willy6545@gmail.com> wrote:
+On Sun, 5 Jul 2020 at 12:12, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
 >
-> Erm, red-black trees don't have a derivation from gambling terminology either. The wikipedia article says:
+> Hi Dave,
 >
-> In a 1978 paper, "A Dichromatic Framework for Balanced Trees",[6] Leonidas J. Guibas and Robert Sedgewick derived the red-black tree from the symmetric binary B-tree.[7] The color "red" was chosen because it was the best-looking color produced by the color laser printer available to the authors while working at Xerox PARC.[8] Another response from Guibas states that it was because of the red and black pens available to them to draw the trees.[9]
+> On Sun, 5 Jul 2020 09:34:57 +1000 Dave Airlie <airlied@gmail.com> wrote:
+> >
+> > On Sun, 5 Jul 2020 at 06:45, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+> > >
+> > > On Sat, 04 Jul 2020 13:02:51 -0700 Dan Williams <dan.j.williams@intel.com> wrote:
+> > > >
+> > > > +The Linux kernel is a global software project, and in 2020 there was a
+> > > > +global reckoning on race relations that caused many organizations to
+> > > > +re-evaluate their policies and practices relative to the inclusion of
+> > > > +people of African descent. This document describes why the 'Naming'
+> > >
+> > > I feel a need to point out that racial issues are wider than just
+> > > people of African descent ...  Also, others have pointed out that
+> > > slavery is not just restricted to those of African descent.
+> >
+> > The racial issues are wider than that, and even wider again I'm sure,
+> > but in 2020 this is as good a place to start as any, and the trigger
+> > as that sentence says was in 2020, there was a reckoning about it
+> > mainly due to people of African descent. That trigger has had flow on
+> > effects in other countries, but I'm not sure that sentence in any way
+> > diminishes that, it's merely an introduction to why this change is
+> > happening now.
 >
-> Left-right tree makes no sense. It doesn't distinguish the rbtree from its predecessor the avl tree.  I don't think it's helpful to rename a standard piece of computing terminology unless it's actually hurting us to have it. Obviously if it were called a "master-slave" tree, I would be in favour of renaming it.
+> And reading it again in the (actual) light of day, I see you are right
+> and I misinterpreted this.
+>
+> > As for the non-black slavery, others have never pointed this out
+>
+> (I did not say "non-black")
+>
 
-As I said "it means nothing if you've never interacted with gambling
-culture," red black in the context of the trees as zero meaning other
-than as a name to find it on the internet, Search for that name enough
-and you will undoubtedly be getting ads for online roulette sites
-within hours, if you have a problem gambling past, this might not be
-the desired effect you'd want.
+Sorry I misdirected what you said a bit, and I did misinterpret as
+Australia also has it's own indigenous slavery issues,
 
-The reasons something was named a particular thing can and will be
-different from what a societal context for them means now, and I
-believe it's more important to worry about current societal contexts
-than legacy historical namings. I'm not seriously suggesting we rename
-red-black trees, but if someone who had a problematic gambling
-background had issues with them I'd definitely be open for considering
-it.
+I was trying to stop the "white slavery" is a thing crew from turning
+up on this.
+
+Apologies for accidentally implying something what you hadn't said.
 
 Dave.
 _______________________________________________
