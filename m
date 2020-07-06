@@ -2,154 +2,146 @@ Return-Path: <SRS0=9K8a=AS=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2522C433E0
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 15:56:25 +0000 (UTC)
-Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FD37C433E0
+	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
+Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A207B20674
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 15:56:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 46DF9206E2
+	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=sony.com header.i=@sony.com header.b="IYMJ2BPI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A207B20674
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=sony.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ds37gxbH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46DF9206E2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by whitealder.osuosl.org (Postfix) with ESMTP id 864EF88F75;
-	Tue,  7 Jul 2020 15:56:25 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from whitealder.osuosl.org ([127.0.0.1])
-	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id d71Y1FtaKn3A; Tue,  7 Jul 2020 15:56:24 +0000 (UTC)
-Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by whitealder.osuosl.org (Postfix) with ESMTP id A205B88F93;
-	Tue,  7 Jul 2020 15:56:24 +0000 (UTC)
-Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 75D2EC08A8;
-	Tue,  7 Jul 2020 15:56:24 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 2DF19C016F;
- Tue,  7 Jul 2020 15:56:23 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by fraxinus.osuosl.org (Postfix) with ESMTP id 2625488236;
- Tue,  7 Jul 2020 15:56:23 +0000 (UTC)
+	by fraxinus.osuosl.org (Postfix) with ESMTP id 063CB8811E;
+	Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from fraxinus.osuosl.org ([127.0.0.1])
+	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 4o4vRpfmZq3g; Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
+Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
+	by fraxinus.osuosl.org (Postfix) with ESMTP id C190A87D2F;
+	Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
+Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 74A19C0895;
+	Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 50F18C016F;
+ Mon,  6 Jul 2020 22:19:32 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by silver.osuosl.org (Postfix) with ESMTP id 2E8282156E;
+ Mon,  6 Jul 2020 22:19:32 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at osuosl.org
+Received: from silver.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id H_AUkgg5MMpC; Tue,  7 Jul 2020 15:56:22 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com
- [185.183.30.70])
- by fraxinus.osuosl.org (Postfix) with ESMTPS id 5954E8822A;
- Tue,  7 Jul 2020 15:56:22 +0000 (UTC)
-Received: from pps.filterd (m0209319.ppops.net [127.0.0.1])
- by mx08-001d1705.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 067FdIG9001192; Tue, 7 Jul 2020 15:55:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=S1;
- bh=YdgyI8KPty+2G/AtwV9/PVUg1oF+1DrqEbjypIAJh+A=;
- b=IYMJ2BPIWjmuornZqYGxiQ7kubA0BeSmYFTHHi2R4vbyippWv1iwc9prjCAcXwGr9S24
- C+oueBnRCZCn/8HqBCS4SOr+VdGrDOcA4FUYarjDNLIciHYrMVfMKfm4weOoLpl05Ggn
- agI9xEWyctZ8CxcrgFfzimKCPjOX4F3gDZpP9ciTmhuDbM9YT7JUNxbTLkQ1UtzqIMTb
- TbeAVS0nV3hoYix3sp5lg/hJ8wsQAVwIaX/Yq0B4h9lse6aVP8dbizUGP8cpHA8zhb+s
- ayehkeOzrEtTm0CvML1hbsdXfUAbmEH+jVPay54RD8Jw4K80GiWBmPwFytf12hrcw+Gr cA== 
-Received: from nam04-bn3-obe.outbound.protection.outlook.com
- (mail-bn3nam04lp2054.outbound.protection.outlook.com [104.47.46.54])
- by mx08-001d1705.pphosted.com with ESMTP id 322j5qsbv2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 07 Jul 2020 15:55:45 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ex2Eve3Cl7kk3ufYFAJw0l8aq29zunic+2ZUPpGZVysZRBGq5p3/0zraK6Je24tg+hss1qDjc4fXrWtdWu6S9gbJVsVvXK2K4Lq3rycnwvnKN85Y3JsBSd8N0PDOmMDaY7xo3LjMcfjtPPCSl4eCgTwPGLGxyIT1ieQwp4wMwR31K3oZiB6C0aZfui/WtjTAGlFY6gMxHlty/CzQf3OFyRW/E4yCey7iPTnVDiQu4ExIZnuMHln3sSyV1xSal+whhwAB1O8H7oyNMCoImjaAgxVeui+9ct16NWFj1uwWIAAoes4tsp8HFk72GmjEn+NFZJAC2JCH2Li+AbRbcp+FbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YdgyI8KPty+2G/AtwV9/PVUg1oF+1DrqEbjypIAJh+A=;
- b=oQtORztxpLKuvgI8o6jUh4vJD5VgUuDXNNiVddGwW7Wzg5rh9kGnY2Zptw1f8rlXaeJWVKLMvk/qT0IqzXsdbJK/KIlrhlCoP2zLm/u85eu3aDr5UZUySLXIIFZ9N5SEvP3fVmGyiMs7TDbcI+tX1q/29PnKfDLCu6u9877edYQOFBpRr1L1mo30fcLipZqur6jpejcTRQX4HUccsIm+FnkDNGF094P5biqT+urmIoeqcbN6KQD1LeF8lRqxUisqRSqTEG+IPSfcbDIAYB/Y82SA53wYMmiTSv0qMs6n3IlCd6aVxHMiG1w3IQVcm0j9WA9TyeAvBpYAgsxhDOvGsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=sony.com; dmarc=pass action=none header.from=sony.com;
- dkim=pass header.d=sony.com; arc=none
-Received: from CY4PR13MB1175.namprd13.prod.outlook.com (2603:10b6:903:40::23)
- by CY4PR13MB0935.namprd13.prod.outlook.com (2603:10b6:903:44::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.19; Tue, 7 Jul
- 2020 15:55:42 +0000
-Received: from CY4PR13MB1175.namprd13.prod.outlook.com
- ([fe80::e486:a4f:7430:536e]) by CY4PR13MB1175.namprd13.prod.outlook.com
- ([fe80::e486:a4f:7430:536e%9]) with mapi id 15.20.3174.020; Tue, 7 Jul 2020
- 15:55:42 +0000
-From: "Bird, Tim" <Tim.Bird@sony.com>
-To: Steven Rostedt <rostedt@goodmis.org>, Randy Dunlap <rdunlap@infradead.org>
-Thread-Topic: [Ksummit-discuss] [Tech-board-discuss] [PATCH] CodingStyle:
- Inclusive Terminology
-Thread-Index: AQHWVGPIwQycxLw5iEauvXmlP6ObnKj8O1FwgAAD2YCAAAJSgIAAAJcg
-Date: Tue, 7 Jul 2020 15:55:42 +0000
-Message-ID: <CY4PR13MB11754FCF904BA5C0A31EA7D2FD660@CY4PR13MB1175.namprd13.prod.outlook.com>
+ with ESMTP id 4Q8PRg29ZMPJ; Mon,  6 Jul 2020 22:19:31 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ by silver.osuosl.org (Postfix) with ESMTPS id 01B642107F;
+ Mon,  6 Jul 2020 22:19:30 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id f139so43678385wmf.5;
+ Mon, 06 Jul 2020 15:19:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:cc:references:from:autocrypt:subject:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=NqkdrA2uQUAlO29c73BYFCQkyR4aI/R5ksyegWujHhc=;
+ b=Ds37gxbH8kTdcboaWyOmLBOzVYn9G+4iXCiPt13iNouloS7ZbQcuSTawYya6KXtEMz
+ A3piReLOmoQgab9DG8ciDCZDKwkjY6Rya+/M3KutAHdKZczKStcrny8AoHPf5ybVTEes
+ 6RuV9SHhlf379uLqKg4D+Buufaie/5cayx6/GWolZGapGg+ZHbkNJrrOQznIJY1T9QNQ
+ hk+0jw207drzYEjLYCkhF/gG1YNy5vClgzSzBcqqV2AeLXkQpk35orU12X6r+k1ig/ed
+ n9PhBsiQnCbnQaLuaG0cZviqbLyPZ6LCQJGJW5W00VMszvM+XfhLk2QYQOj9rhJJqNv2
+ HFLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:cc:references:from:autocrypt:subject
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=NqkdrA2uQUAlO29c73BYFCQkyR4aI/R5ksyegWujHhc=;
+ b=UKwZQXsdn7I+C6rDsMar78GouhuHoQUlRniKbiMT0zq3EkVBQjGYQ6TchTSBJHbZqj
+ +fYn0BG0ZNnYt+j0crBRLfbY/uEuu6gVQJ+G+QdT6aTjTTi4RyD8lhOaD37I5pXYB15E
+ 4T7+8E3IpTszSt9SJ5ETU3LRFOJfFZpqS4kgfHPHh0i5YgN1vpahju7waqu8wFQ4/hC4
+ sy3nNm48ZjcOVgWgJmPwRlzU8aIe/KGY0PPUtHV0Xjkn21xUKXSiClusadp2IVZFnFmt
+ A7Y7Zd5aj85c2P14h+0vBJc4OeWxOuEHeWelwPPsl6k/aUOzjcre8sRsMBSY0HKKjwbH
+ Z5aA==
+X-Gm-Message-State: AOAM532bDIu9X5XzYsi6Oc697Q/al9/qjMH2pX5DvsKgORsgDhvf2i3w
+ +dWyFygnw2o11ciEy6YUzpk=
+X-Google-Smtp-Source: ABdhPJwWsS622bx5CftTPVMMiQZSAV+jKSgMB9jDIkg7FX7h066J9fqLIlkg/sLfE1HURTbSoiapTQ==
+X-Received: by 2002:a1c:b686:: with SMTP id g128mr1202202wmf.145.1594073969184; 
+ Mon, 06 Jul 2020 15:19:29 -0700 (PDT)
+Received: from [192.168.43.52] ([5.100.193.69])
+ by smtp.gmail.com with ESMTPSA id j4sm21235712wrp.51.2020.07.06.15.19.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2020 15:19:28 -0700 (PDT)
+To: Steven Rostedt <rostedt@goodmis.org>
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
- <CALCETrXewAK4_fpaJNDHJVDK9mUcjghA5HwYvZFQNYVfC9M+OQ@mail.gmail.com>
- <202007062234.A90F922DF@keescook>	<20200707064921.GA9411@linux.ibm.com>
- <20200707093727.22aa39e2@oasis.local.home>
- <CY4PR13MB117519F548B125CB2F10F50FFD660@CY4PR13MB1175.namprd13.prod.outlook.com>
- <c4aec17f-3ac9-ce17-a131-b186a9b595dd@infradead.org>
- <20200707114151.2d7b0fc1@oasis.local.home>
-In-Reply-To: <20200707114151.2d7b0fc1@oasis.local.home>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: goodmis.org; dkim=none (message not signed)
- header.d=none;goodmis.org; dmarc=none action=none header.from=sony.com;
-x-originating-ip: [160.33.195.21]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4c618584-0f9e-44d6-f281-08d8228e33c2
-x-ms-traffictypediagnostic: CY4PR13MB0935:
-x-microsoft-antispam-prvs: <CY4PR13MB0935A3072932E0F5D4EA5C44FD660@CY4PR13MB0935.namprd13.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: IckGPx0AjxdzFhGt8ncneNzhjYIBt/zVEFIhSZu5v77CcA1apsmAv7Ha748dLnnIzqxwKoZxG6jb9IL6TxFW4Jiw+p4lTTJ5bzUkjGK+4q/+AytwAnZPlCHVMw9iGsFH7lDG2deOeDLZpixdTloiInn0BeIcZzlsEz+uGBwK7E4pw1KNEYtMEk8F2advHF4oFNDbxQoSzsndV8ChqKWvI8f780k/r5LCAk2Mbp7o454Kr5E+J1qvrtlNMX+986oa02MFM6L2f5pvqpMJgLhlRE8IwMCZb8ku7m9xn2GrWC253JNecZ4NpLAA+RND3IGHrM2mgc4r4TweZ8d8Ct26Fw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR13MB1175.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(396003)(136003)(376002)(39860400002)(346002)(6506007)(7696005)(8676002)(8936002)(478600001)(26005)(186003)(66946007)(64756008)(66446008)(66476007)(66556008)(2906002)(52536014)(71200400001)(33656002)(5660300002)(86362001)(4326008)(76116006)(110136005)(83380400001)(316002)(54906003)(55016002)(9686003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: qn9dDOISRm2ZMKkqiezCvdp8psc9dMYK8PWT3O0eB0hmfRwl1eviqjOa18EZojrJxhdNuIXmvL+gDWfr6DefTWAgZozYoqENodn82Zk5j1wvzjmYR7IqGE09b9ZulWNmaJcciIxtpifx0znV59nS0h11iDsGR9/RRWFsTlB6iBFmckWPHHi5kPxX+lcpZgMGN1M5t/INqRWj/+0Z8bDHld2sUAcjbLYEydUfDdDwZyBzyeOixaLF2uQfhG1mqq0vMos9zKTQLGCXaPbz4Hp8zQvNHAlk+pLNAOEqm6Q9C3WCrwSxDt61XzVBk+PaOtY+VE1H6KRbk+9U1iQqnVnncRH5fSH8GD/H7OnxY3cGux+TyHZAZipwZsIUD1uGHUxM78DS62x282WaHpshSXyiNk1ijnrf9GQnnWELJLV83xZtSt130CrEKuWlqPwFFqArlB/rN45jRo9Hpm64dIz4YmOlFON23fK3AMUz2oTf76LDokzHneLcoWIDSyfGlBNo
-x-ms-exchange-transport-forked: True
+ <1cceba0f-c8ad-260d-9a09-5417bee32d50@gmail.com>
+ <20200706181052.174c290a@oasis.local.home>
+From: Pavel Begunkov <asml.silence@gmail.com>
+Autocrypt: addr=asml.silence@gmail.com; prefer-encrypt=mutual; keydata=
+ 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 bA==
+Message-ID: <717030b7-ecba-2ca4-39ff-6a5a04a732d4@gmail.com>
+Date: Tue, 7 Jul 2020 01:17:47 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-X-OriginatorOrg: sony.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR13MB1175.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c618584-0f9e-44d6-f281-08d8228e33c2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2020 15:55:42.0730 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 66c65d8a-9158-4521-a2d8-664963db48e4
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Deq7BCl7fimpoDSMMZPH3oHm/6MhKqfqt8Mh/GzwKLr4c8WDuLeDAYAF67jvTbbk0ZXEeyNqKRTUcqZCEiHUYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR13MB0935
-X-Sony-Outbound-GUID: HyWKZKdZoIq7jsCSZdZ2_jIDaJaBxDv5
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-07_08:2020-07-07,
- 2020-07-07 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- mlxlogscore=999 clxscore=1011 phishscore=0 impostorscore=0 mlxscore=0
- lowpriorityscore=0 priorityscore=1501 cotscore=-2147483648 bulkscore=0
- spamscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2007070114
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>,
- "tech-board-discuss@lists.linuxfoundation.org"
- <tech-board-discuss@lists.linuxfoundation.org>, Chris Mason <clm@fb.clm>
+In-Reply-To: <20200706181052.174c290a@oasis.local.home>
+Content-Language: en-US
+X-Mailman-Approved-At: Tue, 07 Jul 2020 18:04:13 +0000
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ tech-board-discuss@lists.linuxfoundation.org, Chris Mason <clm@fb.clm>
 Subject: Re: [Ksummit-discuss] [Tech-board-discuss] [PATCH] CodingStyle:
- Inclusive Terminology
+	Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,43 +158,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-
-
-> -----Original Message-----
-> From: Steven Rostedt <rostedt@goodmis.org>
+On 07/07/2020 01:10, Steven Rostedt wrote:
+> On Tue, 7 Jul 2020 00:31:49 +0300
+> Pavel Begunkov <asml.silence@gmail.com> wrote:
+>>> diff --git a/Documentation/process/coding-style.rst b/Documentation/process/coding-style.rst
+>>> index 2657a55c6f12..4b15ab671089 100644
+>>> --- a/Documentation/process/coding-style.rst
+>>> +++ b/Documentation/process/coding-style.rst
+>>> @@ -319,6 +319,18 @@ If you are afraid to mix up your local variable names, you have another
+>>>  problem, which is called the function-growth-hormone-imbalance syndrome.
+>>>  See chapter 6 (Functions).
+>>>  
+>>> +For symbol names, avoid introducing new usage of the words 'slave' and
+>>> +'blacklist'. Recommended replacements for 'slave' are: 'secondary',
+>>> +'subordinate', 'replica', 'responder', 'follower', 'proxy', or
+>>> +'performer'.  Recommended replacements for blacklist are: 'blocklist' or
+>>> +'denylist'.  
+>>
+>> "Subordinate" means that they are unequal, and inequality is a big issue. This
 > 
-> On Tue, 7 Jul 2020 08:33:33 -0700
-> Randy Dunlap <rdunlap@infradead.org> wrote:
-> 
-> > >> I was thinking good-list / bad-list.
-> > >>
-> > >> /me that has been doing a lot of git bisect lately...
-> > >
-> > > I think it depends on the context.  I'd prefer a grammatically awkward verb that described
-> > > the action more specifically, than a grammatically nicer generic term.  In other words,
-> > > yes/no, good/bad don't mean that much to me, unless it's obvious from context
-> > > what the effect will be.  With something like allow/deny, I have a pretty clear mental
-> > > model of what the code is going to do.
-> >
-> > That matches what I was about to say:
-> > Just using yes/no does not tell someone what they are saying yes or no about.
-> > It should be more descriptive, like allow/block.
-> 
-> After doing two days worth of git bisect, good/bad is hardcoded in my head :-p
+> And if two objects are unequal, then that seems to be an appropriate
+> term. We are not concerned about the inequality of devices.
 
-Maybe I have the same bias, because good/bad there doesn't bother me at all. ;-)
-Here is some 'motivated reasoning' on my part...
+Totally agree with you! But do we care then whether two _devices_ or _objects_
+are slave-master? Can't see how it fundamentally differs.
 
-In the git case, the good/bad terms describe the result status of the test, not the action that git
-is going to take based on that status.  It's pretty clear from context that a 'good'
-result will cause that commit and other commits to be added to the 'good' set.  I think what
-git actually does in constructing the sets is a bit too magical to describe with a  simple
-verb.
-
-As an aside I just looked up 'git-bisect' documentation, and found it has support
-for changing the terms used ('git bisect terms ..') so you can use words like 'fast/slow'
-or 'fixed/broken'.  That's something I didn't know about. :-)
- -- Tim
+-- 
+Pavel Begunkov
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
