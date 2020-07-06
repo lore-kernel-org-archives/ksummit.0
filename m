@@ -2,65 +2,105 @@ Return-Path: <SRS0=iFvq=AR=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53DE5C433DF
-	for <ksummit-discuss@archiver.kernel.org>; Mon,  6 Jul 2020 13:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 840BCC433E0
+	for <ksummit-discuss@archiver.kernel.org>; Mon,  6 Jul 2020 13:56:57 +0000 (UTC)
 Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30CD32070C
-	for <ksummit-discuss@archiver.kernel.org>; Mon,  6 Jul 2020 13:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30CD32070C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 55BB92070C
+	for <ksummit-discuss@archiver.kernel.org>; Mon,  6 Jul 2020 13:56:57 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="uksv0RIA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55BB92070C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by hemlock.osuosl.org (Postfix) with ESMTP id E29FD89188;
-	Mon,  6 Jul 2020 13:55:41 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id E81658923C;
+	Mon,  6 Jul 2020 13:55:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from hemlock.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id VE4MhVgDL7tt; Mon,  6 Jul 2020 13:55:39 +0000 (UTC)
+	with ESMTP id hijhx7im9+B2; Mon,  6 Jul 2020 13:55:40 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by hemlock.osuosl.org (Postfix) with ESMTP id 3F9108918F;
+	by hemlock.osuosl.org (Postfix) with ESMTP id 7E7CA89271;
 	Mon,  6 Jul 2020 13:55:37 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id E1E5AC08A8;
-	Mon,  6 Jul 2020 13:55:36 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
- by lists.linuxfoundation.org (Postfix) with ESMTP id D1427C016F;
- Mon,  6 Jul 2020 07:06:57 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 5ACECC08A9;
+	Mon,  6 Jul 2020 13:55:37 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 8D701C016F
+ for <ksummit-discuss@lists.linuxfoundation.org>;
+ Mon,  6 Jul 2020 13:23:50 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hemlock.osuosl.org (Postfix) with ESMTP id C824388520;
- Mon,  6 Jul 2020 07:06:57 +0000 (UTC)
+ by silver.osuosl.org (Postfix) with ESMTP id 789F925D52
+ for <ksummit-discuss@lists.linuxfoundation.org>;
+ Mon,  6 Jul 2020 13:23:50 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from silver.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id C9y6X7U5Ut3W; Mon,  6 Jul 2020 07:06:56 +0000 (UTC)
+ with ESMTP id HYjLYu2fPgem
+ for <ksummit-discuss@lists.linuxfoundation.org>;
+ Mon,  6 Jul 2020 13:23:48 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by hemlock.osuosl.org (Postfix) with ESMTPS id 8771A884A6;
- Mon,  6 Jul 2020 07:06:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AEFE1AC9F;
- Mon,  6 Jul 2020 07:06:54 +0000 (UTC)
-From: NeilBrown <neilb@suse.de>
-To: Matthew Wilcox <willy6545@gmail.com>,
- Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 06 Jul 2020 17:06:45 +1000
-In-Reply-To: <CAFhKne_ZVWVhZX5hNEbeGBfU6BMRN9JKQeTsVYOcMmEH1cd3xg@mail.gmail.com>
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+ [209.85.221.67])
+ by silver.osuosl.org (Postfix) with ESMTPS id 825E425D29
+ for <ksummit-discuss@lists.linuxfoundation.org>;
+ Mon,  6 Jul 2020 13:23:48 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id b6so40882401wrs.11
+ for <ksummit-discuss@lists.linuxfoundation.org>;
+ Mon, 06 Jul 2020 06:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=u3h3wext262E7n1BD957g5v244VzOwxa5GVfjSJ/geM=;
+ b=uksv0RIAMXQoQTap1+LbsoaHNwksYV/iQZD8ux1lmeU9O85VFW8n7kl3i/NDkA4JVA
+ zebixzLSa9+kaTmzRBd426DC3iUypNtbgsxskA3njEdNW5p5MFjFE3JZTLTCe4uCoTa1
+ ZjdIvjDBPvmK5Q0podW8iTUhWGHmwBsmncGeTFCaK9yVlnLT+6x7wSym7bBY8ExPKKoG
+ e22edvozdUOaKi2XubldCE4hJvhaHBvJTqtftT2LQEezOluR6+tLMrzvRkn8GNiFzCBZ
+ cIYT5JDBf2zMlRYhxnOF91/VU0ubd9Sx6PJMe97l17KlLYIcLXImlsyx5hWLIlukaXMr
+ 7DLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:subject:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=u3h3wext262E7n1BD957g5v244VzOwxa5GVfjSJ/geM=;
+ b=jkcKBWPIy3MKMQKcgXFGMZTENTnuLtULEPFOchNzO9PEpxFpJBXOZcazC5ZLf8zypC
+ nT0EJ3sAtAVXxks/SBIyhkdPFr+UCOB6yYSf3Z8Rkenj149dQRGzUkDZ3joO58DAI/hU
+ lT5LK6qCTKMijnlIadJcazLICbeVLDZEByF1i+UoWddE2WCsUVqVVO9p20bJKqCKxNpf
+ d/1NvzzcG+IB59PhrrD9UvOI8LVx+KhXHAdTNLWj//krture0f3lYw3yEXiz6LjFL3Nr
+ 9yfC3nUAknIK+cI6YvhLIreXG6J5dAKTgW1T86+nNBleOSgLpdfwUeeKfArQ12uiYgn2
+ kZ9w==
+X-Gm-Message-State: AOAM533YE9xBZbFaPq+Ygt2d44Jk31UQKxBMtVv/VLCgXMD31tJbF8ew
+ vOUP+5rEubtqOVgviHPWZTU=
+X-Google-Smtp-Source: ABdhPJynUMChBoPXZsaBUtlvF5PfwvvAXzjTta7pkSZW/T+8cY+XqI/yf/64XJ2bsoRhmLQyTIz/eA==
+X-Received: by 2002:adf:f311:: with SMTP id i17mr50841740wro.237.1594041826875; 
+ Mon, 06 Jul 2020 06:23:46 -0700 (PDT)
+Received: from ?IPv6:2a01:36d:103:236:99d9:83af:85e2:5437?
+ (2a01-036d-0103-0236-99d9-83af-85e2-5437.pool6.digikabel.hu.
+ [2a01:36d:103:236:99d9:83af:85e2:5437])
+ by smtp.gmail.com with ESMTPSA id d81sm11472wmc.0.2020.07.06.06.23.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2020 06:23:46 -0700 (PDT)
+From: Tibor Raschko <tibrasch@gmail.com>
+To: linux-kernel@vger.kernel.org
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
- <CAFhKne_ZVWVhZX5hNEbeGBfU6BMRN9JKQeTsVYOcMmEH1cd3xg@mail.gmail.com>
-Message-ID: <87imf115ru.fsf@notabene.neil.brown.name>
+Message-ID: <810c098a-9920-3468-733e-4abb13bfbe6d@gmail.com>
+Date: Mon, 6 Jul 2020 15:23:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 06 Jul 2020 13:55:33 +0000
-Cc: Chris Mason <clm@fb.clm>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- tech-board-discuss@lists.linuxfoundation.org, linux-kernel@vger.kernel.org,
- ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: tech-board-discuss@lists.linuxfound,
+ ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [PATCH] CodingStyle: Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
@@ -73,203 +113,163 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>, 
  <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7879043615997676652=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
---===============7879043615997676652==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain
-
-On Sat, Jul 04 2020, Matthew Wilcox wrote:
-
-> Another suggestion for "slave" replacement should be "device". This is in
-> the context of the w1 bus which is by far the largest user of the
-> master/slave terminology in the kernel.
-
-Ugh.  Please, no.  "device" doesn't mean anything, in that you can use
-it to refer to any thing.  (i.e. it is almost semantically equivalent to
-"thing").
-Look in /sys/devices.  Everything in there is a device, and (nearly)
-every thing is in there.
-
-NeilBrown
-
->
-> On Sat., Jul. 4, 2020, 16:19 Dan Williams, <dan.j.williams@intel.com> wrote:
->
->> Recent events have prompted a Linux position statement on inclusive
->> terminology. Given that Linux maintains a coding-style and its own
->> idiomatic set of terminology here is a proposal to answer the call to
->> replace non-inclusive terminology.
->>
->> Cc: Jonathan Corbet <corbet@lwn.net>
->> Cc: Kees Cook <keescook@chromium.org>
->> Signed-off-by: Chris Mason <clm@fb.clm>
->> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
->> ---
->>  Documentation/process/coding-style.rst          |   12 ++++
->>  Documentation/process/inclusive-terminology.rst |   64
->> +++++++++++++++++++++++
->>  Documentation/process/index.rst                 |    1
->>  3 files changed, 77 insertions(+)
->>  create mode 100644 Documentation/process/inclusive-terminology.rst
->>
->> diff --git a/Documentation/process/coding-style.rst
->> b/Documentation/process/coding-style.rst
->> index 2657a55c6f12..4b15ab671089 100644
->> --- a/Documentation/process/coding-style.rst
->> +++ b/Documentation/process/coding-style.rst
->> @@ -319,6 +319,18 @@ If you are afraid to mix up your local variable
->> names, you have another
->>  problem, which is called the function-growth-hormone-imbalance syndrome.
->>  See chapter 6 (Functions).
->>
->> +For symbol names, avoid introducing new usage of the words 'slave' and
->> +'blacklist'. Recommended replacements for 'slave' are: 'secondary',
->> +'subordinate', 'replica', 'responder', 'follower', 'proxy', or
->> +'performer'.  Recommended replacements for blacklist are: 'blocklist' or
->> +'denylist'.
->> +
->> +Exceptions for introducing new usage is to maintain a userspace ABI, or
->> +when updating code for an existing (as of 2020) hardware or protocol
->> +specification that mandates those terms. For new specifications consider
->> +translating specification usage of the terminology to the kernel coding
->> +standard where possible. See :ref:`process/inclusive-terminology.rst
->> +<inclusiveterminology>` for details.
->>
->>  5) Typedefs
->>  -----------
->> diff --git a/Documentation/process/inclusive-terminology.rst
->> b/Documentation/process/inclusive-terminology.rst
->> new file mode 100644
->> index 000000000000..a8eb26690eb4
->> --- /dev/null
->> +++ b/Documentation/process/inclusive-terminology.rst
->> @@ -0,0 +1,64 @@
->> +.. _inclusiveterminology:
->> +
->> +Linux kernel inclusive terminology
->> +==================================
->> +
->> +The Linux kernel is a global software project, and in 2020 there was a
->> +global reckoning on race relations that caused many organizations to
->> +re-evaluate their policies and practices relative to the inclusion of
->> +people of African descent. This document describes why the 'Naming'
->> +section in :ref:`process/coding-style.rst <codingstyle>` recommends
->> +avoiding usage of 'slave' and 'blacklist' in new additions to the Linux
->> +kernel.
->> +
->> +On the triviality of replacing words
->> +====================================
->> +
->> +The African slave trade was a brutal system of human misery deployed at
->> +global scale. Some word choice decisions in a modern software project
->> +does next to nothing to compensate for that legacy. So why put any
->> +effort into something so trivial in comparison? Because the goal is not
->> +to repair, or erase the past. The goal is to maximize availability and
->> +efficiency of the global developer community to participate in the Linux
->> +kernel development process.
->> +
->> +Word choice and developer efficiency
->> +====================================
->> +
->> +Why does any software project go through the trouble of developing a
->> +document like :ref:`process/coding-style.rst <codingstyle>`? It does so
->> +because a common coding style maximizes the efficiency of both
->> +maintainers and developers. Developers learn common design patterns and
->> +idiomatic expressions while maintainers can spot deviations from those
->> +norms. Even non-compliant whitespace is considered a leading indicator
->> +to deeper problems in a patchset. Coding style violations are known to
->> +take a maintainer "out of the zone" of reviewing code. Maintainers are
->> +also sensitive to word choice across specifications and often choose to
->> +deploy Linux terminology to replace non-idiomatic word-choice in a
->> +specification.
->> +
->> +Non-inclusive terminology has that same distracting effect which is why
->> +it is a style issue for Linux, it injures developer efficiency.
->> +
->> +Of course it is around this point someone jumps in with an etymological
->> +argument about why people should not be offended. Etymological arguments
->> +do not scale. The scope and pace of Linux to reach new developers
->> +exceeds the ability of historical terminology defenders to describe "no,
->> +not that connotation". The revelation of 2020 was that black voices were
->> +heard on a global scale and the Linux kernel project has done its small
->> +part to answer that call as it wants black voices, among all voices, in
->> +its developer community.
->> +
->> +Really, 'blacklist' too?
->> +========================
->> +
->> +While 'slave' has a direct connection to human suffering the etymology
->> +of 'blacklist' is devoid of a historical racial connection. However, one
->> +thought exercise is to consider replacing 'blacklist/whitelist' with
->> +'redlist/greenlist'. Realize that the replacement only makes sense if
->> +you have been socialized with the concepts that 'red/green' implies
->> +'stop/go'. Colors to represent a policy requires an indirection. The
->> +socialization of 'black/white' to have the connotation of
->> +'impermissible/permissible' does not support inclusion.
->> +
->> +Inclusion == global developer community efficiency.
->> diff --git a/Documentation/process/index.rst
->> b/Documentation/process/index.rst
->> index f07c9250c3ac..ed861f6f8d25 100644
->> --- a/Documentation/process/index.rst
->> +++ b/Documentation/process/index.rst
->> @@ -27,6 +27,7 @@ Below are the essential guides that every developer
->> should read.
->>     submitting-patches
->>     programming-language
->>     coding-style
->> +   inclusive-terminology
->>     maintainer-pgp-guide
->>     email-clients
->>     kernel-enforcement-statement
->>
->> _______________________________________________
->> Ksummit-discuss mailing list
->> Ksummit-discuss@lists.linuxfoundation.org
->> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->>
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAl8CzYUACgkQOeye3VZi
-gbmscRAAoq9BjgfvwE8+ki/65ILY8dCDmw3GEwtn9KTodi7as+MAhT/i/O7lXG3Z
-FA0UpWB2JoaBijEp0U9Dy8uKfZN8RmYLTf80s0RxVHRN+2pIpKXc97uNUeHuD6SS
-zEfOicQ9OavlZuFVxm4RCFc3gOnuYJ/csVY7eMZm3L+4njSZizfqIRe5B25e9CLX
-AykL6DmEPR5QC9JG22F2BX0FtjelksCIDVjgPxseJqg3c3+iEHp4tqi3nIYnyTy9
-BNAXc/uqtJRtlzI1yfihtnXugEPEvbA1GArCHVgGbcEuziep2OoFljYun6Eeeo8e
-FsFsjtLJ5XSupuB1rGD8IdRrrsGf+wZWm0o9Bntmo3YZWJnVq+3ImbtW0ImSx7mg
-EWbVhA3p3cHA1fQVuQYGe8+00Kcm9JUpRWbl0kHJ3qcMr0LBsLNt+MRD+8eY2oZ9
-OVslkKVlUFHZqPtJmDlkWydeW9mxXh7ktd3KqksRGIM9npGKwfudx/gZzAmS7Gai
-8LovOrVtJSGYGzEPq7W0B3MwXjfA2ck8MEhEEVRbMntDuPRiWN5h+Tuf7yP7Ofee
-h2N0rWHGiOaAG16YzInS4jk6BxDOrT8+02fYvyQQ2FPYiaVqBoNj25YwnCzosCT1
-eJxPvI/gB7JfpWELhV3sXhAyvMEzVHbqV5+owIsgSylRrduK4Mg=
-=eOmT
------END PGP SIGNATURE-----
---=-=-=--
-
---===============7879043615997676652==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Ksummit-discuss mailing list
-Ksummit-discuss@lists.linuxfoundation.org
-https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-
---===============7879043615997676652==--
+U2VuZGluZyB0aGUgd3JvbmcgbWVzc2FnZQo9PT09PT09PT09PT09PT09PT09PT09PT09PT0KCkkn
+bSBwcmV0dHkgc3VyZSBldmVyeWJvZHkgYWdyZWVzIHRoYXQgYmVpbmcgaW5jbHVzaXZlIGlzIG1v
+cmUgdGhhbiBqdXN0CnVzaW5nIHRoZSByaWdodCB3b3Jkcy4gQmVpbmcgdHJ1bHkgaW5jbHVzaXZl
+IG1lYW5zIG5vdCBjYXJpbmcgYWJvdXQgdGhlCm9yaWdpbiwgYmlydGgsIGFnZSwgc2V4LCBza2lu
+IGNvbG9yIChhbW9uZ3N0IG90aGVyIHRoaW5ncykgYXQgYWxsLiBUaGlzCm1lYW5zIG5vdCBqdWRn
+aW5nIHBlb3BsZSBiYXNlZCBvbiB0aGVzZSBmYWN0b3JzLCBhbmQgYmVpbmcgZnJpZW5kbHksCmlu
+dml0aW5nIGFuZCBzdXBwb3J0aXZlIHdpdGggZXZlcnlib2R5IGluIGV2ZXJ5ZGF5IGxpZmUgYnkg
+ZGVmYXVsdC4gT24KdGhlIHN0cmVldCwgaW4gaGFsbHdheXMgYW5kIHJvb21zLCBhbmQgb24gdGhl
+IGludGVybmV0LiBUaGlzIGJlaGF2aW9yCmFsc28gaW5jbHVkZXMgdXNpbmcgd29yZHMgYW5kIHBo
+cmFzZXMgdGhhdCBhcmUgbm9uLW9mZmVuc2l2ZS4gU28gYXMgYQpyZXN1bHQsIHRoZSBwcm9wb3Nl
+ZCBwYXRjaCBhZHZvY2F0ZXMgYXZvaWRpbmcgd29yZHMgc3VjaCBhcyAic2xhdmUiIGFuZAoiYmxh
+Y2tsaXN0Ii4KCkhvd2V2ZXIsIGFzIGl0IHdhcyBhbHJlYWR5IHNhaWQgaW4gdGhpcyBkaXNjdXNz
+aW9uIGJ5IG90aGVyIHBhcnRpZXMsCiJjb250ZXh0IGlzIGV2ZXJ5dGhpbmciLiBRdWl0ZSBpcm9u
+aWNhbGx5LCB0aGlzIHdhcyBzYWlkIGluIGEgc2xpZ2h0bHkKZGlmZmVyZW50IGNvbnRleHQsIGJ1
+dCBpdCBkb2Vzbid0IGNoYW5nZSB0aGUgaW1wb3J0YW5jZSBhbmQgZ2VuZXJhbAp0cnV0aCBvZiB0
+aGVzZSB3b3Jkcy4gSSdsbCBnbyBvdXQgb24gYSBsaW1iIGFuZCBjbGFpbSB0aGF0IG5vYm9keSB3
+aG8Kd3JvdGUgIm1hc3Rlci1zbGF2ZSIgZHVyaW5nIGRldmVsb3BtZW50IG9mIGEgZGV2aWNlIGRy
+aXZlciwgb3IgdXNlZCB0aGUKd29yZCAiYmxhY2tsaXN0IiB3YXMgYWN0dWFsbHkgdGhpbmtpbmcg
+b2YgQWZyaWNhbiBwZW9wbGUgb3IgaHVtYW4Kc2xhdmVyeS7CoCBJbiB0aGUgY29udGV4dCBvZiB0
+aGUgTGludXgga2VybmVsIChhbmQgaW4gY29tcHV0aW5nIGluCmdlbmVyYWwpLCB0aGVzZSB3b3Jk
+cyBoYXZlIGEgbG9uZyBoaXN0b3J5IGFuZCBoYXZlIHplcm8gYmFkIGNvbm5vdGF0aW9uLApubyBy
+YWNpc20sIGFuZCBhYnNvbHV0ZWx5IG51bGwgb2ZmZW5zZS7CoCBPbmUgY291bGQgYXJndWUgdGhh
+dApyZWNvbW1lbmRpbmcgdG8gcmV0cm9hY3RpdmVseSByZW1vdmUgc3VjaCByZWZlcmVuY2VzICh3
+aGljaCB0aGUgb3JpZ2luYWwKcHJvcG9zYWwgZG9lcykgYXNzdW1lcyB0aGF0IHRoZXNlIHdlcmUg
+b2ZmZW5zaXZlLCBoZW5jZSBzdWdnZXN0aW5nIHRvIGEKY2VydGFpbiBkZWdyZWUgdGhhdCBwYXN0
+IGRldmVsb3BlcnMgd2hvIGhhdmUgdXNlZCB0aGVzZSB3b3JkcyB3ZXJlCnBvc3NpYmx5IHJhY2lz
+dHMuIFJldHJvYWN0aXZlbHkgcmVtb3ZpbmcgdGhvc2Ugb2NjdXJyZW5jZXMgZnJvbSBjb2RlIGlz
+CnRodXMsIEkgaG9uZXN0bHkgdGhpbmssIGRpc3Jlc3BlY3RpbmcgYW5kIGluc3VsdGluZyB0byB0
+aGUgb3JpZ2luYWwKYXV0aG9ycy4gQmVjYXVzZSB3aHkgcmVtb3ZlIHRoZW0gaWYgdGhleSBkaWRu
+J3QgbWVhbiBhbnl0aGluZyBiYWQ/IEFuZApiZWZvcmUgeW91IHNheSAiYmVjYXVzZSB0aG9zZSBp
+bnN0YW5jZXMgY291bGQgc3RpbGwgYmUgaW50ZXJwcmV0ZWQgYXMKb2ZmZW5zaXZlIiwgSSdsbCBn
+ZXQgdG8gdGhhdCBzb29uLgoKVGhlIHByb3Bvc2FsIGlzIGp1c3QgYSBzdXJmYWNlIHRyZWF0bWVu
+dAo9PT09PT09PT09PT09PT09PT09PT09PT09PT0KCi4uLiBhbmQgYSBiYWQgb25lIGF0IHRoYXQu
+IFRoZSAiYmxhY2siIGluICJibGFja2xpc3QiIGhhcyBub3RoaW5nIHRvIGRvCndpdGggQWZyaWNh
+biBvciBBZnJvLUFtZXJpY2FuIHBlb3BsZS4gTm8gbWF0dGVyIGhvdyBtYW55IG9jY3VycmVuY2Vz
+IG9mCiJibGFjayIgd2UgZXJhZGljYXRlIGZyb20gb3VyIGRpY3Rpb25hcnksIHRoZSB3b3JkICJi
+bGFjayIgd2lsbCBhbHdheXMKaGF2ZSBiYWQgY29ubm90YXRpb25zLiBUaGlzIGNvbm5vdGF0aW9u
+IHN0ZW1zIGZyb20gZGFya25lc3MsIHRoZSBhYnNlbmNlCm9mIGJlYXV0aWZ1bCBjb2xvcnMsIGFu
+ZCBoaXN0b3JpY2FsbHkgZnJvbSB0aGUgY29sZG5lc3MsIGRhcmtuZXNzIGFuZAppbnNlY3VyaXR5
+IG9mIHRoZSBuaWdodC4gRGFuIFcuIGRpc21pc3NlcyB0aGlzIGJ5IHNheWluZyB0aGlzIGlzIGFu
+CmV0eW1vbG9naWNhbCBhcmd1bWVudCwgYnV0IHdlIGNhbm5vdCBkaXNtaXNzIGFyZ3VtZW50cyBq
+dXN0IGJlY2F1c2UgdGhleQphcmUgdW5iZW5lZmljaWFsIChpcyB0aGF0IGV2ZW4gYSB3b3JkPykg
+dG8gb3VyIGNhdXNlLiBUaGUgdHJ1ZSBwcm9ibGVtCmlzIG5vdCB0aGF0IHRoZSB3b3JkICJibGFj
+ayIgaGFzIGJhZCBjb25ub3RhdGlvbnMsIGJ1dCB0aGF0IHBlb3BsZSB3aXRoCmRhcmsgc2tpbiBj
+b2xvciBoYXZlIGJlZW4gbGFiZWxlZCB3aXRoIGEgd29yZCB0aGF0IGhhcyBhIGJhZApjb25ub3Rh
+dGlvbi4gSWYgd2UgZG9uJ3Qgd2FudCB0byBiZSBvZmZlbnNpdmUsIChhcyBhIHNtYWxsIHN0ZXAp
+IHdlIG11c3QKc3RvcCB0aGlua2luZyBvZiBBZnJpY2FuIGFuZCBBZnJvLUFtZXJpY2FuIHBlb3Bs
+ZSBhcyAiYmxhY2siIGFuZCBiYW4KdGhpcyBsYWJlbGluZyBvZiB0aGVtLiBOb3RlIHRoZSBiaWcg
+ZGlmZmVyZW5jZTogSW5zdGVhZCBvZiBiYW5uaW5nIHRoZQp1c2Ugb2YgYSBzaW1wbGUgY29sb3Ig
+aW4gc29tZSBjb250ZXh0cyB3aGljaCBoYXZlIG5vdGhpbmcgdG8gZG8gd2l0aApvcHByZXNzaW9u
+LCBoYXRlIG9yIHNsYXZlcnksIHdlIHNob3VsZCBpbnN0ZWFkIHN0b3AgcmVmZXJyaW5nIHRvIGdy
+b3VwcwpvZiBwZW9wbGUgd2l0aCBhIHdvcmQgdGhhdCBpbmNpdGVzIGJhZCBmZWVsaW5ncy4gRm9y
+IHRoaXMgcmVhc29uLCBJCmFyZ3VlIHRoYXQgYmFubmluZyAiYmxhY2tsaXN0IiBpcyBqdXN0IGEg
+c3VyZmFjZSB0cmVhdG1lbnQgdGhhdCBkb2Vzbid0CnJlY29nbml6ZSB0aGUgdHJ1ZSBwcm9ibGVt
+IGJlaGluZCBpdCwgYW5kIGV2ZW4gaWYgaW1wbGVtZW50ZWQgd2lsbCBzdGF5CmluZWZmZWN0aXZl
+LiBBY2NlcHRpbmcgdGhpcyBwcm9wb3NhbCBpcyBsaWtlIGZpeGluZyBhbiBlcnJvciBtZXNzYWdl
+IGluCnRoZSBrZXJuZWwgbG9ncyBieSBzaW1wbHkgcmVtb3ZpbmcgdGhlIGVycm9yIG1lc3NhZ2Ug
+aW5zdGVhZCBvZiBmaXhpbmcKdGhlIHVuZGVybHlpbmcgYnVnLiBUbyBmaXggdGhlIGJ1ZyBpbiBv
+dXIgbGFuZ3VhZ2UsIHdlIG11c3Qgc3RvcApyZWZlcnJpbmcgdG8gImJsYWNrIiBwZW9wbGUgYXMg
+YmxhY2sgcGVvcGxlLiBBIG1lYXN1cmUgd2hlcmUgcHJvcG9uZW50cwpvZiB0aGUgcGF0Y2ggZmFp
+bCBhdCBtb3N0LgoKQmVpbmcgcmVzcGVjdGZ1bAo9PT09PT09PT09PT09PT09PT09PT09PT09PT0K
+ClRoZSBjYXNlIGZvciAic2xhdmUiIGlzIGEgYml0IGRpZmZlcmVudCwgb2J2aW91c2x5LCBiZWNh
+dXNlIHRoZQpldHltb2xvZ3kgaGVyZSBkb2VzIGxpbmsgdG8gYWN0dWFsIGh1bWFuIHNsYXZlcnku
+IEFnYWluLCBpdCBpcyBpbXBvcnRhbnQKdG8gbm90ZSB0aGUgY29udGV4dCBob3dldmVyLiBJbiBj
+b21wdXRpbmcsIHRoaXMgbWVhbnMgc29tZXRoaW5nCmNvbXBsZXRlbHkgZGlmZmVyZW50LCBlbmQg
+b2Ygc2VudGVuY2UuIFN1cHBvcnRlcnMgb2YgdGhlIHBhdGNoIHdpbGwgY29tZQphbmQgc2F5LCAi
+aXQgZG9lc24ndCBuZWVkIHRvIGJlIG1lYW50IG9mZmVuc2l2ZWx5IHRvIGJlIHRha2VuCm9mZmVu
+c2l2ZWx5Ii4gVGhhdCdzIHRydWUsIG9mIGNvdXJzZSwgYnV0IG9ubHkgaWYgaXQgaXMgYQptaXN1
+bmRlcnN0YW5kaW5nLCB3aGljaCBpbiB0aGUgY29tcHV0aW5nIGNvbnRleHQgaGFzIHplcm8gY2hh
+bmNlLiBJZiB5b3UKa25vdyBhbmQgdW5kZXJzdGFuZCB3aGF0IHRoZSBvdGhlciBwYXJ0eSAqcmVh
+bGx5KiBtZWFudCwgdGhlbiBzb21ldGhpbmcKdGhhdCB3YXNuJ3QgbWVhbnQgb2ZmZW5zaXZlbHkg
+Y2Fubm90IGJlIHRha2VuIG9mZmVuc2l2ZWx5LiBUaGUgcmlnaHQKd29yZCBoZXJlIGlzIG5vdCAi
+b2ZmZW5zaXZlIiwgYnV0IG9uZSBvciBtb3JlIG9mICJ1bmNvbWZvcnRhYmxlIiwKImRpc3R1cmJp
+bmciLCBvciAidXBzZXR0aW5nIi4gTm93ICp0aGF0KiBpcyB1bmRlcnN0YW5kYWJsZS4gSWYgeW91
+IGhhdmUKYSBoaXN0b3J5IG9mIHlvdSBvciB5b3VyIGFuY2VzdG9ycyBiZWVuIG9wcHJlc3NlZCwg
+dGhlbiB0YWxraW5nIGFib3V0CnNsYXZlcnkgdW5kZXJzdGFuZGFibHkgZ2VuZXJhdGVzIHVud2Vs
+Y29tZSBlbW90aW9uYWwgcmVhY3Rpb25zLiBCdXQgdGhpcwpoYXMgbm90aGluZyB0byBkbyB3aXRo
+IGluY2x1c2lvbiwgcmFjaXNtLCBvciBoYXRlLiBIb3dldmVyLCBiZWNhdXNlIHdlCmRvbid0IHdh
+bnQgdG8gZW1vdGlvbmFsbHkgdXBzZXQgcGVvcGxlLCBJIGFjdHVhbGx5IHN1cHBvcnQgYXZvaWRp
+bmcKcmVmZXJlbmNlcyB0byAic2xhdmUiIGluIHRoZSBmdXR1cmUuIEltcG9ydGFudGx5IHRob3Vn
+aCwgdGhpcyBzdXBwb3J0IGlzCm91dCBvZiByZXNwZWN0LCBhbmQgbm90IGJlY2F1c2UgaXQgaGFz
+IGFueXRoaW5nIHRvIGRvIHdpdGggYmVpbmcKb2ZmZW5zaXZlLiBJbiB0aGlzIGNvbnRleHQsIHdl
+IHNob3VsZCwgYW5kIGZvciBjb3JyZWN0bmVzcyBzYWtlIG11c3QsCnN0b3AgcmVmZXJyaW5nIHRv
+ICJvZmZlbnNpdmVuZXNzIi4KClRob3VnaCBldmVuIHRoaXMgbG9naWMgaXMgYm9yZGVybGluZTog
+anVzdCByZWNlbnRseSwgaGFsZiBhIG1pbGxpb24KcGVvcGxlIGhhdmUgZmFsbGVuIHZpY3RpbSB0
+byBDT1ZJRC0xOSBpbiBvdmVyIGp1c3QgYSBjb3VwbGUgb2YgbW9udGhzLgpUaGUgbnVtYmVyIG9m
+IGFmZmVjdGVkIHJlbGF0aXZlcyBhcmUgcHJvYmFibHkgMi0zeCBvZiB0aGF0LCB3aG8gYXJlIG5v
+dwplbW90aW9uYWxseSBzaGFrZW4gYW5kIHVuY29tZm9ydGFibGUgYWJvdXQgdGFsa2luZyBhYm91
+dCB0aGUgdmlydXMuCkltYWdpbmUgd2hlcmUgd2Ugd291bGQgYmUgbm93IChvciB3aGVyZSB3ZSB3
+aWxsIGJlIGluIGhhbGYgYSB5ZWFyKSBpZiB3ZQpzdG9wcGVkIHJlZmVycmluZyB0byBDT1ZJRCB0
+byBhdm9pZCBlbW90aW9uYWxseSB1cHNldHRpbmcgdGhlc2UgcGVvcGxlLgoKQWJvdXQgdGhhdCBh
+cmd1bWVudCB3aXRoIGVmZmljaWVuY3kKPT09PT09PT09PT09PT09PT09PT09PT09PT09CgpUaGUg
+cGF0Y2ggYXV0aG9yIGdvZXMgaW50byBkZXRhaWwgdG8gImlsbHVzdHJhdGUiIGhvdyBhdm9pZGlu
+ZyB0aGVzZQp3b3JkcyB3aWxsIGltcHJvdmUgZWZmaWNpZW5jeS4gSSdtIHNvcnJ5IHRvIGNhbGwg
+dGhpcyBvdXQsIGJ1dCB0aGlzIGlzCnV0dGVybHkgYm9ndXMgYW5kIGRpc3RyYWN0aW5nIGZyb20g
+dGhlIGlzc3VlIGF0IGhhbmQuIEZpcnN0IG9mIGFsbCwgbm90CmFueSBtYWludGFpbmVyIGhhcyBi
+ZWVuIHNsb3dlZCBkb25lIG9yIGhhcyB3b3JrZWQgbGVzcyBlZmZpY2llbnRseQpiZWNhdXNlIHRo
+ZXkgc2F3IHRoZSB3b3JkICJibGFja2xpc3QiIG9yICJzbGF2ZSIgaW4gdGhlIGtlcm5lbCBzb3Vy
+Y2VzLgpUaGVzZSAqdGVjaG5pY2FsKiBwaHJhc2VzIGFyZSBub3QgbGlrZSBiYWQgY29kZSBmb3Jt
+YXR0aW5nIHdoZXJlCmRpc2NvbmZvcm1pdHkgbGVhZHMgdG8gd29yc2UgcmVhZGFiaWxpdHkgb3Ig
+bWFrZXMgdGhlIGNvZGluZyBpbnRlbnQKaGFyZGVyIHRvIGZvbGxvdyBvciB1bmRlcnN0YW5kLiBR
+dWl0ZSB0aGUgY29udHJhcnksIGlmIGFueWJvZHkgcmVhZCB0aGUKcHJvcG9zZWQgImRlbnlsaXN0
+IiBpbnN0ZWFkIG9mICJibGFja2xpc3QiLCB0aGV5IHdpbGwgc3RvcCBmb3IgYSBzZWNvbmQsCnRo
+aW5rICJ3aGF0IGFuIG9kZCBjaG9pY2Ugb2Ygd29yZHMuLi4iLCBhbmQgaWYgaXQgd2Fzbid0IGZv
+ciB0aGUgY3VycmVudApibGFjay1saXZlcy1tYXR0ZXIgbW92ZW1lbnQsIHdvdWxkIGhhdmUgYSB5
+ZWFyIGFnbyBwcm9iYWJseSBldmVuCnJlZmFjdG9yZWQgdGhlIGNvZGUgKG9yIHJlcXVlc3RlZCBh
+IHYyLXBhdGNoKSB3aXRoIHRoZSB1c3VhbCB0ZXJtaW5vbG9neQpvZiAiYmxhY2tsaXN0Ii4gSW4g
+b3RoZXIgd29yZHMsIHRoaXMgYXJndW1lbnQgaGFzIHplcm8gcmVhbC1saWZlIGJhc2lzCmFuZCB3
+aWxsLCBpZiBpbXBsZW1lbnRlZCwgYWNoaWV2ZSB0aGUgb3Bwb3NpdGUgZWZmZWN0IG9mIHdoYXQg
+aXQgaXMKY2xhaW1pbmcuCgpJZiB3ZSBkbyB0aGlzLCB0aGVyZSBpcyBubyBlbmQgdG8gcG9saXRp
+Y3MKPT09PT09PT09PT09PT09PT09PT09PT09PT09CgpMZXQgbWUgc3RhcnQgd2l0aCBhbiBleGFt
+cGxlLiBUaGUgcGF0Y2ggYXV0aG9yIG5lZ2xlY3RmdWxseSBmb3JnZXRzCmFib3V0IHByb3Bvc2lu
+ZyB0byBiYW4gIndoaXRlbGlzdCIsIG5vdCBqdXN0ICJibGFja2xpc3QiLiBJZiB3ZSBhZ3JlZQp0
+aGF0ICJibGFja2xpc3QiIGlzIHdyb25nIGJlY2F1c2UgaXQgYXNzdW1lcyB0aGF0IGV2ZXJ5dGhp
+bmcgImJsYWNrIiBpcwphbHdheXMgYmFkIChhbmQgdGh1cyBibGFjayBwZW9wbGUnZCBiZSBiYWQp
+LCB0aGVuIG9idmlvdXNseSB3ZSAqaGF2ZSB0byoKcmVtb3ZlIHdoaXRlbGlzdCB0b28uIEJlY2F1
+c2UgIndoaXRlbGlzdCIgdGhlbiBhc3N1bWVzIHRoYXQgZXZlcnl0aGluZwoid2hpdGUiIGlzIGFs
+d2F5cyBnb29kLCBhbmQgbm93IHNpbmNlIHdlJ3JlIHVuYWJsZSB0byBpZ25vcmUgdGhlCnJlZmVy
+ZW5jZSB0byBza2luLWNvbG9yLCBzbyB0aGlzIGlzIGp1c3QgYXMgcmFjaXN0IChhY3R1YWxseSBl
+dmVuCndvcnNlKSwgc3VnZ2VzdGluZyB3aGl0ZSBzdXByZW1hY3kuIEl0IGlzIG9idmlvdXMgdGhh
+dCB3aG9ldmVyIHRob3VnaHQKb3V0IHRoZSBleGNsdXNpb24gb2YgImJsYWNrbGlzdCIgZGlkbid0
+IHRoaW5rIHRoaXMgdGhyb3VnaC4gQnV0IHdlIGFsbAprbm93LCB0aGVzZSB3b3JkcyB0byBiZSBy
+ZXBsYWNlZCBhbGwgc3RlbSBmcm9tIG91dHNpZGUgb3VyIGNvbW11bml0eSwKYW5kIHRoZSBjdXJy
+ZW50IHBhdGNoIGlzIG5vdCB0aGUgcmVzdWx0IG9mIGNhcmVmdWwgY29uc2lkZXJhdGlvbiwgYnV0
+CnRoZSByZXN1bHQgb2YgZ2l2aW5nLWluIHRvIGV4dGVybmFsIHByZXNzdXJlLCBhbmQgdG8gcG9s
+aXRpY2FsIGFuZCBtZWRpYQp3YXZlcy4gVGhlIExpbnV4IGNvbW11bml0eSBzaG91bGQgc3RhbmQg
+c3Ryb25nIGFuZCBiZSBpbmNsdXNpdmUgYnkKKmJlaW5nKiB3ZWxjb21pbmcsIGZyaWVuZGx5IGFu
+ZCBoZWxwZnVsIHRvIGV2ZXJ5Ym9keSBpcnJlc3BlY3RpdmUgb2YKc2tpbiBjb2xvciwgbm90IGJ5
+ICpzYXlpbmcqIHdoYXQgY3VycmVudCBwb2xpdGljYWwgYWN0aXZpc3RzIGV4cGVjdCB1cwp0byBz
+YXkuIEl0IG1pZ2h0IGV2ZW4gYmUgYmV0dGVyIHRvIHN0b3AgdGFsa2luZyBhYm91dCBza2luIGNv
+bG9yIGluIHRoZQpjb250ZXh0IG9mIGtlcm5lbCBkZXZlbG9wbWVudCBhbHRvZ2V0aGVyLCBiZWNh
+dXNlIHNraW4gY29sb3IgZG9lc24ndAptYXR0ZXIgaGVyZS4gSGVyZSBwZW9wbGUganVkZ2Ugb3Ro
+ZXJzIGJ5IHRlY2huaWNhbCBjb21wZXRlbmN5LiBBbnkKZGlzY3Vzc2lvbnMgb3RoZXJ3aXNlIGFy
+ZSBmdWVsZWQgYnkgZXh0ZXJuYWwgZmFjdG9ycyBhbmQgYXJlIGEKZGlzdHJhY3Rpb24uIE5vdGUg
+dGhpcyBkb2VzICpub3QqIG1lYW4gd2UgdHVybiBvdXIgYmFja3MgdG8gcmFjaXNtIG9yCm9mZmVu
+c2l2ZSBiZWhhdmlvci4gSWYgd2Ugc2VlIGFueSBzdWNoIHBvaXNvbm91cyBhY3Rpdml0eSBhbW9u
+ZyBvdXIKY2lyY2xlcyBub3cgb3IgaW4gdGhlIGZ1dHVyZSwgd2UgbXVzdCBhbmQgd2lsbCBzaW5n
+bGUgdGhlbSBvdXQgYW5kIHRlYWNoCnRoZW0gYmV0dGVyLCBhbmQgZm9yIGluY29ycmlnaWJsZSBj
+YXNlcyB3ZSBkaXN0YW5jZSBvdXJzZWx2ZXMgZnJvbSB0aGVtLgpCdXQgdGhlc2Ugd2lsbCBiZSBv
+bmUtb2ZmIGNhc2VzIHRoYXQgd2lsbCBiZSBoYW5kbGVkIGFwcHJvcHJpYXRlbHkuClVubGVzcyBp
+dCBiZWNvbWVzIGEgY29tbW9uIHByb2JsZW0gYW1vbmcgTGludXggZGV2ZWxvcGVycywgaXQgaXMg
+bm90IG91cgpyZXNwb25zaWJpbGl0eSB0byB3cml0ZSBkb3duIGVhY2ggYW5kIGV2ZXJ5IGRlc2ly
+YWJsZSBodW1hbiBiZWhhdmlvcgooYWdhaW4sIHNlZSB0b3AgYWJvdXQgInNlbmRpbmcgdGhlIHdy
+b25nIG1lc3NhZ2UiKS4gV2UndmUgc3VjY2Vzc2Z1bGx5CmF2b2lkZWQgcGVzdHMgZnJvbSBpbmZl
+Y3Rpbmcgb3VyIGNpcmNsZXMgaW4gdGhlIHBhc3QgYW5kIHdlJ2xsIGNvbnRpbnVlCnRvIGRvIHNv
+LiBBdm9pZGluZyB0aGUgd29yZCAiYmxhY2tsaXN0IiBtYWtlcyBubyBkaWZmZXJlbmNlIGhlcmUu
+IEhvdyBkbwpJIGtub3c/IEJlY2F1c2UgbGV0J3MgYmUgcmVhbDogVGhlIHVzZSBvZiB0aGUgd29y
+ZCAiYmxhY2tsaXN0IiBoYXMgbm90CmRldGVycmVkIGEgZGV2ZWxvcGVyIGZyb20gam9pbmluZyBv
+dXIgY29tbXVuaXR5IHlldC4uLiBmb3IgYWJvdXQgMjUKeWVhcnMgbm93LiBPbiB0aGUgb3RoZXIg
+aGFuZCB0aGlzIGRpc2N1c3Npb24gaXMgbm93IHdhc3RpbmcgZXZlcnlib2R5J3MKdGltZS4gV2l0
+aCB0aGF0IGxhc3Qgc2VudGVuY2UgaW4gbWluZCwgc29ycnkgZm9yIHRoaXMgbWFpbCB0dXJuaW5n
+IG91dApzbyBsb25nLgoKUmFzY2hrbyBULgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCktzdW1taXQtZGlzY3VzcyBtYWlsaW5nIGxpc3QKS3N1bW1pdC1k
+aXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcKaHR0cHM6Ly9saXN0cy5saW51eGZvdW5k
+YXRpb24ub3JnL21haWxtYW4vbGlzdGluZm8va3N1bW1pdC1kaXNjdXNzCg==
