@@ -2,89 +2,88 @@ Return-Path: <SRS0=9K8a=AS=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FD37C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6824C433DF
 	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 46DF9206E2
+	by mail.kernel.org (Postfix) with ESMTPS id 90CA5206E2
 	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ds37gxbH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46DF9206E2
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJjSt2tr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90CA5206E2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id 063CB8811E;
-	Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id 4C47888900;
+	Tue,  7 Jul 2020 18:04:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from fraxinus.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 4o4vRpfmZq3g; Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
+	with ESMTP id VsGYC665vlh6; Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id C190A87D2F;
+	by hemlock.osuosl.org (Postfix) with ESMTP id 2DA07885C4;
 	Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 74A19C0895;
-	Tue,  7 Jul 2020 18:04:16 +0000 (UTC)
-Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 50F18C016F;
- Mon,  6 Jul 2020 22:19:32 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id BE642C08A5;
+	Tue,  7 Jul 2020 18:04:15 +0000 (UTC)
+Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 08AA9C016F;
+ Mon,  6 Jul 2020 21:33:34 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by silver.osuosl.org (Postfix) with ESMTP id 2E8282156E;
- Mon,  6 Jul 2020 22:19:32 +0000 (UTC)
+ by fraxinus.osuosl.org (Postfix) with ESMTP id EB6EC8779F;
+ Mon,  6 Jul 2020 21:33:33 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from silver.osuosl.org ([127.0.0.1])
+Received: from fraxinus.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 4Q8PRg29ZMPJ; Mon,  6 Jul 2020 22:19:31 +0000 (UTC)
+ with ESMTP id 4fK-u7LDxwrA; Mon,  6 Jul 2020 21:33:33 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
 Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
  [209.85.128.67])
- by silver.osuosl.org (Postfix) with ESMTPS id 01B642107F;
- Mon,  6 Jul 2020 22:19:30 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id f139so43678385wmf.5;
- Mon, 06 Jul 2020 15:19:30 -0700 (PDT)
+ by fraxinus.osuosl.org (Postfix) with ESMTPS id D066B8779C;
+ Mon,  6 Jul 2020 21:33:32 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id o8so40743170wmh.4;
+ Mon, 06 Jul 2020 14:33:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=to:cc:references:from:autocrypt:subject:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=NqkdrA2uQUAlO29c73BYFCQkyR4aI/R5ksyegWujHhc=;
- b=Ds37gxbH8kTdcboaWyOmLBOzVYn9G+4iXCiPt13iNouloS7ZbQcuSTawYya6KXtEMz
- A3piReLOmoQgab9DG8ciDCZDKwkjY6Rya+/M3KutAHdKZczKStcrny8AoHPf5ybVTEes
- 6RuV9SHhlf379uLqKg4D+Buufaie/5cayx6/GWolZGapGg+ZHbkNJrrOQznIJY1T9QNQ
- hk+0jw207drzYEjLYCkhF/gG1YNy5vClgzSzBcqqV2AeLXkQpk35orU12X6r+k1ig/ed
- n9PhBsiQnCbnQaLuaG0cZviqbLyPZ6LCQJGJW5W00VMszvM+XfhLk2QYQOj9rhJJqNv2
- HFLg==
+ bh=Qf/6BQZYwY/jWPNtXOCd4ny1xvRkK/T4D4tthHHp42s=;
+ b=FJjSt2trDmchefSX36+GdUYFsuYhIg7dEd7MoE3Tx1Mdx0huZea64x5H8OasEGjaiE
+ vtqmBwV0KR/ZkejF5f0QG1rwpv+bQwl8Lq7eV7fir/MtjQ/5GoqtpivKvjXOEzwNUorR
+ Dki8SRwFRScFn4HTWJ74B+o5gR8R97PSw5ERHXbnSQHfiAErZ6+Z9VjBvKVnZ/sIEwAz
+ N91arDROQ+RlQQICqJtMbi1cvfZX95xFRCKVdrcR7AqxN5Yh9+7Py8bQ6Nscq3l4OBsJ
+ 30BNUMpOaQHOMusqiI+MjvRQeVu9GWlkTPNzd6MKXSeiAL6TxxVEqTS1PmmZK5OF5LvD
+ T+Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:to:cc:references:from:autocrypt:subject
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=NqkdrA2uQUAlO29c73BYFCQkyR4aI/R5ksyegWujHhc=;
- b=UKwZQXsdn7I+C6rDsMar78GouhuHoQUlRniKbiMT0zq3EkVBQjGYQ6TchTSBJHbZqj
- +fYn0BG0ZNnYt+j0crBRLfbY/uEuu6gVQJ+G+QdT6aTjTTi4RyD8lhOaD37I5pXYB15E
- 4T7+8E3IpTszSt9SJ5ETU3LRFOJfFZpqS4kgfHPHh0i5YgN1vpahju7waqu8wFQ4/hC4
- sy3nNm48ZjcOVgWgJmPwRlzU8aIe/KGY0PPUtHV0Xjkn21xUKXSiClusadp2IVZFnFmt
- A7Y7Zd5aj85c2P14h+0vBJc4OeWxOuEHeWelwPPsl6k/aUOzjcre8sRsMBSY0HKKjwbH
- Z5aA==
-X-Gm-Message-State: AOAM532bDIu9X5XzYsi6Oc697Q/al9/qjMH2pX5DvsKgORsgDhvf2i3w
- +dWyFygnw2o11ciEy6YUzpk=
-X-Google-Smtp-Source: ABdhPJwWsS622bx5CftTPVMMiQZSAV+jKSgMB9jDIkg7FX7h066J9fqLIlkg/sLfE1HURTbSoiapTQ==
-X-Received: by 2002:a1c:b686:: with SMTP id g128mr1202202wmf.145.1594073969184; 
- Mon, 06 Jul 2020 15:19:29 -0700 (PDT)
+ bh=Qf/6BQZYwY/jWPNtXOCd4ny1xvRkK/T4D4tthHHp42s=;
+ b=AtIGRgDQsHI+e2RejsyPAnEoDHxQJ568dAjGyko52C2dJsJ+2hXZny35jFmeWtCbbs
+ Vq8/G34gl+cFO0iiS0vImPwBOW44srtDZEiLkrnie7Gjla0DGIWGVfYosF9LooOCZ77z
+ bpyc6peYVDxS4aG9/HqHco8o+QgNyZ9GyoUXeHNDxSN8SlSC3Ii8bftM/ZKHS0p7bO4k
+ VYDOOmqsbfsgfLlkLybFAOond2nMbtq+1CxEi95z7ffwMd0tXDQExN0A9HDv2qFMoPd1
+ QUUjkBMHwkdx7Xc3lHYanzqaPmqjXx9UnkeLcmLtPf4AkF5lZBT85ALh4jnE27erIUGC
+ e7fA==
+X-Gm-Message-State: AOAM533fq6xzqFGqIbsH1dEVCCnECXCo4sQRQslKGRzyAtUa1dcOhgp5
+ /Lt8SEobb0BLhjJjTev9ld4=
+X-Google-Smtp-Source: ABdhPJw4rc62QBwICWsNWoDKjHrPp2Zsry0bWs9v/4vQOcjQ7XdEtw4pk+u6j79FV7qKRi3MYIlhDQ==
+X-Received: by 2002:a1c:a4c6:: with SMTP id n189mr1008511wme.173.1594071211268; 
+ Mon, 06 Jul 2020 14:33:31 -0700 (PDT)
 Received: from [192.168.43.52] ([5.100.193.69])
- by smtp.gmail.com with ESMTPSA id j4sm21235712wrp.51.2020.07.06.15.19.27
+ by smtp.gmail.com with ESMTPSA id t16sm27541413wru.9.2020.07.06.14.33.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2020 15:19:28 -0700 (PDT)
-To: Steven Rostedt <rostedt@goodmis.org>
+ Mon, 06 Jul 2020 14:33:30 -0700 (PDT)
+To: Dan Williams <dan.j.williams@intel.com>
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
- <1cceba0f-c8ad-260d-9a09-5417bee32d50@gmail.com>
- <20200706181052.174c290a@oasis.local.home>
 From: Pavel Begunkov <asml.silence@gmail.com>
 Autocrypt: addr=asml.silence@gmail.com; prefer-encrypt=mutual; keydata=
  mQINBFmKBOQBEAC76ZFxLAKpDw0bKQ8CEiYJRGn8MHTUhURL02/7n1t0HkKQx2K1fCXClbps
@@ -129,19 +128,18 @@ Autocrypt: addr=asml.silence@gmail.com; prefer-encrypt=mutual; keydata=
  UVMKkOCdFhutRmYp0mbv2e87IK4erwNHQRkHUkzbsuym8RVpAZbLzLPIYK/J3RTErL6Z99N2
  m3J6pjwSJY/zNwuFPs9zGEnRO4g0BUbwGdbuvDzaq6/3OJLKohr5eLXNU3JkT+3HezydWm3W
  OPhauth7W0db74Qd49HXK0xe/aPrK+Cp+kU1HRactyNtF8jZQbhMCC8vMGukZtWaAwpjWiiH bA==
-Message-ID: <717030b7-ecba-2ca4-39ff-6a5a04a732d4@gmail.com>
-Date: Tue, 7 Jul 2020 01:17:47 +0300
+Message-ID: <1cceba0f-c8ad-260d-9a09-5417bee32d50@gmail.com>
+Date: Tue, 7 Jul 2020 00:31:49 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <20200706181052.174c290a@oasis.local.home>
+In-Reply-To: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
 Content-Language: en-US
 X-Mailman-Approved-At: Tue, 07 Jul 2020 18:04:13 +0000
 Cc: ksummit-discuss@lists.linuxfoundation.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  tech-board-discuss@lists.linuxfoundation.org, Chris Mason <clm@fb.clm>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] [PATCH] CodingStyle:
-	Inclusive Terminology
+Subject: Re: [Ksummit-discuss] [PATCH] CodingStyle: Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,30 +156,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On 07/07/2020 01:10, Steven Rostedt wrote:
-> On Tue, 7 Jul 2020 00:31:49 +0300
-> Pavel Begunkov <asml.silence@gmail.com> wrote:
->>> diff --git a/Documentation/process/coding-style.rst b/Documentation/process/coding-style.rst
->>> index 2657a55c6f12..4b15ab671089 100644
->>> --- a/Documentation/process/coding-style.rst
->>> +++ b/Documentation/process/coding-style.rst
->>> @@ -319,6 +319,18 @@ If you are afraid to mix up your local variable names, you have another
->>>  problem, which is called the function-growth-hormone-imbalance syndrome.
->>>  See chapter 6 (Functions).
->>>  
->>> +For symbol names, avoid introducing new usage of the words 'slave' and
->>> +'blacklist'. Recommended replacements for 'slave' are: 'secondary',
->>> +'subordinate', 'replica', 'responder', 'follower', 'proxy', or
->>> +'performer'.  Recommended replacements for blacklist are: 'blocklist' or
->>> +'denylist'.  
->>
->> "Subordinate" means that they are unequal, and inequality is a big issue. This
+On 04/07/2020 23:02, Dan Williams wrote:
+> Recent events have prompted a Linux position statement on inclusive
+> terminology. Given that Linux maintains a coding-style and its own
+> idiomatic set of terminology here is a proposal to answer the call to
+> replace non-inclusive terminology.
 > 
-> And if two objects are unequal, then that seems to be an appropriate
-> term. We are not concerned about the inequality of devices.
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Kees Cook <keescook@chromium.org>
+> Signed-off-by: Chris Mason <clm@fb.clm>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+> ---
+>  Documentation/process/coding-style.rst          |   12 ++++
+>  Documentation/process/inclusive-terminology.rst |   64 +++++++++++++++++++++++
+>  Documentation/process/index.rst                 |    1 
+>  3 files changed, 77 insertions(+)
+>  create mode 100644 Documentation/process/inclusive-terminology.rst
+> 
+> diff --git a/Documentation/process/coding-style.rst b/Documentation/process/coding-style.rst
+> index 2657a55c6f12..4b15ab671089 100644
+> --- a/Documentation/process/coding-style.rst
+> +++ b/Documentation/process/coding-style.rst
+> @@ -319,6 +319,18 @@ If you are afraid to mix up your local variable names, you have another
+>  problem, which is called the function-growth-hormone-imbalance syndrome.
+>  See chapter 6 (Functions).
+>  
+> +For symbol names, avoid introducing new usage of the words 'slave' and
+> +'blacklist'. Recommended replacements for 'slave' are: 'secondary',
+> +'subordinate', 'replica', 'responder', 'follower', 'proxy', or
+> +'performer'.  Recommended replacements for blacklist are: 'blocklist' or
+> +'denylist'.
 
-Totally agree with you! But do we care then whether two _devices_ or _objects_
-are slave-master? Can't see how it fundamentally differs.
+"Subordinate" means that they are unequal, and inequality is a big issue. This
+should be forbidden as well. And what with "secondary"? Are you implying that
+one better than another? That's shouting that people from the second world
+countries don't have right to be included, this can't be good. Are you trying
+to exclude me? That deeply hurts me, don't you care?
+How about killing all words that mean "ownership" or "owning" then? And what
+with that "kill"? It's everywhere, and it definitely means killing a person. That's
+one meaning at least... but we don't care about other interpretations, do we?
+
+...
+> +Word choice and developer efficiency
+> +====================================
+> +
+> +Why does any software project go through the trouble of developing a
+> +document like :ref:`process/coding-style.rst <codingstyle>`? It does so
+> +because a common coding style maximizes the efficiency of both
+> +maintainers and developers. Developers learn common design patterns and
+> +idiomatic expressions while maintainers can spot deviations from those
+> +norms. Even non-compliant whitespace is considered a leading indicator
+> +to deeper problems in a patchset. Coding style violations are known to
+> +take a maintainer "out of the zone" of reviewing code. Maintainers are
+> +also sensitive to word choice across specifications and often choose to
+> +deploy Linux terminology to replace non-idiomatic word-choice in a
+> +specification.
+> +
+> +Non-inclusive terminology has that same distracting effect which is why
+> +it is a style issue for Linux, it injures developer efficiency.
+
+Code styles also exist to not think about things that doesn't matter, as
+well as terminologies do -- you see it, and the meaning is apparent. And
+that betrays the whole idea when you replace well-known terms with some
+random words.
+Well, if you're trying to point people what to say and how to think,
+could you please __at least__ be consistent? That would be really nice.
+
+Let me outline -- discrimination is an issue. And creating a common
+vocabulary can be pretty useful. But instead of it being helpful, the only
+thing I see here is ill-conceived and pretty arrogant essay.
 
 -- 
 Pavel Begunkov
