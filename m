@@ -2,93 +2,93 @@ Return-Path: <SRS0=9K8a=AS=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AC12C433DF
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 04:04:44 +0000 (UTC)
-Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EE7CC433E0
+	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 04:09:15 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DD69206C3
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 04:04:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 164F520684
+	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 04:09:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel-com.20150623.gappssmtp.com header.i=@intel-com.20150623.gappssmtp.com header.b="Ko2E1qSb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DD69206C3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel-com.20150623.gappssmtp.com header.i=@intel-com.20150623.gappssmtp.com header.b="aQAWV/vp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 164F520684
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by silver.osuosl.org (Postfix) with ESMTP id 828EB241F9;
-	Tue,  7 Jul 2020 04:04:43 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id DAD1286816;
+	Tue,  7 Jul 2020 04:09:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from silver.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 91x0WcdRNl7T; Tue,  7 Jul 2020 04:04:39 +0000 (UTC)
+	with ESMTP id OfmqrrCfzfIi; Tue,  7 Jul 2020 04:09:13 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by silver.osuosl.org (Postfix) with ESMTP id AC7C7254EB;
-	Tue,  7 Jul 2020 04:04:39 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id BCB4086822;
+	Tue,  7 Jul 2020 04:09:13 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 7EAF7C0893;
-	Tue,  7 Jul 2020 04:04:39 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 9B30EC0893;
+	Tue,  7 Jul 2020 04:09:13 +0000 (UTC)
 Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 2416EC016F
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 4DA89C016F
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 04:04:38 +0000 (UTC)
+ Tue,  7 Jul 2020 04:09:11 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by whitealder.osuosl.org (Postfix) with ESMTP id 121C987678
+ by whitealder.osuosl.org (Postfix) with ESMTP id 3D5D286822
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 04:04:38 +0000 (UTC)
+ Tue,  7 Jul 2020 04:09:11 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from whitealder.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id uzAddWHSn6LA
+ with ESMTP id kWmWpdeztohf
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 04:04:37 +0000 (UTC)
+ Tue,  7 Jul 2020 04:09:10 +0000 (UTC)
 X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- by whitealder.osuosl.org (Postfix) with ESMTPS id 27BEF87669
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
+ [209.85.218.66])
+ by whitealder.osuosl.org (Postfix) with ESMTPS id 53C7E86816
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 04:04:37 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id dg28so37204976edb.3
+ Tue,  7 Jul 2020 04:09:10 +0000 (UTC)
+Received: by mail-ej1-f66.google.com with SMTP id dp18so45164385ejc.8
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Mon, 06 Jul 2020 21:04:37 -0700 (PDT)
+ Mon, 06 Jul 2020 21:09:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=intel-com.20150623.gappssmtp.com; s=20150623;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6hAZTl6K9ZZJRuBGIigtyyzN/0NQAjksX5TVG0PUHis=;
- b=Ko2E1qSbx1nPmsdQ2RpYc/VqrXF1Cu5ICoGXOuJxNyDPXqCaBxOcU6CHjE7y2ANaQk
- ecW473NBRf9zCvXHP8VdmnVSI3S0fy8xmnlfCHQIIFB+kmdslLRxVaL7kmIY3gUKmH9V
- mYps5GQuD67dAb2WudLc0YUhIDoscm8t876DSC8TIpELsu4XYL3MtQ6XD35/XEeCoo3P
- 8QeiSdT3mRB6rt6zp6/TaWBnnWSzIghx8Ki817lgozICwcVxPHZo2uj+dHRaKpDwwVsJ
- rJHbFemch7qSRQSND4Wsmj48BO7oi+445FvlOZcWTSKl36VCEhSo3Pm/to5hbfAmhpCU
- VZVQ==
+ :cc; bh=Kd+hagxNLahxDCtppBjRUEK5tAfJnWOu81ahPEztSaE=;
+ b=aQAWV/vpjJSXXFpPeSnG+kfh7lIyxfzTTwOYdEKW7QlmmS2VKBfdIeF9N2k88UppGc
+ VH/DtzoShRTBp3M4emxE4DHRfm7n7p8p3/C8PU0P5jGTZfgfm9jXg406VhS5VuV+OyyG
+ Vfgukri/R8fDyfCAW6m2Htts6MpWlzgluu7z5SNlK+8B8f6+vPR+6WLXT+H21/4hreMU
+ 3txu3qWPmln0t3uT6YlhutbWPcYqglkwIxNM9z3hrcH5sRnaj9Q6CQR201CUAV9n0yr9
+ Tp8f2TzWiK1jcBSaBsZK9aQlMFsuAc7G2hjnbVFnPRDegUd6Z0WtMk280LPV+oIkNjNb
+ 0TfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=6hAZTl6K9ZZJRuBGIigtyyzN/0NQAjksX5TVG0PUHis=;
- b=jen7qIEOEmhlImLpgq3oku558Xa2uNAkGX6G5SpO//yUn2oIoeq3CCB0X7R57YBXcQ
- +0IQXpJ9QxxjtL610Nnbxkeyq9S/ddHUEu22jic706ORrRhDBV8svCTwkwauc0f69s6u
- /NZczpuyaWs/SZEwz3nDZrljNcVDilNppg27zpYHEeptwJPS4Pivsn5tyEVtlsBnymTp
- BJuJxLOF/iANgl4ZLGb0e0iIs1/9tsbCoLXuwrVhHzAFpG3UG+JEneqf58xrR+KwxWi3
- GdatW0FFVCQVRM5ZJ3IAhUVvm5AaQyhPJ50b7EimT/BATlhM8G1TvcTNe5JvjJHDA0NM
- BMxA==
-X-Gm-Message-State: AOAM530ZM52YkGZRxUPdt0rTZoelp6xotKZym9zeVbUeHswjsIFp/q5j
- X5ZPCUmOP+Hm+r6rOldxXY3Edrmo1KHS1SxM7s/SXA==
-X-Google-Smtp-Source: ABdhPJwzaF51I0jM6b8skPP1l6fWj5clqHzchbKv9dG535YIcTRiQ81iT+YC/Ds98lHb+oxpNTipHjX5FUp2OW28c+I=
-X-Received: by 2002:aa7:c24d:: with SMTP id y13mr62007695edo.123.1594094675451; 
- Mon, 06 Jul 2020 21:04:35 -0700 (PDT)
+ bh=Kd+hagxNLahxDCtppBjRUEK5tAfJnWOu81ahPEztSaE=;
+ b=Zd9Ovmh8yVPNOqCwI7fy/x+6iqxUaXMcsJ+Pex9Bp/o0ILUdyOXq5kY4IpLB3R6k05
+ F5hndkIU25bnI13KwDkv1T6uWlxdf4zsDutbigvEjaACulWZ34DR6lD5OgwhRRZzItoO
+ 9ogUmGtzpbkIMoM8Y7+TT2+Es8mOZ0iRk4qyLjvT1vpYQbWojjgUfIOhy2iph7VAG+ol
+ 40m7pV6fxNgZmUM/SfAwvSQ63d3wXeJAV61FyiE/lRqyObPMzzHW9KxEdVCN+b585U7r
+ mlXswgXIKLTIQUF0GsxUjtTyrflwDNYhyuXHCfRtd5bsVXulU9XRkIWXUuGxDXXf5lQq
+ xQVA==
+X-Gm-Message-State: AOAM5315qxpMFNjtm3DYleCqNUE9EL1I1OTaY23aJEurgyksPdw6uRj+
+ lxyv21hA7MoqAxNmixkOYs9S9ECL90e0e94h84+NGg==
+X-Google-Smtp-Source: ABdhPJyPRqnkRZMh1ri4hzJHg5glOXCDJbyxpChWsHOcw8ODDEd5rTUzWvDESEc9IgnbrZlOqqJb1aAqJeDVIOGl5mY=
+X-Received: by 2002:a17:906:1a54:: with SMTP id
+ j20mr45158330ejf.455.1594094948779; 
+ Mon, 06 Jul 2020 21:09:08 -0700 (PDT)
 MIME-Version: 1.0
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
- <79214066-3886-e0ef-f26e-8cb3d53404be@linuxfoundation.org>
-In-Reply-To: <79214066-3886-e0ef-f26e-8cb3d53404be@linuxfoundation.org>
+ <20200706191555.GD6176@sirena.org.uk>
+In-Reply-To: <20200706191555.GD6176@sirena.org.uk>
 From: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 6 Jul 2020 21:04:24 -0700
-Message-ID: <CAPcyv4hOJHazV5UdE_Km4AWTvZvsrNtHR+2LUiOTYsDttRZZ5Q@mail.gmail.com>
-To: Shuah Khan <skhan@linuxfoundation.org>
+Date: Mon, 6 Jul 2020 21:08:57 -0700
+Message-ID: <CAPcyv4iiVvJHPTmgssTvp=jsFCs2r068mPtZ9s0qXfEKFNdVBw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
@@ -111,75 +111,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Mon, Jul 6, 2020 at 11:30 AM Shuah Khan <skhan@linuxfoundation.org> wrote:
+On Mon, Jul 6, 2020 at 12:16 PM Mark Brown <broonie@kernel.org> wrote:
 >
-> On 7/4/20 2:02 PM, Dan Williams wrote:
-> > Recent events have prompted a Linux position statement on inclusive
-> > terminology. Given that Linux maintains a coding-style and its own
-> > idiomatic set of terminology here is a proposal to answer the call to
-> > replace non-inclusive terminology.
-> >
+> On Sat, Jul 04, 2020 at 01:02:51PM -0700, Dan Williams wrote:
 >
-> Hi Dan,
->
-> Thanks for taking the time to work on this patch and updating the
-> coding-style.rst with the with inclusive terminology guidelines and
-> adding a new document outlining the scope.
->
-> The suggestions you made will help us adapt inclusive terminology
-> for the current times, and also help us move toward terms that are
-> intuitive and easier to understand keeping our global developer
-> community in mind.
->
-> Allowlist/denylist terms are intuitive and action based which have a
-> globally uniform meaning.
->
-> Terms such as "whitelist" etc are contextual, hence assume contextual
-> knowledge on the part of the reader.
->
-> A couple comments below:
->
-> > Cc: Jonathan Corbet <corbet@lwn.net>
-> > Cc: Kees Cook <keescook@chromium.org>
-> > Signed-off-by: Chris Mason <clm@fb.clm>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > ---
-> >   Documentation/process/coding-style.rst          |   12 ++++
-> >   Documentation/process/inclusive-terminology.rst |   64 +++++++++++++++++++++++
-> >   Documentation/process/index.rst                 |    1
-> >   3 files changed, 77 insertions(+)
-> >   create mode 100644 Documentation/process/inclusive-terminology.rst
-> >
-> > diff --git a/Documentation/process/coding-style.rst b/Documentation/process/coding-style.rst
-> > index 2657a55c6f12..4b15ab671089 100644
-> > --- a/Documentation/process/coding-style.rst
-> > +++ b/Documentation/process/coding-style.rst
-> > @@ -319,6 +319,18 @@ If you are afraid to mix up your local variable names, you have another
-> >   problem, which is called the function-growth-hormone-imbalance syndrome.
-> >   See chapter 6 (Functions).
-> >
-> > +For symbol names, avoid introducing new usage of the words 'slave' and
 > > +'blacklist'. Recommended replacements for 'slave' are: 'secondary',
 > > +'subordinate', 'replica', 'responder', 'follower', 'proxy', or
-> > +'performer'.  Recommended replacements for blacklist are: 'blocklist' or
-> > +'denylist'.
 >
-> allowlist and blocklist or denylist are lot more intuitive than
-> white/black in any case.
+> I'd second the suggestion of device as an option here.
 
-Yes, that was interesting to me when I first grappled with this. The
-replacements are more direct.
+Sure, will do. I'm assuming you're thinking of cases where 'slave' is
+used in isolation without a paired relative term? If not, please
+clarify.
 
-I was going to go with blocklist/passlist as the common shorthand
-recommendation, but if a subsystem picks allowlist/denylist as a local
-custom that's fine too.
+>
+> > +Of course it is around this point someone jumps in with an etymological
+> > +argument about why people should not be offended. Etymological arguments
+> > +do not scale. The scope and pace of Linux to reach new developers
+> > +exceeds the ability of historical terminology defenders to describe "no,
+>
+> More generally etymological arguments are just not super relevant here
+> anyway, the issues people have are around current perceptions rather
+> than where things came from.
+>
+> > +not that connotation". The revelation of 2020 was that black voices were
+> > +heard on a global scale and the Linux kernel project has done its small
+> > +part to answer that call as it wants black voices, among all voices, in
+> > +its developer community.
+>
+> This, especially the bit about "revelation of 2020", sounds a little
+> off to me - I think it's that it's worryingly close to the frequently
+> derided pattern where people recognise a problem that other people have
+> been talking about for a while and treat it as something new.  Perhaps a
+> more neutrally worded reference to current events and/or our desire to
+> improve instead?
 
-[..]
-> Please add my Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
-> or Acked-by: Shuah Khan <skhan@linuxfoundation.org>
-
-Thanks Shuah.
+I'd just as soon let this commentary live in the archives if people
+need some more background. It's not like we have companion essays on
+the other recommendations in coding-style, and we seem to be
+converging on just amending coding-style.
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
