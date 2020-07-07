@@ -1,4 +1,4 @@
-Return-Path: <SRS0=9K8a=AS=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
+Return-Path: <SRS0=cq3z=AT=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
@@ -6,102 +6,99 @@ X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E408C433E0
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 20:56:39 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 375A3C433E0
+	for <ksummit-discuss@archiver.kernel.org>; Wed,  8 Jul 2020 04:07:10 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C94D4206F6
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 20:56:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EB25E206BE
+	for <ksummit-discuss@archiver.kernel.org>; Wed,  8 Jul 2020 04:07:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="byd/f9TO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C94D4206F6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=chromium.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S6Ta1Kv+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB25E206BE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=alum.mit.edu
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id A324388250;
-	Tue,  7 Jul 2020 20:56:37 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 0024488AEF;
+	Wed,  8 Jul 2020 04:07:08 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from fraxinus.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id EA5GE4Jig-rn; Tue,  7 Jul 2020 20:56:37 +0000 (UTC)
+	with ESMTP id 6wZ1z79UCTeZ; Wed,  8 Jul 2020 04:07:06 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id 0772A88072;
-	Tue,  7 Jul 2020 20:56:37 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id A92AD88B1C;
+	Wed,  8 Jul 2020 04:07:05 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id CC447C0893;
-	Tue,  7 Jul 2020 20:56:36 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 78DFBC0895;
+	Wed,  8 Jul 2020 04:07:05 +0000 (UTC)
 Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id C8CC6C0893
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 20:56:35 +0000 (UTC)
+ by lists.linuxfoundation.org (Postfix) with ESMTP id B5899C016F;
+ Tue,  7 Jul 2020 21:48:08 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by whitealder.osuosl.org (Postfix) with ESMTP id B61BC89172
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 20:56:35 +0000 (UTC)
+ by whitealder.osuosl.org (Postfix) with ESMTP id 9B6F489147;
+ Tue,  7 Jul 2020 21:48:08 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from whitealder.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id ShW246s1wt-i
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 20:56:33 +0000 (UTC)
+ with ESMTP id OfeQU8OBcPK6; Tue,  7 Jul 2020 21:48:08 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
- [209.85.215.194])
- by whitealder.osuosl.org (Postfix) with ESMTPS id 5D37C8914A
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue,  7 Jul 2020 20:56:33 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id g67so19668199pgc.8
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Tue, 07 Jul 2020 13:56:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+ [209.85.160.196])
+ by whitealder.osuosl.org (Postfix) with ESMTPS id D3CF0876D9;
+ Tue,  7 Jul 2020 21:48:07 +0000 (UTC)
+Received: by mail-qt1-f196.google.com with SMTP id d27so33001310qtg.4;
+ Tue, 07 Jul 2020 14:48:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:date:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=w+KZo1sPWTutiATsxk3Uy2pZjCjintgvyK96Yf9RfKc=;
- b=byd/f9TOVQc3JmoxGzurellv8qYNwshDPxpudLMSpoQM9PXIdnFsKaJ9zv8+LjHkWt
- Leo4c50JOA4qXA0q3+rtKY0nYEcZ9d1mYgf/2BrCcZp2+Uw1v+MgX5geDMjo26ahQ/Xq
- WG2e0WGcuRqGJCLCZE9qF8ctnON5a8fs64ZRk=
+ bh=kea5lz5SuEVjMYthwUPDUREfiUZ4imDQ4+lMs08zB6U=;
+ b=S6Ta1Kv+P7Eg1sW5CWt+ahJt07X+1kO7D8SmRfRyR/GN3XSrYWuchEH82VMppIlBTm
+ 9rNp0tV1WORXPSiQPYBv/W9eRs9VHILhguUh4V0kIsX/5fsa4wlaSiqsjPCRAf5Je704
+ V7gte79Kr6uk6ZsRX1e81zPc0/iReVb6G4Or31edv7NGdpfHo8GDT6wRiu2HByS4qnjK
+ UK1HQM+2S+whIr63pSsErzlA8Y4uoqIKDdNI9QOliKKcnBcBL4+k+rRKgCqkWAx05iv7
+ qdqeL5Xhw1NAUsM6Z+3BtcEMQZKpG9sMavMaZ5c6V8VE7JQFvcL+vQ665tie91AGCHLb
+ eZrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=w+KZo1sPWTutiATsxk3Uy2pZjCjintgvyK96Yf9RfKc=;
- b=Wplzxne4cYA/KaAVaS7msohUhRvIkBRYNUwd1X0PPXHAyjBRDO2Ujtp6VgNN7HcOeI
- MbXGIOgLoRFRbubAcBOWOxlzCBoNpk/7OXXeiW6NlSn2Qsro29bo/B8b6GYbuVugqSAc
- QR5zT3Ewuy4sty/OpBQFE81TSWYWewS5VTvygKwkWHejvOah67t6zVUjQD+EY2HPvViD
- +NWJpaZhdoIE3P6ZFzR6FlJxR9u01tt3Fu3uSc6UggSWyMqAYrwIafImoqqt/cN7HFRG
- w81GGf/chi0TUy/MlAyKN7gh4h31RYAsiZNj2TFyRmQY59Y0614+TrtOY2QGFHZsscD9
- O7IA==
-X-Gm-Message-State: AOAM532QilDCLCDVzO0Sw4QEmFtVil5Z6zn17cB90YIIwr25jCPKt0ii
- F8QjqykQPsMErv5KSD+TXKvYEQ==
-X-Google-Smtp-Source: ABdhPJxVvLhi5KAqgk+fO2zPVpbTI4B38DeQ3QOZndyWiKG1akDQwEeglJUxopKEbgdAvRuSbH353g==
-X-Received: by 2002:a62:ce46:: with SMTP id y67mr47587752pfg.118.1594155392908; 
- Tue, 07 Jul 2020 13:56:32 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id k100sm3315034pjb.57.2020.07.07.13.56.31
+ h=x-gm-message-state:sender:from:date:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=kea5lz5SuEVjMYthwUPDUREfiUZ4imDQ4+lMs08zB6U=;
+ b=AP1IRJuc9xfcF7wf7Tz0Zxj/WYQe8LQBbJ3i7D3faVbGSInebcPDm0uZ29nRDpb+4T
+ kgtC0eu/Kzo11PhMlGc9o0Swigi9DscmhFUQBxuZkciyJEenWlL0edKikTKpg+ivztf5
+ bF1vdIsz016J/ZTxcXRIU/52/CLb+NIU0VMmDZhNOAGBdyFvPuQpUXi+qAFgGt3oEfrX
+ RRs9q/+Wa6CuAlW5aLcNyCeNsnS0wCX4YG2lWKSZEfSyFjajL4BeJeBpJlIvPmHy5nmy
+ LrD2TuaxFd+sV2UVD9FKzSCyWjdLSG92GHod8jMioa3X+oZ4inN454XqY4JH5mhemUkf
+ PZvw==
+X-Gm-Message-State: AOAM5338+m7gVnxa+JEkP71Ou2/YAW0O1u5ZPmlI9OCzearUiB6WPXOH
+ Ch+ul6OKwhSApUZ/HPxVyJo=
+X-Google-Smtp-Source: ABdhPJwST4ORT9+NOST6EufPbIia2FmPxXFBTvW3IBn571c6j8gcIDV2QsJHi3xAKoz99PN6PV84vA==
+X-Received: by 2002:ac8:4250:: with SMTP id r16mr43504761qtm.378.1594158486843; 
+ Tue, 07 Jul 2020 14:48:06 -0700 (PDT)
+Received: from rani.riverdale.lan ([2001:470:1f07:5f3::b55f])
+ by smtp.gmail.com with ESMTPSA id t48sm29525053qtb.50.2020.07.07.14.48.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2020 13:56:32 -0700 (PDT)
-Date: Tue, 7 Jul 2020 13:56:30 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Mike Rapoport <rppt@linux.ibm.com>
-Message-ID: <202007071346.F123B0A57@keescook>
+ Tue, 07 Jul 2020 14:48:06 -0700 (PDT)
+From: Arvind Sankar <nivedita@alum.mit.edu>
+X-Google-Original-From: Arvind Sankar <arvind@rani.riverdale.lan>
+Date: Tue, 7 Jul 2020 17:48:04 -0400
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20200707214804.GA1582632@rani.riverdale.lan>
 References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
  <CALCETrXewAK4_fpaJNDHJVDK9mUcjghA5HwYvZFQNYVfC9M+OQ@mail.gmail.com>
  <202007062234.A90F922DF@keescook>
  <DM6PR06MB3836FBAD65096AF63ACD3DB3EE660@DM6PR06MB3836.namprd06.prod.outlook.com>
  <202007070137.3ADBEDC@keescook>
- <20200707094147.213e0a82@oasis.local.home>
- <20200707144542.GD9411@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200707144542.GD9411@linux.ibm.com>
+In-Reply-To: <202007070137.3ADBEDC@keescook>
+X-Mailman-Approved-At: Wed, 08 Jul 2020 04:07:03 +0000
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  LKML <linux-kernel@vger.kernel.org>,
  "tech-board-discuss@lists.linuxfoundation.org"
  <tech-board-discuss@lists.linuxfoundation.org>, Chris Mason <clm@fb.clm>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] [PATCH] CodingStyle:
- Inclusive Terminology
+Subject: Re: [Ksummit-discuss] [PATCH] CodingStyle: Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,48 +115,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Tue, Jul 07, 2020 at 05:45:42PM +0300, Mike Rapoport wrote:
-> On Tue, Jul 07, 2020 at 09:41:47AM -0400, Steven Rostedt wrote:
-> > On Tue, 7 Jul 2020 01:54:23 -0700
-> > Kees Cook <keescook@chromium.org> wrote:
+On Tue, Jul 07, 2020 at 01:54:23AM -0700, Kees Cook wrote:
+> On Tue, Jul 07, 2020 at 06:56:53AM +0000, Harrosh, Boaz wrote:
+> > Kees Cook wrote:
+> > > I have struggled with this as well. The parts of speech change, and my
+> > > grammar senses go weird. whitelist = adjective noun. allow-list = verb
+> > > noun. verbing the adj/noun combo feels okay, but verbing a verb/noun is
+> > > weird.
 > > 
-> > > "I will whitelist the syscall" -- sounds correct to me (same for
-> > > "it is whitelisted" or "it is in whitelisting mode").
-> > > 
-> > > "I will allow-list the syscall" -- sounds wrong to me (same for
-> > > "it is allow-listed" or "it is in allow-listing mode").
+> > > And just using "allowed" and "denied" doesn't impart whether it refers
+> > > to a _single_ instance or a _list_ of instances.
 > > 
-> > That's because we can't just make "allow-list" a drop in replacement
-> > for "whitelist" as I too (native English speaker) find it awkward. But
-> > then we don't need to make it a drop in replacement.
+> > > But that's all fine. The change is easy to do and is more descriptive
+> > > even if I can't find terms that don't collide with my internal grammar
+> > > checker. ;)
 > > 
-> > "I will whitelist the syscall" will become "I will add the syscall to
-> > the allow-list", which sounds perfectly fine, and even better than
-> > saying "I will add the syscall to the whitelist".
+> > But why. In English many times a verb when it comes before the noun means an adjective, or an adjective like, describing some traits of the noun.
 > 
-> I will allow the syscall?
+> This is kind of my problem being a native English speaker: I can't
+> entirely describe _why_ a grammar construct feels wrong. :(
+> 
+> > Example: 
+> > I work - work is a verb here.
+> > I used the work bench. - Work is saying something about the type of bench, an adjective. Same as you would say "I used the green bench".
+> 
+> Right, so the verb-noun being used as a noun is find, just as adj-noun
+> is. To me, "add it to the allow-list" is entirely sensible just like
+> "set it on the work-bench." It's the "verbing" of a noun that trips me
+> up.
+> 
+> "I will whitelist the syscall" -- sounds correct to me (same for
+> "it is whitelisted" or "it is in whitelisting mode").
+> 
+> "I will allow-list the syscall" -- sounds wrong to me (same for
+> "it is allow-listed" or "it is in allow-listing mode").
 
-Kind of, but it's this change to verb-noun from adj-noun that confuses the
-resulting language: the verb form of the verb-noun doesn't distinguish
-between its stand-alone action ("allowed") or its combined action
-("allow-list-ed") in the same way that the verb form of the adj-noun does
-(the verbed adj-noun is its own word). To me to looks like "allowed" and
-"whitelisted" mean distinct things (as in, a single allowance vs being
-added to the persistent list of allowances).
-
-So "I will allow this system call once" and "I will allow all instances
-of this syscall", or we just get used to using the verb-noun as a whole,
-and embrace "I allowlisted the syscall."
-
-But yes, as I and others come back to: it's fine. We'll just use different
-surrounding constructs to avoid confusion. But it is an odd characteristic
-of English's grammar (or lack of appropriately descriptive adjectives) to
-not have a drop-in replacement. (Which is where I think the master/slave
-replacements fair far better -- the whitelist replacement is more complex,
-but it's mostly just English glitchiness.)
-
--- 
-Kees Cook
+I suspect it's at least partly because "allow" and "list" are both verbs
+-- in fact, "list" is the actual verb in "I will allow-list it", and
+"allow" is being used to modify the verb "list". But because "allow" is
+usually a verb, the sentence sounds like there are two verbs in there
+when there should only be one. I expect our ears will get trained to
+accept that sentence once you encounter "allowlist" often enough.
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
