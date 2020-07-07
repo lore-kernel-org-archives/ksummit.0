@@ -7,96 +7,95 @@ X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DAA6C433DF
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AFC6FC433DF
+	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:05:24 +0000 (UTC)
 Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 65F0B20708
-	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:05:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 86BF720708
+	for <ksummit-discuss@archiver.kernel.org>; Tue,  7 Jul 2020 18:05:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NM57cu5h"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 65F0B20708
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aEzU+QQi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86BF720708
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by whitealder.osuosl.org (Postfix) with ESMTP id 37F3D87AB1;
-	Tue,  7 Jul 2020 18:04:26 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 410B888F50;
+	Tue,  7 Jul 2020 18:04:27 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id RDLWeYVTeE4l; Tue,  7 Jul 2020 18:04:22 +0000 (UTC)
+	with ESMTP id r3YE7GWNh-8A; Tue,  7 Jul 2020 18:04:23 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by whitealder.osuosl.org (Postfix) with ESMTP id A65B5884B4;
-	Tue,  7 Jul 2020 18:04:17 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 3013388F6D;
+	Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 76871C08A6;
-	Tue,  7 Jul 2020 18:04:17 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 01286C08A6;
+	Tue,  7 Jul 2020 18:04:18 +0000 (UTC)
 Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 887CFC016F;
- Mon,  6 Jul 2020 23:58:25 +0000 (UTC)
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 710EFC016F;
+ Tue,  7 Jul 2020 00:48:30 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by whitealder.osuosl.org (Postfix) with ESMTP id 84C2288E08;
- Mon,  6 Jul 2020 23:58:25 +0000 (UTC)
+ by whitealder.osuosl.org (Postfix) with ESMTP id 5A26087C1A;
+ Tue,  7 Jul 2020 00:48:30 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from whitealder.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id apClLD0EJxvJ; Mon,  6 Jul 2020 23:58:24 +0000 (UTC)
+ with ESMTP id baxqljEXiWe3; Tue,  7 Jul 2020 00:48:29 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- by whitealder.osuosl.org (Postfix) with ESMTPS id A2DC188DC3;
- Mon,  6 Jul 2020 23:58:24 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id f7so40188670wrw.1;
- Mon, 06 Jul 2020 16:58:24 -0700 (PDT)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ by whitealder.osuosl.org (Postfix) with ESMTPS id 4BAEB87BF6;
+ Tue,  7 Jul 2020 00:48:29 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id f7so40293169wrw.1;
+ Mon, 06 Jul 2020 17:48:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:references:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=4nSbcQc6o8w9v6ZNEJFjfitPw+WKCLAR8ckhCop8iZ8=;
- b=NM57cu5hPt5WpTyLiOYNBE+EktavfXY9/G2/Ex3+2yVkNy+hJ8Jdnwp/YX/f58v7Jd
- s/aTm97pbiBSSSWm9d8BEYy4OiC1T+GZyAZig5GPGpO9DLnb08yCiv1JAlEz3jCHrLFy
- GqNDDk429tmwQDaEAqugXo1tcZGnnFoMvADCJ9HXn7H+DU/3cNkSkcY/H7mlAZpQD1is
- CkwxTsKZo4tJ5WBsSnfoZMATroXRXxPngNT/moD5pzoo62NzDQc73OuYV+uaRDLK1T03
- izEtl6+2R183jRvTFAOQzhRPZ5bflHG/aPf08X6CgsLKCvo2kOZd7Nwr10OsbsfjEO+Z
- QIOA==
+ h=from:subject:to:cc:references:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=PHhv6qtDtZXzF49Da3FQ68J1JWwelrTuXT4MT+d/caU=;
+ b=aEzU+QQiyO+d/C5msmDuI178ZOTJym6eHcWcEGm52D2TkuE15w4Favr3Bmo8UNSa+a
+ Q3Ko5g10x7/KSJAU2uh3TiWW6wgJ6FzkZf9WP6HyhxQ5dPpxWVBb0VX5IOJFc2pWrXQK
+ J00fuUHT50dNMcadHz8Y8+TAIKeMPZO8ANyynChAQNU7hz7oK7QMWqAlbJRxO1QZLAkf
+ S+ONIZEwX+pThxzgzf993qF2Vy4ONBhs7hJT6OlB2wivKfWfTSI2jBAlHobrtHvLO4L2
+ PiGgGfrDzCZ3q+Hbn0aaMxnYc4tx2U/bOgzWNnQhKfFGHr4mh3x2SiRVtS0PM8i2kYW5
+ N7lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:references:message-id:date
+ h=x-gm-message-state:from:subject:to:cc:references:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=4nSbcQc6o8w9v6ZNEJFjfitPw+WKCLAR8ckhCop8iZ8=;
- b=ZJCVq+AqDlvDMORTQZmoP0B+HUdxvI2Fb8WbvZqEHQR7AZKjWXtq3bnbop0WZIgoPB
- uRPw/OguZ5D0DiYVNPhi5UGBRhvhYCwlVuSG854RyiabJXpPExIxfmZhY12RjjaaEOuU
- KfUQIL6bet2k8Mggb0Tr3tAHC9zojHi3D1pS9oHwouDQ7QnwWz8ZXoF6hjZGxqdw7hNX
- +YEy/vtbR6pBGLYG+vFmeE0wQqKpAbWZOnO65T9hImanu+ruQqcENc3dnD9tpo6CeB3B
- okUeigNhMwxyxaemlloIj17tZ3/tLAylTyo7067IXcsobLIJRCcfzo60XeZ48/qDtvDv
- 0oVw==
-X-Gm-Message-State: AOAM532Zal45AUJfwyWQgB6ffsYl7ScMCWKqPP14COpdxbEpf3FotCoo
- zfZUG2SmxvIyhtK6gMYm4T8=
-X-Google-Smtp-Source: ABdhPJz/bnvnR1MbXLHSB/I+s79KjMOEJuqMp6UPW3B20faugZU31FoxDxW6frq4uLxEEavfTp2tXw==
-X-Received: by 2002:a5d:4dc2:: with SMTP id f2mr52188056wru.399.1594079903117; 
- Mon, 06 Jul 2020 16:58:23 -0700 (PDT)
+ bh=PHhv6qtDtZXzF49Da3FQ68J1JWwelrTuXT4MT+d/caU=;
+ b=tdR2qsWQTdsyV5ZBMlpvriDf0qztSH5rkuscnkAiuQY7fqm/xXsa/8n+bqLFnGRk9d
+ rVjv9W/h9J1518tK/YLkEbL6E9BFE/2d31SjO7eVpyZuZZMgzELObcFOmiGBs2bktvD2
+ xa/TzfD07IAkcBeHHwUQ0eLQCjk1JASmvVoW3yLcyjpdULE/dpnxBJvN7HuS2PVwjrku
+ ME53Mu6NKr7y1u1gqlVuwNQYFMomt6piQi4po3uciLyWdyq4ccP68dKet7uX+LF11rJp
+ v51POsIwQUpJWqh0nIWTYLSN1Pv5XwgqVSG7fyoDxvDD+KEwFilsrTZCNiz+GQR1xT+y
+ jpRg==
+X-Gm-Message-State: AOAM530iAm8Us5rsGVdKwiFoAiKsMEtwERB7WQzLsfhZVcyRKUOod1G2
+ aN/tw8LavZ0bORM7OURIHCZNx0mj
+X-Google-Smtp-Source: ABdhPJwde4GyvWgcYR6EKHS35BJJTV4Sg2r0YwQEk95QDzSvGpZtN7Nu75tw//9+e+6qASAkVU/Iqw==
+X-Received: by 2002:adf:f707:: with SMTP id r7mr50492428wrp.70.1594082907285; 
+ Mon, 06 Jul 2020 17:48:27 -0700 (PDT)
 Received: from [192.168.50.2] (178-164-237-246.pool.digikabel.hu.
  [178.164.237.246])
- by smtp.gmail.com with ESMTPSA id l8sm25651546wrq.15.2020.07.06.16.58.22
+ by smtp.gmail.com with ESMTPSA id l18sm26362320wrm.52.2020.07.06.17.48.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2020 16:58:22 -0700 (PDT)
+ Mon, 06 Jul 2020 17:48:26 -0700 (PDT)
 From: Tibor Raschko <tibrasch@gmail.com>
-To: Dan Williams <dan.j.williams@intel.com>, torvalds@linux-foundation.org,
- ksummit-discuss@lists.linuxfoundation.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-kernel@vger.kernel.org, tech-board-discuss@lists.linuxfoundation.org,
- Chris Mason <clm@fb.clm>, skhan@linuxfoundation.org
-References: <79214066-3886-e0ef-f26e-8cb3d53404be@linuxfoundation.org>
-Message-ID: <e41ded21-1432-afa8-2e42-e509539281c4@gmail.com>
-Date: Tue, 7 Jul 2020 01:58:21 +0200
+To: linux-kernel@vger.kernel.org
+References: <20200706191555.GD6176@sirena.org.uk>
+Message-ID: <44713cf0-db41-bdd0-a41e-d710c346be12@gmail.com>
+Date: Tue, 7 Jul 2020 02:48:25 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <79214066-3886-e0ef-f26e-8cb3d53404be@linuxfoundation.org>
+In-Reply-To: <20200706191555.GD6176@sirena.org.uk>
 Content-Language: en-US
 X-Mailman-Approved-At: Tue, 07 Jul 2020 18:04:13 +0000
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ tech-board-discuss@lists.linuxfoundation.org,
+ ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [Tech-board-discuss] [PATCH] CodingStyle:
 	Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
@@ -115,28 +114,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-> The suggestions you made will help us adapt inclusive terminology
-> for the current times, and also help us move toward terms that are
-> intuitive and easier to understand keeping our global developer
-> community in mind.
+> More generally etymological arguments are just not super relevant here
+> anyway, the issues people have are around current perceptions rather
+> than where things came from.
 
-> Allowlist/denylist terms are intuitive and action based which have a
-> globally uniform meaning.
+This is where ignoring etymology in this case falls apart, claiming that the
+current meaning is more important than the historical one. Yes it should be more
+important, but it suggests that the current meaning is negative, which it is
+not. In computer science (context!) these words do not have any negative
+perception or connotation, and people in this field know this. Yes, outsiders
+might not know this and could misunderstand them. But since when do experts in
+computer science (or in any field of science for the matter) care if a layman
+can correctly understand the field's technical terms? We never did and never
+will, except in this particular case for some odd reason.
 
-Nobody has a problem understanding "blacklist" and "whitelist". These
-are universally understood words even outside of computing. Claiming
-that we need clearer alternatives is smoke and mirrors.
-
-> Terms such as "whitelist" etc are contextual, hence assume contextual
-> knowledge on the part of the reader.
-
-We are talking about the source code of and interacting with an
-operating system kernel. Naturally, most things here are contextual and
-require domain knowledge to be understood correctly. Not requiring
-contextual knowledge when reading the kernel sources doesn't sound like
-a realistic argument.
-
-Raschko T.
+Be honest: "blacklist" is a technical term where the actual meaning has no
+negative connotation despite what people outside the field might think. But
+apparently we don't care about the actual meaning. We also don't care about the
+historical meaning or etymology. We only care about... well if not about the
+meaning in the past or present, then I don't know what. Looking good in the media?
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
