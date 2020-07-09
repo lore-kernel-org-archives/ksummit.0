@@ -6,89 +6,89 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74427C433E0
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 19:09:09 +0000 (UTC)
-Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACAA6C433E0
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 19:10:19 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 294482078B
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 19:09:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 73004206A1
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 19:10:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel-com.20150623.gappssmtp.com header.i=@intel-com.20150623.gappssmtp.com header.b="z30mKjYD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 294482078B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=intel-com.20150623.gappssmtp.com header.i=@intel-com.20150623.gappssmtp.com header.b="0cdTmxTt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73004206A1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by silver.osuosl.org (Postfix) with ESMTP id 9F9E02D5E0;
-	Thu,  9 Jul 2020 19:09:08 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 5523D895D3;
+	Thu,  9 Jul 2020 19:10:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from silver.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id CB6+0dlDqDO5; Thu,  9 Jul 2020 19:09:06 +0000 (UTC)
+	with ESMTP id X00k2pxPH-VW; Thu,  9 Jul 2020 19:10:18 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by silver.osuosl.org (Postfix) with ESMTP id BB3792D620;
-	Thu,  9 Jul 2020 19:09:06 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 671BD895B3;
+	Thu,  9 Jul 2020 19:10:18 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 6F960C08A8;
-	Thu,  9 Jul 2020 19:09:06 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 389A6C08A8;
+	Thu,  9 Jul 2020 19:10:18 +0000 (UTC)
 Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 077A1C016F
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 52050C016F
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 19:09:05 +0000 (UTC)
+ Thu,  9 Jul 2020 19:10:17 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by silver.osuosl.org (Postfix) with ESMTP id EF1ED2D5E0
+ by silver.osuosl.org (Postfix) with ESMTP id 2F9A82D6BC
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 19:09:04 +0000 (UTC)
+ Thu,  9 Jul 2020 19:10:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from silver.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id yNhfWd1DwjRN
+ with ESMTP id u3zxszE6uZGo
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 19:09:03 +0000 (UTC)
+ Thu,  9 Jul 2020 19:10:16 +0000 (UTC)
 X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- by silver.osuosl.org (Postfix) with ESMTPS id 4BBF92D620
+Received: from mail-ej1-f67.google.com (mail-ej1-f67.google.com
+ [209.85.218.67])
+ by silver.osuosl.org (Postfix) with ESMTPS id B81EA2D68C
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 19:09:03 +0000 (UTC)
-Received: by mail-ed1-f68.google.com with SMTP id g20so2702898edm.4
+ Thu,  9 Jul 2020 19:10:15 +0000 (UTC)
+Received: by mail-ej1-f67.google.com with SMTP id w6so3448398ejq.6
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 09 Jul 2020 12:09:03 -0700 (PDT)
+ Thu, 09 Jul 2020 12:10:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=intel-com.20150623.gappssmtp.com; s=20150623;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VfCzYMi3aNHcdHPq4uJcYySKGoZRsLImzoMVPW+0WwU=;
- b=z30mKjYDHsKECZqXGPwVfeUpwmx0KVsIJEYam/LLKpJgaSS+zZ7368G8grmGsaaBqV
- fXZ6JEciUwBH48DjCti7A+KgHIs35CBxgGs2hgjRqyXuy7OZ3avpHbt0FCJG4uhCGHk1
- DAAfbYHFGjCq6wq30HwbPA+3MefVaxzYgFThCzHKNq0SLzjrZehaPh08juOv7gqS6FT/
- Led6Vie6mZl2txj0XNkIBjSlG1GQGXChXrh2Oge70rjkt/fY4UhYe3C+JXBvocWyJCa2
- zCMh/Pr/uMUZ067y+k73eEEYe26s7PqWvzuXLkvoF9wRi1FOdYOUs+SXfeGRfSDC/H7j
- SrLg==
+ :cc; bh=B2fOhJGPsa38CdJ0J83JYaoOhOOC+ex2vBW2wQq+k5E=;
+ b=0cdTmxTtN7+vfGyH8NbCnBkNvIefYWEOCIlOULHgTocPWhpUR6/lquU1AM7frwbSsP
+ m0CPz6J5rTWe7lN8aZ+vVp63vR/vsivRWKjx3LkEwJLq0r34vVWl/m9Q49WhadgZ1F3H
+ KU9NRQV59ND/Qi7KauBOq72P8MUjWsoMmusWgGHZGn523v5N35mWFyzdl/56JJuplODT
+ pfSdf5u9oVvW5ZQ52mCBlrILAgqlrxb67ULxNsl7TfzTCRiYOgrRahKlqzzros2Yy9J8
+ mayfwrw298Z+elPQbmB+JqgiIwz9WvnH+WLqB2wUQdGGppNqt5U5QQyml0TSb4NO+i4p
+ 9YkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VfCzYMi3aNHcdHPq4uJcYySKGoZRsLImzoMVPW+0WwU=;
- b=ZkYzuBTDl99JuWIWSUbNqfQsXY/3pd6AFHW8Q5E8ALD4gtdZl0fMe2BisrWk3HagC9
- 9kAvtWRIdzlnM2cnnTj9cTiYriG4Pgd41233U9KmAHYQuvRQELYqz4EJzQuj/BU18ZSI
- MVsqqdE3N2bYcrBGFtKHtJXwddkVO5AxAMD5c6RitX9Ykr3AMBO/IKAz7TMd8HmKXweT
- 6SFft3rKFBkZJ+Busq4zaJXUxyA7VwnWiiMxk18i2vIRV5wMe0QH6964p4RkMwPvsJKo
- yrMUEfX7fQP9c1nWEWRVJQr5SGdknZhk3a0FO688sHIly7aoByGCN+tn6cbJ/uPeCaof
- /QKQ==
-X-Gm-Message-State: AOAM5318hmEn/Q2GFRqqBC3ZWZrZqBIZWEMxsgtknV8QJBO+dXXGVE3W
- JC3GCDRqeEsc720cLBYWZbt5zK+wDsgmpx0p0ryUtg==
-X-Google-Smtp-Source: ABdhPJwTYAZenqmgPEu0u5fZlCZXdTGUh5K//najny/f1OYXQHK89+GmctbhEmneY4bj5VNSlsqBCWdY8zLwDlGG1Qs=
-X-Received: by 2002:a05:6402:21c2:: with SMTP id
- bi2mr73091204edb.296.1594321741684; 
- Thu, 09 Jul 2020 12:09:01 -0700 (PDT)
+ bh=B2fOhJGPsa38CdJ0J83JYaoOhOOC+ex2vBW2wQq+k5E=;
+ b=S9d1qBn9MnWL3/jYR5eXjw93m2+Hf7Yo/3mfEwkCIwRkUALkNayZ5MDmishCiO5Sez
+ j6kXe7qFlWZtZhSsE/uWAnW/p1hdtmnwV63KACYVUzRNy129M2G8Ymbco6tUKsCyB9x2
+ jHczoQhk1IAqPxzJV+JDO2LVkXLuC/Keihl7IF/ikkA1WBb3REWHjIx3T1QZJbwsl78u
+ 4sQ+/4Rvd44GFqr+vX4xGGqCI+345xts29i65c27Lam8QnVhd34xKUwuammRrU8c64g9
+ ceoP5gGoBRaB3HfSjrH/2tgkQPTj0TdRT5jBZq4pNevqWrmphafVMqO6zniqfXMvpQ9Z
+ 8P6g==
+X-Gm-Message-State: AOAM531LFBdvB5H+N0wT5ouo5OKZMrx2NNUG3jA/5LGHZq4yfdmSwVMK
+ QVg7sezt8Go55iOimyphO4hzRexPfDHYolghT/GN1w==
+X-Google-Smtp-Source: ABdhPJz6e/Qh9nzMGDVNBdMj6Ao1a+kIvsOmRkQ9MF9Gyw0rlCHOGDj0lqFFJNRYxO4ZjpWCIaaHIlImKb6TqKt4bqM=
+X-Received: by 2002:a17:906:f98e:: with SMTP id
+ li14mr57482107ejb.174.1594321814142; 
+ Thu, 09 Jul 2020 12:10:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <159423201991.2466245.8461410729774664077.stgit@dwillia2-desk3.amr.corp.intel.com>
- <CAKMK7uHuOD4v9ZU0d5THBhdD=97xO--N8bWd3+Na38vsHKO5Zg@mail.gmail.com>
-In-Reply-To: <CAKMK7uHuOD4v9ZU0d5THBhdD=97xO--N8bWd3+Na38vsHKO5Zg@mail.gmail.com>
+ <5be5abc9-c2db-1f96-bc29-61cd90d985ab@suse.com>
+In-Reply-To: <5be5abc9-c2db-1f96-bc29-61cd90d985ab@suse.com>
 From: Dan Williams <dan.j.williams@intel.com>
-Date: Thu, 9 Jul 2020 12:08:50 -0700
-Message-ID: <CAPcyv4iht01M8t42JNSmfewKcZ7ztPuhdu01WrGzNFLPuqVNRw@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 9 Jul 2020 12:10:03 -0700
+Message-ID: <CAPcyv4j_c2FQa=iCFYJtyLTVXjMUFynOJ+2bw=fS3C1YSUk1ZQ@mail.gmail.com>
+To: Matthias Brugger <mbrugger@suse.com>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  SeongJae Park <sjpark@amazon.de>,
@@ -115,10 +115,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Thu, Jul 9, 2020 at 12:26 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+On Thu, Jul 9, 2020 at 2:45 AM Matthias Brugger <mbrugger@suse.com> wrote:
 >
-> On Wed, Jul 8, 2020 at 8:30 PM Dan Williams <dan.j.williams@intel.com> wrote:
-> >
+>
+>
+> On 08/07/2020 20:14, Dan Williams wrote:
 > > Linux maintains a coding-style and its own idiomatic set of terminology.
 > > Update the style guidelines to recommend replacements for the terms
 > > master/slave and blacklist/whitelist.
@@ -140,11 +141,9 @@ On Thu, Jul 9, 2020 at 12:26 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 >
-> Replied to the old version, once more here so it's not lost.
->
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
 
-Got it, thanks Daniel.
+Got it, thanks Matthias.
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
