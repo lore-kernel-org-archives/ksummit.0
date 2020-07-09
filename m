@@ -2,95 +2,68 @@ Return-Path: <SRS0=TU90=AU=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75A99C433E1
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 07:25:36 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14AB7C433E0
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 09:45:30 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4107420720
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 07:25:36 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="F0rG8coo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4107420720
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	by mail.kernel.org (Postfix) with ESMTPS id EA3E9206E2
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  9 Jul 2020 09:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA3E9206E2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by hemlock.osuosl.org (Postfix) with ESMTP id 108A9895CE;
-	Thu,  9 Jul 2020 07:25:36 +0000 (UTC)
+	by silver.osuosl.org (Postfix) with ESMTP id 711722637A;
+	Thu,  9 Jul 2020 09:45:29 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from silver.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id RYq0jdKVwFmY; Thu,  9 Jul 2020 07:25:35 +0000 (UTC)
+	with ESMTP id WzCs29HzBqjD; Thu,  9 Jul 2020 09:45:26 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by hemlock.osuosl.org (Postfix) with ESMTP id 3B68688A29;
-	Thu,  9 Jul 2020 07:25:35 +0000 (UTC)
+	by silver.osuosl.org (Postfix) with ESMTP id 8989C2286F;
+	Thu,  9 Jul 2020 09:45:26 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 06DCEC077B;
-	Thu,  9 Jul 2020 07:25:35 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
- by lists.linuxfoundation.org (Postfix) with ESMTP id A1060C016F
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 07:25:33 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 65809C077B;
+	Thu,  9 Jul 2020 09:45:26 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 07DDDC016F;
+ Thu,  9 Jul 2020 09:45:25 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hemlock.osuosl.org (Postfix) with ESMTP id 89A0D895AE
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 07:25:33 +0000 (UTC)
+ by silver.osuosl.org (Postfix) with ESMTP id F099A24C5E;
+ Thu,  9 Jul 2020 09:45:24 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from silver.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 0KM9kbf3Nhhq
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 07:25:32 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- by hemlock.osuosl.org (Postfix) with ESMTPS id A032288A29
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  9 Jul 2020 07:25:31 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id h1so999565otq.12
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu, 09 Jul 2020 00:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Pag+RcEqQEamOjfbOEguYU2pFk2Ny9rxa5wKpcW4W0g=;
- b=F0rG8cooNYI+AtqjAzaVgiBMKgGIwFKGt3eV86gNAcJE5PGpK8mcqdaZ6bCEyFrGiQ
- 1UyqqbcTs0YYt4yzktkNusLxF750IWBKUaVdQ3/PVEwqwPjtB/RE3A4fj7bV3CbXazld
- r94M5mu53hV9sOXDj7QKaxV9RKyhomECStcG4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Pag+RcEqQEamOjfbOEguYU2pFk2Ny9rxa5wKpcW4W0g=;
- b=kjSM0gz/nLe7oiksIDLPXWV+l0mUAVWgOcwu3WzFcsb/R5Q5rcGFNYN2RE51YF0xBJ
- z9NnOqoF/ipiTT/qqJv63DBr6pLlo273ChA7IsvzVHgb51oB4RSIGkqZvUJXH1lQqWSp
- AGsghGLe1ohbbEffFEGjGRPurPp1DnEpJfn0FV9WK7TUNKHo7fTXk2SeTCBeluoP4fTj
- 7GxsxTrJbHAKYnuJJhWVm3w4/p+Ja4kDEUgv+MxQjPbf0nmIA35HyBilXQ4Bpov2p8OT
- nHUwQPmkgZbu500xWqt8U8C2rAnCKnHf+ucqYCeMDQD/U7ndPiVgyeTvjRqGILc7dCm4
- oPtg==
-X-Gm-Message-State: AOAM533+hjsRd576QTikJw2CO6P9onHvUj4LENrlkp07RHMLa0JvfK/5
- FuHG2uIgugyfhZnG0FGtNdBZOxRXgBIZp05iMI8NlA==
-X-Google-Smtp-Source: ABdhPJxSzSQRWs2P88SyaSpqBzsbq4KX4iqq22DX5CfdfEZl5KM4nNt9yjQRtppW60x06rUB9yIpnJKfDE7wFZpZG9I=
-X-Received: by 2002:a05:6830:1613:: with SMTP id
- g19mr39306609otr.303.1594279530544; 
- Thu, 09 Jul 2020 00:25:30 -0700 (PDT)
-MIME-Version: 1.0
+ with ESMTP id 4AJQC-iUri3Q; Thu,  9 Jul 2020 09:45:23 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by silver.osuosl.org (Postfix) with ESMTPS id 4B08B2286F;
+ Thu,  9 Jul 2020 09:45:23 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CCEC7B033;
+ Thu,  9 Jul 2020 09:45:20 +0000 (UTC)
+To: Dan Williams <dan.j.williams@intel.com>, corbet@lwn.net
 References: <159423201991.2466245.8461410729774664077.stgit@dwillia2-desk3.amr.corp.intel.com>
+From: Matthias Brugger <mbrugger@suse.com>
+Message-ID: <5be5abc9-c2db-1f96-bc29-61cd90d985ab@suse.com>
+Date: Thu, 9 Jul 2020 11:45:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+MIME-Version: 1.0
 In-Reply-To: <159423201991.2466245.8461410729774664077.stgit@dwillia2-desk3.amr.corp.intel.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 9 Jul 2020 09:25:19 +0200
-Message-ID: <CAKMK7uHuOD4v9ZU0d5THBhdD=97xO--N8bWd3+Na38vsHKO5Zg@mail.gmail.com>
-To: Dan Williams <dan.j.williams@intel.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+Content-Language: en-US
+Cc: ksummit-discuss@lists.linuxfoundation.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- SeongJae Park <sjpark@amazon.de>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ SeongJae Park <sjpark@amazon.de>, linux-kernel@vger.kernel.org,
  tech-board-discuss@lists.linuxfoundation.org,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>,
  Dave Airlie <airlied@redhat.com>,
  Christian Brauner <christian.brauner@ubuntu.com>,
  Dan Carpenter <dan.carpenter@oracle.com>
@@ -106,17 +79,18 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>, 
  <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Wed, Jul 8, 2020 at 8:30 PM Dan Williams <dan.j.williams@intel.com> wrote:
->
+
+
+On 08/07/2020 20:14, Dan Williams wrote:
 > Linux maintains a coding-style and its own idiomatic set of terminology.
 > Update the style guidelines to recommend replacements for the terms
 > master/slave and blacklist/whitelist.
->
+> 
 > Link: http://lore.kernel.org/r/159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com
 > Acked-by: Randy Dunlap <rdunlap@infradead.org>
 > Acked-by: Dave Airlie <airlied@redhat.com>
@@ -134,39 +108,37 @@ On Wed, Jul 8, 2020 at 8:30 PM Dan Williams <dan.j.williams@intel.com> wrote:
 > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 
-Replied to the old version, once more here so it's not lost.
-
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
 
 > ---
 > Changes since v2 [1]:
 > - Pick up missed sign-offs and acks from Jon, Shuah, and Christian
->   (sorry about missing those earlier).
->
+>    (sorry about missing those earlier).
+> 
 > - Reformat the replacement list to make it easier to read.
->
+> 
 > - Add 'controller' as a suggested replacement (Kees and Mark)
->
+> 
 > - Fix up the paired term for 'performer' to be 'director' (Kees)
->
+> 
 > - Collect some new acks, reviewed-by's, and sign-offs for v2.
->
+> 
 > - Fix up Chris's email
->
+> 
 > [1]: http://lore.kernel.org/r/159419296487.2464622.863943877093636532.stgit@dwillia2-desk3.amr.corp.intel.com
->
->
->  Documentation/process/coding-style.rst |   20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
+> 
+> 
+>   Documentation/process/coding-style.rst |   20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+> 
 > diff --git a/Documentation/process/coding-style.rst b/Documentation/process/coding-style.rst
 > index 2657a55c6f12..1bee6f8affdb 100644
 > --- a/Documentation/process/coding-style.rst
 > +++ b/Documentation/process/coding-style.rst
 > @@ -319,6 +319,26 @@ If you are afraid to mix up your local variable names, you have another
->  problem, which is called the function-growth-hormone-imbalance syndrome.
->  See chapter 6 (Functions).
->
+>   problem, which is called the function-growth-hormone-imbalance syndrome.
+>   See chapter 6 (Functions).
+>   
 > +For symbol names and documentation, avoid introducing new usage of
 > +'master / slave' (or 'slave' independent of 'master') and 'blacklist /
 > +whitelist'.
@@ -187,21 +159,15 @@ Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 > +specification that mandates those terms. For new specifications
 > +translate specification usage of the terminology to the kernel coding
 > +standard where possible.
->
->  5) Typedefs
->  -----------
->
+>   
+>   5) Typedefs
+>   -----------
+> 
 > _______________________________________________
 > Ksummit-discuss mailing list
 > Ksummit-discuss@lists.linuxfoundation.org
 > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-
-
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> 
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
