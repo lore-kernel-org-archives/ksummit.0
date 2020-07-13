@@ -2,62 +2,63 @@ Return-Path: <SRS0=zbo2=AY=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 233BEC433E5
-	for <ksummit-discuss@archiver.kernel.org>; Mon, 13 Jul 2020 08:02:34 +0000 (UTC)
-Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34A05C433E7
+	for <ksummit-discuss@archiver.kernel.org>; Mon, 13 Jul 2020 08:43:37 +0000 (UTC)
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0115D20702
-	for <ksummit-discuss@archiver.kernel.org>; Mon, 13 Jul 2020 08:02:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0115D20702
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 0289E206F0
+	for <ksummit-discuss@archiver.kernel.org>; Mon, 13 Jul 2020 08:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0289E206F0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=inria.fr
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by silver.osuosl.org (Postfix) with ESMTP id AB48E20021;
-	Mon, 13 Jul 2020 08:02:33 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id CB7598952F;
+	Mon, 13 Jul 2020 08:43:36 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from silver.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 9HF5m4Em-OeA; Mon, 13 Jul 2020 08:02:30 +0000 (UTC)
+	with ESMTP id s3OqKJ8bV4L9; Mon, 13 Jul 2020 08:43:35 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by silver.osuosl.org (Postfix) with ESMTP id BA8FD22011;
-	Mon, 13 Jul 2020 08:02:30 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id F11C4894C6;
+	Mon, 13 Jul 2020 08:43:34 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 8661EC0888;
-	Mon, 13 Jul 2020 08:02:30 +0000 (UTC)
-Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id B77BDC0733;
- Mon, 13 Jul 2020 08:02:28 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id BD0F3C088E;
+	Mon, 13 Jul 2020 08:43:34 +0000 (UTC)
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id DF7F0C0733;
+ Mon, 13 Jul 2020 08:43:32 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by whitealder.osuosl.org (Postfix) with ESMTP id AFC8087F69;
- Mon, 13 Jul 2020 08:02:28 +0000 (UTC)
+ by hemlock.osuosl.org (Postfix) with ESMTP id D12DF894C6;
+ Mon, 13 Jul 2020 08:43:32 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from whitealder.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id u1SoxYhgMz7R; Mon, 13 Jul 2020 08:02:27 +0000 (UTC)
+ with ESMTP id ON9b5YNgr6uC; Mon, 13 Jul 2020 08:43:31 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by whitealder.osuosl.org (Postfix) with ESMTPS id 92F0888440;
- Mon, 13 Jul 2020 08:02:27 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 106B7ACE1;
- Mon, 13 Jul 2020 08:02:28 +0000 (UTC)
-Date: Mon, 13 Jul 2020 10:02:24 +0200
-Message-ID: <s5hlfjnzvu7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dan Williams <dan.j.williams@intel.com>
-In-Reply-To: <159423201991.2466245.8461410729774664077.stgit@dwillia2-desk3.amr.corp.intel.com>
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
+ by hemlock.osuosl.org (Postfix) with ESMTPS id 3CC8889293;
+ Mon, 13 Jul 2020 08:43:31 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.75,346,1589234400"; d="scan'208";a="354298904"
+Received: from abo-173-121-68.mrs.modulonet.fr (HELO hadrien) ([85.68.121.173])
+ by mail3-relais-sop.national.inria.fr with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2020 10:43:28 +0200
+Date: Mon, 13 Jul 2020 10:43:28 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <s5hlfjnzvu7.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.22.394.2007131043070.2322@hadrien>
 References: <159423201991.2466245.8461410729774664077.stgit@dwillia2-desk3.amr.corp.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5hlfjnzvu7.wl-tiwai@suse.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
 Cc: ksummit-discuss@lists.linuxfoundation.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  SeongJae Park <sjpark@amazon.de>, linux-kernel@vger.kernel.org,
@@ -83,31 +84,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Wed, 08 Jul 2020 20:14:27 +0200,
-Dan Williams wrote:
-> 
-> +Recommended replacements for 'blacklist/whitelist' are:
-> +    'denylist / allowlist'
-> +    'blocklist / passlist'
-
-I started looking through the tree now and noticed there are lots of
-patterns like "whitelisted" or "blacklisted".  How can the words fit
-for those?  Actually, there are two cases like:
-
-- Foo is blacklisted
-- Allow to load the non-whitelisted cards
-
-Currently I'm replacing the former with "Foo is in denylist", but not
-sure about the latter case.  I thought Kees mentioned about this, but
-don't remember the proposal...
-
-In anyway, I'm for the action:
-  Acked-by: Takashi Iwai <tiwai@suse.de>
 
 
-thanks,
+On Mon, 13 Jul 2020, Takashi Iwai wrote:
 
-Takashi
+> On Wed, 08 Jul 2020 20:14:27 +0200,
+> Dan Williams wrote:
+> >
+> > +Recommended replacements for 'blacklist/whitelist' are:
+> > +    'denylist / allowlist'
+> > +    'blocklist / passlist'
+>
+> I started looking through the tree now and noticed there are lots of
+> patterns like "whitelisted" or "blacklisted".  How can the words fit
+> for those?  Actually, there are two cases like:
+>
+> - Foo is blacklisted
+> - Allow to load the non-whitelisted cards
+>
+> Currently I'm replacing the former with "Foo is in denylist", but not
+
+In the denylist?
+
+julia
+
+
+> sure about the latter case.  I thought Kees mentioned about this, but
+> don't remember the proposal...
+>
+> In anyway, I'm for the action:
+>   Acked-by: Takashi Iwai <tiwai@suse.de>
+>
+>
+> thanks,
+>
+> Takashi
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
