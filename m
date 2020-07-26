@@ -1,95 +1,76 @@
-Return-Path: <SRS0=G9yW=A4=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
+Return-Path: <SRS0=WQW7=BF=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2EC8C433E0
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 17 Jul 2020 16:47:39 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30762C433E3
+	for <ksummit-discuss@archiver.kernel.org>; Sun, 26 Jul 2020 15:31:16 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A975F2076D
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 17 Jul 2020 16:47:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0285520714
+	for <ksummit-discuss@archiver.kernel.org>; Sun, 26 Jul 2020 15:31:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVqFb3Cz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A975F2076D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="LenBQdlB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0285520714
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id 74623859D5;
-	Fri, 17 Jul 2020 16:47:39 +0000 (UTC)
+	by silver.osuosl.org (Postfix) with ESMTP id AE4F320526;
+	Sun, 26 Jul 2020 15:31:14 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at osuosl.org
+Received: from silver.osuosl.org ([127.0.0.1])
+	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id rYqZEobH85VI; Sun, 26 Jul 2020 15:31:12 +0000 (UTC)
+Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
+	by silver.osuosl.org (Postfix) with ESMTP id D230D20336;
+	Sun, 26 Jul 2020 15:31:11 +0000 (UTC)
+Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 9BD80C004F;
+	Sun, 26 Jul 2020 15:31:11 +0000 (UTC)
+Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 148FCC004D;
+ Sun, 26 Jul 2020 15:31:10 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by fraxinus.osuosl.org (Postfix) with ESMTP id EFC1E86055;
+ Sun, 26 Jul 2020 15:31:09 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from fraxinus.osuosl.org ([127.0.0.1])
-	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id NOkJEv665znu; Fri, 17 Jul 2020 16:47:38 +0000 (UTC)
-Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by fraxinus.osuosl.org (Postfix) with ESMTP id D632E85852;
-	Fri, 17 Jul 2020 16:47:38 +0000 (UTC)
-Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id A1753C0865;
-	Fri, 17 Jul 2020 16:47:38 +0000 (UTC)
-Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id D9D7DC0865
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 17 Jul 2020 16:47:37 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by whitealder.osuosl.org (Postfix) with ESMTP id C144787773
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 17 Jul 2020 16:47:37 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from whitealder.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id TxYfJ1pHIzDd
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 17 Jul 2020 16:47:37 +0000 (UTC)
+ with ESMTP id GmUI2xmjQtmi; Sun, 26 Jul 2020 15:31:08 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by whitealder.osuosl.org (Postfix) with ESMTPS id 46F348776C
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 17 Jul 2020 16:47:37 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CC571208E4
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 17 Jul 2020 16:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595004457;
- bh=4BXVUwtR/tkd2z02CT+MvIFZaGvYQkEZE2YjNF5AhjE=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ZVqFb3CzkSTd6v157BRPCpPT4ksS/hOWa4QMjnFze5nli7ZBGDyCk77l7tss54cli
- g7xOe2c4+js7xv6B53xHC7OXWaaoPfFDeZyhQZY8gEnPVp4sVxVEUrUf5+45BtsHoH
- gRHR6i9FydUHaRqetuUwz638zJ7knj66swUnwgKg=
-Received: by mail-wm1-f41.google.com with SMTP id j18so15913738wmi.3
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 17 Jul 2020 09:47:36 -0700 (PDT)
-X-Gm-Message-State: AOAM532nYpdyFRud83apAaL0z5g/UL7V3jMbb1tGteawPV+Ty2mYIiXf
- YrfYTmBAiAPxvmEYlsG3arZDKIt0bSMl6PNEpjjciA==
-X-Google-Smtp-Source: ABdhPJzXM6ShO9QunQ6h1oW3pXO/VsXg1+/b+5o5yRSKhYi7CtcrXGrAtQNL19genjr5cg0ReKqPfIacxdEL/vO0zWk=
-X-Received: by 2002:a7b:c09a:: with SMTP id r26mr10027972wmh.176.1595004455229; 
- Fri, 17 Jul 2020 09:47:35 -0700 (PDT)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by fraxinus.osuosl.org (Postfix) with ESMTPS id 2EE6A85F51;
+ Sun, 26 Jul 2020 15:31:08 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
+ [81.175.216.236])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C3734304;
+ Sun, 26 Jul 2020 17:31:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1595777461;
+ bh=oyQAELgW6klCSGBuOr1AJ3GfNkjzCnTc0DUFvMoWBMY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LenBQdlBe05DVLP1xeshTIGdl2GdKYFqLJeYF4CnKNGQvQYTKT21rgFxHmou6khqQ
+ EYjUyEn9YlfpnJPf7xhLBOxc10Ee63qu4sFKbH4eDia7dmqbkI/uwxz/OpuPcj2Nf2
+ 53tvqXKiyKP+jdq+cisgvXQQwd/5ll6IpEF3+pR0=
+Date: Sun, 26 Jul 2020 18:30:54 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20200726153054.GA5925@pendragon.ideasonboard.com>
+References: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
 MIME-Version: 1.0
-References: <159423201991.2466245.8461410729774664077.stgit@dwillia2-desk3.amr.corp.intel.com>
- <s5hlfjnzvu7.wl-tiwai@suse.de>
-In-Reply-To: <s5hlfjnzvu7.wl-tiwai@suse.de>
-From: Andy Lutomirski <luto@kernel.org>
-Date: Fri, 17 Jul 2020 09:47:23 -0700
-X-Gmail-Original-Message-ID: <CALCETrWmK-b6apB57mp8oaSRNpcSLdoCFAXEp4EF-9LSUDNFBA@mail.gmail.com>
-Message-ID: <CALCETrWmK-b6apB57mp8oaSRNpcSLdoCFAXEp4EF-9LSUDNFBA@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- SeongJae Park <sjpark@amazon.de>, LKML <linux-kernel@vger.kernel.org>,
- tech-board-discuss@lists.linuxfoundation.org,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- Dave Airlie <airlied@redhat.com>,
- Christian Brauner <christian.brauner@ubuntu.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [PATCH v3] CodingStyle: Inclusive Terminology
+Content-Disposition: inline
+In-Reply-To: <159389297140.2210796.13590142254668787525.stgit@dwillia2-desk3.amr.corp.intel.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ tech-board-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH] CodingStyle: Inclusive Terminology
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,74 +87,171 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Mon, Jul 13, 2020 at 1:02 AM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Wed, 08 Jul 2020 20:14:27 +0200,
-> Dan Williams wrote:
-> >
-> > +Recommended replacements for 'blacklist/whitelist' are:
-> > +    'denylist / allowlist'
-> > +    'blocklist / passlist'
->
-> I started looking through the tree now and noticed there are lots of
-> patterns like "whitelisted" or "blacklisted".  How can the words fit
-> for those?  Actually, there are two cases like:
->
-> - Foo is blacklisted
-> - Allow to load the non-whitelisted cards
->
-> Currently I'm replacing the former with "Foo is in denylist", but not
-> sure about the latter case.  I thought Kees mentioned about this, but
-> don't remember the proposal...
+Hi Dan, and everybody,
 
-Hmm.  In these cases, we're trying to convey one of two things.  A
-given device/platform/CPU/whatever could be known to be problematic
-and thus disallowed, or we could have a policy that we generally don't
-trust hardware but we have specific reason to believe that this
-particular hardware is okay.  After doing a highly scientific sampling
-of a few cases, some of these are indeed lists and some are not.
+Thank you for the patch.
 
-If we're going to look for new words for these concepts, perhaps we
-shouldn't focus on the *list* aspect -- after all, that's just a
-rather popular implementation detail, but it's not the core concept
-we're trying to express.  As an example case, we have a horrible
-concept in which some Intel CPUs support a form of memory failure
-recovery, and there is no enumeration mechanism.  Instead, there's a
-list (sigh).  So we could say "your CPU is whitelisted for
-such-and-such," which at least gets the idea across, but saying "your
-CPU is allowlisted for such-and-such" seems like a stretch.  It's not
-that we have a policy to allow things on the list -- it's that we
-think that CPUs not on the list simply don't have the relevant
-capability.
+On Sat, Jul 04, 2020 at 01:02:51PM -0700, Dan Williams wrote:
+> Recent events have prompted a Linux position statement on inclusive
+> terminology. Given that Linux maintains a coding-style and its own
+> idiomatic set of terminology here is a proposal to answer the call to
+> replace non-inclusive terminology.
+> 
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Kees Cook <keescook@chromium.org>
+> Signed-off-by: Chris Mason <clm@fb.clm>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+> ---
+>  Documentation/process/coding-style.rst          |   12 ++++
+>  Documentation/process/inclusive-terminology.rst |   64 +++++++++++++++++++++++
+>  Documentation/process/index.rst                 |    1 
+>  3 files changed, 77 insertions(+)
+>  create mode 100644 Documentation/process/inclusive-terminology.rst
+> 
+> diff --git a/Documentation/process/coding-style.rst b/Documentation/process/coding-style.rst
+> index 2657a55c6f12..4b15ab671089 100644
+> --- a/Documentation/process/coding-style.rst
+> +++ b/Documentation/process/coding-style.rst
+> @@ -319,6 +319,18 @@ If you are afraid to mix up your local variable names, you have another
+>  problem, which is called the function-growth-hormone-imbalance syndrome.
+>  See chapter 6 (Functions).
+>  
+> +For symbol names, avoid introducing new usage of the words 'slave' and
+> +'blacklist'. Recommended replacements for 'slave' are: 'secondary',
+> +'subordinate', 'replica', 'responder', 'follower', 'proxy', or
+> +'performer'.  Recommended replacements for blacklist are: 'blocklist' or
+> +'denylist'.
+> +
+> +Exceptions for introducing new usage is to maintain a userspace ABI, or
+> +when updating code for an existing (as of 2020) hardware or protocol
+> +specification that mandates those terms. For new specifications consider
+> +translating specification usage of the terminology to the kernel coding
+> +standard where possible. See :ref:`process/inclusive-terminology.rst
+> +<inclusiveterminology>` for details.
+>  
+>  5) Typedefs
+>  -----------
+> diff --git a/Documentation/process/inclusive-terminology.rst b/Documentation/process/inclusive-terminology.rst
+> new file mode 100644
+> index 000000000000..a8eb26690eb4
+> --- /dev/null
+> +++ b/Documentation/process/inclusive-terminology.rst
+> @@ -0,0 +1,64 @@
+> +.. _inclusiveterminology:
+> +
+> +Linux kernel inclusive terminology
+> +==================================
+> +
+> +The Linux kernel is a global software project, and in 2020 there was a
+> +global reckoning on race relations that caused many organizations to
+> +re-evaluate their policies and practices relative to the inclusion of
+> +people of African descent. This document describes why the 'Naming'
+> +section in :ref:`process/coding-style.rst <codingstyle>` recommends
+> +avoiding usage of 'slave' and 'blacklist' in new additions to the Linux
+> +kernel.
+> +
+> +On the triviality of replacing words
+> +====================================
+> +
+> +The African slave trade was a brutal system of human misery deployed at
+> +global scale. Some word choice decisions in a modern software project
+> +does next to nothing to compensate for that legacy. So why put any
+> +effort into something so trivial in comparison? Because the goal is not
+> +to repair, or erase the past. The goal is to maximize availability and
+> +efficiency of the global developer community to participate in the Linux
+> +kernel development process.
+> +
+> +Word choice and developer efficiency
+> +====================================
+> +
+> +Why does any software project go through the trouble of developing a
+> +document like :ref:`process/coding-style.rst <codingstyle>`? It does so
+> +because a common coding style maximizes the efficiency of both
+> +maintainers and developers. Developers learn common design patterns and
+> +idiomatic expressions while maintainers can spot deviations from those
+> +norms. Even non-compliant whitespace is considered a leading indicator
+> +to deeper problems in a patchset. Coding style violations are known to
+> +take a maintainer "out of the zone" of reviewing code. Maintainers are
+> +also sensitive to word choice across specifications and often choose to
+> +deploy Linux terminology to replace non-idiomatic word-choice in a
+> +specification.
+> +
+> +Non-inclusive terminology has that same distracting effect which is why
+> +it is a style issue for Linux, it injures developer efficiency.
+> +
+> +Of course it is around this point someone jumps in with an etymological
+> +argument about why people should not be offended. Etymological arguments
+> +do not scale. The scope and pace of Linux to reach new developers
+> +exceeds the ability of historical terminology defenders to describe "no,
+> +not that connotation". The revelation of 2020 was that black voices were
+> +heard on a global scale and the Linux kernel project has done its small
+> +part to answer that call as it wants black voices, among all voices, in
+> +its developer community.
 
-Here are some brainstormed ideas:
+I've been pondering about this statement for several weeks now, sleeping
+over it for far longer than I usually do. Despite this, I haven't been
+able to shake off my initial feeling. Hence this reply.
 
- - Such-and-such feature is quirked off.  (Or disabled due to a quirk.)
+This e-mail isn't challenging the proposed change to the kernel coding
+style policy. That's a question that I believe has been widely discussed
+behind closed doors, with also a few attempts to debate it publicly in
+this mail thread. While that process causes me concern, that's a
+separate topic, and I'm not questioning here the usefulness or
+desirability of the change. I strongly believe in a welcoming and
+inclusive kernel community, and in the need to translate these words
+into actions.
 
- - Your device is not on the known-good list.
+The part that initially offended me is the claim that with this change
+the "Linux kernel project has done its small part". I can't help feeling
+this sounds hypocritical at best, and cynical at worst. Can we, as the
+Linux kernel community, claim that taking this small and symbolic first
+step would be enough ? I won't try to speak about the impact this coding
+style policy change could have on people who today feel discriminated by
+our practices, but I can only imagine that stating we "will have done
+our part" could infuriate more than one, the same way I feel insulting
+that companies raise rainbow flags during Pride week as a means of cheap
+advertising.
 
- - Your device is not known-good.  It might work anyway -- to try it,
-set such-and-such option.
+Do we feel enough discomfort about our own racism to be compelled to
+express public sympathy, but nowhere close enough to go further ? I feel
+this would be fairly shameless, considering our community collaborates
+with large companies that refuse to condemn hate speech. I don't know if
+I'm the only one to see an elephant in the room here, but I think we
+need to have a real debate about all the other actions we can take to
+make a bigger difference.
 
- - Your device is known bad.
+> +
+> +Really, 'blacklist' too?
+> +========================
+> +
+> +While 'slave' has a direct connection to human suffering the etymology
+> +of 'blacklist' is devoid of a historical racial connection. However, one
+> +thought exercise is to consider replacing 'blacklist/whitelist' with
+> +'redlist/greenlist'. Realize that the replacement only makes sense if
+> +you have been socialized with the concepts that 'red/green' implies
+> +'stop/go'. Colors to represent a policy requires an indirection. The
+> +socialization of 'black/white' to have the connotation of
+> +'impermissible/permissible' does not support inclusion.
+> +
+> +Inclusion == global developer community efficiency.
+> diff --git a/Documentation/process/index.rst b/Documentation/process/index.rst
+> index f07c9250c3ac..ed861f6f8d25 100644
+> --- a/Documentation/process/index.rst
+> +++ b/Documentation/process/index.rst
+> @@ -27,6 +27,7 @@ Below are the essential guides that every developer should read.
+>     submitting-patches
+>     programming-language
+>     coding-style
+> +   inclusive-terminology
+>     maintainer-pgp-guide
+>     email-clients
+>     kernel-enforcement-statement
 
- - Your device is busted and we think you should pressure the
-manufacturer to fix it.
+-- 
+Regards,
 
- - Your device is too old and no longer supported.
-
- - Seriously, you're trying to use an 80386 on a modern kernel?  No
-thanks.  We think it's neat that you still have one that works,
-though.
-
- - (Specifically for modules and not part of the Linux kernel tree)
-disable_autoload instead of blacklist, perhaps?
-
-Part of my point is that we use blacklist and whitelist to mean
-various things, and I don't think we should try to invent a couple of
-new catch-all terms to replace them.  Perhaps replacing these words
-could be an opportunity to come up with better descriptions at the
-same time.
+Laurent Pinchart
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
