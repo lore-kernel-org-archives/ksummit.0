@@ -1,71 +1,66 @@
-Return-Path: <SRS0=jAhB=BK=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
+Return-Path: <SRS0=CWmz=BN=lists.linuxfoundation.org=ksummit-discuss-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.0 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE929C433E0
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 31 Jul 2020 22:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7EBEC433E0
+	for <ksummit-discuss@archiver.kernel.org>; Mon,  3 Aug 2020 21:36:19 +0000 (UTC)
 Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A9666208E4
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 31 Jul 2020 22:47:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9666208E4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+	by mail.kernel.org (Postfix) with ESMTPS id E8004207FC
+	for <ksummit-discuss@archiver.kernel.org>; Mon,  3 Aug 2020 21:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8004207FC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lwn.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by silver.osuosl.org (Postfix) with ESMTP id C9DF224FFE;
-	Fri, 31 Jul 2020 22:47:16 +0000 (UTC)
+	by silver.osuosl.org (Postfix) with ESMTP id 792902153B;
+	Mon,  3 Aug 2020 21:36:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from silver.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 75twbCV34Lxu; Fri, 31 Jul 2020 22:47:14 +0000 (UTC)
+	with ESMTP id hbqXbL3uPeKx; Mon,  3 Aug 2020 21:36:16 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by silver.osuosl.org (Postfix) with ESMTP id CCAB524BEF;
-	Fri, 31 Jul 2020 22:47:14 +0000 (UTC)
+	by silver.osuosl.org (Postfix) with ESMTP id B67E9207A9;
+	Mon,  3 Aug 2020 21:36:16 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id A1734C004F;
-	Fri, 31 Jul 2020 22:47:14 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
- by lists.linuxfoundation.org (Postfix) with ESMTP id D11A4C004D
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 31 Jul 2020 22:47:13 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 89638C0051;
+	Mon,  3 Aug 2020 21:36:16 +0000 (UTC)
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id AE0B0C004C;
+ Mon,  3 Aug 2020 21:36:14 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by fraxinus.osuosl.org (Postfix) with ESMTP id BB11C86E65
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 31 Jul 2020 22:47:13 +0000 (UTC)
+ by hemlock.osuosl.org (Postfix) with ESMTP id 9DBB586D73;
+ Mon,  3 Aug 2020 21:36:14 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from fraxinus.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id AQS6mIVdt3xu
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 31 Jul 2020 22:47:12 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- by fraxinus.osuosl.org (Postfix) with ESMTPS id 3822186B1A
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 31 Jul 2020 22:47:12 +0000 (UTC)
-Received: from localhost (50-39-163-217.bvtn.or.frontiernet.net
- [50.39.163.217]) (Authenticated sender: josh@joshtriplett.org)
- by relay11.mail.gandi.net (Postfix) with ESMTPSA id DC195100003;
- Fri, 31 Jul 2020 22:47:06 +0000 (UTC)
-Date: Fri, 31 Jul 2020 15:47:04 -0700
-From: "josh@joshtriplett.org" <josh@joshtriplett.org>
-To: "Bird, Tim" <Tim.Bird@sony.com>
-Message-ID: <20200731224704.GF32670@localhost>
-References: <CAK8P3a2PK_bC5=3wcWm43=y5xk-Dq5-fGPExJMnOrNfGfB1m1A@mail.gmail.com>
- <20200731212721.GC32670@localhost>
- <CY4PR13MB1175A3B5D9DE33D3A1E045A6FD4E0@CY4PR13MB1175.namprd13.prod.outlook.com>
+ with ESMTP id C+yGhNtwhyQy; Mon,  3 Aug 2020 21:36:14 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+ by hemlock.osuosl.org (Postfix) with ESMTPS id 118E886C8B;
+ Mon,  3 Aug 2020 21:36:13 +0000 (UTC)
+Received: from lwn.net (localhost [127.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ms.lwn.net (Postfix) with ESMTPSA id 545D12D3;
+ Mon,  3 Aug 2020 21:36:13 +0000 (UTC)
+Date: Mon, 3 Aug 2020 15:36:12 -0600
+From: Jonathan Corbet <corbet@lwn.net>
+To: LKML <linux-kernel@vger.kernel.org>
+Message-ID: <20200803153612.24ef78d9@lwn.net>
+Organization: LWN.net
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CY4PR13MB1175A3B5D9DE33D3A1E045A6FD4E0@CY4PR13MB1175.namprd13.prod.outlook.com>
-Cc: linux-arch <linux-arch@vger.kernel.org>,
- ksummit <ksummit-discuss@lists.linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Planning code obsolescence
+Cc: "tech-board-discuss@lists.linuxfoundation.org\"
+ <tech-board-discuss@lists.linuxfoundation.org>"@lwn.net,
+ ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] Linux Foundation 2020 Technical Advisory Board
+ election: call for nominations
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,63 +77,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Fri, Jul 31, 2020 at 09:57:41PM +0000, Bird, Tim wrote:
-> > -----Original Message-----
-> > From: josh@joshtriplett.org
-> > 
-> > On Fri, Jul 31, 2020 at 05:00:12PM +0200, Arnd Bergmann wrote:
-> > > The majority of the code in the kernel deals with hardware that was made
-> > > a long time ago, and we are regularly discussing which of those bits are
-> > > still needed. In some cases (e.g. 20+ year old RISC workstation support),
-> > > there are hobbyists that take care of maintainership despite there being
-> > > no commercial interest. In other cases (e.g. x.25 networking) it turned
-> > > out that there are very long-lived products that are actively supported
-> > > on new kernels.
-> > >
-> > > When I removed support for eight instruction set architectures in 2018,
-> > > those were the ones that no longer had any users of mainline kernels,
-> > > and removing them allowed later cleanup of cross-architecture code that
-> > > would have been much harder before.
-> > >
-> > > I propose adding a Documentation file that keeps track of any notable
-> > > kernel feature that could be classified as "obsolete", and listing
-> > > e.g. following properties:
-> > >
-> > > * Kconfig symbol controlling the feature
-> > >
-> > > * How long we expect to keep it as a minimum
-> > >
-> > > * Known use cases, or other reasons this needs to stay
-> > >
-> > > * Latest kernel in which it was known to have worked
-> > >
-> > > * Contact information for known users (mailing list, personal email)
-> > >
-> > > * Other features that may depend on this
-> > >
-> > > * Possible benefits of eventually removing it
-> > 
-> > We had this once, in the form of feature-removal-schedule.txt. It was,
-> > itself, removed in commit 9c0ece069b32e8e122aea71aa47181c10eb85ba7.
-> > 
-> > I *do* think there'd be value in having policies and processes for "how
-> > do we carefully remove a driver/architecture/etc we think nobody cares
-> > about". That's separate from having an actual in-kernel list of "things
-> > we think we can remove".
-> 
-> I'm not sure the documents are the same.  I think what Arnd is proposing
-> is more of a "why is this thing still here?" document.  When someone does
-> research into who's still using a feature and why, that can be valuable information
-> to share so that future maintenance or removal decisions can be better informed.
-> 
-> Maybe e-mails are sufficient for this, but they'd be harder to find than something in
-> the kernel source. But that supposes that people would look at the file, which 
-> appears didn't happen with feature-removal-schedule.txt.
+The election for the Linux Foundation Technical Advisory Board (TAB) will
+be held virtually during the 2020 Kernel Summit and Linux Plumbers
+Conference, August 24-28 2020.  Nominations for candidates interested in
+serving on the TAB are currently being sought.
 
-Ah, I see. So this *isn't* about "features we want to remove", this is
-"features people might think we should remove, but here's the
-documentation for why we aren't"? More of an
-obscure-but-still-wanted-features.txt?
+The TAB serves as the interface between the kernel development community
+and the Linux Foundation, advising the Foundation on kernel-related
+matters, helping member companies learn to work with the community, and
+working to resolve community-related problems before they get out of hand.
+We also support the Code of Conduct committee in their mission.
+
+Over the last year, matters tended to by the TAB include proposals for
+developer workflow improvement, overseeing the Linux Plumbers Conference,
+moving toward more inclusive terminology in the kernel, and more.  Minutes
+from TAB meetings can be found here:
+
+	https://git.kernel.org/pub/scm/docs/tab/tab.git/tree/minutes
+
+The board has ten members, one of whom sits on the Linux Foundation board
+of directors.  Half of the board (five members) is elected every year to
+serve a two-year term.  The members whose terms are expiring this year are:
+
+	Chris Mason (chair)
+	Dan Williams
+	Kees Cook
+	Laura Abbott
+	Olof Johansson
+
+The remaining members' terms will expire in 2021:
+
+	Greg Kroah-Hartman
+	Jonathan Corbet
+	Sasha Levin
+	Steven Rostedt
+	Ted Ts'o
+	
+Anyone is eligible to stand for election; simply send your nomination to:
+
+	tech-board-discuss@lists.linux-foundation.org
+
+With your nomination, please include a short (<= 200 words) candidate
+statement focusing on why you are running and what you hope to accomplish
+on the TAB. We will be collecting these statements and making them publicly
+available.
+
+The deadline for receiving nominations is 9:00AM GMT-4 (US/Eastern) on
+August 24 (the first day of Kernel Summit). Due to the use of
+electronic voting, this will be a hard deadline!
+
+As always, please let us know if you have questions (the TAB can be reached
+at tech-board@lists.linuxfoundation.org), and please do consider running.
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
