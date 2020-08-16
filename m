@@ -2,81 +2,65 @@ Return-Path: <SRS0=dGYf=B2=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25A11C433DF
-	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 12:53:43 +0000 (UTC)
-Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 067DBC433DF
+	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 20:49:24 +0000 (UTC)
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EF064207FF
-	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 12:53:42 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ellerman.id.au header.i=@ellerman.id.au header.b="fb3+potx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF064207FF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ellerman.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id CA8F920866
+	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 20:49:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA8F920866
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ubuntu.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by whitealder.osuosl.org (Postfix) with ESMTP id 3302E87E5E;
-	Sun, 16 Aug 2020 12:53:42 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id A17D987E43;
+	Sun, 16 Aug 2020 20:49:23 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from whitealder.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 1J1KobUuSE0N; Sun, 16 Aug 2020 12:53:41 +0000 (UTC)
+	with ESMTP id n5BQiAxvONfh; Sun, 16 Aug 2020 20:49:20 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by whitealder.osuosl.org (Postfix) with ESMTP id 3023B87CB8;
-	Sun, 16 Aug 2020 12:53:41 +0000 (UTC)
+	by hemlock.osuosl.org (Postfix) with ESMTP id D576B8798B;
+	Sun, 16 Aug 2020 20:49:20 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 0BC15C088B;
-	Sun, 16 Aug 2020 12:53:41 +0000 (UTC)
-Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id D7D84C0051
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 97E8FC0889;
+	Sun, 16 Aug 2020 20:49:20 +0000 (UTC)
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 54FB8C0051
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 12:53:38 +0000 (UTC)
+ Sun, 16 Aug 2020 20:49:19 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by whitealder.osuosl.org (Postfix) with ESMTP id CD33587CB8
+ by hemlock.osuosl.org (Postfix) with ESMTP id 4488287D5E
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 12:53:38 +0000 (UTC)
+ Sun, 16 Aug 2020 20:49:19 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from whitealder.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id rANxRoJwVHvA
+ with ESMTP id LHMLFIsUAd06
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 12:53:37 +0000 (UTC)
-X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
- by whitealder.osuosl.org (Postfix) with ESMTPS id A48BA87C4A
+ Sun, 16 Aug 2020 20:49:18 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by hemlock.osuosl.org (Postfix) with ESMTPS id DC7B38798B
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 12:53:37 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4BTxtk1wzYz9sTR;
- Sun, 16 Aug 2020 22:53:32 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
- s=201909; t=1597582414;
- bh=xpLVIzLpo/1ZhQwWcKA7c8rb6SmsBOgSF5mqM7GHsWY=;
- h=From:To:Subject:In-Reply-To:References:Date:From;
- b=fb3+potxlS9NiACHDhstC8E0WATgvYJ9izglTZ2GSFNu31rYjqsHvMT3VxJ9fg6Od
- twnwYvGCoKrRjF7zJRv+8DnUIRRdHeBBq8NH+WFZ1q2oo8X6YmAmhM8rp6Ku5RSf9q
- HuktcBiE54nMDMbmWUpdYcah3fBc5THqFOJ0H77+s2WA2YKyTfQvbeT1z95WeSw58l
- brk3dL0BwZFiwYF58Cq08Mb1RLxfYAUOni1AlzkVVvSideVn8Qdn6kQP9Mo87oeOJm
- BNFEA037TPSBKGrvSeK5CpfSMa6c/xRWS7KYVHk9eqgVIVErt50sFLkjQaaygClnOW
- OjOMo8L55u9gg==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Arnd Bergmann <arnd@arndb.de>,
- ksummit <ksummit-discuss@lists.linuxfoundation.org>,
- Mike Rapoport <rppt@linux.ibm.com>, linux-arch <linux-arch@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-In-Reply-To: <CAK8P3a2PK_bC5=3wcWm43=y5xk-Dq5-fGPExJMnOrNfGfB1m1A@mail.gmail.com>
-References: <CAK8P3a2PK_bC5=3wcWm43=y5xk-Dq5-fGPExJMnOrNfGfB1m1A@mail.gmail.com>
-Date: Sun, 16 Aug 2020 22:53:29 +1000
-Message-ID: <874kp2ah12.fsf@mpe.ellerman.id.au>
+ Sun, 16 Aug 2020 20:49:17 +0000 (UTC)
+Received: from ip5f5af70b.dynamic.kabel-deutschland.de ([95.90.247.11]
+ helo=wittgenstein) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <christian.brauner@ubuntu.com>) id 1k7Pad-0001II-S3
+ for ksummit-discuss@lists.linuxfoundation.org; Sun, 16 Aug 2020 20:49:15 +0000
+Date: Sun, 16 Aug 2020 22:49:15 +0200
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20200816204915.hun44kawjmu46hpw@wittgenstein>
 MIME-Version: 1.0
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Planning code obsolescence
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Self-nomination for 2020 TAB election
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,79 +77,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-Arnd Bergmann <arnd@arndb.de> writes:
-> I have submitted the below as a topic for the linux/arch/* MC that Mike
-> and I run, but I suppose it also makes sense to discuss it on the
-> ksummit-discuss mailing list (cross-posted to linux-arch and lkml) as well
-> even if we don't discuss it at the main ksummit track.
->
->      Arnd
->
-> 8<---
-...
->
-> I propose adding a Documentation file that keeps track of any notable
-> kernel feature that could be classified as "obsolete", and listing
-> e.g. following properties:
->
-> * Kconfig symbol controlling the feature
->
-> * How long we expect to keep it as a minimum
->
-> * Known use cases, or other reasons this needs to stay
->
-> * Latest kernel in which it was known to have worked
->
-> * Contact information for known users (mailing list, personal email)
->
-> * Other features that may depend on this
->
-> * Possible benefits of eventually removing it
->
-> With that information, my hope is that it becomes easier to plan when
-> some code can be removed after the last users have stopped upgrading
-> their kernels, while also preventing code from being removed that is
-> actually still in active use.
->
-> In the discussion at the linux/arch/* MC, I would hope to answer these
-> questions:
->
-> * Do other developers find this useful to have?
+Hey,
 
-Yes!
+I would like to stand for election to the Technical Advisory Board.
 
-> * Where should the information be kept (Documentation/*, Kconfig,
-> MAINTAINERS, wiki.kernel.org, ...)
+I have been an active kernel contributor for about 5 years and a
+maintainer for about 2 years. I've been working on various parts of the
+kernel spanning multiple subsystems but often like to concentrate on
+process management, parts of the vfs, and security.
+I'm involved in developing and maintaining core technologies in the
+kernel that are in use in virtually all container runtimes and most
+sandboxing solutions across userspace. As a member of the TAB I'd like
+to help further the adoption of security relevant container features
+across the industry.
 
-Documentation/ seems like the obvious place. Possibly also somewhere on
-wiki.kernel.org or elsewhere so that people can contribute information
-without having to submit a formal patch.
+Being a maintainer of large userspace projects too, I have worked to
+bring kernel development and low-level userspace closer together. This
+aims to ensure improved API design and increased security for all
+distros and companies. This has already proven useful as we were adding
+various new userspace APIs that have seen rapid adoption over the last
+two years.
 
-> * Which information should be part of an entry?
+I really enjoy being part of the organizing committee of the Linux
+Plumbers conference this year. A healthy relationship between the Linux
+Foundation and Linux Plumbers and other kernel conferences is vital for
+the kernel community. Being a member of the TAB I'd like to maintain and
+strengthen that relationship!
 
-Your list above is pretty good.
+Being on the TAB I would also like to enable more young developers to
+take on responsibility in the kernel community. The TAB also is a great
+opportunity to not just help bring in new ideas but also to listen and
+learn from already established members.
 
-For features that relate to specific hardware I think it would be useful
-to have some more information.
+I am extremely grateful for the encouragement and nudges from existing
+and former TAB members to stand for election this year!
 
-For example when the hardware was last manufactured, who made it, how
-could it be purchased when it was available (eg. was it for sale to the
-public or in limited quantities or only to certain people or internal to
-a particular company).
+I'm always happy to answer any questions and welcome feedback of course.
+Just write me a mail or message me on Twitter (@brau_ner).
 
-
-> * What granularity should this be applied to -- only high-level features
-> like CPU architectures and subsystems, or individual drivers and machines?
-
-I think it can make sense at many levels. It probably just depends on
-how much effort folks want to go to in order to track down the
-information.
-
-Looking at powerpc it would be useful to have that sort of info for
-individual boards, as well as each platform, CPU families and specific
-drivers.
-
-cheers
+Thank you!
+Christian
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
