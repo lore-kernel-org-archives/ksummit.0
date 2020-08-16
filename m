@@ -2,64 +2,96 @@ Return-Path: <SRS0=dGYf=B2=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 067DBC433DF
-	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 20:49:24 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 515E9C433DF
+	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 22:20:45 +0000 (UTC)
+Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA8F920866
-	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 20:49:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA8F920866
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ubuntu.com
+	by mail.kernel.org (Postfix) with ESMTPS id 00DF12063A
+	for <ksummit-discuss@archiver.kernel.org>; Sun, 16 Aug 2020 22:20:44 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=labbott.name header.i=@labbott.name header.b="BXIXQBsC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00DF12063A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=labbott.name
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by hemlock.osuosl.org (Postfix) with ESMTP id A17D987E43;
-	Sun, 16 Aug 2020 20:49:23 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id B8D9587F02;
+	Sun, 16 Aug 2020 22:20:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id n5BQiAxvONfh; Sun, 16 Aug 2020 20:49:20 +0000 (UTC)
+	with ESMTP id m0sDGBxGtd2n; Sun, 16 Aug 2020 22:20:43 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by hemlock.osuosl.org (Postfix) with ESMTP id D576B8798B;
-	Sun, 16 Aug 2020 20:49:20 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id E310987EF9;
+	Sun, 16 Aug 2020 22:20:43 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 97E8FC0889;
-	Sun, 16 Aug 2020 20:49:20 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 54FB8C0051
+	by lists.linuxfoundation.org (Postfix) with ESMTP id AC7A7C088B;
+	Sun, 16 Aug 2020 22:20:43 +0000 (UTC)
+Received: from silver.osuosl.org (smtp3.osuosl.org [140.211.166.136])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 0FFBEC07FF
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 20:49:19 +0000 (UTC)
+ Sun, 16 Aug 2020 22:20:42 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hemlock.osuosl.org (Postfix) with ESMTP id 4488287D5E
+ by silver.osuosl.org (Postfix) with ESMTP id E26BF2077C
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 20:49:19 +0000 (UTC)
+ Sun, 16 Aug 2020 22:20:41 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from silver.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id LHMLFIsUAd06
+ with ESMTP id keWqZUOVehGE
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 20:49:18 +0000 (UTC)
-X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by hemlock.osuosl.org (Postfix) with ESMTPS id DC7B38798B
+ Sun, 16 Aug 2020 22:20:40 +0000 (UTC)
+X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171])
+ by silver.osuosl.org (Postfix) with ESMTPS id 35983204F9
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Sun, 16 Aug 2020 20:49:17 +0000 (UTC)
-Received: from ip5f5af70b.dynamic.kabel-deutschland.de ([95.90.247.11]
- helo=wittgenstein) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <christian.brauner@ubuntu.com>) id 1k7Pad-0001II-S3
- for ksummit-discuss@lists.linuxfoundation.org; Sun, 16 Aug 2020 20:49:15 +0000
-Date: Sun, 16 Aug 2020 22:49:15 +0200
-From: Christian Brauner <christian.brauner@ubuntu.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20200816204915.hun44kawjmu46hpw@wittgenstein>
+ Sun, 16 Aug 2020 22:20:40 +0000 (UTC)
+Received: by mail-qt1-f171.google.com with SMTP id f19so6613560qtp.2
+ for <ksummit-discuss@lists.linuxfoundation.org>;
+ Sun, 16 Aug 2020 15:20:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=labbott.name; s=google;
+ h=to:from:subject:message-id:date:user-agent:mime-version
+ :content-language:content-transfer-encoding;
+ bh=SX7G8ehdDcBrqW7hZKs8HUeUNjXYJNhoV7xWUTuvRfg=;
+ b=BXIXQBsCjdNe5JZhBu8ai8ELqekHWWpaCXYCr9vPZrMCzgQgr/pqGkQSJyqLIkdt5z
+ pgezbC9M6l17ByTsNVwJKO5yGvi30Wej+HWIZCOU8Kw2e+CEgX+pyU6xrIAjGkVVim/2
+ 7SAiPtHYAG/Sm68HW5Zko5wEHXav0aQOnXgK4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=SX7G8ehdDcBrqW7hZKs8HUeUNjXYJNhoV7xWUTuvRfg=;
+ b=Yg9IDKBwqBLWui+PRD0E5jk004b/BPW0TsCyk22wk+gS1ArfVNfOC2FPitCgMU7qJf
+ edXBxqjedjmKvwbs9cbHDY/CvTVXHqqP+PbWtqZmeamFnV1hahIGZXBF6WXhZupJ6b7C
+ USdgTm5Aq1SsmMqdzKfVgZwhpsRi4S9IYkOzUxfeCQcttpD3dPe1AnYcDx4yY3bIfqXH
+ d0utUYvu5dBx1UCZQg/7PcdWnI3lxUWGmEgxYhzxyR8AWb+WGuYevUswjVAVHMdsLal8
+ mpAFfMFR1BYtNoOoDrwR0YNUSQnVox6bapJN3XzSwlnf+8psPWhW2aRfLEwOUMbBFj0j
+ SFOg==
+X-Gm-Message-State: AOAM5329H0lIVnwgFlPJOjaapV8O5FsDggDqOLG6TXgClK3TblIQW8sC
+ BYm4ghGymksoXLHIYhEh2jlSYA==
+X-Google-Smtp-Source: ABdhPJz3ZFYqhjxZmwhe/Pi5mQHhlNbk1o6J+hSSeJJMbOyzFdzSDza6JUXk1aiDfORKo7UZGY+EpA==
+X-Received: by 2002:aed:27de:: with SMTP id m30mr10711745qtg.98.1597616439088; 
+ Sun, 16 Aug 2020 15:20:39 -0700 (PDT)
+Received: from [192.168.1.155] (pool-74-109-246-95.pitbpa.fios.verizon.net.
+ [74.109.246.95])
+ by smtp.gmail.com with ESMTPSA id o39sm17762067qtj.0.2020.08.16.15.20.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 16 Aug 2020 15:20:38 -0700 (PDT)
+To: ksummit-discuss@lists.linuxfoundation.org,
+ tech-board-discuss@lists.linuxfoundation.org
+From: Laura Abbott <laura@labbott.name>
+Message-ID: <e861adbb-5cf2-9e0b-3b4c-4268570c6401@labbott.name>
+Date: Sun, 16 Aug 2020 18:20:37 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:68.0)
+ Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
+Content-Language: en-US
 Subject: [Ksummit-discuss] Self-nomination for 2020 TAB election
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
@@ -72,51 +104,36 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>, 
  <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-Hey,
+Hi,
 
-I would like to stand for election to the Technical Advisory Board.
+I would like to nominate myself for re-election to the Technical
+Advisory Board. During my past two years on the TAB I've done
+a lot of work on elections. My focus has been on making sure that
+the TAB is representative of as much of the kernel community as
+possible. I've gotten to learn a lot of the history of the TAB
+and the problems its worked on in the past.
 
-I have been an active kernel contributor for about 5 years and a
-maintainer for about 2 years. I've been working on various parts of the
-kernel spanning multiple subsystems but often like to concentrate on
-process management, parts of the vfs, and security.
-I'm involved in developing and maintaining core technologies in the
-kernel that are in use in virtually all container runtimes and most
-sandboxing solutions across userspace. As a member of the TAB I'd like
-to help further the adoption of security relevant container features
-across the industry.
+My past kernel work has included everything from Android to pieces
+related to the Kernel Self-Protection Project. While no longer a
+kernel maintainer in my day job, I still support the kernel community
+and plan to continue participating in the future.
 
-Being a maintainer of large userspace projects too, I have worked to
-bring kernel development and low-level userspace closer together. This
-aims to ensure improved API design and increased security for all
-distros and companies. This has already proven useful as we were adding
-various new userspace APIs that have seen rapid adoption over the last
-two years.
+I've also served as chair for the online version for Linux Plumbers
+2020. Bringing Plumbers online has been a unique experience and
+I hope to continue working with the TAB to support Plumbers into
+whatever 2021 decides to bring.
 
-I really enjoy being part of the organizing committee of the Linux
-Plumbers conference this year. A healthy relationship between the Linux
-Foundation and Linux Plumbers and other kernel conferences is vital for
-the kernel community. Being a member of the TAB I'd like to maintain and
-strengthen that relationship!
+My goal for the future is to help make sure the TAB is focusing on
+the right problems and to support the kernel community as it
+continues to change and grow.
 
-Being on the TAB I would also like to enable more young developers to
-take on responsibility in the kernel community. The TAB also is a great
-opportunity to not just help bring in new ideas but also to listen and
-learn from already established members.
-
-I am extremely grateful for the encouragement and nudges from existing
-and former TAB members to stand for election this year!
-
-I'm always happy to answer any questions and welcome feedback of course.
-Just write me a mail or message me on Twitter (@brau_ner).
-
-Thank you!
-Christian
+Thanks,
+Laura
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
