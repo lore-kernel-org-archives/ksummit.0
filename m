@@ -2,107 +2,74 @@ Return-Path: <SRS0=QNS2=FH=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD45DC64E8A
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 10:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD39DC63777
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 10:41:00 +0000 (UTC)
 Received: from whitealder.osuosl.org (smtp1.osuosl.org [140.211.166.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CB5022267
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 10:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CB5022267
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	by mail.kernel.org (Postfix) with ESMTPS id 32DE422268
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 10:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32DE422268
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by whitealder.osuosl.org (Postfix) with ESMTP id A2A29871AF;
-	Thu,  3 Dec 2020 10:34:07 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id B9C898794F;
+	Thu,  3 Dec 2020 10:40:58 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from whitealder.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 90vcxjnN0t-1; Thu,  3 Dec 2020 10:34:04 +0000 (UTC)
+	with ESMTP id 0drvJnQwttXZ; Thu,  3 Dec 2020 10:40:55 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by whitealder.osuosl.org (Postfix) with ESMTP id D823887165;
-	Thu,  3 Dec 2020 10:34:04 +0000 (UTC)
+	by whitealder.osuosl.org (Postfix) with ESMTP id 586DA87597;
+	Thu,  3 Dec 2020 10:40:55 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id A5BE1C0FA8;
-	Thu,  3 Dec 2020 10:34:04 +0000 (UTC)
-Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 2242EC0FA7
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 1C43CC0FA8;
+	Thu,  3 Dec 2020 10:40:55 +0000 (UTC)
+Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id EDDB7C0FA7
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 10:34:03 +0000 (UTC)
+ Thu,  3 Dec 2020 10:40:53 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by fraxinus.osuosl.org (Postfix) with ESMTP id 1DA81873F3
+ by hemlock.osuosl.org (Postfix) with ESMTP id D3B34879A3
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 10:34:03 +0000 (UTC)
+ Thu,  3 Dec 2020 10:40:53 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from fraxinus.osuosl.org ([127.0.0.1])
+Received: from hemlock.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Aggd3je-QhtK
+ with ESMTP id fJDOLHh-An6w
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 10:34:02 +0000 (UTC)
+ Thu,  3 Dec 2020 10:40:53 +0000 (UTC)
 X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- by fraxinus.osuosl.org (Postfix) with ESMTPS id E0184873DD
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by hemlock.osuosl.org (Postfix) with ESMTPS id 1B869876EB
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 10:34:01 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B3AP3p7117317;
- Thu, 3 Dec 2020 10:34:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=TEhTRIN7rFpOA7sX+QvScPL0U2A4SN0Yj7HS3C0kpTE=;
- b=WQ3PEb7gzHJxQE/naB5w9UwVi5g+GBzURGK24Isqphf7mqdA01BYqE8cba19rCD0Tkh8
- om2Qt+MNOaQGsqEt67J98m9Xc41zFK1dZfXDj+CkPi55CgGHR4CxUyX5mwlu2oWqA8ca
- Rz5mmoVM0i1nCjytU/WpFz078gEKD7j5l7/9pbeYdJ2gSUHE0lEvkjQdAgr3uYHTtpas
- 9uAENQ/vZ/FJLBASnejGUrV0CoAn/S+JnorF9IDcu6bNymDTvm8WUn7GWQ5kpVSgWg5s
- R87vPoT9rPpdMDsLDbpIJj8+b7PuNv/49Mz/188jVYFS6ITFp+fgPRy7jxqQtjzbVSsw Vw== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2130.oracle.com with ESMTP id 353c2b57q5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 03 Dec 2020 10:34:00 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B3APQSe080729;
- Thu, 3 Dec 2020 10:34:00 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 3540g1fs7a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 03 Dec 2020 10:33:59 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B3AXwW4021196;
- Thu, 3 Dec 2020 10:33:58 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 03 Dec 2020 02:33:57 -0800
-Date: Thu, 3 Dec 2020 13:33:51 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <20201203103351.GR2767@kadam>
+ Thu,  3 Dec 2020 10:40:53 +0000 (UTC)
+Date: Thu, 3 Dec 2020 12:40:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1606992052;
+ bh=dD1tNfbjy4g7n5/kwWrtw2G3dq9qRPl92SifAh9QCfs=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E5dDR8xOCaYy4R6xs3EFeMHJBUtGRGTOCDCYgSGR7zJz20/fUXrV9h7EBQiD1Hqn2
+ AKb6Ftvub1dVIEx+Ijsei3q+M52I4JVgMNj2XFvFRaBtqNjOxuM3fTWRIC37Nn0TwS
+ Ocw/tN8Olc+TZmdc+tR636MJTzmzRHxBWtzTGbEjdNrbaScIxNY+gbMZ51Ikq3MKVc
+ s6KEoKn+P9hlDOj/EOxhW64+B7zpBjO95UHH607GHnt0Ia1C8McZUEhxWRFvKIKSj3
+ ZsDmP0u1P0LvVkWzBWrrWsikwvgg2kGbx0jschderVlJBAYAg/YvmuyA4BOWHkkYTg
+ ZK/KyF3cSfpJA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20201203104047.GD16543@unreal>
 References: <ea32eb02-5e44-0469-772b-34b5cb882543@suse.cz>
+ <CAPcyv4jDHMt4PpR2Htvw27rn5i5sCkwXtoZH-rFbtG8Hj7x1sg@mail.gmail.com>
+ <20201203093458.GA16543@unreal>
+ <CAMuHMdVcPELarE=eJEc-=AdyfmhhZQsYtUggWCaetuEdk=VpMQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ea32eb02-5e44-0469-772b-34b5cb882543@suse.cz>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- suspectscore=0
- phishscore=0 mlxlogscore=999 adultscore=0 mlxscore=0 bulkscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012030063
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- lowpriorityscore=0
- clxscore=1011 bulkscore=0 mlxlogscore=999 phishscore=0 malwarescore=0
- spamscore=0 adultscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012030063
-Cc: LKML <linux-kernel@vger.kernel.org>,
+In-Reply-To: <CAMuHMdVcPELarE=eJEc-=AdyfmhhZQsYtUggWCaetuEdk=VpMQ@mail.gmail.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>, LKML <linux-kernel@vger.kernel.org>,
  "ksummit-discuss@lists.linuxfoundation.org"
  <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] crediting bug reports and fixes folded into
@@ -123,15 +90,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-I'd like a "Fixes-from: Name email" tag for when someone spots a bug in
-a patch.
+On Thu, Dec 03, 2020 at 10:36:56AM +0100, Geert Uytterhoeven wrote:
+> On Thu, Dec 3, 2020 at 10:35 AM Leon Romanovsky <leon@kernel.org> wrote:
+> > On Wed, Dec 02, 2020 at 08:02:27PM -0800, Dan Williams wrote:
+> > > On Wed, Dec 2, 2020 at 3:44 PM Vlastimil Babka <vbabka@suse.cz> wrote:
+> > > > there was a bit of debate on Twitter about this, so I thought I would bring it
+> > > > here. Imagine a scenario where patch sits as a commit in -next and there's a bug
+> > > > report or fix, possibly by a bot or with some static analysis. The maintainer
+> > > > decides to fold it into the original patch, which makes sense for e.g.
+> > > > bisectability. But there seem to be no clear rules about attribution in this
+> > > > case, which looks like there should be, probably in
+> > > > Documentation/maintainer/modifying-patches.rst
+> > > >
+> > > > The original bug fix might include a From: $author, a Reported-by: (e.g.
+> > > > syzbot), Fixes: $next-commit, some tag such as Addresses-Coverity: to credit the
+> > > > static analysis tool, and an SoB. After folding, all that's left might be a line
+> > > > as "include fix from $author" in the SoB area. This is a loss of
+> > > > metadata/attribution just due to folding, and might make contributors unhappy.
+> > > > Had they sent the fix after the original commit was mainline and immutable, all
+> > > > the info above would "survive" in the form of new commit.
+> > > >
+> > > > So I think we could decide what the proper format would be, and document it
+> > > > properly. I personally wouldn't mind just copy/pasting the whole commit message
+> > > > of the fix (with just a short issue description, no need to include stacktraces
+> > > > etc if the fix is folded), we could just standardize where, and how to delimit
+> > > > it from the main commit message. If it's a report (person or bot) of a bug that
+> > > > the main author then fixed, preserve the Reported-by in the same way (making
+> > > > clear it's not a Reported-By for the "main thing" addressed by the commit).
+> > > >
+> > > > In the debate one less verbose alternatve proposed was a SoB with comment
+> > > > describing it's for a fix and not whole patch, as some see SoB as the main mark
+> > > > of contribution, that can be easily found and counted etc. I'm not so sure about
+> > > > it myself, as AFAIK SoB is mainly a DCO thing, and for a maintainer it means
+> > > > something else ("passed through my tree") than for a patch author. And this
+> > > > approach would still lose the other tags.
+> > > >
+> > > > Thoughts?
+> > >
+> > > How about a convention to add a Reported-by: and a Link: to the
+> > > incremental fixup discussion? It's just polite to credit helpful
+> > > feedback, not sure it needs a more formal process.
+> >
+> > Maybe "Fixup-Reported-by:" and "Fixup-Link:"?
+>
+> And "Earlier-Review-Comments-Provided-by:"?
+>
+> How far do we want to go?
 
-I think we should not give credit for style complaints, because those
-are their own reward and we already have enough bike shedding.
+I don't want to overload existing meaning of "Reported-by:" and "Link:",
+so anything else is fine by me.
 
-regards,
-dan carpenter
+I imagine that all those who puts their own Reviewed-by, Signed-off-by
+and Tested-by in the same patch will be happy to use something like you
+are proposing - "Co-developed-Signed-Reviewed-Tested-by:" tag.
 
+Thanks
+
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
