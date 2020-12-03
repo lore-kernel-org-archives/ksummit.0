@@ -2,81 +2,74 @@ Return-Path: <SRS0=QNS2=FH=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DCA4C4361A
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 16:56:09 +0000 (UTC)
-Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7003CC433FE
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 18:29:41 +0000 (UTC)
+Received: from fraxinus.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2AFDE207A5
-	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 16:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AFDE207A5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id D1027208BA
+	for <ksummit-discuss@archiver.kernel.org>; Thu,  3 Dec 2020 18:29:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1027208BA
+Authentication-Results: mail.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by hemlock.osuosl.org (Postfix) with ESMTP id 96578879F6;
-	Thu,  3 Dec 2020 16:56:05 +0000 (UTC)
+	by fraxinus.osuosl.org (Postfix) with ESMTP id 47A098742A;
+	Thu,  3 Dec 2020 18:29:40 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from hemlock.osuosl.org ([127.0.0.1])
+Received: from fraxinus.osuosl.org ([127.0.0.1])
 	by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id YbvkY1jKPdN3; Thu,  3 Dec 2020 16:56:03 +0000 (UTC)
+	with ESMTP id FBKL5JlI18-n; Thu,  3 Dec 2020 18:29:39 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by hemlock.osuosl.org (Postfix) with ESMTP id 5EC138795B;
-	Thu,  3 Dec 2020 16:56:03 +0000 (UTC)
+	by fraxinus.osuosl.org (Postfix) with ESMTP id AAC258740E;
+	Thu,  3 Dec 2020 18:29:39 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 34D59C0FA8;
-	Thu,  3 Dec 2020 16:56:03 +0000 (UTC)
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 7AAFAC0FA8;
+	Thu,  3 Dec 2020 18:29:39 +0000 (UTC)
 Received: from hemlock.osuosl.org (smtp2.osuosl.org [140.211.166.133])
- by lists.linuxfoundation.org (Postfix) with ESMTP id D4735C0FA7
+ by lists.linuxfoundation.org (Postfix) with ESMTP id EB18FC0FA7
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 16:56:01 +0000 (UTC)
+ Thu,  3 Dec 2020 18:29:38 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by hemlock.osuosl.org (Postfix) with ESMTP id CA3BC878FA
+ by hemlock.osuosl.org (Postfix) with ESMTP id E6F0387B3B
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 16:56:01 +0000 (UTC)
+ Thu,  3 Dec 2020 18:29:38 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
 Received: from hemlock.osuosl.org ([127.0.0.1])
  by localhost (.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id NJOW8DlN4ZhQ
+ with ESMTP id NyC0GeRoOZeV
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 16:56:00 +0000 (UTC)
+ Thu,  3 Dec 2020 18:29:38 +0000 (UTC)
 X-Greylist: from auto-whitelisted by SQLgrey-1.7.6
-Received: from smtprelay.hostedemail.com (smtprelay0178.hostedemail.com
- [216.40.44.178])
- by hemlock.osuosl.org (Postfix) with ESMTPS id CDFFF877D3
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by hemlock.osuosl.org (Postfix) with ESMTPS id 448C587B33
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 16:56:00 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
- [10.5.19.251])
- by smtpgrave05.hostedemail.com (Postfix) with ESMTP id A1D15182888AA
- for <ksummit-discuss@lists.linuxfoundation.org>;
- Thu,  3 Dec 2020 16:55:59 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay06.hostedemail.com (Postfix) with ESMTP id 35ED118224D60;
- Thu,  3 Dec 2020 16:55:57 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: grain99_2c007c7273bd
-X-Filterd-Recvd-Size: 2150
-Received: from XPS-9350.home (unknown [47.151.137.21])
- (Authenticated sender: joe@perches.com)
- by omf15.hostedemail.com (Postfix) with ESMTPA;
- Thu,  3 Dec 2020 16:55:56 +0000 (UTC)
-Message-ID: <3c11134905f06185dda4e9125f2fb7fd30fff979.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, Vlastimil Babka
- <vbabka@suse.cz>, "ksummit-discuss@lists.linuxfoundation.org"
- <ksummit-discuss@lists.linuxfoundation.org>
-Date: Thu, 03 Dec 2020 08:55:54 -0800
-In-Reply-To: <694039d6e386d999fd74d038cf2627f5b3b0ca71.camel@HansenPartnership.com>
+ Thu,  3 Dec 2020 18:29:38 +0000 (UTC)
+Date: Thu, 3 Dec 2020 19:30:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1607020177;
+ bh=3XXWrx8mR/m+t5lqkDosOVllizg8JN+/aY2WXeZoxPU=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E+wVhhb8vKwfRAXg4lMwE0CQiykQ9fvsp0GdOILSHjBhqBWfPpTZABOCqifxuOXA6
+ PyMh1wR0QfzYpsFNWgxn7dbQhaAui5QFdNf9QFNnVfDDqVQJdR/hrxP7UrO0xxSbvK
+ bzcukMCzOs51okUrLKRnhBeU1xK11BD1uBo20zUo=
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Leon Romanovsky <leon@kernel.org>
+Message-ID: <X8ku1MmZeeIaMRF4@kroah.com>
 References: <ea32eb02-5e44-0469-772b-34b5cb882543@suse.cz>
- <694039d6e386d999fd74d038cf2627f5b3b0ca71.camel@HansenPartnership.com>
-User-Agent: Evolution 3.38.1-1 
+ <CAPcyv4jDHMt4PpR2Htvw27rn5i5sCkwXtoZH-rFbtG8Hj7x1sg@mail.gmail.com>
+ <20201203093458.GA16543@unreal>
+ <CAMuHMdVcPELarE=eJEc-=AdyfmhhZQsYtUggWCaetuEdk=VpMQ@mail.gmail.com>
+ <20201203104047.GD16543@unreal>
 MIME-Version: 1.0
-Cc: LKML <linux-kernel@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20201203104047.GD16543@unreal>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+ <ksummit-discuss@lists.linuxfoundation.org>,
+ LKML <linux-kernel@vger.kernel.org>, Vlastimil Babka <vbabka@suse.cz>
 Subject: Re: [Ksummit-discuss] crediting bug reports and fixes folded into
  original patch
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
@@ -95,33 +88,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Thu, 2020-12-03 at 05:58 -0800, James Bottomley wrote:
-> So there are two embedded questions here: firstly, should we be as
-> wedded to clean history as we are, because showing the evolution would
-> simply solve this?  Secondly, if we are agreed on clean history, how
-> can we make engagement via email as important as engagement via commit
-> for the community managers so the Link tag is enough?  I've got to say
-> I think trying to add tags to recognize patch evolution is a mistake
-> and we instead investigate one of the two proposals above.
+On Thu, Dec 03, 2020 at 12:40:47PM +0200, Leon Romanovsky wrote:
+> On Thu, Dec 03, 2020 at 10:36:56AM +0100, Geert Uytterhoeven wrote:
+> > On Thu, Dec 3, 2020 at 10:35 AM Leon Romanovsky <leon@kernel.org> wrote:
+> > > On Wed, Dec 02, 2020 at 08:02:27PM -0800, Dan Williams wrote:
+> > > > On Wed, Dec 2, 2020 at 3:44 PM Vlastimil Babka <vbabka@suse.cz> wrote:
+> > > > > there was a bit of debate on Twitter about this, so I thought I would bring it
+> > > > > here. Imagine a scenario where patch sits as a commit in -next and there's a bug
+> > > > > report or fix, possibly by a bot or with some static analysis. The maintainer
+> > > > > decides to fold it into the original patch, which makes sense for e.g.
+> > > > > bisectability. But there seem to be no clear rules about attribution in this
+> > > > > case, which looks like there should be, probably in
+> > > > > Documentation/maintainer/modifying-patches.rst
+> > > > >
+> > > > > The original bug fix might include a From: $author, a Reported-by: (e.g.
+> > > > > syzbot), Fixes: $next-commit, some tag such as Addresses-Coverity: to credit the
+> > > > > static analysis tool, and an SoB. After folding, all that's left might be a line
+> > > > > as "include fix from $author" in the SoB area. This is a loss of
+> > > > > metadata/attribution just due to folding, and might make contributors unhappy.
+> > > > > Had they sent the fix after the original commit was mainline and immutable, all
+> > > > > the info above would "survive" in the form of new commit.
+> > > > >
+> > > > > So I think we could decide what the proper format would be, and document it
+> > > > > properly. I personally wouldn't mind just copy/pasting the whole commit message
+> > > > > of the fix (with just a short issue description, no need to include stacktraces
+> > > > > etc if the fix is folded), we could just standardize where, and how to delimit
+> > > > > it from the main commit message. If it's a report (person or bot) of a bug that
+> > > > > the main author then fixed, preserve the Reported-by in the same way (making
+> > > > > clear it's not a Reported-By for the "main thing" addressed by the commit).
+> > > > >
+> > > > > In the debate one less verbose alternatve proposed was a SoB with comment
+> > > > > describing it's for a fix and not whole patch, as some see SoB as the main mark
+> > > > > of contribution, that can be easily found and counted etc. I'm not so sure about
+> > > > > it myself, as AFAIK SoB is mainly a DCO thing, and for a maintainer it means
+> > > > > something else ("passed through my tree") than for a patch author. And this
+> > > > > approach would still lose the other tags.
+> > > > >
+> > > > > Thoughts?
+> > > >
+> > > > How about a convention to add a Reported-by: and a Link: to the
+> > > > incremental fixup discussion? It's just polite to credit helpful
+> > > > feedback, not sure it needs a more formal process.
+> > >
+> > > Maybe "Fixup-Reported-by:" and "Fixup-Link:"?
+> >
+> > And "Earlier-Review-Comments-Provided-by:"?
+> >
+> > How far do we want to go?
+> 
+> I don't want to overload existing meaning of "Reported-by:" and "Link:",
+> so anything else is fine by me.
+> 
+> I imagine that all those who puts their own Reviewed-by, Signed-off-by
+> and Tested-by in the same patch will be happy to use something like you
+> are proposing - "Co-developed-Signed-Reviewed-Tested-by:" tag.
 
-I don't care that any trivial style notes I give to anyone
-are tracked for posterity.
-
-Who are these 'community managers' that use these?
-
-Signatures are a mechanism for credit tracking isn't great.
-
-One style that seems to have been generally accepted is for
-patch revision change logs to be noted below a --- line.
-
-Often that change log will shows various improvements made
-to a patch and the people and reasoning that helped make
-those improvements.
-
-Perhaps automate a mechanism to capture that information as
-git notes for the patches when applied.
-
-
+We already have "Co-developerd-by:" as a valid tag, no need to merge
+more into this :)
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
