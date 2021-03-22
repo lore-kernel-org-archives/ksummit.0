@@ -2,97 +2,102 @@ Return-Path: <SRS0=ZpVE=IU=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE556C433C1
-	for <ksummit-discuss@archiver.kernel.org>; Mon, 22 Mar 2021 16:55:20 +0000 (UTC)
-Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73BD2C433C1
+	for <ksummit-discuss@archiver.kernel.org>; Mon, 22 Mar 2021 17:16:44 +0000 (UTC)
+Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D05161990
-	for <ksummit-discuss@archiver.kernel.org>; Mon, 22 Mar 2021 16:55:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D05161990
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 14CC261972
+	for <ksummit-discuss@archiver.kernel.org>; Mon, 22 Mar 2021 17:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14CC261972
+Authentication-Results: mail.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by smtp4.osuosl.org (Postfix) with ESMTP id D87E440325;
-	Mon, 22 Mar 2021 16:55:19 +0000 (UTC)
+	by smtp2.osuosl.org (Postfix) with ESMTP id BAA82402BA;
+	Mon, 22 Mar 2021 17:16:43 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from smtp4.osuosl.org ([127.0.0.1])
-	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id rjKUaz8JkcBa; Mon, 22 Mar 2021 16:55:18 +0000 (UTC)
+Received: from smtp2.osuosl.org ([127.0.0.1])
+	by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 499e9Bqrqk-1; Mon, 22 Mar 2021 17:16:42 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by smtp4.osuosl.org (Postfix) with ESMTP id D1F5040339;
-	Mon, 22 Mar 2021 16:55:17 +0000 (UTC)
+	by smtp2.osuosl.org (Postfix) with ESMTP id 02B3A4027F;
+	Mon, 22 Mar 2021 17:16:41 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id 8DAFEC000A;
-	Mon, 22 Mar 2021 16:55:17 +0000 (UTC)
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [IPv6:2605:bc80:3010::138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 7E73AC0001
+	by lists.linuxfoundation.org (Postfix) with ESMTP id B8DD5C000B;
+	Mon, 22 Mar 2021 17:16:41 +0000 (UTC)
+Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id A3B53C0001
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Mon, 22 Mar 2021 16:55:16 +0000 (UTC)
+ Mon, 22 Mar 2021 17:16:40 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by smtp1.osuosl.org (Postfix) with ESMTP id 6C77883134
+ by smtp4.osuosl.org (Postfix) with ESMTP id 8F877402C5
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Mon, 22 Mar 2021 16:55:16 +0000 (UTC)
+ Mon, 22 Mar 2021 17:16:40 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Authentication-Results: smtp1.osuosl.org (amavisd-new);
- dkim=pass (2048-bit key) header.d=gmail.com
-Received: from smtp1.osuosl.org ([127.0.0.1])
- by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 2RTGKbBnkHEc
+Authentication-Results: smtp4.osuosl.org (amavisd-new);
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+Received: from smtp4.osuosl.org ([127.0.0.1])
+ by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id UBfOjcTgmzvF
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Mon, 22 Mar 2021 16:55:14 +0000 (UTC)
+ Mon, 22 Mar 2021 17:16:39 +0000 (UTC)
 X-Greylist: whitelisted by SQLgrey-1.8.0
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by smtp1.osuosl.org (Postfix) with ESMTPS id D5A4283096
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
+ by smtp4.osuosl.org (Postfix) with ESMTPS id A567C402C4
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Mon, 22 Mar 2021 16:55:14 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id u10so15471017ilb.0
+ Mon, 22 Mar 2021 17:16:39 +0000 (UTC)
+Received: by mail-qt1-x831.google.com with SMTP id s2so12897767qtx.10
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Mon, 22 Mar 2021 09:55:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ngARvZf0Hr9eoT5wywWQfkd9nJk4dz1wJXXtIU4BmYk=;
- b=htInPnZg4vA+r7OCPDFJS5+IlPc32tImgeocBgZqDXhlQuU7p+XXJBReMc1MYJti4O
- Ut1bxDZCaEWVUImDpMrOHozfrOuDFW0XbytfEtkVQ6sHUNkdHsm+HRfsTghbR10Hy2zR
- gux3CXoHNFlrQ/woLzePzXIXyTbVKcN9Rd/JaLQtAPScMbH9cTjrF2vLFIrkV2/m0nUM
- a4Jb0G30nFUQ4hqO1RF1lctYzuVEhS9Cwrh/u/D7i1+vxXJSoO29Slngf/5QM3Tso+Sr
- GfqASeS7M6XS3DnKDDN4yDiK4eKyIAadNYth7mLi7gMkyfnVtSThMeDYjzOIb8XWqoZn
- owVg==
+ Mon, 22 Mar 2021 10:16:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=AOzWwNh9Z9Q2fPxgCHDYPxpc0oqGNwrpuGjPzRTDOYM=;
+ b=SUPXIeJkm8BeqFPeZOhFyudDzS8X+Q3bXG7r/aza6Z9TpqZXVn/JWTdHwTjt7pO1Di
+ 2mdLRNSeZt0mL+p9bkjlJ12mu38eSVhX/qcLwxXOaJ3V4NU/7rpg65aRD1C7wHvTWmHk
+ jT/MgB55wcXIxwl63yMiCJDwSsui3U08+dwDI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ngARvZf0Hr9eoT5wywWQfkd9nJk4dz1wJXXtIU4BmYk=;
- b=jrFr4qE9xxhdxdmcyOmfTT+t3JLW2p2JObahy9OoG/aL2Al3ISaEjSu0z98ERG4IVH
- 24Uu+Sq9rnBtaux/B+pwqE3GWhzKlfqB6xc5oezh1j85Um71lBng8xDUrKvWUrmMx8h9
- /584tdUmz6bwxgWQNlqqIBT51yNPCrHggN5znn14U3TfzwAMOKHvPUUMOOfPet5rYwF8
- xncnkGWglBfr3zsZO5xQMYajSyy8cYgiNyzIN/RqinsUvBRSCgVtkoQoV+13tpr++IrZ
- a6JugJQN+flSipEp7ZGwfjqjtfvhLGGCTY5uoJTIKIrfQr63Njgv6qtPpOCaGbYNHfqz
- oUZQ==
-X-Gm-Message-State: AOAM533fYr5LzR4dbZQiAHm5U5nl5+F1fKEn81lc1qapa+eZpTKJG23J
- lir0P6cQqO71B+q6EbefOADGAKl15c1h/2z4iLg=
-X-Google-Smtp-Source: ABdhPJyuJC5hVCu0FCRaN9RV2YxF9x8kaHOn+ZjQHGxHWHv3o0Td39BXmxSaDgG62GosSCT8X7bL+vwO2jxcpkFsiSA=
-X-Received: by 2002:a05:6e02:1049:: with SMTP id
- p9mr790208ilj.125.1616432113856; 
- Mon, 22 Mar 2021 09:55:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <613fe50d-fc9c-6282-f1f3-34653acb2ee9@leemhuis.info>
-In-Reply-To: <613fe50d-fc9c-6282-f1f3-34653acb2ee9@leemhuis.info>
-From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Date: Mon, 22 Mar 2021 17:55:05 +0100
-Message-ID: <CAKXUXMw7kHBPov23kF1HUBrW9DL+huqAG8ZRLJwGgU67nCOPeg@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=AOzWwNh9Z9Q2fPxgCHDYPxpc0oqGNwrpuGjPzRTDOYM=;
+ b=LBKUinmu85rvww6B6OBMDdiYj35bvlZ/0EwfWcabhFl5Z9sxO5UMnPkqWksTQrYf0W
+ SstZPF1G2fEVAM0waluxPO+wos2kWMOcyJ30CJhUkG2ydFYinCe0ppMDZjl5LlPVPFkc
+ hD41uud8XXxE2ZF1TaKKga8FYa4bhfxztq9nUoxaQdg82xGVq6hewbn0x+9bJ63Bayt+
+ MU43QSuFnZCHgSzgacYPXli/ikJo6RvHCDdDalJ9xDEHdPvGm76P/7JXUfQ8+Kr+0IKW
+ jpZS2OfLPJ9EtBwundEtaD2V0rqLXPCaR7BUoFscR92qjkIhu6vEy35eCo7Ssr4ZV77C
+ VsDA==
+X-Gm-Message-State: AOAM533XJqTbKz7fgPb/bgsfC9/N6SDwxg6Q7w/5Jd/Sv22VVLm+aTNI
+ z7nGNSBsGCjRGGlxzi2TUa+SE9kl
+X-Google-Smtp-Source: ABdhPJy/CiFfBssEItdA5oVBV2QXfAv2XhDWbXT90l7G5Lo5Ba8ddKwgyAendg7ze94cnMR379PEvA==
+X-Received: by 2002:ac8:4a19:: with SMTP id x25mr850552qtq.271.1616433398205; 
+ Mon, 22 Mar 2021 10:16:38 -0700 (PDT)
+Received: from chatter.i7.local ([89.36.78.230])
+ by smtp.gmail.com with ESMTPSA id o197sm11087024qka.26.2021.03.22.10.16.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Mar 2021 10:16:37 -0700 (PDT)
+Date: Mon, 22 Mar 2021 13:16:36 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
- Greg KH <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- workflows@vger.kernel.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Message-ID: <20210322171636.fkep2lby6gnve4su@chatter.i7.local>
+Mail-Followup-To: Thorsten Leemhuis <linux@leemhuis.info>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ ksummit-discuss@lists.linuxfoundation.org,
+ workflows@vger.kernel.org
+References: <613fe50d-fc9c-6282-f1f3-34653acb2ee9@leemhuis.info>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <613fe50d-fc9c-6282-f1f3-34653acb2ee9@leemhuis.info>
+Cc: Greg KH <gregkh@linuxfoundation.org>, workflows@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] RFC: create mailing list "linux-issues"
  focussed on issues/bugs and regressions
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
@@ -111,67 +116,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On Mon, Mar 22, 2021 at 4:38 PM Thorsten Leemhuis <linux@leemhuis.info> wrote:
->
->
-> Lo! I want to provide users with an easier way to search our multitude
-> of mailing lists for reports about issues (aka bugs), as reporting the
-> same kernel problem multiple times has known downsides for everyone
-> involved. That's why I propose to create this new mailing list:
->
-> linux-issues@lists.linux.dev
->
-> Developers and users reporting or handling issues then can CC it or
-> search it via lore. But this will only fly if the idea has buy-in from
-> at least the core kernel maintainers, to make sure they and the
-> developers actually use it. That's why I'm looking for feedback with
-> this mail and also CCed ksummit-discuss, as that's the easiest way to
-> make sure maintainers get aware of this idea and can raise their voice.
->
->
+On Mon, Mar 22, 2021 at 04:18:14PM +0100, Thorsten Leemhuis wrote:
 > Note, there is a second reason why ksummit-discuss is CCed: another
 > reason why I want to create this new list is making it easier to find
 > and track regressions reported to our various mailing lists (often
 > without LKML in CC, as for some subsystems it's seems to be custom to
-> not CC it). Back on the maintainers summit in 2017 it was agreed to
-> create a dedicated list for this purpose
-> (https://lwn.net/Articles/738216/). I even requested a
-> "linux-regressions@vger.kernel.org" a while later, but didn't hear
-> anything back; and, sadly, about the same time I started having trouble
-> finding spare time for working on regression tracking. :-/
->
-> But I soon will get back into that area:
-> https://linux-regtracking.leemhuis.info/post/hello-world/ Hence it's a
-> good time to prepare some groundwork for that. But these days I think
-> having something like linux-regressions@lists.linux.dev might be over
-> engineered, at least for now: a linux-issues@lists.linux.dev with a
-> simple "[regressions]" in the subject will suffice, as that tag is
-> something a lot of people are used to already. And if we think we need
-> that list we can still create it in the future. Or what do you folks
-> think about it?
->
+> not CC it). 
 
-Thorsten, I generally support this initiative. I am just wondering:
+FYI, there will soon be a unified "search all of lore.kernel.org regardless of
+the list/feed source" capability that may make it unnecessary to create a
+separate list for this purpose. There's active ongoing work in the
+public-inbox project to provide parallel ways to follow aggregate topics,
+including query-based subscriptions (i.e. "put a thread into my inbox whenever
+someone mentions my favourite file/function/device name"). This work is not
+complete yet, but I have great hopes that it will become available in the next
+little while.
 
-What is the definition of an issue for you?
+Once we have this ability, we should be able to plug in multiple sources
+beyond just mailing lists, including a feed of all bugzilla.kernel.org
+changes. This should allow someone an easy way to query specific bugs and may
+not require the creation of a separate list.
 
-Just four examples that come to my mind:
+I'm not opposed to the creation of a new list, of course -- just want to make
+sure it's aligned with the improvements we are working to make available.
 
-- all the warnings that Stephen Rothwell reports on linux-next, such
-as https://lore.kernel.org/linux-next/20210322170452.726525e8@canb.auug.org.au/
-or https://lore.kernel.org/linux-next/20210322075108.3967d5d1@canb.auug.org.au/?
-- all the issues that the kernel test robot reports?
-- all the errors and warnings that kernel ci reports? Basically, each
-"issue" that is already aggregated in this email,
-https://lore.kernel.org/linux-next/6058787c.1c69fb81.d3f10.8c6d@mx.google.com/?
-- all the syzbot reports?
-
-Are you including all those automatic testing and checking efforts as
-reporting valid "issues"? Or would you like to keep this list only for
-reports from single individual human users that need to detect the
-"issue" without using one of the tools above?
-
-Lukas
+-K
 _______________________________________________
 Ksummit-discuss mailing list
 Ksummit-discuss@lists.linuxfoundation.org
