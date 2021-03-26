@@ -2,76 +2,74 @@ Return-Path: <SRS0=v+8f=IY=lists.linuxfoundation.org=ksummit-discuss-bounces@ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07F61C433DB
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 26 Mar 2021 06:19:15 +0000 (UTC)
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81505C433C1
+	for <ksummit-discuss@archiver.kernel.org>; Fri, 26 Mar 2021 06:20:00 +0000 (UTC)
+Received: from smtp4.osuosl.org (smtp4.osuosl.org [140.211.166.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C28961A38
-	for <ksummit-discuss@archiver.kernel.org>; Fri, 26 Mar 2021 06:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C28961A38
+	by mail.kernel.org (Postfix) with ESMTPS id F237061A3F
+	for <ksummit-discuss@archiver.kernel.org>; Fri, 26 Mar 2021 06:19:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F237061A3F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=ksummit-discuss-bounces@lists.linuxfoundation.org
 Received: from localhost (localhost [127.0.0.1])
-	by smtp1.osuosl.org (Postfix) with ESMTP id 2A38B84A6C;
-	Fri, 26 Mar 2021 06:19:14 +0000 (UTC)
+	by smtp4.osuosl.org (Postfix) with ESMTP id B4C25414DE;
+	Fri, 26 Mar 2021 06:19:59 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from smtp1.osuosl.org ([127.0.0.1])
-	by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 10oezvpQBDrA; Fri, 26 Mar 2021 06:19:12 +0000 (UTC)
+Received: from smtp4.osuosl.org ([127.0.0.1])
+	by localhost (smtp4.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id WsgufsBD5rle; Fri, 26 Mar 2021 06:19:58 +0000 (UTC)
 Received: from lists.linuxfoundation.org (lf-lists.osuosl.org [140.211.9.56])
-	by smtp1.osuosl.org (Postfix) with ESMTP id EA0C084A5A;
-	Fri, 26 Mar 2021 06:19:11 +0000 (UTC)
+	by smtp4.osuosl.org (Postfix) with ESMTP id 9A1BF40FAB;
+	Fri, 26 Mar 2021 06:19:57 +0000 (UTC)
 Received: from lf-lists.osuosl.org (localhost [127.0.0.1])
-	by lists.linuxfoundation.org (Postfix) with ESMTP id AF40CC000E;
-	Fri, 26 Mar 2021 06:19:11 +0000 (UTC)
-Received: from smtp1.osuosl.org (smtp1.osuosl.org [140.211.166.138])
- by lists.linuxfoundation.org (Postfix) with ESMTP id 3023DC000A
+	by lists.linuxfoundation.org (Postfix) with ESMTP id 574E7C000E;
+	Fri, 26 Mar 2021 06:19:57 +0000 (UTC)
+Received: from smtp2.osuosl.org (smtp2.osuosl.org [140.211.166.133])
+ by lists.linuxfoundation.org (Postfix) with ESMTP id 27D40C000A
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 26 Mar 2021 06:19:10 +0000 (UTC)
+ Fri, 26 Mar 2021 06:19:56 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by smtp1.osuosl.org (Postfix) with ESMTP id 1CAA4849C2
+ by smtp2.osuosl.org (Postfix) with ESMTP id 08E0940244
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 26 Mar 2021 06:19:10 +0000 (UTC)
+ Fri, 26 Mar 2021 06:19:56 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at osuosl.org
-Received: from smtp1.osuosl.org ([127.0.0.1])
- by localhost (smtp1.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 473wpcXGB_Dz
+Received: from smtp2.osuosl.org ([127.0.0.1])
+ by localhost (smtp2.osuosl.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Qi-KmLQF0Jdh
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 26 Mar 2021 06:19:08 +0000 (UTC)
+ Fri, 26 Mar 2021 06:19:55 +0000 (UTC)
 X-Greylist: from auto-whitelisted by SQLgrey-1.8.0
 Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
  [IPv6:2a01:488:42:1000:50ed:8234::])
- by smtp1.osuosl.org (Postfix) with ESMTPS id 3A24B8481F
+ by smtp2.osuosl.org (Postfix) with ESMTPS id 33C7540237
  for <ksummit-discuss@lists.linuxfoundation.org>;
- Fri, 26 Mar 2021 06:19:08 +0000 (UTC)
+ Fri, 26 Mar 2021 06:19:55 +0000 (UTC)
 Received: from ip4d142c50.dynamic.kabel-deutschland.de ([77.20.44.80]
  helo=[192.168.66.200]); authenticated
  by wp530.webpack.hosteurope.de running ExIM with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1lPfoI-000699-86; Fri, 26 Mar 2021 07:19:06 +0100
+ id 1lPfp3-0003VY-BD; Fri, 26 Mar 2021 07:19:53 +0100
 From: Thorsten Leemhuis <linux@leemhuis.info>
 To: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
  Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
 References: <c396c91f-27c2-de36-7b05-099e03c213f4@leemhuis.info>
-Message-ID: <35d0c21d-1983-c197-f2e7-eea4ae17ddb2@leemhuis.info>
-Date: Fri, 26 Mar 2021 07:19:05 +0100
+Message-ID: <5ec1b7b0-08d5-e9b8-394f-e03b65534ade@leemhuis.info>
+Date: Fri, 26 Mar 2021 07:19:52 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
 In-Reply-To: <c396c91f-27c2-de36-7b05-099e03c213f4@leemhuis.info>
 Content-Language: en-BS
-X-bounce-key: webpack.hosteurope.de;linux@leemhuis.info;1616739548;d519915c;
-X-HE-SMSGID: 1lPfoI-000699-86
+X-bounce-key: webpack.hosteurope.de;linux@leemhuis.info;1616739595;ade28fcd;
+X-HE-SMSGID: 1lPfp3-0003VY-BD
 Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  linux-doc@vger.kernel.org
-Subject: [Ksummit-discuss] [4/5] reporting-issues: reference section,
- stable and longterm sub-processes
+Subject: [Ksummit-discuss] [5/5] reporting-issues: addendum
 X-BeenThere: ksummit-discuss@lists.linuxfoundation.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,419 +81,93 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>, 
  <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ksummit-discuss-bounces@lists.linuxfoundation.org
 Sender: "Ksummit-discuss" <ksummit-discuss-bounces@lists.linuxfoundation.org>
 
-On 26.03.21 07:13, Thorsten Leemhuis wrote:
-> Lo! Since a few months mainline in
-> Documentation/admin-guide/reporting-issues.rst contains a text written
-> to obsolete the good old reporting-bugs text. For now, the new document
-> still contains a warning at the top that basically says "this is WIP".
-> But I'd like to remove that warning and delete reporting-bugs.rst in the
-> next merge window to make reporting-issues.rst fully official. With this
-> mail I want to give everyone a chance to take a look at the text and
-> speak up if you don't want me to move ahead for now.
-> 
-> For easier review I'll post the text of reporting-issues.rst in reply to
-> this mail. I'll do that in a few chunks, as if this was a cover letter
-> for a patch-set. 
-
-
-Reference for "Reporting issues only occurring in older kernel version lines"
-
------------------------------------------------------------------------------
-
-
-
-This subsection provides details for step you need to perform if you face a
-
-regression within a stable and longterm kernel line.
-
-
-
-Make sure the particular version line still gets support
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Check if the kernel developers still maintain the Linux kernel version
-
-    line you care about: go to the front page of kernel.org and make sure it
-
-    mentions the latest release of the particular version line without an
-
-    '[EOL]' tag.*
-
-
-
-Most kernel version lines only get supported for about three months, as
-
-maintaining them longer is quite a lot of work. Hence, only one per year is
-
-chosen and gets supported for at least two years (often six). That's why you
-
-need to check if the kernel developers still support the version line you care
-
-for.
-
-
-
-Note, if kernel.org lists two 'stable' version lines on the front page, you
-
-should consider switching to the newer one and forget about the older one:
-
-support for it is likely to be abandoned soon. Then it will get a "end-of-life"
-
-(EOL) stamp. Version lines that reached that point still get mentioned on the
-
-kernel.org front page for a week or two, but are unsuitable for testing and
-
-reporting.
-
-
-
-Search stable mailing list
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Check the archives of the Linux stable mailing list for existing reports.*
-
-
-
-Maybe the issue you face is already known and was fixed or is about to. Hence,
-
-`search the archives of the Linux stable mailing list
-
-<https://lore.kernel.org/stable/>`_ for reports about an issue like yours. If
-
-you find any matches, consider joining the discussion, unless the fix is
-
-already finished and scheduled to get applied soon.
-
-
-
-Reproduce issue with the newest release
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Install the latest release from the particular version line as a vanilla
-
-    kernel. Ensure this kernel is not tainted and still shows the problem, as
-
-    the issue might have already been fixed there.*
-
-
-
-Before investing any more time in this process you want to check if the issue
-
-was already fixed in the latest release of version line you're interested in.
-
-This kernel needs to be vanilla and shouldn't be tainted before the issue
-
-happens, as detailed outlined already above in the section "Install a fresh
-
-kernel for testing".
-
-
-
-Report the regression
-
-~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Send a short problem report by mail to the people and mailing lists the
-
-    :ref:`MAINTAINERS <maintainers>` file specifies in the section 'STABLE
-
-    BRANCH'. Roughly describe the issue and ideally explain how to reproduce
-
-    it. Mention the first version that shows the problem and the last version
-
-    that's working fine. Then wait for further instructions.*
-
-
-
-When reporting a regression that happens within a stable or longterm kernel
-
-line (say when updating from 5.10.4 to 5.10.5) a brief report is enough for
-
-the start to get the issue reported quickly. Hence a rough description is all
-
-it takes.
-
-
-
-But note, it helps developers a great deal if you can specify the exact version
-
-that introduced the problem. Hence if possible within a reasonable time frame,
-
-try to find that version using vanilla kernels. Lets assume something broke when
-
-your distributor released a update from Linux kernel 5.10.5 to 5.10.8. Then as
-
-instructed above go and check the latest kernel from that version line, say
-
-5.10.9. If it shows the problem, try a vanilla 5.10.5 to ensure that no patches
-
-the distributor applied interfere. If the issue doesn't manifest itself there,
-
-try 5.10.7 and then (depending on the outcome) 5.10.8 or 5.10.6 to find the
-
-first version where things broke. Mention it in the report and state that 5.10.9
-
-is still broken.
-
-
-
-What the previous paragraph outlines is basically a rough manual 'bisection'.
-
-Once your report is out your might get asked to do a proper one, as it allows to
-
-pinpoint the exact change that causes the issue (which then can easily get
-
-reverted to fix the issue quickly). Hence consider to do a proper bisection
-
-right away if time permits. See the section 'Special care for regressions' and
-
-the document 'Documentation/admin-guide/bug-bisect.rst' for details how to
-
-perform one.
-
-
-
-
-
-Reference for "Reporting regressions within a stable and longterm kernel line"
-
-------------------------------------------------------------------------------
-
-
-
-This section provides details for steps you need to take if you could not
-
-reproduce your issue with a mainline kernel, but want to see it fixed in older
-
-version lines (aka stable and longterm kernels).
-
-
-
-Some fixes are too complex
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Prepare yourself for the possibility that going through the next few steps
-
-    might not get the issue solved in older releases: the fix might be too big
-
-    or risky to get backported there.*
-
-
-
-Even small and seemingly obvious code-changes sometimes introduce new and
-
-totally unexpected problems. The maintainers of the stable and longterm kernels
-
-are very aware of that and thus only apply changes to these kernels that are
-
-within rules outlined in 'Documentation/process/stable-kernel-rules.rst'.
-
-
-
-Complex or risky changes for example do not qualify and thus only get applied
-
-to mainline. Other fixes are easy to get backported to the newest stable and
-
-longterm kernels, but too risky to integrate into older ones. So be aware the
-
-fix you are hoping for might be one of those that won't be backported to the
-
-version line your care about. In that case you'll have no other choice then to
-
-live with the issue or switch to a newer Linux version, unless you want to
-
-patch the fix into your kernels yourself.
-
-
-
-Common preparations
-
-~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Perform the first three steps in the section "Reporting issues only
-
-    occurring in older kernel version lines" above.*
-
-
-
-You need to carry out a few steps already described in another section of this
-
-guide. Those steps will let you:
-
-
-
- * Check if the kernel developers still maintain the Linux kernel version line
-
-   you care about.
-
-
-
- * Search the Linux stable mailing list for exiting reports.
-
-
-
- * Check with the latest release.
-
-
-
-
-
-Check code history and search for existing discussions
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    *Search the Linux kernel version control system for the change that fixed
-
-    the issue in mainline, as its commit message might tell you if the fix is
-
-    scheduled for backporting already. If you don't find anything that way,
-
-    search the appropriate mailing lists for posts that discuss such an issue
-
-    or peer-review possible fixes; then check the discussions if the fix was
-
-    deemed unsuitable for backporting. If backporting was not considered at
-
-    all, join the newest discussion, asking if it's in the cards.*
-
-
-
-In a lot of cases the issue you deal with will have happened with mainline, but
-
-got fixed there. The commit that fixed it would need to get backported as well
-
-to get the issue solved. That's why you want to search for it or any
-
-discussions abound it.
-
-
-
- * First try to find the fix in the Git repository that holds the Linux kernel
-
-   sources. You can do this with the web interfaces `on kernel.org
-
-   <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/>`_
-
-   or its mirror `on GitHub <https://github.com/torvalds/linux>`_; if you have
-
-   a local clone you alternatively can search on the command line with ``git
-
-   log --grep=<pattern>``.
-
-
-
-   If you find the fix, look if the commit message near the end contains a
-
-   'stable tag' that looks like this:
-
-
-
-          Cc: <stable@vger.kernel.org> # 5.4+
-
-
-
-   If that's case the developer marked the fix safe for backporting to version
-
-   line 5.4 and later. Most of the time it's getting applied there within two
-
-   weeks, but sometimes it takes a bit longer.
-
-
-
- * If the commit doesn't tell you anything or if you can't find the fix, look
-
-   again for discussions about the issue. Search the net with your favorite
-
-   internet search engine as well as the archives for the `Linux kernel
-
-   developers mailing list <https://lore.kernel.org/lkml/>`_. Also read the
-
-   section `Locate kernel area that causes the issue` above and follow the
-
-   instructions to find the subsystem in question: its bug tracker or mailing
-
-   list archive might have the answer you are looking for.
-
-
-
- * If you see a proposed fix, search for it in the version control system as
-
-   outlined above, as the commit might tell you if a backport can be expected.
-
-
-
-   * Check the discussions for any indicators the fix might be too risky to get
-
-     backported to the version line you care about. If that's the case you have
-
-     to live with the issue or switch to the kernel version line where the fix
-
-     got applied.
-
-
-
-   * If the fix doesn't contain a stable tag and backporting was not discussed,
-
-     join the discussion: mention the version where you face the issue and that
-
-     you would like to see it fixed, if suitable.
-
-
-
-
-
-Ask for advice
-
-~~~~~~~~~~~~~~
-
-
-
-    *One of the former steps should lead to a solution. If that doesn't work
-
-    out, ask the maintainers for the subsystem that seems to be causing the
-
-    issue for advice; CC the mailing list for the particular subsystem as well
-
-    as the stable mailing list.*
-
-
-
-If the previous three steps didn't get you closer to a solution there is only
-
-one option left: ask for advice. Do that in a mail you sent to the maintainers
-
-for the subsystem where the issue seems to have its roots; CC the mailing list
-
-for the subsystem as well as the stable mailing list the :ref:`MAINTAINERS
-
-<maintainers>` file mention in the section "STABLE BRANCH".
-
-
-
-_______________________________________________
-Ksummit-discuss mailing list
-Ksummit-discuss@lists.linuxfoundation.org
-https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+T24gMjYuMDMuMjEgMDc6MTMsIFRob3JzdGVuIExlZW1odWlzIHdyb3RlOgo+IAo+IExvISBTaW5j
+ZSBhIGZldyBtb250aHMgbWFpbmxpbmUgaW4KPiBEb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL3Jl
+cG9ydGluZy1pc3N1ZXMucnN0IGNvbnRhaW5zIGEgdGV4dCB3cml0dGVuCj4gdG8gb2Jzb2xldGUg
+dGhlIGdvb2Qgb2xkIHJlcG9ydGluZy1idWdzIHRleHQuIEZvciBub3csIHRoZSBuZXcgZG9jdW1l
+bnQKPiBzdGlsbCBjb250YWlucyBhIHdhcm5pbmcgYXQgdGhlIHRvcCB0aGF0IGJhc2ljYWxseSBz
+YXlzICJ0aGlzIGlzIFdJUCIuCj4gQnV0IEknZCBsaWtlIHRvIHJlbW92ZSB0aGF0IHdhcm5pbmcg
+YW5kIGRlbGV0ZSByZXBvcnRpbmctYnVncy5yc3QgaW4gdGhlCj4gbmV4dCBtZXJnZSB3aW5kb3cg
+dG8gbWFrZSByZXBvcnRpbmctaXNzdWVzLnJzdCBmdWxseSBvZmZpY2lhbC4gV2l0aCB0aGlzCj4g
+bWFpbCBJIHdhbnQgdG8gZ2l2ZSBldmVyeW9uZSBhIGNoYW5jZSB0byB0YWtlIGEgbG9vayBhdCB0
+aGUgdGV4dCBhbmQKPiBzcGVhayB1cCBpZiB5b3UgZG9uJ3Qgd2FudCBtZSB0byBtb3ZlIGFoZWFk
+IGZvciBub3cuCj4gCj4gRm9yIGVhc2llciByZXZpZXcgSSdsbCBwb3N0IHRoZSB0ZXh0IG9mIHJl
+cG9ydGluZy1pc3N1ZXMucnN0IGluIHJlcGx5IHRvCj4gdGhpcyBtYWlsLiBJJ2xsIGRvIHRoYXQg
+aW4gYSBmZXcgY2h1bmtzLCBhcyBpZiB0aGlzIHdhcyBhIGNvdmVyIGxldHRlcgo+IGZvciBhIHBh
+dGNoLXNldC4gCgoKCldoeSBzb21lIGlzc3VlcyB3b24ndCBnZXQgYW55IHJlYWN0aW9uIG9yIHJl
+bWFpbiB1bmZpeGVkIGFmdGVyIGJlaW5nIHJlcG9ydGVkCgo9PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoK
+CgpXaGVuIHJlcG9ydGluZyBhIHByb2JsZW0gdG8gdGhlIExpbnV4IGRldmVsb3BlcnMsIGJlIGF3
+YXJlIG9ubHkgJ2lzc3VlcyBvZiBoaWdoCgpwcmlvcml0eScgKHJlZ3Jlc3Npb25zLCBzZWN1cml0
+eSBpc3N1ZXMsIHNldmVyZSBwcm9ibGVtcykgYXJlIGRlZmluaXRlbHkgZ29pbmcKCnRvIGdldCBy
+ZXNvbHZlZC4gVGhlIG1haW50YWluZXJzIG9yIGlmIGFsbCBlbHNlIGZhaWxzIExpbnVzIFRvcnZh
+bGRzIGhpbXNlbGYKCndpbGwgbWFrZSBzdXJlIG9mIHRoYXQuIFRoZXkgYW5kIHRoZSBvdGhlciBr
+ZXJuZWwgZGV2ZWxvcGVycyB3aWxsIGZpeCBhIGxvdCBvZgoKb3RoZXIgaXNzdWVzIGFzIHdlbGwu
+IEJ1dCBiZSBhd2FyZSB0aGF0IHNvbWV0aW1lcyB0aGV5IGNhbid0IG9yIHdvbid0IGhlbHA7IGFu
+ZAoKc29tZXRpbWVzIHRoZXJlIGlzbid0IGV2ZW4gYW55b25lIHRvIHNlbmQgYSByZXBvcnQgdG8u
+CgoKClRoaXMgaXMgYmVzdCBleHBsYWluZWQgd2l0aCBrZXJuZWwgZGV2ZWxvcGVycyB0aGF0IGNv
+bnRyaWJ1dGUgdG8gdGhlIExpbnV4CgprZXJuZWwgaW4gdGhlaXIgc3BhcmUgdGltZS4gUXVpdGUg
+YSBmZXcgb2YgdGhlIGRyaXZlcnMgaW4gdGhlIGtlcm5lbCB3ZXJlCgp3cml0dGVuIGJ5IHN1Y2gg
+cHJvZ3JhbW1lcnMsIG9mdGVuIGJlY2F1c2UgdGhleSBzaW1wbHkgd2FudGVkIHRvIG1ha2UgdGhl
+aXIKCmhhcmR3YXJlIHVzYWJsZSBvbiB0aGVpciBmYXZvcml0ZSBvcGVyYXRpbmcgc3lzdGVtLgoK
+CgpUaGVzZSBwcm9ncmFtbWVycyBtb3N0IG9mIHRoZSB0aW1lIHdpbGwgaGFwcGlseSBmaXggcHJv
+YmxlbXMgb3RoZXIgcGVvcGxlCgpyZXBvcnQuIEJ1dCBub2JvZHkgY2FuIGZvcmNlIHRoZW0gdG8g
+ZG8sIGFzIHRoZXkgYXJlIGNvbnRyaWJ1dGluZyB2b2x1bnRhcmlseS4KCgoKVGhlbiB0aGVyZSBh
+cmUgc2l0dWF0aW9ucyB3aGVyZSBzdWNoIGRldmVsb3BlcnMgcmVhbGx5IHdhbnQgdG8gZml4IGFu
+IGlzc3VlLAoKYnV0IGNhbid0OiBzb21ldGltZXMgdGhleSBsYWNrIGhhcmR3YXJlIHByb2dyYW1t
+aW5nIGRvY3VtZW50YXRpb24gdG8gZG8gc28uCgpUaGlzIG9mdGVuIGhhcHBlbnMgd2hlbiB0aGUg
+cHVibGljbHkgYXZhaWxhYmxlIGRvY3MgYXJlIHN1cGVyZmljaWFsIG9yIHRoZQoKZHJpdmVyIHdh
+cyB3cml0dGVuIHdpdGggdGhlIGhlbHAgb2YgcmV2ZXJzZSBlbmdpbmVlcmluZy4KCgoKU29vbmVy
+IG9yIGxhdGVyIHNwYXJlIHRpbWUgZGV2ZWxvcGVycyB3aWxsIGFsc28gc3RvcCBjYXJpbmcgZm9y
+IHRoZSBkcml2ZXIuCgpNYXliZSB0aGVpciB0ZXN0IGhhcmR3YXJlIGJyb2tlLCBnb3QgcmVwbGFj
+ZWQgYnkgc29tZXRoaW5nIG1vcmUgZmFuY3ksIG9yIGlzIHNvCgpvbGQgdGhhdCBpdCdzIHNvbWV0
+aGluZyB5b3UgZG9uJ3QgZmluZCBtdWNoIG91dHNpZGUgb2YgY29tcHV0ZXIgbXVzZXVtcwoKYW55
+bW9yZS4gU29tZXRpbWVzIGRldmVsb3BlciBzdG9wcyBjYXJpbmcgZm9yIHRoZWlyIGNvZGUgYW5k
+IExpbnV4IGF0IGFsbCwgYXMKCnNvbWV0aGluZyBkaWZmZXJlbnQgaW4gdGhlaXIgbGlmZSBiZWNh
+bWUgd2F5IG1vcmUgaW1wb3J0YW50LiBJbiBzb21lIGNhc2VzCgpub2JvZHkgaXMgd2lsbGluZyB0
+byB0YWtlIG92ZXIgdGhlIGpvYiBhcyBtYWludGFpbmVyIOKAkyBhbmQgbm9ib2R5IGNhbiBiZSBm
+b3JjZWQKCnRvLCBhcyBjb250cmlidXRpbmcgdG8gdGhlIExpbnV4IGtlcm5lbCBpcyBkb25lIG9u
+IGEgdm9sdW50YXJ5IGJhc2lzLiBBYmFuZG9uZWQKCmRyaXZlcnMgbmV2ZXJ0aGVsZXNzIHJlbWFp
+biBpbiB0aGUga2VybmVsOiB0aGV5IGFyZSBzdGlsbCB1c2VmdWwgZm9yIHBlb3BsZSBhbmQKCnJl
+bW92aW5nIHdvdWxkIGJlIGEgcmVncmVzc2lvbi4KCgoKVGhlIHNpdHVhdGlvbiBpcyBub3QgdGhh
+dCBkaWZmZXJlbnQgd2l0aCBkZXZlbG9wZXJzIHRoYXQgYXJlIHBhaWQgZm9yIHRoZWlyCgp3b3Jr
+IG9uIHRoZSBMaW51eCBrZXJuZWwuIFRob3NlIGNvbnRyaWJ1dGUgbW9zdCBjaGFuZ2VzIHRoZXNl
+IGRheXMuIEJ1dCB0aGVpcgoKZW1wbG95ZXJzIHNvb25lciBvciBsYXRlciBhbHNvIHN0b3AgY2Fy
+aW5nIGZvciB0aGVpciBjb2RlIG9yIG1ha2UgaXRzCgpwcm9ncmFtbWVyIGZvY3VzIG9uIG90aGVy
+IHRoaW5ncy4gSGFyZHdhcmUgdmVuZG9ycyBmb3IgZXhhbXBsZSBlYXJuIHRoZWlyIG1vbmV5Cgpt
+YWlubHkgYnkgc2VsbGluZyBuZXcgaGFyZHdhcmU7IHF1aXRlIGEgZmV3IG9mIHRoZW0gaGVuY2Ug
+YXJlIG5vdCBpbnZlc3RpbmcKCm11Y2ggdGltZSBhbmQgZW5lcmd5IGluIG1haW50YWluaW5nIGEg
+TGludXgga2VybmVsIGRyaXZlciBmb3Igc29tZXRoaW5nIHRoZXkKCnN0b3BwZWQgc2VsbGluZyB5
+ZWFycyBhZ28uIEVudGVycHJpc2UgTGludXggZGlzdHJpYnV0b3JzIG9mdGVuIGNhcmUgZm9yIGEK
+CmxvbmdlciB0aW1lIHBlcmlvZCwgYnV0IGluIG5ldyB2ZXJzaW9ucyBvZnRlbiBsZWF2ZSBzdXBw
+b3J0IGZvciBvbGQgYW5kIHJhcmUKCmhhcmR3YXJlIGFzaWRlIHRvIGxpbWl0IHRoZSBzY29wZS4g
+T2Z0ZW4gc3BhcmUgdGltZSBjb250cmlidXRvcnMgdGFrZSBvdmVyIG9uY2UKCmEgY29tcGFueSBv
+cnBoYW5zIHNvbWUgY29kZSwgYnV0IGFzIG1lbnRpb25lZCBhYm92ZTogc29vbmVyIG9yIGxhdGVy
+IHRoZXkgd2lsbAoKbGVhdmUgdGhlIGNvZGUgYmVoaW5kLCB0b28uCgoKClByaW9yaXRpZXMgYXJl
+IGFub3RoZXIgcmVhc29uIHdoeSBzb21lIGlzc3VlcyBhcmUgbm90IGZpeGVkLCBhcyBtYWludGFp
+bmVycwoKcXVpdGUgb2Z0ZW4gYXJlIGZvcmNlZCB0byBzZXQgdGhvc2UsIGFzIHRpbWUgdG8gd29y
+ayBvbiBMaW51eCBpcyBsaW1pdGVkLgoKVGhhdCdzIHRydWUgZm9yIHNwYXJlIHRpbWUgb3IgdGhl
+IHRpbWUgZW1wbG95ZXJzIGdyYW50IHRoZWlyIGRldmVsb3BlcnMgdG8KCnNwZW5kIG9uIG1haW50
+ZW5hbmNlIHdvcmsgb24gdGhlIHVwc3RyZWFtIGtlcm5lbC4gU29tZXRpbWVzIG1haW50YWluZXJz
+IGFsc28KCmdldCBvdmVyd2hlbG1lZCB3aXRoIHJlcG9ydHMsIGV2ZW4gaWYgYSBkcml2ZXIgaXMg
+d29ya2luZyBuZWFybHkgcGVyZmVjdGx5LiBUbwoKbm90IGdldCBjb21wbGV0ZWx5IHN0dWNrLCB0
+aGUgcHJvZ3JhbW1lciB0aHVzIG1pZ2h0IGhhdmUgbm8gb3RoZXIgY2hvaWNlIHRoYW4KCnRvIHBy
+aW9yaXRpemUgaXNzdWUgcmVwb3J0cyBhbmQgcmVqZWN0IHNvbWUgb2YgdGhlbS4KCgoKQnV0IGRv
+bid0IHdvcnJ5IHRvbyBtdWNoIGFib3V0IGFsbCBvZiB0aGlzLCBhIGxvdCBvZiBkcml2ZXJzIGhh
+dmUgYWN0aXZlCgptYWludGFpbmVycyB3aG8gYXJlIHF1aXRlIGludGVyZXN0ZWQgaW4gZml4aW5n
+IGFzIG1hbnkgaXNzdWVzIGFzIHBvc3NpYmxlLgoKCgoKCkNsb3Npbmcgd29yZHMKCj09PT09PT09
+PT09PT0KCgoKQ29tcGFyZWQgd2l0aCBvdGhlciBGcmVlL0xpYnJlICYgT3BlbiBTb3VyY2UgU29m
+dHdhcmUgaXQncyBoYXJkIHRvIHJlcG9ydAoKaXNzdWVzIHRvIHRoZSBMaW51eCBrZXJuZWwgZGV2
+ZWxvcGVyczogdGhlIGxlbmd0aCBhbmQgY29tcGxleGl0eSBvZiB0aGlzCgpkb2N1bWVudCBhbmQg
+dGhlIGltcGxpY2F0aW9ucyBiZXR3ZWVuIHRoZSBsaW5lcyBpbGx1c3RyYXRlIHRoYXQuIEJ1dCB0
+aGF0J3MgaG93CgppdCBpcyBmb3Igbm93LiBUaGUgbWFpbiBhdXRob3Igb2YgdGhpcyB0ZXh0IGhv
+cGVzIGRvY3VtZW50aW5nIHRoZSBzdGF0ZSBvZiB0aGUKCmFydCB3aWxsIGxheSBzb21lIGdyb3Vu
+ZHdvcmsgdG8gaW1wcm92ZSB0aGUgc2l0dWF0aW9uIG92ZXIgdGltZS4KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KS3N1bW1pdC1kaXNjdXNzIG1haWxpbmcg
+bGlzdApLc3VtbWl0LWRpc2N1c3NAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZwpodHRwczovL2xp
+c3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcvbWFpbG1hbi9saXN0aW5mby9rc3VtbWl0LWRpc2N1c3MK
