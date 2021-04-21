@@ -1,53 +1,96 @@
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2612F83
-	for <ksummit@lists.linux.dev>; Wed, 21 Apr 2021 19:43:37 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id B6400B1C8;
-	Wed, 21 Apr 2021 19:30:12 +0000 (UTC)
-Date: Wed, 21 Apr 2021 21:30:12 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-cc: ksummit@lists.linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03902F83
+	for <ksummit@lists.linux.dev>; Wed, 21 Apr 2021 19:55:20 +0000 (UTC)
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3ATyAAeqo2bEJ4UAlHLmGWYaMaV5rKeYIsi2QD?=
+ =?us-ascii?q?101hICF9WMqeisyogbAnxQb54QxhPE0ItNicNMC7Kk/02oVy5eAqV4uKfA6jg2?=
+ =?us-ascii?q?ewKZEn0I2K+VzdMgnf0sIY6qt6aah5D7TLfD1HpOL3+hOxHdpl4PTvysCVrNzT?=
+ =?us-ascii?q?xXtsUg1mApsIhztRMQqVHlZ7QwNLH/MCZfmhz/BarDmtc2l/VKqGL0QCNtKum/?=
+ =?us-ascii?q?T2jp78JTYJCxk7gTP+7w+A2frKVyKV2RoTSFp0rIsK+2KtqWPE2pk=3D?=
+X-IronPort-AV: E=Sophos;i="5.82,240,1613430000"; 
+   d="scan'208";a="379308939"
+Received: from 173.121.68.85.rev.sfr.net (HELO hadrien) ([85.68.121.173])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 21 Apr 2021 21:55:09 +0200
+Date: Wed, 21 Apr 2021 21:55:09 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Roland Dreier <roland@kernel.org>
+cc: Steven Rostedt <rostedt@goodmis.org>, 
+    James Bottomley <James.Bottomley@hansenpartnership.com>, 
+    ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for "trivial"
  patches
-In-Reply-To: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
-Message-ID: <nycvar.YFH.7.76.2104212125330.18270@cbobk.fhfr.pm>
-References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+In-Reply-To: <CAG4TOxNOHRexUoKTo7ndViNtss0_BDeh4YCVHexvdQhQWF+vaw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2104212150230.20674@hadrien>
+References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com> <20210421152209.68075314@gandalf.local.home> <CAG4TOxNOHRexUoKTo7ndViNtss0_BDeh4YCVHexvdQhQWF+vaw@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1733717962-1619034910=:20674"
 
-On Wed, 21 Apr 2021, James Bottomley wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> I've long been on record as not really being a fan of trivial patches
-> because they can cause merge issues with current patches and introduce
-> bugs, particularly in older drivers, that don't get detected for a long
-> while.  However, the recent events with the University of Minnesota:
-> 
-> https://lore.kernel.org/lkml/20210421130105.1226686-1-gregkh@linuxfoundation.org/
-> 
-> Have elevated the risk factor around trivial patches claiming to fix
-> bugs to the point where it looks like there's no such thing as a truly
-> trivial patch and they all need reviewing.
+--8323329-1733717962-1619034910=:20674
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-I am all for discussing policy of trivial patches (*), but just to make it 
-clear -- I don't think that's really directly related to the University of 
-Minnesota issue.
 
-Most of the patches they sent were not really falling into the "trivial" 
-category at all -- they were actual substantial functional changes. As 
-such, big part of them would never meet the 'trivial' criteria as defined 
-in Documentation/process/submitting-patches.rst
 
-Thanks,
+On Wed, 21 Apr 2021, Roland Dreier wrote:
 
--- 
-Jiri Kosina
-SUSE Labs
+> On Wed, Apr 21, 2021 at 12:22 PM Steven Rostedt <rostedt@goodmis.org> wrote:
+> > I have no problem with taking a trivial patch if they are really fixing a
+> > bug. I think what needs to be done here is look at the patches that got in
+> > that were buggy, and see why they got in.
+> >
+> > Perhaps the answer is to scrutinize trivial patches more. To me, the only
+> > "trivial" patch is a comment fix, or update to documentation. And even
+> > then, I spend time reviewing it.
+> >
+> > If you don't have time to review a patch, then by all means, don't accept
+> > it. Perhaps the answer is simply have a higher bar on what you do accept.
+> >
+> > There are a few people that I will accept patches from with out review. But
+> > anyone else, I scrutinize the code before taking it in.
+>
+> I agree with this.  And indeed to me perhaps what needs to be
+> calibrated is our definition of a trivial patch.
+>
+> If someone sends a patch that changes "speling" to "spelling" in a
+> comment, then I think that's fine to apply without much scrutiny.  If
+> someone sends a patch that changes reference counting on an error
+> path, then that absolutely needs to be looked at to ensure
+> correctness.  There are enough people sending wrong patches without
+> even thinking about malicious actors.
+>
+> I also think there does need to be a strong sanction against this UMN
+> research group, since we need to make sure there are strong incentives
+> against wasting everyone's time with stunts like this.  Hopefully on
+> the academic side it can be made clear that this is not ethical
+> research - for example, why did IEEE think this was an acceptable
+> paper?
+
+The author's web page (https://www-users.cs.umn.edu/~kjlu/) says:
+
+On the Feasibility of Stealthily Introducing Vulnerabilities in
+Open-Source Software via Hypocrite Commits
+Qiushi Wu, and Kangjie Lu.
+To appear in Proceedings of the 42nd IEEE Symposium on Security and
+Privacy (Oakland'21). Virtual conference, May 2021.
+★ Note: The experiment did not introduce any bug or bug-introducing
+commit into OSS. It demonstrated weaknesses in the patching process in a
+safe way. No user was affected, and IRB exempt was issued. The experiment
+actually fixed three real bugs. Please see the clarifications.
+https://www-users.cs.umn.edu/~kjlu/papers/clarifications-hc.pdf
+
+He's on the program committee of the conference for next year...
+
+[I'm just providing information, not implying that I agree with it]
+
+julia
+--8323329-1733717962-1619034910=:20674--
