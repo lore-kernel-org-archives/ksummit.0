@@ -1,78 +1,66 @@
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+Received: from mail.namei.org (namei.org [65.99.196.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CABB2F81
-	for <ksummit@lists.linux.dev>; Wed, 21 Apr 2021 21:08:06 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
-	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13LJcufg132504;
-	Wed, 21 Apr 2021 19:47:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=/F67nmUj7lGvNkF3/4mFiLn2oCfzRfiEQkz+d2CiYFs=;
- b=JWyJMxI4PCmuap1gwvNjEm0fRhkpFydvXgcMxkrx0QwxnhhIau2fY6F0uTJeQbMekzmm
- mjkjseUF+4ixRDfws2KyYBqMt7XZbiJ/0HHeCdmb9arwQFNzBw7pSMT2Oud2/QmWyQpX
- etpN5jH1sEfSPiPtERc6AQjAmt6MeByFlrGmmjJxI/vA9PyarqmSQneSEGZx7PuYHw5H
- 5F16cHFB3P1v9YCmrpjY1C5RlKiS2Qg9Mr39p1EM0g+Ge92aGJ1cO1SJCKWU7xcexWsz
- BoWIKlQ9YaHbdsJvjuOha2fhjZVa5vzlxUS+nzAGYavJdo4mXOUnxTq8YCAOPC+79FUx 3A== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-	by aserp2120.oracle.com with ESMTP id 37yqmnkcy4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 21 Apr 2021 19:47:13 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-	by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13LJexSf116495;
-	Wed, 21 Apr 2021 19:47:13 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by aserp3030.oracle.com with ESMTP id 38098s6gfv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 21 Apr 2021 19:47:13 +0000
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 13LJgx3l123252;
-	Wed, 21 Apr 2021 19:47:13 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by aserp3030.oracle.com with ESMTP id 38098s6gf8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 21 Apr 2021 19:47:13 +0000
-Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 13LJl8m9010166;
-	Wed, 21 Apr 2021 19:47:12 GMT
-Received: from kadam (/102.36.221.92)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Wed, 21 Apr 2021 12:47:08 -0700
-Date: Wed, 21 Apr 2021 22:47:03 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: ksummit@lists.linux.dev
-Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
- "trivial" patches
-Message-ID: <20210421194702.GH1981@kadam>
-References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36A52F81
+	for <ksummit@lists.linux.dev>; Wed, 21 Apr 2021 21:49:08 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.namei.org (Postfix) with ESMTPS id 5DE1DDC1;
+	Wed, 21 Apr 2021 21:37:24 +0000 (UTC)
+Date: Thu, 22 Apr 2021 07:37:24 +1000 (AEST)
+From: James Morris <jmorris@namei.org>
+To: Julia Lawall <julia.lawall@inria.fr>
+cc: Stephen Hemminger <stephen@networkplumber.org>, 
+    Roland Dreier <roland@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+    James Bottomley <James.Bottomley@hansenpartnership.com>, 
+    ksummit@lists.linux.dev
+Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for "trivial"
+ patches
+In-Reply-To: <alpine.DEB.2.22.394.2104212233450.20674@hadrien>
+Message-ID: <d95ee281-4dc0-c5c1-ec87-81d83f44979@namei.org>
+References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com> <20210421152209.68075314@gandalf.local.home> <CAG4TOxNOHRexUoKTo7ndViNtss0_BDeh4YCVHexvdQhQWF+vaw@mail.gmail.com> <alpine.DEB.2.22.394.2104212150230.20674@hadrien>
+ <20210421132824.13a70f6c@hermes.local> <alpine.DEB.2.22.394.2104212233450.20674@hadrien>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-ORIG-GUID: xN7j57YCW78GaWj_0Ql83r_NTzZytSCW
-X-Proofpoint-GUID: xN7j57YCW78GaWj_0Ql83r_NTzZytSCW
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9961 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxscore=0 adultscore=0
- impostorscore=0 spamscore=0 malwarescore=0 clxscore=1011
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 mlxlogscore=999
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104060000 definitions=main-2104210135
+Content-Type: text/plain; charset=US-ASCII
 
-I use my rename_rev.pl script to review trivial patches.  It's kind of
-a crap script, but it's useful if someone is re-indenting a whole file
-and adds a secret additional line.
+On Wed, 21 Apr 2021, Julia Lawall wrote:
 
-https://github.com/error27/rename_rev
+> The apology states that they didn't detect any vulnerabilities.  They
+> found three non exploitable bugs and submitted incorrect patches for them.
+> When the patches received some positive feedback, they explained that the
+> patches were incorrect and provided a proper fix.
+> 
+> So they damaged trust, but not actually the Linux kernel...
 
-Someone who isn't as terrible at Perl could probably re-write it better.
+The issue is that there was no consent and no coordination, so we don't 
+know the scope of the experiment and whether it was still continuing. 
 
-regards,
-dan carpenter
+We are this not able to trust anything the group said about what they'd
+done or not done, until now [1].
+
+In all probability there is nothing further amiss but we would not have 
+expected them to use fake gmail accounts to submit bugs to the kernel 
+either.
+
+It's now on us to audit all of their known contributions, because we don't 
+know the scope of the experiment, which was based on the use of deception, 
+and we can't make any assumptions based on what they have said.
+
+We also need the identity of the 'random' gmail accounts they used, 
+although this should be handled by a small trusted group in private, as it 
+will lead to privacy issues for kernel maintainers who responded to them 
+in public.
+
+
+[1] The UMN CS leadership has made a public statement now that the 
+research is now suspended: 
+https://twitter.com/UMNComputerSci/status/1384948683821694976
+
+
+-- 
+James Morris
+<jmorris@namei.org>
 
