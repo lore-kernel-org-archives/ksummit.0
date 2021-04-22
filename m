@@ -1,77 +1,96 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70E62F9B
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 13:22:30 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 65C3761445;
-	Thu, 22 Apr 2021 13:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1619097750;
-	bh=BVOSVNXz3rAZ1oFubhO6/+dJu4slIXBF+pKiuUWXqn4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bWGMKsKiRZHiTYQAoORaoXFrsfYw1TlTdqdE60iyTAGZGWgBiv8aMbZsvcCCywQZj
-	 FHdwYDQzeYW2XEro5aFdOipRR7wznBakeZhV55ZrWm6FP+0CHVcZ+0ua+sQB1GDQS/
-	 9q9S7lp6Lph2IozQLJ4DDVDDdPn+IKmH7TrewgHW4VoTF07PrG+h+PcjkbQCNoWSaa
-	 fEGBKzd/8/CkmU/UdDWWYY5XwLvozDk2bHPpyrdLytUnIaq5GA2qF92TeRf2aNArHJ
-	 e8Ka0L23M5dkvkkWKv3cM/zesJ/BSmx29lndjpTd4CGmXR6H2m05Zi1H8eIMZh+hCJ
-	 20ZMlffsO+GBw==
-Date: Thu, 22 Apr 2021 14:22:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226452F9B
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 13:24:04 +0000 (UTC)
+Received: by mail-qt1-f171.google.com with SMTP id 18so20307719qtz.6
+        for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 06:24:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=jAOO4VAV1jOfvYa8t+p7usPzA5IknEn+h/Odnf7ePbU=;
+        b=TeT4VGRGY822WQbhnFGe3vB4OX2XjZrvwmsGa86lY5Lowp/l9W8GCr6k3Y+9ynrmbB
+         lxdkhjySb67Cw77tSGzh2gamdkkKPAo2Y3PxV+iRQm3CqdcYTMvmZ5dHkHzAs5wVaWQy
+         0W0JTqYwIyVDj1AdY/Rf8DDtuLLaXHuUrVX/c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=jAOO4VAV1jOfvYa8t+p7usPzA5IknEn+h/Odnf7ePbU=;
+        b=M7BfCeqNqNA3GLIv7RK7RuppYUizp8vza1PdSLFgs84pjRPlJL9RbHwdQoTcAZWQxO
+         QSpteu34eawSJSjBWPF7eaRJoyfxZLlh4mWFwNPVTbtsVheZcTqWTw3mjzVKtASf5fTC
+         Tt3WDHW8N0cIJTLYuMJuOt43gMprvsN7oieMILZDROdE8Cz8XO3MBC9aLKcArPSbGBiz
+         LaeOlu2eFyL1UZwe9lu5MXa9tsCK5Ar1lOWjPhV/ltqZ1KUwzCpKuNsmCOtfbrLuUGQw
+         K1lqeOxRMknnjcW0yo7bhdqiJQw6oxYirtMUuXrWIm34If22dVbGURWKetrA24fFHwpA
+         scag==
+X-Gm-Message-State: AOAM533iKCjEWL2lzDvgz82dYDylHFLA7MJppCFm0QHGqRzEYX77585Z
+	tM2Yadh01jgd2rpf50mTgsHdRV+4Gr/HO6iw
+X-Google-Smtp-Source: ABdhPJw80bucCyph+YO/qW1Rdn6KFKdJq5zJfPZCxxjvxre0D5IQzSp4bj2qIb7yLdLvrn1Ldbl6MA==
+X-Received: by 2002:ac8:5f10:: with SMTP id x16mr3227807qta.6.1619097842908;
+        Thu, 22 Apr 2021 06:24:02 -0700 (PDT)
+Received: from nitro.local (bras-base-mtrlpq5031w-grc-32-216-209-220-18.dsl.bell.ca. [216.209.220.18])
+        by smtp.gmail.com with ESMTPSA id c5sm2067280qkl.7.2021.04.22.06.24.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Apr 2021 06:24:02 -0700 (PDT)
+Date: Thu, 22 Apr 2021 09:24:01 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-Message-ID: <20210422132202.GE4572@sirena.org.uk>
+Message-ID: <20210422132401.grykyup37xdz3yly@nitro.local>
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
- <YID5xhy2vv45fnOv@unreal>
- <20210422112001.22c64fe9@coco.lan>
- <YIFfXTVMDmHwVmSR@unreal>
+ <20210422123559.1dc647fb@coco.lan>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="k3qmt+ucFURmlhDS"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <YIFfXTVMDmHwVmSR@unreal>
-X-Cookie: Jesus is my POSTMASTER GENERAL ...
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210422123559.1dc647fb@coco.lan>
 
+On Thu, Apr 22, 2021 at 12:35:59PM +0200, Mauro Carvalho Chehab wrote:
+> I mean, usually, each maintainer develops internally a "trust score"
+> from subsystem's contributors, but such trustee level is usually not
+> shared with other maintainers.
+> 
+> When a developer reaches a certain level, maintainers are willing
+> to merge their work faster as they know that the developer is
+> there for a while and it is not trying to harm the community.
 
---k3qmt+ucFURmlhDS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> 
+> Perhaps one thing that we could add would be a
+> scripts/get_developer_trustee_status, which would be returning
+> a set of indicators that would help the maintainer to know
+> how much it can trust a random contributor, like:
+> 
+> 	- how many drivers and patches a contributor has written;
+> 	- how long and how frequent he's sending Kernel patches;
+> 	- what subsystems received patches from him;
+> 	- if the developer isn't on a blacklist/graylist.
 
-On Thu, Apr 22, 2021 at 02:34:53PM +0300, Leon Romanovsky wrote:
+I must point out that "karma" systems are quite ripe for abuse and can create
+negative dynamics within the project. Right now, without an accepted framework
+of cryptographic patch attestation, high-karma accounts will be more likely to
+be targeted for impersonation -- typo spoofing, account hijacking, "From"
+fudging [*], etc.
 
-> Like Christoph said, if it is unrelated send the patches as separated
-> series.
+Even if we do everything right and implement strong cryptographic end-to-end
+attestation, we will still always have to assume that the submitter might be
+under duress and is submitting intentionally harmful code because someone is
+holding their family hostage.
 
-A very common case is for MFDs where you've got a core driver which is
-either being newly added or as far as external interfaces go having some
-defines added to it and then a bunch of basically unrelated driver
-patches.  There is often a build time dependency (not so much with the
-newly added stuff) so there is an actual dependency but no meaningful
-overlap with reviews.  You get a similar thing with people bringing up
-new SoCs where they send a minimal set of drivers in the initial series
-so people can usefully test.
+I think karma makes sense within the vertical confines of submaintainer
+hierarchy -- X collects patches and sends a pull request to Y; Y verifies the
+signature on the pull request, gives it a quick review and submits another
+request to Z, etc. Exporting the "karma points" outside of this hierarchy
+doesn't really make sense.
 
---k3qmt+ucFURmlhDS
-Content-Type: application/pgp-signature; name="signature.asc"
+-K
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCBeHkACgkQJNaLcl1U
-h9Cdvwf9EyQZ1Cg3KgBVhX70+x39cK9y5okJNSN/Pg1/RV90aYzwkZNs7jjn5Td7
-3T+CEFnDT/MACyJ0Cbfd3+/Bh7Hhme2zaVxctQnX6sfVLbAJodplkTiNrxk92nMM
-nZmaddDSf7QDgdcAQdFy5m1kpgdw5ImILcnAbP0L5PBKS7ptfAoqbwrTfU5tATSu
-PhMcGl5OvjhlnkLcsS2yU4LSp78NUkyW5/0aOWbiNLr11Dz7DYpU/+M2GVKSMOSl
-WZV5SlDCcHB1dPiKcuRmI9ceoF0YXbAQ9b0bRjrndrUMP/e+fC5zbGXnbfCbZ4uG
-iVN/nFcPebLlr5kAf4M0azi0m8aS3g==
-=oWw3
------END PGP SIGNATURE-----
-
---k3qmt+ucFURmlhDS--
+[*] A neat trick is where the email message "From" is a random gmail address,
+but the in-body "From:" has an address of a trusted contributor. If you review
+such patches after running "git am" you will not catch this discrepancy.
