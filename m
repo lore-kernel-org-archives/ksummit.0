@@ -1,96 +1,95 @@
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F6571
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 09:55:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C5BED6101E;
-	Thu, 22 Apr 2021 09:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044AA71
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 10:13:40 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7C73460E0B;
+	Thu, 22 Apr 2021 10:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1619085317;
-	bh=0wgRuZqufQQshfQCSKDXanQJbS6u2CUdeyEmiL43pg4=;
+	s=k20201202; t=1619086420;
+	bh=vrfvBn4NlgXy0vEwwPq0pnqaKoQc4fcGGTJDQpQTKu4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=cdrHJJBHGrAyJNGkjER4bbccIWGqx9O/Dmyp6hiKiKueYOCV8z4hS6W8rnepnbUf/
-	 LDMyg1lxgnht5tKaJOqPhRfW9vk7MZnKf9IHr/t5HCpzvfJmPuD1aqPxHNBoCdlYuI
-	 l5BKhezNpc90Ez4C9uFEBSK6Qbw88nSeFojvq/9hhd1v/MVQIoEL5uwHbPgKGwmyG7
-	 tD14jsDOZSzv55rbBdzP/Bjbr9bP9U79M8DS74Ci2hO23Xzw8BLMeGwPULsvdkAspz
-	 PzcB91Q1Q/75nM+3UYW4Uf7HvTAkJJhB7smTOIICZPdH4hOugklNkIsKw+dIvWIuP9
-	 HHWowfGYTAVZg==
-Date: Thu, 22 Apr 2021 11:55:11 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: James Morris <jmorris@namei.org>, Julia Lawall <julia.lawall@inria.fr>,
- Stephen Hemminger <stephen@networkplumber.org>, Roland Dreier
- <roland@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, James Bottomley
- <James.Bottomley@hansenpartnership.com>, ksummit@lists.linux.dev
+	b=IpOpK3M8/kDq6KVq/i2FSM94SKVkZazKxR1JbLSz0MUF0rqRsfSeLUEG80dXAInNf
+	 2+Aco4VAvlbQuP5ToD0a5Kyv60xkOV2alfPpVTZT5f2ru9XyxDbfiX62dMIr1ur+6k
+	 bAcDQ0kyD6pjDqtd//1dNN0d3lv3URSlj1laWnc7NP6pFnXx06yXcHDOO1JtE1pvWZ
+	 8WlxcBtxNpnRT+swFN2W1mfCuEqkQ7OdolxRHt7BaZE7jguEf21Jup0JHAfv7lDMSn
+	 der445H76UW4yYkE3qJaw8oSubXXjWisI8erS7VpHq/W67ohUCPYztsBJAC0m7fQzs
+	 FgVvvS7SVlIhA==
+Date: Thu, 22 Apr 2021 12:13:36 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Joe Perches <joe@perches.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>, James Bottomley 
+ <James.Bottomley@HansenPartnership.com>, ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-Message-ID: <20210422115511.60d1f735@coco.lan>
-In-Reply-To: <CAMuHMdU=c2bY1_sq+rSh1fON5QhNx8xWqMQLT+cD0BpqG0RtCg@mail.gmail.com>
+Message-ID: <20210422121336.097d5329@coco.lan>
+In-Reply-To: <b8827b4267648f35c31628e73be42efee52f5cf5.camel@perches.com>
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
-	<20210421152209.68075314@gandalf.local.home>
-	<CAG4TOxNOHRexUoKTo7ndViNtss0_BDeh4YCVHexvdQhQWF+vaw@mail.gmail.com>
-	<alpine.DEB.2.22.394.2104212150230.20674@hadrien>
-	<20210421132824.13a70f6c@hermes.local>
-	<alpine.DEB.2.22.394.2104212233450.20674@hadrien>
-	<d95ee281-4dc0-c5c1-ec87-81d83f44979@namei.org>
-	<CAMuHMdU=c2bY1_sq+rSh1fON5QhNx8xWqMQLT+cD0BpqG0RtCg@mail.gmail.com>
+	<yq1y2dbtbrm.fsf@ca-mkp.ca.oracle.com>
+	<b8827b4267648f35c31628e73be42efee52f5cf5.camel@perches.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Em Thu, 22 Apr 2021 09:34:38 +0200
-Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
+Em Wed, 21 Apr 2021 20:04:17 -0700
+Joe Perches <joe@perches.com> escreveu:
 
-> On Wed, Apr 21, 2021 at 11:50 PM James Morris <jmorris@namei.org> wrote:
-> > On Wed, 21 Apr 2021, Julia Lawall wrote:  
-> > > The apology states that they didn't detect any vulnerabilities.  They
-> > > found three non exploitable bugs and submitted incorrect patches for them.
-> > > When the patches received some positive feedback, they explained that the
-> > > patches were incorrect and provided a proper fix.
-> > >
-> > > So they damaged trust, but not actually the Linux kernel...  
-> >
-> > The issue is that there was no consent and no coordination, so we don't
-> > know the scope of the experiment and whether it was still continuing.
-> >
-> > We are this not able to trust anything the group said about what they'd
-> > done or not done, until now [1].
-> >
-> > In all probability there is nothing further amiss but we would not have
-> > expected them to use fake gmail accounts to submit bugs to the kernel
-> > either.
-> >
-> > It's now on us to audit all of their known contributions, because we don't
-> > know the scope of the experiment, which was based on the use of deception,
-> > and we can't make any assumptions based on what they have said.
-> >
-> > We also need the identity of the 'random' gmail accounts they used,
-> > although this should be handled by a small trusted group in private, as it
-> > will lead to privacy issues for kernel maintainers who responded to them
-> > in public.  
-> 
-> What do we gain by blindly reverting all[1] umn.edu patches, and
-> ignoring future patches from umn.edu?
-> I think all of this is moot: other people may be doing the same thing,
-> or even "in worse faith".  The only thing that helps is making sure
-> patches get reviewed[2] before being applied.
-> 
-> [1] Judging from the new review comments, many of the 190 patches
->     to be reverted were real fixes.
+> On Wed, 2021-04-21 at 22:05 -0400, Martin K. Petersen wrote:
+> > James,
+> >  =20
+> > > Our policy in SCSI for a long time has been no trivial patches
+> > > accepted to maintained drivers, =20
+> >=20
+> > I'm afraid that ship sailed years ago. I am merging a ton of trivial
+> > patches in SCSI. =20
+>=20
+> True and thank you.
+>=20
+> Perhaps the primary thing that James' email shows is that he's not
+> actively watching drivers/scsi/ git tree changes very much.
+>=20
+> And I believe James is referring to whitespace style trivial patches.
+>=20
+> > The reality is that not merging trivial patches is a losing battle. The
+> > various static checkers appear to develop defect detection parity and
+> > gcc and LLVM get more picky with every release. =20
+>=20
+> True, but perhaps most of the pickiness can be mitigated by moving
+> various warnings to W=3D2 or W=3D3.
 
-The reverted ones for media (29 patches) didn't contain any malicious code.
-One was useless (because the media core already fixes the pointed issue),
-but the other ones were valid patches.
+Not sure if this would solve anything. Also, it starts showing a lot
+of false-positive issues, like those:
 
-> [2] Whether we can trust the reviewers is another question, and might
->     become the topic of another research project :-(
+	./arch/x86/include/asm/bitops.h:283:28: warning: declaration of =E2=80=98f=
+fs=E2=80=99 shadows a built-in function [-Wshadow]
+	  283 | static __always_inline int ffs(int x)
+	      |                            ^~~
 
-That's the main concern.
+	<stdin>:21: warning: macro "__IGNORE_stat64" is not used [-Wunused-macros]
+	<stdin>:22: warning: macro "__IGNORE_lstat64" is not used [-Wunused-macros]
+	<stdin>:157: warning: macro "__IGNORE_madvise1" is not used [-Wunused-macr=
+os]
+	<stdin>:73: warning: macro "__IGNORE_llseek" is not used [-Wunused-macros]
+
+
+Btw, -Wunused-macros is probably that it probably doesn't make any sense
+to have "fixes". Having things like:
+
+	#define SOME_UNUSED_FOO
+
+won't cause any real issue, and attempts to drop those would result
+on lots of ifdefs for no good reason, like:
+
+#ifdef CONFIG_FOO
+#  define SOMETHING_USED_ONLY_WHEN_CONFIG_FOO
+#endif
+
+I would move it to be out of W=3D2.
 
 Thanks,
 Mauro
