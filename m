@@ -1,46 +1,90 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [144.76.43.62])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E2571
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 10:15:18 +0000 (UTC)
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.94)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1lZW7Y-00F86l-48; Thu, 22 Apr 2021 11:59:40 +0200
-Message-ID: <68c628ed354ea1ddea81878f0d713d2ce6426126.camel@sipsolutions.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307512F81
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 10:36:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1C0AC61450;
+	Thu, 22 Apr 2021 10:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1619087763;
+	bh=5wNm8Sbjle7gUDhSrhtC7uYY5LVFqLRjaq6HFAhx1qg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=tj/HIXLYMZwhEXYgTGoATJGGxKZktzoXc3y4+Lwamnm7dYMZ7b4Eo5ma5PYp0afHj
+	 zhdYpnaOW31toj3/0iy5NvvKTVVq01b0UpCv91RUp0nIkJp8VWs7wMFpFpgs+rCyWc
+	 9BcE+JUn69NA5HfaoxvAWMPqUbDWgIsQ9NopSJLjfzdju8/zbP53TXmnIBHTHXEERh
+	 BsOZ9qcWRGlvQB4uoC5Kr+hT0Qq7XpA7SuYwG5/1ktFAhlWx1m82kEaoKMWMmaTF1J
+	 n5wpoRTGZJPtubW7ds9OtrRcDiRD1FVpsnTQPXTkoIzn1BGFPqJIDOs5rPFNSqLyIB
+	 5Jc0uBHEfQM2g==
+Date: Thu, 22 Apr 2021 12:35:59 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Carpenter
-	 <dan.carpenter@oracle.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, 
-	ksummit@lists.linux.dev
-Date: Thu, 22 Apr 2021 11:59:38 +0200
-In-Reply-To: <20210422113404.09f35a85@coco.lan>
-References: 
-	<afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
-	 <20210421194702.GH1981@kadam> <20210422113404.09f35a85@coco.lan>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
+Message-ID: <20210422123559.1dc647fb@coco.lan>
+In-Reply-To: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
+References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-malware-bazaar: not-scanned
 
-On Thu, 2021-04-22 at 11:34 +0200, Mauro Carvalho Chehab wrote:
+Hi James,
+
+Em Wed, 21 Apr 2021 11:35:36 -0700
+James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
+
+> I've long been on record as not really being a fan of trivial patches
+> because they can cause merge issues with current patches and introduce
+> bugs, particularly in older drivers, that don't get detected for a long
+> while.  However, the recent events with the University of Minnesota:
 > 
-> Here, I use "wdiff" in order to deal with renames. It has a somewhat
-> funny dialect, but it helps a lot reviewing renaming patches.
+> https://lore.kernel.org/lkml/20210421130105.1226686-1-gregkh@linuxfoundation.org/
+> 
+> Have elevated the risk factor around trivial patches claiming to fix
+> bugs to the point where it looks like there's no such thing as a truly
+> trivial patch and they all need reviewing.
+> 
+> Our policy in SCSI for a long time has been no trivial patches accepted
+> to maintained drivers, and I think that would be a good start if
+> adopted kernel wide, but I think the next policy should be no trivial
+> bug fix without a pointer to the actual bug report or report from a
+> trusted static checker.  This would likely mean we have to create a
+> list of trusted static checkers ... obviously 0day and coverity but
+> what else?
 
-This also helps for casual "git show" etc.:
+I agree that we should have a "Rethinking the acceptance policy" talk
+at the Maintainer Summit, but it should cover a scope wider than just
+trivial patches. At least the patches I checked, sent from "@unm.edu" 
+to media subsystem, they all looked good enough to be merged[1].
 
-[core]
-	pager = /usr/share/git-core/contrib/diff-highlight | less -RFX
+The main question is actually what's the degree of confidence a
+maintainer can rely on a patch sent from a random contributor.
 
-(path may vary, of course)
+That's not an easy task.
 
-johannes
+I mean, usually, each maintainer develops internally a "trust score"
+from subsystem's contributors, but such trustee level is usually not
+shared with other maintainers.
 
+When a developer reaches a certain level, maintainers are willing
+to merge their work faster as they know that the developer is
+there for a while and it is not trying to harm the community.
+
+Perhaps one thing that we could add would be a
+scripts/get_developer_trustee_status, which would be returning
+a set of indicators that would help the maintainer to know
+how much it can trust a random contributor, like:
+
+	- how many drivers and patches a contributor has written;
+	- how long and how frequent he's sending Kernel patches;
+	- what subsystems received patches from him;
+	- if the developer isn't on a blacklist/graylist.
+
+
+Thanks,
+Mauro
