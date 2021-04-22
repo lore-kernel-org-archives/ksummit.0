@@ -1,31 +1,30 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3967970
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 14:57:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A107A70
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 15:11:08 +0000 (UTC)
 Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi [62.78.145.57])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2BBC93EE;
-	Thu, 22 Apr 2021 16:51:28 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 07CE73EE;
+	Thu, 22 Apr 2021 17:11:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1619103088;
-	bh=D1GpBOeWIGYhUkIwsi8+wZTjqQ6FdE008bms/uUjAm0=;
+	s=mail; t=1619104267;
+	bh=7+yKp4URuBmC7vrgTCFbuPv98jAJDeXRRHngGJr1vL0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NeM51YoGOIyrHyculEtYtTk6Nngu2y6uxDj8u71GJkDhomtrDEDKRb4YnntcC0FQ7
-	 /Zs5U8Qz5jU5nIY3KpfnXI5WRAhKxpPWPbT3nSC8KUndbboMyksKFWd2gmjMTyiks4
-	 huomU/QnRB30LAcP6+Cl7v8m/AOcDvdZZnNIwna8=
-Date: Thu, 22 Apr 2021 17:51:23 +0300
+	b=opqtWyZbBLHa32m+lvyLonQU+qI7idfwi0UwUj+3+Yb8J81l3OKfOyAQFny7IfWVp
+	 bEN5jlc/5Ka/iC13HPOkx3fYULSTyOrnBR6o87tzkF2mIQht+Vo9X+I2uLM18/t+vC
+	 dwDZjVwLouNV6NxcIBcSnXnmZ9qNIU7458q0tV6o=
+Date: Thu, 22 Apr 2021 18:11:02 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mike Rapoport <rppt@linux.ibm.com>
-Cc: Mark Brown <broonie@kernel.org>, Leon Romanovsky <leon@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
+To: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-Message-ID: <YIGNa8iAoJSFmkT1@pendragon.ideasonboard.com>
+Message-ID: <YIGSBkOvtwfCBs11@pendragon.ideasonboard.com>
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
- <YID5xhy2vv45fnOv@unreal>
- <20210422124023.GD4572@sirena.org.uk>
- <YIFx/iorjncjslob@linux.ibm.com>
+ <20210422123559.1dc647fb@coco.lan>
+ <yq1o8e6shil.fsf@ca-mkp.ca.oracle.com>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
@@ -33,36 +32,47 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <YIFx/iorjncjslob@linux.ibm.com>
+In-Reply-To: <yq1o8e6shil.fsf@ca-mkp.ca.oracle.com>
 
-On Thu, Apr 22, 2021 at 03:54:22PM +0300, Mike Rapoport wrote:
-> On Thu, Apr 22, 2021 at 01:40:23PM +0100, Mark Brown wrote:
-> > On Thu, Apr 22, 2021 at 07:21:26AM +0300, Leon Romanovsky wrote:
-> > 
-> > > While we are talking about policies, I would like to raise another bad
-> > > practice that is done by even seasoned developers - sending patches with
-> > > carefully crafted and filtered TO and CC.
-> > 
-> > > This practice causes to get out of context patches without ability to
-> > > see whole picture and the worse part that it divides feedback to
-> > > "islands" without ability to agree or disagree with the feedback.
-> > 
-> > The flip side of copying everyone on everything is that especially for
-> > serieses which aren't just repetitive changes this gets really noisy
-> > really quickly and things end up just not getting read.
+On Thu, Apr 22, 2021 at 08:32:11AM -0400, Martin K. Petersen wrote:
 > 
-> I think this is quite subjective and different people have different email
-> flows.
+> Hi Mauro!
 > 
-> For me the most annoying is to get several patches from the middle of a
-> series. IMHO, sending at least cover letter to everyone is the bare minimum
-> so that people at least can take a look at high level details and request a
-> repost.
+> > Perhaps one thing that we could add would be a
+> > scripts/get_developer_trustee_status, which would be returning
+> > a set of indicators that would help the maintainer to know
+> > how much it can trust a random contributor, like:
+> >
+> > 	- how many drivers and patches a contributor has written;
+> > 	- how long and how frequent he's sending Kernel patches;
+> > 	- what subsystems received patches from him;
+> > 	- if the developer isn't on a blacklist/graylist.
+> 
+> I do a 'git log --grep' when I see an email address I do not recognize,
+> sometimes I also Google. It would definitely be nice to automate some of
+> this.
+> 
+> From past program committee tenures I have a bunch of perl hacks to rank
+> people based on git history, mailing list posts, etc. But until now I
+> hadn't really thought of doing something that elaborate in my patch
+> workflow.
+> 
+> Scraping the list archives was the most painful part but that is now
+> trivially easy thanks to lore ('git log --author pakki001'). And much
+> faster too.
+> 
+> I think your proposal is fine as long as it is just printing raw
+> statistics. I am concerned that if we turn those numbers into a
+> one-dimensional "trust level", people will instantly start to game the
+> system to artificially inflate their score.
+> 
+> Another metric that may be worth capturing is how many Fixes: tags refer
+> to patches authored by this submitter.
 
-Could tooling based on lore and b4 help here ? The prospect of getting
-more patches in my inbox isn't exactly enticing, but the ability to
-quickly get the full context of a patch series is certainly useful (I've
-had to look up parts I wasn't CC'ed on previously).
+Looking forward to the resulting discussions on when to add a Fixes: tag
+:-) If Fixes: becomes a negative ranking tool, developers will lobby to
+not get their patches blamed, and we'll lose part of the value of
+Fixes:.
 
 -- 
 Regards,
