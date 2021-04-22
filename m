@@ -1,74 +1,73 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21522F9B
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 12:40:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 86EE6613F6;
-	Thu, 22 Apr 2021 12:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1619095252;
-	bh=lJRSxiLNkyRDmrY1vBkAqNHhFU4NKAVwGBC0fk19PJI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E/oE9ss65xuMj8zVnCSxCjmpoia4vWczRbo9NoNPvGlz5rdZsiKknBuyJ7UcOflIe
-	 rl2tGoxWnWXTgjl5TM7tmTuE7MRPJZHvKKjSZVMhRgyFqM8W4nixOgcT5dqlbVWP0l
-	 sRscH8hWXmYJpg5jrGp5r1XD9xZP77NYPCfMRp8Y1zj3kPfKfP8mAKd520Y1jpFfCP
-	 ueCcFDCVu9Igs7/ORVcj9mUFcB5RtJIKUGHSckQHnf6AsIb5PXslAwQzBFHNpy4CK1
-	 t12YgKjyOCK1/JSUaHfiTO54BifwEiH2syV0PmS9S8IFGgqKZAvSXtZksbs6cqAIYl
-	 aKyEw8fwZhIxQ==
-Date: Thu, 22 Apr 2021 13:40:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39E22F9B
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 12:54:00 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id e13so36250906qkl.6
+        for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 05:54:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=sSTTRhadAQGRa1rakPq8a2m25LOdGL6+FBNHT8RwQ6s=;
+        b=aJfRr/mrVs24owbcVhdOTmWXVM5G7lGFsm/qtSREGfB6fMdMhNln4SF4eyD7PRwbqz
+         6UBeQY9DddaIWdwWDn8XEWAKnq52jbDo9/UDIJez6tDNZSa+WL503pv6mImPy/zXI1Xn
+         uWCN3vfxj/zYT6emQsOVKqxYvDQgLLcuSsQu4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=sSTTRhadAQGRa1rakPq8a2m25LOdGL6+FBNHT8RwQ6s=;
+        b=AW9rDPzKy/gvg/mmB+PY8937g8RuOlzwIzzxfKwNG5znOlq28dTXcR9iF7p5dvmKm/
+         O90FKAhe735Fhed5clvROFJ/QHMOjNKdF7x4hq+8R74H8MdnDTKOQaymRoIufctE+INz
+         v5kh8rBsDi5YQHptfQn9K1vNZM/MLlNcFblf/gT5Evs+InjDJdF1UJRyPixUpG8XI1Ys
+         k+R6CArr6zNAy/Z5NBm6EqL+cN5dnMTUPeSPOeco3Nzfmdf/TXsMt/SEBAyGVEVi/Pcw
+         YiP6+HpyJfuypujpXQOZ7Q1PHWPZDT+mm2FRR3Hm6KHHuKunOt61liN+7vu4M6mro6Bm
+         M2iA==
+X-Gm-Message-State: AOAM5332P5UVhR9FnLaOqtS3Ua3zUCdBEWo9ZEOGO07xKTdAYVZPkzsQ
+	09HaTWL+qlokd9irqtr63cgEi+XlslQzv8ov
+X-Google-Smtp-Source: ABdhPJwLWTzhfzoK3uFyN6F8EcgugWIoL1DR3o9vBUviGz4fHoMpNU5pxjmZtW+FlMVimm+UfSDsuw==
+X-Received: by 2002:a37:89c7:: with SMTP id l190mr3676574qkd.361.1619096039572;
+        Thu, 22 Apr 2021 05:53:59 -0700 (PDT)
+Received: from nitro.local (bras-base-mtrlpq5031w-grc-32-216-209-220-18.dsl.bell.ca. [216.209.220.18])
+        by smtp.gmail.com with ESMTPSA id i127sm2076460qke.71.2021.04.22.05.53.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Apr 2021 05:53:59 -0700 (PDT)
+Date: Thu, 22 Apr 2021 08:53:57 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-Message-ID: <20210422124023.GD4572@sirena.org.uk>
+Message-ID: <20210422125357.uuxprp6rqxewcdsr@nitro.local>
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
  <YID5xhy2vv45fnOv@unreal>
+ <20210422112001.22c64fe9@coco.lan>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VMt1DrMGOVs3KQwf"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <YID5xhy2vv45fnOv@unreal>
-X-Cookie: Jesus is my POSTMASTER GENERAL ...
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210422112001.22c64fe9@coco.lan>
 
+On Thu, Apr 22, 2021 at 11:20:01AM +0200, Mauro Carvalho Chehab wrote:
+> Also, nowadays, with lore and b4, it would be easy to retrieve the
+> entire patch series, even for those that aren't subscribed on a 
+> c/c mailing list.
 
---VMt1DrMGOVs3KQwf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+If you're a mutt user, you can set up a keybinding, e.g.:
 
-On Thu, Apr 22, 2021 at 07:21:26AM +0300, Leon Romanovsky wrote:
+    macro index 4 "<pipe-message>~/work/git/korg/b4/b4.sh mbox -f -o ~/Mail<return>"
 
-> While we are talking about policies, I would like to raise another bad
-> practice that is done by even seasoned developers - sending patches with
-> carefully crafted and filtered TO and CC.
+You'll need to adjust it to point at where your maildir lives, of course, but
+that's the general idea. With it in place, you can hit "4" in the index view
+to get the rest of the thread (without duplicating the messages you already
+have).
 
-> This practice causes to get out of context patches without ability to
-> see whole picture and the worse part that it divides feedback to
-> "islands" without ability to agree or disagree with the feedback.
+If you use mbsync, this will also put the thread into your remote imap folder.
 
-The flip side of copying everyone on everything is that especially for
-serieses which aren't just repetitive changes this gets really noisy
-really quickly and things end up just not getting read.
-
---VMt1DrMGOVs3KQwf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCBbrYACgkQJNaLcl1U
-h9AWZgf/coAyxWwIXXeAYX3vyPOnuyYj688Eau3S5neUcMxruYrmtXMqtrqP78hz
-w2B2Aq+eJdygj831HXUmPuL6o1ItOZrAa7i3zELHFIN8nMVcjoXcQq6m9h2Uw0oC
-jX8C6mRd1bsmxNhvRP03h8/JcVs3Bi2Lp3u8uxSOB5XE5U2a70cB1etEQylSSF0f
-bG2K6Y8gasfLHVUXR7pQDnbAtz/OiuL7MwTk0rwPe6XBTefO62+XleutcMN+m8Xw
-VXa0PLqXvtjC/P3Ob8sZbUAZm8irUM/JnGcpFkPxjmlhzDedQ5kxU4X4AKnxehne
-WHw5SI8kcXwjalJNFnFAq2ZoKEprgw==
-=mb4X
------END PGP SIGNATURE-----
-
---VMt1DrMGOVs3KQwf--
+-K
