@@ -1,44 +1,43 @@
 Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB2D71
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 16:38:35 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id q10so33214250pgj.2
-        for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 09:38:35 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82F171
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 16:42:16 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id z16so33225605pga.1
+        for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 09:42:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=4cT1AM8Nym9STsHjaZOJddl35KTcQItBd5s4FDBfqDc=;
-        b=tQZfqotODqj5nGTkxNkG+iRNSAOqf9erTMkEnDmR8bq1KT1ZdEeLxs75oKp/pmRUXP
-         pUAc8+1rkoHXYn/PCEYIldrulpxLMQnV7x/OTJhuQAaKOEkSFsdebkEk3pzlGKJGXAVe
-         DZOJ7Ir4oOfYyc9Z1Ydz265/ofS4HCcolQK9qdU6k+NRT2pTGaR1ju+VqrpQN7/7BEVh
-         GFnpizv9ilqwIPfuyMTp/Akr2V7Zh1uqSKg3TThJoCmkdwaanbvnZnOm8gyu0hQ2+AkQ
-         7zrgohzc84Z+sywfr9jAesCV0CanLIpj02fM0ytkeRlF10iIOShbWpOxR9fhSuDlTa3P
-         lP4Q==
-X-Gm-Message-State: AOAM531436tukPiHfN3yd5rV8QSh1OTS5ic0csxHQGvFFGqL+JKzhUu/
-	ZrMkP9skSW3jQKTRxwnFbOuyd6ukVv4=
-X-Google-Smtp-Source: ABdhPJyttJ/QxI+VlJiU1HJu2D2/3+Q4aSjT2ToOA8iI3GcCNb9Cu6Jzs1r7vGKlGbCcmu/ixBhtFw==
-X-Received: by 2002:a63:175c:: with SMTP id 28mr4326538pgx.376.1619109514662;
-        Thu, 22 Apr 2021 09:38:34 -0700 (PDT)
+        bh=iU4yOFw9LKq1eK6zO9e5DnyvGd0tM6/l/w4nPZ1QwaU=;
+        b=hn337aakVI3oAJ2jI3dayP+yp38ggV/yNd/4gvYK9G8eCwc5Dt5YHvLbDrOcYmfD85
+         c0XN6D2LfWWVZbRgU4JPEnS+UTc9W0ueyW5G56XiYzrNXoJDMY3evDNlqzgvxCxdpXe/
+         wIBItnodFH8IxjiZ67nMkdpBh8AVF+PgXnBBUu+9BHtDW758JJppAUdGii3mz2ic6eiA
+         AJbtZowwwGxqsWEITYIUU7kRluKSGuZUWiGOtZVItShMoZSpCq+lXkS7WAN0+Iqxpjzg
+         kmMzpXtv2an2tCZJM2Nim5C6gvhQJLc+lVoCPckRug603VDYAL+grhTspT73JoRSur9Q
+         eKWQ==
+X-Gm-Message-State: AOAM533unnXB/9rp4GO/pFDA0UJ1pBJc0VxT7gkAQPXK0BD7JWLfSztp
+	yY6A4QvMu5AsUiYWJwtV3rqpZnVHcJk=
+X-Google-Smtp-Source: ABdhPJwBlBytLm1PvXYra3aGW9EblBryo7eDp50aMeoP9TdsvlwaC/SSJteN4g6Joy50vPOE0JWQvg==
+X-Received: by 2002:a63:8949:: with SMTP id v70mr4317855pgd.12.1619109736091;
+        Thu, 22 Apr 2021 09:42:16 -0700 (PDT)
 Received: from ?IPv6:2601:647:4000:d7:ca3e:c761:2ef0:61cd? ([2601:647:4000:d7:ca3e:c761:2ef0:61cd])
-        by smtp.gmail.com with ESMTPSA id 25sm2938995pgx.72.2021.04.22.09.38.33
+        by smtp.gmail.com with ESMTPSA id j36sm2973043pgi.81.2021.04.22.09.42.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Apr 2021 09:38:33 -0700 (PDT)
+        Thu, 22 Apr 2021 09:42:15 -0700 (PDT)
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Joe Perches <joe@perches.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>
 Cc: ksummit@lists.linux.dev
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
- <20210422123559.1dc647fb@coco.lan>
- <0d83502f-eb29-9b06-ada8-fcd03f9c87a8@linuxfoundation.org>
- <a72a13e56ee5f19b0dee9ae8c1928b020e8809c2.camel@HansenPartnership.com>
+ <yq1y2dbtbrm.fsf@ca-mkp.ca.oracle.com>
+ <b8827b4267648f35c31628e73be42efee52f5cf5.camel@perches.com>
 From: Bart Van Assche <bvanassche@acm.org>
-Message-ID: <f3c4cb63-f0f7-97be-227a-7a1a0db34650@acm.org>
-Date: Thu, 22 Apr 2021 09:38:32 -0700
+Message-ID: <edd8564c-f565-33f8-dd7f-9bf98a421b8b@acm.org>
+Date: Thu, 22 Apr 2021 09:42:14 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.9.1
 X-Mailing-List: ksummit@lists.linux.dev
@@ -46,24 +45,21 @@ List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <a72a13e56ee5f19b0dee9ae8c1928b020e8809c2.camel@HansenPartnership.com>
+In-Reply-To: <b8827b4267648f35c31628e73be42efee52f5cf5.camel@perches.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 4/22/21 8:42 AM, James Bottomley wrote:
->    3. Better handling of "trivial" changes, say via a resurrected trivial
->       tree
+On 4/21/21 8:04 PM, Joe Perches wrote:
+> And I believe James is referring to whitespace style trivial patches.
 
-Why was the trivial tree introduced? I may be missing some history here.
-
-I'm not convinced that sending trivial patches to a separate mailing
-list and maintainer helps everyone. As an example, I want to see block
-layer patches being posted on the block layer mailing list and I want to
-see SCSI patches being posted on the SCSI mailing list. I don't want to
-have to follow a separate "trivial" mailing list to verify whether or
-not e.g. a patch is posted on that mailing list that changes a correct
-comment into an incorrect comment.
+Maybe it's just me but I don't like patches that only change whitespace
+or the coding style. I'm fine with such patches if these are part of a
+larger patch series that also fixes bugs but not if such patches are
+posted on their own. "git log -p" and "git blame" are important tools to
+learn more about why code evolved into its current state.
+Whitespace-only patches make it harder to follow how code evolved into
+its current state.
 
 Thanks,
 
