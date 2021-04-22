@@ -1,82 +1,67 @@
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B6670;
-	Thu, 22 Apr 2021 14:51:37 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A225E6141C;
-	Thu, 22 Apr 2021 14:51:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0050470
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 14:51:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BF05760FE6;
+	Thu, 22 Apr 2021 14:51:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1619103096;
-	bh=L8GJCRdZEgvWuOnY6MuNLjvwrNnvqmgpp3zdB/y2tAk=;
+	s=k20201202; t=1619103103;
+	bh=UKFwJRDdbiiT/pHn/I/4Vhnh7pvxc3TTP3gH/DQ70lI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HM2DBFYeIS1vpXcFSbqqPh63KmZSmf+SYdcqN8Jhtda9CK8+YBHG++z8LDRlvUoYl
-	 tKUSJRlcJuURFrcV0BM/va3by71GnVHGNS7bzIU2gD5ak0+DW/M1JzdXXPqKH8pcFd
-	 GKuIqTyqfz6t1o8PG+7luW2tPOebn/RxyZjM07jNM/KF0bKRCsFtqbdYUUkKtrQh97
-	 5f02jluzV0RcGKxK2ak9Ldz0jv71M7tbpTkZKIvFcoXyMWGP1Xw/mg/I2Z/1V4tUon
-	 1U5q0OlXwbGZwCUep28eug8FIiq1u59QQrstZQq1Ff+7I9LY3XUpYL5b1jrBlUT11v
-	 uEWyOlvvgyNOA==
-Date: Thu, 22 Apr 2021 15:51:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	regressions@lists.linux.dev,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>, ksummit@lists.linux.dev,
-	workflows@vger.kernel.org
-Subject: Re: RFC: building a regression tracking bot for Linux kernel
- development
-Message-ID: <20210422145107.GH4572@sirena.org.uk>
-References: <268a3049-7c0b-8a33-1ff6-5a2d35fcba16@leemhuis.info>
+	b=awlxtowJMX9s2njkoMkFpLZPc36A7KwtfnP73LkRfy66rVIv34lImGWXqxYFuK0Zi
+	 yif6nJMbhBDQJb/tXrDfpoGLdSRAKzpjXnhW/ah2dwdmjyKJ5xOIbnqWqaDjPbmWU1
+	 QfmAqgtQ8UR1IuQHEJpVVOeTiMXPeZNP43DGEvJVjQY3EJ5xNQlxdcK7PZ2A8HxECR
+	 BnuA8bOxgTYVbskWBoYLrGypeVP65rrCH3tfHBMaV0/B7jB/hlkz7wsOrZD9eWhIIQ
+	 QGbXYGOQx3sjQwZu7pQt34vVOOlvQvniuGKV84JMycd4kGop8JHCf6jFQHUCDM7XX5
+	 KYAZhC76Ix2IQ==
+Date: Thu, 22 Apr 2021 17:51:39 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit@lists.linux.dev
+Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
+ "trivial" patches
+Message-ID: <YIGNe07xtf1adA/G@unreal>
+References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
+ <YID5xhy2vv45fnOv@unreal>
+ <20210422112001.22c64fe9@coco.lan>
+ <YIFfXTVMDmHwVmSR@unreal>
+ <20210422132202.GE4572@sirena.org.uk>
+ <20210422161207.3350a36e@coco.lan>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="K1n7F7fSdjvFAEnM"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <268a3049-7c0b-8a33-1ff6-5a2d35fcba16@leemhuis.info>
-X-Cookie: Jesus is my POSTMASTER GENERAL ...
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210422161207.3350a36e@coco.lan>
 
+On Thu, Apr 22, 2021 at 04:12:07PM +0200, Mauro Carvalho Chehab wrote:
+> Em Thu, 22 Apr 2021 14:22:02 +0100
+> Mark Brown <broonie@kernel.org> escreveu:
+> 
+> > On Thu, Apr 22, 2021 at 02:34:53PM +0300, Leon Romanovsky wrote:
+> > 
+> > > Like Christoph said, if it is unrelated send the patches as separated
+> > > series.  
+> > 
+> > A very common case is for MFDs where you've got a core driver which is
+> > either being newly added or as far as external interfaces go having some
+> > defines added to it and then a bunch of basically unrelated driver
+> > patches.  There is often a build time dependency (not so much with the
+> > newly added stuff) so there is an actual dependency but no meaningful
+> > overlap with reviews.  You get a similar thing with people bringing up
+> > new SoCs where they send a minimal set of drivers in the initial series
+> > so people can usefully test.
+> 
+> Another common case are patches changing a kAPI that it is used on
+> other subsystems. They should be grouped as a hole, and applied
+> altogether, but each subsystem maintainer should ack/review only the
+> stuff related to the subsystem's scope.
 
---K1n7F7fSdjvFAEnM
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This is exactly when I want to see all relevant mailing lists to be CCed.
 
-On Thu, Apr 22, 2021 at 09:16:40AM +0200, Thorsten Leemhuis wrote:
-
-> That's it already. The regression was tracked with:
-
->  * minimal overhead for the reporter
->  * no additional overhead for the developers =E2=80=93 only something the=
-y ought
-> to do already became more important
-
-For things that are caught by the various automated systems the
-deduplication might get annoying - even for the systems with a human in
-the loop it's very common for things that the automated systems pick up
-to end up getting reported several times over due to things like race
-conditions in the reporting process.  We'll have to see how that goes,
-it might be possible to automate some of it.
-
---K1n7F7fSdjvFAEnM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCBjVoACgkQJNaLcl1U
-h9Cbjgf8D14vx+s9t/dKVSSiCbipbS1Ip/ihBgFmYGmfZlURlPlQcoRh/fkYASjZ
-CrDngHSKgnmnkmRTn2SLPaEP88ZUoKP9xXpI9mE/TzpzJ/vkI1nfSIu5eZn73U7o
-Z2XrcQq/5esSRZqQ0MhbKGnCW5YjkQvdqFpVJ8ENF4pK85KIE6l83uaZsbhrkXAy
-GTPyov/bBXISY0K2OXu2RyTvtCY9RtpdAgySbO++VnonAcs4fC/dSgB2juC/g+Lc
-70/oVxhXoTpRd8bX0oKEH1u00NcVC9uqaUuHf7wkIFBw9/AeNvJgEz3Fz1L2o6aY
-BKEOjtrgZAvcSV3grGwYxpt7Cql5Aw==
-=KJRI
------END PGP SIGNATURE-----
-
---K1n7F7fSdjvFAEnM--
+Thanks
