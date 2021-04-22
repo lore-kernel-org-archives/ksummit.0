@@ -1,84 +1,77 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F882FA4
-	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 13:24:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E49806143B;
-	Thu, 22 Apr 2021 13:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1619097847;
-	bh=ST09M5/IeLSyYIlyP8NsRuiOj2/o8WaBqQDQ/weJzYg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m1tGD8as1XDEL0SxdTgYnuzaCBaQS2AqW84M1m43mDIhtWqp9T8YOLhao47/CluYk
-	 j/soFCdPadh0VwHuJ/su+ep9Bpa5Ko3s98Klsw+u8kNUn+/Zg0JsZ1l+a5lQIVFwoz
-	 3/iSjr3wmdfYwBEwRsYhK5WrAtbw1g/K1nysNAPCuehJYLyqswMijMPoABQ+C5mnrx
-	 ls/Z1wUnInkcv0rSKza+t2lTjXc+ZrbubdQxjG62W+waYy4amwRwxJQ50vOJ7vmVly
-	 RXngt9FP0A6APqPue1fbIkuIkgXt36lZMVtRCojlVpgCDkOnNF+oJH/ZQUu/1o/gQD
-	 qMRLBBqr823Bg==
-Date: Thu, 22 Apr 2021 14:23:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mike Rapoport <rppt@linux.ibm.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0D32F9B
+	for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 13:27:39 +0000 (UTC)
+Received: by mail-qk1-f173.google.com with SMTP id u20so14031337qku.10
+        for <ksummit@lists.linux.dev>; Thu, 22 Apr 2021 06:27:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=OqBOY8F6toSunIOUkmGhCgwheSWh8hzJQcqPkl7ZvvI=;
+        b=N98i+nG4QSA4ZbElSMd/73z5rRxlIqY/zRRhKlLzYJ7n71rFLgtuuwNykcLjR5oruJ
+         E/q7kwNkf+YJmn6NVUW5XLg2+Zk3xDN4mj+buztYp3AcfOs9nZ7EhQfnHc+nt5ypCoxS
+         m2qsiLeDyz4/Mn4IYUEq/GWyzlb9SMmsUg2N0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=OqBOY8F6toSunIOUkmGhCgwheSWh8hzJQcqPkl7ZvvI=;
+        b=qfpya0SsG2iyAGFZOuqai4qs8Lc18R1GTudKnpSvakjXfXLOhpcDz4liXhEqfe5XG3
+         rAfBl8xBszu4fyn45Biteb83VV+YewoE9jkeylYGun9Y7Xm5JMTpAktM+/PGF873yJSP
+         UHa2ij31tQli9qVuvyl0YxIzEXaT7UfS1bTpJIOGSzxCmXV1amLe7k9PHk/ecwwrXMIN
+         1z6sVVdQdkxCdB1B8g0PZWdeBelKzzQ2lBENScqhvH/tz6ex4sleBZoj3dsP5Shql1TV
+         x81vH9JOazBeP9qgt/cpYDqmZUMR33DU/d1V/YqMcEyHAkIc7SrQX00I2BGB7+70gs7H
+         MCpA==
+X-Gm-Message-State: AOAM531DgAvL9cObmTDlZevgDokrJpafilG7UDw2KDiWHvItIWTFzTJG
+	OenrBPzTScERB1slmx4LzeHN7A==
+X-Google-Smtp-Source: ABdhPJw3ePThLFICb67e0sGfdrHzdVwCZWFftN1r+FffvIALCJlIcLc8J+cxIDsNfocyRCZlCKBTdg==
+X-Received: by 2002:a37:58c5:: with SMTP id m188mr3536005qkb.327.1619098058939;
+        Thu, 22 Apr 2021 06:27:38 -0700 (PDT)
+Received: from nitro.local (bras-base-mtrlpq5031w-grc-32-216-209-220-18.dsl.bell.ca. [216.209.220.18])
+        by smtp.gmail.com with ESMTPSA id w196sm2209197qkb.48.2021.04.22.06.27.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Apr 2021 06:27:38 -0700 (PDT)
+Date: Thu, 22 Apr 2021 09:27:36 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-Message-ID: <20210422132339.GF4572@sirena.org.uk>
+Message-ID: <20210422132736.s2lqinm5ke565ujp@nitro.local>
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
  <YID5xhy2vv45fnOv@unreal>
- <20210422124023.GD4572@sirena.org.uk>
- <YIFx/iorjncjslob@linux.ibm.com>
+ <20210422112001.22c64fe9@coco.lan>
+ <20210422125357.uuxprp6rqxewcdsr@nitro.local>
+ <YIF1XyIqwhTcRjFE@unreal>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IvGM3kKqwtniy32b"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <YIFx/iorjncjslob@linux.ibm.com>
-X-Cookie: Jesus is my POSTMASTER GENERAL ...
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <YIF1XyIqwhTcRjFE@unreal>
 
+On Thu, Apr 22, 2021 at 04:08:47PM +0300, Leon Romanovsky wrote:
+> > You'll need to adjust it to point at where your maildir lives, of course, but
+> > that's the general idea. With it in place, you can hit "4" in the index view
+> > to get the rest of the thread (without duplicating the messages you already
+> > have).
+> 
+> Thanks, I'll try it, however it will fit my flow only partially.
+> 
+> This macro will bring the missing patches only when I'm near computer (mutt),
+> while in my flow, I'm reading emails from the phone and only for the replies use
+> the computer.
 
---IvGM3kKqwtniy32b
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+You may be better served by the upcoming "lei" tool, then. It can identify
+threads of interest to you (e.g. those on which you are cc'd), put them
+into your local or remote inbox, and continuously update them as new messages
+come in. If you run it as a background process, you'll get the workflow you're
+wanting.
 
-On Thu, Apr 22, 2021 at 03:54:22PM +0300, Mike Rapoport wrote:
-> On Thu, Apr 22, 2021 at 01:40:23PM +0100, Mark Brown wrote:
-
-> > The flip side of copying everyone on everything is that especially for
-> > serieses which aren't just repetitive changes this gets really noisy
-> > really quickly and things end up just not getting read.
-
-> I think this is quite subjective and different people have different email
-> flows.
-
-Well, it also depends a lot on why the series is going to lots of people
-- the MFD/new SoC case is very different to the adding and using a new
-API case for example.
-
-> For me the most annoying is to get several patches from the middle of a
-> series. IMHO, sending at least cover letter to everyone is the bare minimum
-> so that people at least can take a look at high level details and request a
-> repost.
-
-Yes, the cover letter should always go to everyone.
-
---IvGM3kKqwtniy32b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmCBeNoACgkQJNaLcl1U
-h9A9UQf8Ch0AlsYxmBarB71WenBwOTYw8Iz7eGCXdFBjlUHBJr5+s8kwdvb7hCf3
-91tvMbCdU6bfoSQ/igdoeeL2KOi0GEynaaVLl3nCysn1xBB9FWR1HZaIqAm3b2pm
-dKuQzF1nSDud1MBkD88SCi3CvuTq8KlRq/bCRo5Tvsxu8ln3q1HlUICUiTRm05aD
-ZHQCAGSnCSFbJXz0KLSHe4Vj6cW3Fw4A2Yv9JlsRacTm7POQO3tjTSwFbYat+Fuv
-qFLOHIPKPEnxCmcoHjb4eRufb9HpZ5atoqtvo3EnXRF/zR4BXQ9CiD2/w3wMPCFg
-92Zv58iHVUoT03zF21t6tlhAjNV1Gg==
-=HiHV
------END PGP SIGNATURE-----
-
---IvGM3kKqwtniy32b--
+-K
