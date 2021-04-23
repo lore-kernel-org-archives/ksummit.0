@@ -1,82 +1,117 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132B170
-	for <ksummit@lists.linux.dev>; Fri, 23 Apr 2021 00:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
-	:Reply-To:Content-ID:Content-Description;
-	bh=b658WO1cfkCzmniAQjbswqvEqiD20keA/c2Qdz3GX3M=; b=ED+wcWFYWZLq2ifP7AnHRSdw9v
-	8cr6F7CaTXfrbXJtDM0qyZuVQ5H4dmJa7iAxd3hDTueAXbtz6SVh3p5a1p1NSTInNtNCC4/5E7gwR
-	BjPpaR+G4/3qazqCllpAllMZ8U3QdpApjvSTaFLFezipZl/ZSnmEsA8Udqu2H7hLRLmb8nH8lvpyG
-	r9MKOVJLXVVFBv6dcDfCwEQoqq+rGfFJoQVBk+5NnQy4DAIP5VGDH+hgTPTSOGwSk4z3D/mtYlNf4
-	80WNRDUNqgWjqZbLQ5TAaF86TzvimK5eQX17jOioU1cEHrIkCbgbLvznkoSv30vrcRtoZEnzh/pvY
-	h++ujD8g==;
-Received: from [2601:1c0:6280:3f0::df68]
-	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1lZjO0-001AYY-2K; Fri, 23 Apr 2021 00:09:40 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB0F29CA
+	for <ksummit@lists.linux.dev>; Fri, 23 Apr 2021 06:04:59 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B078361404;
+	Fri, 23 Apr 2021 06:04:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1619157899;
+	bh=D4r0o+1Zd4d9tNystDimGhAjWAGvE+l0/PYVFEOxd/g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ssY1/XqT/8hDp8DpBtcj9V4m7R9vO/sDlPPRBzB12ZsUBbUal1jRMCek6pQfLBrNt
+	 +4QsFKdVf34cBzt/YSZMZe7Z8Vxt+/HkTxiUpDxgzc61IiNXebG9phmg6EpWXTpS8s
+	 oL5FUuUcsGUyTwztvEj+MPeX9sC226HP45AfRgEXq5CL4a2km51PjUxWFWecsK4oQb
+	 jkJuW6p6ps6U2MmRaTx7cg8gDgq72Qq7bm2BKvtHzGC25Mi2ApGJNX491FWSTTBdBg
+	 VzmD7psW+5h+X9vP9TxPwVq1/eIcihdep5gBOYV+/Yx5aX5/YLwhuziLuo+Tbr47ZY
+	 MQN8fyzJlJuyQ==
+Date: Fri, 23 Apr 2021 08:04:54 +0200
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Rob Herring <robherring2@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Leon Romanovsky <leon@kernel.org>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ ksummit@lists.linux.dev, tools@linux.kernel.org
 Subject: Re: [MAINTAINER SUMMIT] Rethinking the acceptance policy for
  "trivial" patches
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Johannes Berg <johannes@sipsolutions.net>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- ksummit@lists.linux.dev
+Message-ID: <20210423080454.78f4f662@coco.lan>
+In-Reply-To: <CAL_JsqKS-=shqkLhzKeLHqNPhosGJw5X-fOi+dy1rT3Q_LfBZg@mail.gmail.com>
 References: <afc5664dc2b60f912dd97abfa818b3f7c4237b92.camel@HansenPartnership.com>
- <20210421194702.GH1981@kadam> <20210422113404.09f35a85@coco.lan>
- <68c628ed354ea1ddea81878f0d713d2ce6426126.camel@sipsolutions.net>
- <YIHZY1oWNRLOCtQa@piout.net>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <bf59ed57-376d-785b-3c93-ed5f30d3846a@infradead.org>
-Date: Thu, 22 Apr 2021 17:09:25 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+	<YID5xhy2vv45fnOv@unreal>
+	<20210422112001.22c64fe9@coco.lan>
+	<YIFfXTVMDmHwVmSR@unreal>
+	<20210422092916.556e5e50@gandalf.local.home>
+	<CAL_JsqKS-=shqkLhzKeLHqNPhosGJw5X-fOi+dy1rT3Q_LfBZg@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <YIHZY1oWNRLOCtQa@piout.net>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 4/22/21 1:15 PM, Alexandre Belloni wrote:
-> On 22/04/2021 11:59:38+0200, Johannes Berg wrote:
->> On Thu, 2021-04-22 at 11:34 +0200, Mauro Carvalho Chehab wrote:
->>>
->>> Here, I use "wdiff" in order to deal with renames. It has a somewhat
->>> funny dialect, but it helps a lot reviewing renaming patches.
->>
->> This also helps for casual "git show" etc.:
->>
->> [core]
->> 	pager = /usr/share/git-core/contrib/diff-highlight | less -RFX
->>
->> (path may vary, of course)
->>
+Em Thu, 22 Apr 2021 09:20:19 -0500
+Rob Herring <robherring2@gmail.com> escreveu:
+
+> On Thu, Apr 22, 2021 at 8:30 AM Steven Rostedt <rostedt@goodmis.org> wrote:
+> >
+> > On Thu, 22 Apr 2021 14:34:53 +0300
+> > Leon Romanovsky <leon@kernel.org> wrote:
+> >  
+> > > > This is not a matter of bad practice. There are a couple of reasons
+> > > > why each patch on a series will have a different group of Cc, like:
+> > > >
+> > > >     - driver maintainers for each patch may be different;
+> > > >     - scripts/get_maintainers.pl will return a different Cc/To;
+> > > >     - patch series touch different subsystems;  
+> > >
+> > > Like Christoph said, if it is unrelated send the patches as separated
+> > > series.  
+> >
+> > Since I use quilt to send my patches, my only two choices are all patches,
+> > or individual ones with Cc. Some of my patches will need to touch every
+> > architecture. I'll Cc the maintainers of the architecture code, but not
+> > include them in every architecture patch. And because this code depends on
+> > other patches, I can not send them as individual series.
+> >
+> > I use to have issues with this, but now with lore, I can trivially find the
+> > entire thread and read it the whole story. IMO, it is no longer bad
+> > practice to Cc only a single patch is a larger series to a maintainer, for
+> > the one patch that touches their code. It's a "FYI, I'm touching your
+> > code". But because of lore, it's really easy for them to get the full
+> > picture.
+> >
+> > I much rather have my INBOX today be only patches that touches my code,
+> > then full series of patches that I really don't care about. Worse yet, I'll
+> > get Cc'd on a full series of 20 patches, where only one patch touches my
+> > code. The sad part is, I'm much more likely to ignore that series, because
+> > I'm added to stuff by get-maintainers for the strangest reason, and
+> > completely miss that there's a single patch in there that really requires
+> > my review.
+> >
+> > Please, just Cc me on code that touches something I maintain or listed as
+> > a reviewer (which is still a lot).  
 > 
-> I've been shown https://github.com/dandavison/delta/ a little while ago
-> and it has a very good side by side view, showing exactly what change on
-> each line. I'm using:
-> 
-> [core]
->         pager = delta
-> [delta]
->         plus-color = "#012800"
->         minus-color = "#340001"
->         syntax-theme = Solarized (light)
->         line-numbers = true
->         side-by-side = true
-> 
+> Unless the process of who to Cc or not is completely automated,
+> relying on submitters to do the right thing to give you the subset of
+> emails you want to see is never going to work. I have frequent
+> problems with folks not Cc'ing the DT list for DT patches, how hard is
+> that? I think the answer is making where patches are sent less
+> important and better/easier filtering from lore (which is coming).
 
-If anyone is into a similar(?) (non-git) old school solution, you can try
-patchview:  https://www.infradead.org/~rdunlap/scripts/patchview
+I have a script to automate it, but I had to tweak it while handling
+patches that cross a single subsystem boundaries, using git send-email
+with the c/c list obtained from get_maintainers.pl.
 
-It might be nice to have an "ignore whitespace" option...
+By default, the script adds all maintainers, reviewers and all mailing
+lists to the cover letter, but that sometimes generate a cover letter
+with 80+ c/c, which will be automatically rejected by anti-spam
+measures and by mail servers.
 
--- 
-~Randy
+So, I played with two different alternatives:
 
+1. At the beginning, I changed the script to c/c only the mailing lists,
+   excluding maintainers/reviewers;
+2. As the feedback was not great, I changed the script to c/c only
+   the maintainers, excluding mailing lists/reviewers. It seems that
+   this worked better.
+
+I didn't try to play with bcc, as replying to it would not send
+the replies to everyone.
+
+If you think it is worth, I could submit it to scripts/, but I
+suspect we may need to adjust it to work with all maintainers'
+workflows.
+
+Thanks,
+Mauro
