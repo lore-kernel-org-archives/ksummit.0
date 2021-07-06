@@ -1,114 +1,100 @@
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com [96.44.175.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com [209.85.166.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92BE2F80
-	for <ksummit@lists.linux.dev>; Tue,  6 Jul 2021 10:28:36 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id CF0A6128093E;
-	Tue,  6 Jul 2021 03:20:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1625566833;
-	bh=oFoYdK36MaAiqkSmF5bze1Y10/Gp6N/40GM0AMh+WAQ=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=wfSF6vqJUUpB4kCUZ2Kv358xQou80SQNuimZ3G0jpqmgDuQptngJW3fyfvpKTyr3o
-	 oMeRc4Zb1+KzNlPyBCVn/cIh5bCgGM4XDy0F9gGFxQVL96NpsPDPq/LjJE1aa6QDoM
-	 449zZ7M0pNX28ARscI9rrNugA4/QotzEbHAo6PuQ=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id qxOVB9Ea5IIP; Tue,  6 Jul 2021 03:20:33 -0700 (PDT)
-Received: from [192.168.0.73] (cpc1-seac25-2-0-cust181.7-2.cable.virginm.net [82.8.18.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id B81FD12808AC;
-	Tue,  6 Jul 2021 03:20:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1625566833;
-	bh=oFoYdK36MaAiqkSmF5bze1Y10/Gp6N/40GM0AMh+WAQ=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=wfSF6vqJUUpB4kCUZ2Kv358xQou80SQNuimZ3G0jpqmgDuQptngJW3fyfvpKTyr3o
-	 oMeRc4Zb1+KzNlPyBCVn/cIh5bCgGM4XDy0F9gGFxQVL96NpsPDPq/LjJE1aa6QDoM
-	 449zZ7M0pNX28ARscI9rrNugA4/QotzEbHAo6PuQ=
-Message-ID: <19e0f737a3e58ed32758fb4758393c197437e8de.camel@HansenPartnership.com>
-Subject: Re: [TECH TOPIC] Rust for Linux
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Leon Romanovsky <leon@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>,  "a. Miguel Ojeda"
- <miguel.ojeda.sandonis@gmail.com>
-Cc: ksummit@lists.linux.dev
-Date: Tue, 06 Jul 2021 11:20:30 +0100
-In-Reply-To: <YOPcZE+WjlwNueTa@unreal>
-References: 
-	<CANiq72kF7AbiJCTHca4A0CxDDJU90j89uh80S3pDqDt7-jthOg@mail.gmail.com>
-	 <CACRpkdbbPEnNTLYSP-YP+hTnqhUGQ8FjJLNY_fpSNWWd8tCFTQ@mail.gmail.com>
-	 <YOPcZE+WjlwNueTa@unreal>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A962A70
+	for <ksummit@lists.linux.dev>; Tue,  6 Jul 2021 14:24:19 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id h190so3045208iof.12
+        for <ksummit@lists.linux.dev>; Tue, 06 Jul 2021 07:24:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=6bWKcEsMv0LJ66+15UbAOhlJD+/f5GeoOfZTx7aJcgI=;
+        b=GXBIrauVeD8vujJJgeCr/ag5/+0JcKT0qJ8vG8bxR2xrQ7brtDbB6zHdEK9tyPe9gy
+         bqBUSdWW6vHN7xaD8iyNXyynGuaIef/3tDYJRWwK6mYZpyrZFLlpMX+xoyn2gV7KzUz8
+         NldRhQLW1oiEuCoyGI0K4iWO6g0BthW9gcgIkODmOqUDBf/qMW8peYk91m3ggGlyaZLx
+         EVnBEphFs0IS+BgFd6ZN5UnCwpd3++0+ETZ8278CYUdhz9DpQAmlvUFQI9QHIBFmLmC4
+         E7fomip6I8XXP7hO3/GSymkwNxuxZDSPM4Ll7yMzLXpTPTmlNecgJFN8Yu2x4Bz18f1o
+         LQ/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=6bWKcEsMv0LJ66+15UbAOhlJD+/f5GeoOfZTx7aJcgI=;
+        b=jm+DaBoks2KswZe5Nx75ZNpoZVRxtxmX8xWT+qzqy9mf4oiOfbieiU11i3EWQCZZwl
+         CbsQ5F5q2voe7zdcQ5Xwv9e5ln4W8IkF7qIODvnZ0uj3lbwOsAMMt5aJjz8eV0D9F2h/
+         xG5sST3aE385OZc1KNKPawIEMMg9/Y9BxWbZLRb2BbC8bn8ja07e/pHzgFgU+u8T9nBh
+         T2URdenKsWjcq39vdaKNZtK6mH4esSRtdnlUmPgrKk2N+PYsDScGF16TKhG0BOTIgn/l
+         LOaS5qq0/NsigyC7IRmNLqdx7yCfJ6JZLSCA/qznQ7UYrVPDHfVHr7cLnoyeXLnyes22
+         Fcnw==
+X-Gm-Message-State: AOAM533ZAU2fTLC926hfkvTNCrP5AaeYscq9Ho5+TPXlLG7sm/U+o0qL
+	VsN5zR/R2ijZlQt/fQW/0HupgVBd1yg+Kz53qVI=
+X-Google-Smtp-Source: ABdhPJxE78unad/CtTdcFPY7hnykU+sFtHCd2Lgqv/2Q4f722VGJYrk6zdQJhnpouqaNE5gVYzAZf/H980/Yax+pjj8=
+X-Received: by 2002:a05:6602:2c85:: with SMTP id i5mr1042461iow.91.1625581458818;
+ Tue, 06 Jul 2021 07:24:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+References: <CANiq72kF7AbiJCTHca4A0CxDDJU90j89uh80S3pDqDt7-jthOg@mail.gmail.com>
+ <CACRpkdbbPEnNTLYSP-YP+hTnqhUGQ8FjJLNY_fpSNWWd8tCFTQ@mail.gmail.com> <YOPcZE+WjlwNueTa@unreal>
+In-Reply-To: <YOPcZE+WjlwNueTa@unreal>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 6 Jul 2021 16:24:07 +0200
+Message-ID: <CANiq72nCDKQAJaPOjR167FWnrCcqnvovuHEx58Zmur6su897Qw@mail.gmail.com>
+Subject: Re: [TECH TOPIC] Rust for Linux
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Linus Walleij <linus.walleij@linaro.org>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 2021-07-06 at 07:30 +0300, Leon Romanovsky wrote:
-> On Tue, Jul 06, 2021 at 01:51:11AM +0200, Linus Walleij wrote:
-> > On Sat, Jun 26, 2021 at 12:09 AM Miguel Ojeda
-> > <miguel.ojeda.sandonis@gmail.com> wrote:
-> > 
-> > > The Rust for Linux project is adding support for the Rust
-> > > language to the Linux kernel. This talk describes the work done
-> > > so far and also serves as an introduction for other kernel
-> > > developers interested in using Rust in the kernel.
-> > 
-> > I think this is a good tech topic.
-> 
-> <...>
-> 
-> > Demonstrate how the Rust code now elegantly avoid
-> > ever seeing problems A,B,C again.
-> > 
-> > From this it is very easy for the kernel community to deduce that
-> > introducing Rust as an implementation language is worth it.
-> 
-> I don't know about advantages of Rust, but from what I see there are
-> some disadvantages that no one talks about them.
-
-The main advantage is supposed to be "memory safety":
-
-https://en.wikipedia.org/wiki/Memory_safety
-
-But that's tempered by the fact that all non-rust code is deemed unsafe
-and it's hard to write drivers without calling into the core, so
-there's a lot of unsafe stuff going on even if you write your driver in
-rust.
-
-The other thing that makes comparison with C hard is the fact that
-compilers and fuzzers are pretty good at detecting memory problems in
-the existing code, so it's unclear what memory safety ab initio
-actually buys for the kernel.
-
+On Tue, Jul 6, 2021 at 6:30 AM Leon Romanovsky <leon@kernel.org> wrote:
+>
 > 1. The addition of another language to the mix will hurt a lot our
 > ability to refactor code for cross-subsystem changes.
-> 
+>
 > Just as an example, there are many changes in DMA/SG areas that are
 > applicable for many drivers. Even simple grep->replace pattern will
 > be harder and longer if it is needed for the drivers that are written
 > in different languages.
-> 
-> 2. Testing matrix will be duplicated, both in compilation tests and
-> in verification coverage. Even now, there are some kernel subsystems
-> that so much in-love with CONFIG_* options that their combination is
-> slightly tested or not tested at all. So imagine, we will need to
-> recompile everything with Rust too and execute same coverage tests
-> again.
 
-3. Less review: The lack of kernel programmers understanding rust
-hampers reviewing.  Since most of our CVE type problems are usually
-programming mistakes nowadays, the lack of review could contribute to
-an increase in programming fault type bugs which aren't forbidden by
-the safer memory model.
+In the design we chose, Rust drivers do not call C code directly --
+they go through the abstractions a given subsystem may provide. Thus
+only the abstractions would need to be updated, like any other C
+consumer of the APIs.
 
-James
+> 2. Testing matrix will be duplicated, both in compilation tests and in
+> verification coverage. Even now, there are some kernel subsystems that
+> so much in-love with CONFIG_* options that their combination is slightly
+> tested or not tested at all. So imagine, we will need to recompile
+> everything with Rust too and execute same coverage tests again.
 
+I am not sure I understand this point.
 
+On its own, `CONFIG_RUST` only changes 1 single place currently (the
+addition of a `vsprintf` format specifier).
+
+Moreover, the goal is that Rust is enabled by default for
+architectures that support it. So there would be no need for
+duplication at all.
+
+> And yes, proper testing costs a lot of money, which IMHO better to
+> invest in improving coverage/fixing bugs/tooling instead of adding
+> new language to the pack.
+
+The original RFC includes an overview of advantages and disadvantages of Rust:
+
+  https://lore.kernel.org/lkml/20210414184604.23473-1-ojeda@kernel.org/
+
+Rust brings things to the table that less-than-100%-coverage and
+tooling cannot. For instance, UBSAN catches UB, but the safe subset of
+Rust forbids UB statically (assuming unsafe code is sound).
+
+Trying to clarify this sort of thing is why I included the "quick
+introduction of the Rust language" point in the abstract of the tech
+topic -- I think it is worth having a common ground to discuss things
+and getting everybody on the same page.
+
+Cheers,
+Miguel
