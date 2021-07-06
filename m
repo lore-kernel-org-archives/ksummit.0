@@ -1,71 +1,66 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com [209.85.166.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70BE168
-	for <ksummit@lists.linux.dev>; Tue,  6 Jul 2021 20:47:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 20D3061C9D;
-	Tue,  6 Jul 2021 20:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1625604425;
-	bh=wPKAh35pXjebLonzmCf3fKKg/b9Z1SOduQLOOmLmOOw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pai6uJOSKlOSzpz+VGa+q3uD1FBtDYrzjPPGe9w7fwUFI+6bmKnb7HSgkzI7pt49L
-	 R9J4jeZIWvqywNGF2GRy+LeHcQkckTykVHCiYhwq6OmRn7fOG1b8056ds9wFjWFlDl
-	 QWBYwARN7SZ/bl4kiufL9edoKkKWD52u93tDe1nnfNLdlJfJQ1ZmJz89AuyxqCcoWV
-	 nOD66gRPFQebs5TlYvPiS8SbMz5lV21/DxLv1DKbHfCqzGJn5EXcuUR3QY3u7jNVj3
-	 fCfoujb94J5lVN1oEtSvP6Rm+vLFFvfCusnQDIZ8K1aRDnQFJhwF8NKLGArifv7yqB
-	 TEedDhfPORY2g==
-Date: Tue, 6 Jul 2021 14:53:06 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
-	Leon Romanovsky <leon@kernel.org>, ksummit@lists.linux.dev
-Subject: Re: [TECH TOPIC] Rust for Linux
-Message-ID: <YOSmkgFpSUWtf2ue@sashalap>
-References: <CANiq72kF7AbiJCTHca4A0CxDDJU90j89uh80S3pDqDt7-jthOg@mail.gmail.com>
- <CACRpkdbbPEnNTLYSP-YP+hTnqhUGQ8FjJLNY_fpSNWWd8tCFTQ@mail.gmail.com>
- <YOPcZE+WjlwNueTa@unreal>
- <CACRpkdYDF-7=O1gc=Fh_mywtAgAtEVZhvoZXDFsAHMZe4FPGHQ@mail.gmail.com>
- <CANiq72m3dkUOoAfQz8vY2UR3uaUkFD8rs=95k7sEm0KEqU8Zxw@mail.gmail.com>
- <YORwwQJfrpNQsGT4@sashalap>
- <CANiq72n=_LG3z8-JYVSiNeM8PgxauPh5_xjfY1hY_gnJaGsYng@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5C7168
+	for <ksummit@lists.linux.dev>; Tue,  6 Jul 2021 21:32:13 +0000 (UTC)
+Received: by mail-io1-f52.google.com with SMTP id y8so388002iop.13
+        for <ksummit@lists.linux.dev>; Tue, 06 Jul 2021 14:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=cnUoSrW9rk8e/FSKyNHS4k9CUnDp6erUN2wyVfXW/FM=;
+        b=u44pvAszQaPK0q+MpF/UrXzevzJLTbLS3F7OClCsFLsa4i+g6EfN4e118gXjYLZIih
+         xaJOZq7jIU6cd1HiE43uTUrdjJ+b57TenkKrZLg+J0cDqSfE9A4bB1s7vUH2HTgUkxAa
+         +/gXZYO8IkLbEjLZl+h1hS06rk9JtNYz8M+wP92rstRTP8uOXxxY+Z5DJr2gaUyKdisw
+         ivHBf5JNV+bmKKN2aYh5rxMnZNMVYxTewu5nJGWQ2SUYVWJcIdzGKZrGTDPdNsHr37eu
+         eLjpCwje8oPgM/vJSIDnrvESLxXPadFzZmzY4+7z7g2K9FJtD5b3JEsvbeFuIO/7aDrE
+         hd8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=cnUoSrW9rk8e/FSKyNHS4k9CUnDp6erUN2wyVfXW/FM=;
+        b=FJmuXKP+3pzo8uKLmJ/UDW6tCMnhSwcevp4bMbefg/jtpeK+UBPX1T6A3sgSYBuh+g
+         ue25keXlzR7zUeRnFxzI2YD6rXq7O1kH1EQV6jY4RzQzL4cn3OlC7dQ4YwgSLup78KfV
+         X2/gASnRkRegDlsZ2Gnqu+pXsi1KC1E6Fa+5QeTip6TkCvgXU15YO+Uw5M0r97+DMqvf
+         iQBxgQICBEXzFydAC9Ne/Im8Zf6yd/DHLrUwe/yThLvEHzzJTmUwbaVEhLp7QmM9kYbs
+         rbHggvFlPrHLcHGBDDEOuc6Ma89AX8Prf93Lr0WjVGKXRhAVoBncwL5l3s2lQqVnCZXt
+         M+Xw==
+X-Gm-Message-State: AOAM532wkx/bksh31KH3DLDhPF602MXmo3h4XztGtQyCRy/OxgsWfz7g
+	/xRw+VXZ/ueodOXnqcrLFVv06BdNyj7Tq3o0T6Y=
+X-Google-Smtp-Source: ABdhPJwIgrflD026f+omPfQjh9Xa5jmGDTVCUdcaD0kojPSXgZQIzYxzEmLlur5Xmo+7iu8ebDTZQx44Ls1hv6P1CwU=
+X-Received: by 2002:a05:6602:2c85:: with SMTP id i5mr2297718iow.91.1625607132911;
+ Tue, 06 Jul 2021 14:32:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CANiq72n=_LG3z8-JYVSiNeM8PgxauPh5_xjfY1hY_gnJaGsYng@mail.gmail.com>
+References: <CANiq72kF7AbiJCTHca4A0CxDDJU90j89uh80S3pDqDt7-jthOg@mail.gmail.com>
+ <CACRpkdbbPEnNTLYSP-YP+hTnqhUGQ8FjJLNY_fpSNWWd8tCFTQ@mail.gmail.com>
+ <YOPcZE+WjlwNueTa@unreal> <CACRpkdYDF-7=O1gc=Fh_mywtAgAtEVZhvoZXDFsAHMZe4FPGHQ@mail.gmail.com>
+ <CAMuHMdU5FOdSj+-d38t3BuPrZsYF0YT-Ff1efYLS3W7yNN_Y6Q@mail.gmail.com>
+ <CACRpkdbr9orKFfDmwZDz1wPHZvUfSaDVJtJB1uz+2Ho=QZFGiQ@mail.gmail.com>
+ <CANiq72no33T6RXMyZ18bS_nVaUcOpWEmu15Bs=+zJPnnhrnYRA@mail.gmail.com> <CACRpkdbF88Xaz-X1q7-5o9mpq7Lyq0Z4ReFBzCqgVFrbMWw3hw@mail.gmail.com>
+In-Reply-To: <CACRpkdbF88Xaz-X1q7-5o9mpq7Lyq0Z4ReFBzCqgVFrbMWw3hw@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 6 Jul 2021 23:32:01 +0200
+Message-ID: <CANiq72=O2MD=3TCHfY5acjS2saJCQ_OiSCX_o-Hb7TRt4qXQSA@mail.gmail.com>
+Subject: Re: [TECH TOPIC] Rust for Linux
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Leon Romanovsky <leon@kernel.org>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jul 06, 2021 at 05:33:42PM +0200, Miguel Ojeda wrote:
->On Tue, Jul 6, 2021 at 5:03 PM Sasha Levin <sashal@kernel.org> wrote:
->>
->> Does this mean that anyone who wishes to modify these C APIs must also
->> know Rust to fix up those abstractions too?
+On Tue, Jul 6, 2021 at 9:12 PM Linus Walleij <linus.walleij@linaro.org> wrote:
 >
->Please see my answer to James and Leon, i.e. if we have abstractions
->for a particular subsystem, it should mean somebody is happy to write,
->use and maintain them.
+> Yeah that was the thing I read about in The Register through my
+> newsfeed.
 
-I strongly disagree. If we have abstractions for a particular subsystem
-all it means that someone at some point did that work, nothing more than
-that.
+Ah, yes, I have read the article now -- it has a few mistakes,
+including that `rustc_codegen_gcc` explanation, so it is
+understandable where the confusion came from.
 
-That someone might have moved on, working elsewhere, retired, etc, and
-those abstractions are living orphaned in the kernel.
-
->That means that, yes, for subsystems that have Rust abstractions, if
->you want to touch the C API, you also need to do so for the Rust
->abstractions. But for any heavy refactor, I would expect maintainers
->being the ones doing it, or at least helping to do so if somebody else
->wants to change something in the C side and does not know how to
->update the Rust side.
-
-That's quite an ask. If the driver work goes in and I want to touch the
-driver API, I need to get Greg KH to write code for me?
-
--- 
-Thanks,
-Sasha
+Cheers,
+Miguel
