@@ -1,36 +1,43 @@
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Sun, 22 May 2022 11:07:52 +0200
+From: Shuah Khan <skhan@linuxfoundation.org>
+Date: Fri, 6 May 2022 10:23:43 -0600
 Subject: [Ksummit-discuss] uninitialized variables bugs
-In-Reply-To: <20220506091338.GE4031@kadam>
+In-Reply-To: <CAK8P3a0DY2b15yyzpwsjOCqOALfTbsmYf1kTnQZF5wPW8mtFbQ@mail.gmail.com>
 References: <20220506091338.GE4031@kadam>
-Message-ID: <a673356d-4534-afd9-b85f-b8de7f58c9a8@kernel.org>
+ <CAK8P3a0DY2b15yyzpwsjOCqOALfTbsmYf1kTnQZF5wPW8mtFbQ@mail.gmail.com>
+Message-ID: <dc58c60e-a92c-92b8-ae5e-d7cf2ef5f051@linuxfoundation.org>
 
-On 06/05/2022 11:13, Dan Carpenter wrote:
-> There is also stuff like this which is harmless:
+On 5/6/22 5:56 AM, Arnd Bergmann wrote:
+> On Fri, May 6, 2022 at 11:13 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
 > 
-> 	uint val;
+>>
+>> It's frustrating.  Sometimes the false positives are hard to analyse
+>> because I have to read through multiple functions.  A lot of times
+>> when I write a patch and a commit message Nathan has already fixed it
+>> so it's just a waste of time.
 > 
-> 	ret = read(&val);
-> 	*p = val;  // <-- uninitialized variable if read() fails
-> 	return ret;
+> Agreed. I'm not actually checking for those warnings on gcc any more,
+> but just the clang warnings point to a bigger problem.
 > 
-> Btw, here is how to run Smatch on your code:
-> https://staticthinking.wordpress.com/2022/04/25/how-to-run-smatch-on-your-code/
+>> It's risky as well.  The Smatch check for uninitialized variables was
+>> broken for most of 2021.  Nathan sometimes goes on vacation.
+>>
+>> I guess I would hope that one day we can turn on the GCC uninitialized
+>> variable warnings again.  That would mean silencing false positives
+>> which a lot of people don't want to do...  Maybe Clang has fewer false
+>> positives than GCC?
+> 
 
-In the topic of suppressing false positives we also have several
-"fixes", sometimes pointed out incorrectly by Coverity, for missing
-check for of_device_get_match_data().
+I would like to throw resource leak bugs in the mix. I am finding cppcheck
+has been effective in finding them.
 
-Compare:
-https://elixir.bootlin.com/linux/v5.18-rc7/source/drivers/clk/clk-aspeed.c#L415
-https://elixir.bootlin.com/linux/v5.18-rc7/source/drivers/clk/clk-oxnas.c#L216
+I am seeing a lot of file pointer leaks  in error legs in kselftest code error
+paths. I have a few fixes in the works to send out.
 
-Although in theory the of_device_get_match_data() can return NULL, in
-practice it is not possible because driver matches via OF thus there
-will be always of_device_id->driver data.
+We could discuss this topic at the LPC Kernel Testing and Dependability mini-conf
+as well.
 
-Coverity screams about it, people fix it by adding checks for NULL,
-which is pointless. Half of drivers add the !NULL check, half do not...
+thanks,
+-- Shuah
 
-Best regards,
-Krzysztof
+
+
