@@ -1,52 +1,63 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 6 May 2022 13:56:48 +0200
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Date: Fri, 6 May 2022 12:13:38 +0300
 Subject: [Ksummit-discuss] uninitialized variables bugs
-In-Reply-To: <20220506091338.GE4031@kadam>
-References: <20220506091338.GE4031@kadam>
-Message-ID: <CAK8P3a0DY2b15yyzpwsjOCqOALfTbsmYf1kTnQZF5wPW8mtFbQ@mail.gmail.com>
+Message-ID: <20220506091338.GE4031@kadam>
 
-On Fri, May 6, 2022 at 11:13 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+Ever since commit 78a5255ffb6a ("Stop the ad-hoc games with
+-Wno-maybe-initialized"), GCC's uninitialized variable warnings have
+been disabled by default.  Now, you have to turn on W=1 or W=2 to see
+the warnings which nobody except Arnd does.
 
->
-> It's frustrating.  Sometimes the false positives are hard to analyse
-> because I have to read through multiple functions.  A lot of times
-> when I write a patch and a commit message Nathan has already fixed it
-> so it's just a waste of time.
+Disabling that has lead to a bunch of embarrassing bugs where variables
+are *never* initialized.  Very unsubtle bugs.  The bugs doesn't reach
+users because Nathan Chancellor and I review Clang and Smatch warnings
+respectively.  Also the kbuild-bot reports uninitialized variables.
 
-Agreed. I'm not actually checking for those warnings on gcc any more,
-but just the clang warnings point to a bigger problem.
+It's a lot to deal with.  Uninitialized variable bugs are probably the
+most common bug I have to deal with.
 
-> It's risky as well.  The Smatch check for uninitialized variables was
-> broken for most of 2021.  Nathan sometimes goes on vacation.
->
-> I guess I would hope that one day we can turn on the GCC uninitialized
-> variable warnings again.  That would mean silencing false positives
-> which a lot of people don't want to do...  Maybe Clang has fewer false
-> positives than GCC?
+It's frustrating.  Sometimes the false positives are hard to analyse
+because I have to read through multiple functions.  A lot of times
+when I write a patch and a commit message Nathan has already fixed it
+so it's just a waste of time.
 
-I think for the gcc warnings to become useful again, we may have to
-wait for a future compiler release. I have not checked gcc-12 for this,
-but it's a very old topic.
+It's risky as well.  The Smatch check for uninitialized variables was
+broken for most of 2021.  Nathan sometimes goes on vacation.
 
-Fundamentally, it's impossible for any compiler to do this correctly,
-because of the halting problem. gcc apparently has some heuristics
-that worked well enough in the past, but it misses some obvious
-cases and causes false positives in unexpected places, often
-depending on optimization flags.
+I guess I would hope that one day we can turn on the GCC uninitialized
+variable warnings again.  That would mean silencing false positives
+which a lot of people don't want to do...  Maybe Clang has fewer false
+positives than GCC?
 
-Recent gcc versions are much worse than older ones, since the
-inlining changed in a way that caused a ton of false-positives.
+The Smatch check for uninitialized variable was deliberately written to
+be more strict than GCC because GCC was missing bugs.  So I think
+leaving Smatch false positives is fine.  There is a trade off between
+fewer false positives and missing bugs and Smatch is meant to err on the
+side of finding bugs but with the cost of false positives.
 
-clang is generally better at catching the simple cases reliably,
-and it does this independent of optimization flags. However, it
-stops at the function boundary, so it never catches some of the
-cases that gcc was good at.
+Most of the Smatch uninitialized false positives are caused by loops:
 
-The gcc static analyzer apparently gained an option[1] that
-works similarly to what you have in smatch. I have not tried
-using this, but this may be something we can do in CI
-systems that may not want to run smatch for some reason.
+	int i, ret;
 
-        Arnd
+	for (i = 0; i < bytes; i++) { // <-- what if bytes is zero?
+		if (...)
+			continue; // <-- can every iteration hit continue?
+		ret = frob();
+	}
 
-[1] https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gcc/Static-Analyzer-Options.html#index-Wanalyzer-use-of-uninitialized-value
+	return ret;
+
+There is also stuff like this which is harmless:
+
+	uint val;
+
+	ret = read(&val);
+	*p = val;  // <-- uninitialized variable if read() fails
+	return ret;
+
+Btw, here is how to run Smatch on your code:
+https://staticthinking.wordpress.com/2022/04/25/how-to-run-smatch-on-your-code/
+
+regards,
+dan carpenter
+
