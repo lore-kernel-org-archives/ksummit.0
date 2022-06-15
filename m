@@ -1,77 +1,47 @@
-From: Steven Rostedt <rostedt@goodmis.org>
-Date: Thu, 16 Jun 2022 12:51:28 -0400
+From: Jiri Kosina <jkosina@suse.cz>
+Date: Wed, 15 Jun 2022 08:55:47 +0200 (CEST)
 Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
-In-Reply-To: <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
-References: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
- <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
- <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
- <20220615170407.ycbkgw5rofidkh7x@quack3.lan>
- <87h74lvnyf.fsf@meer.lwn.net>
- <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
- <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
- <20220616122634.6e11e58c@gandalf.local.home>
- <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
-Message-ID: <20220616125128.68151432@gandalf.local.home>
+Message-ID: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
 
-On Thu, 16 Jun 2022 12:38:24 -0400
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+As everyone is pretty much aware, eBPF adoption is quickly expanding for 
+various usecases in the kernel. For example, there has recently been 
+effort invested into adding eBPF support to HID subsystem [1], in order to 
+make adding quirks for specific devices easier, not requiring a "full" 
+proper driver for devices that just need a tiny bit of special handling 
+here and there but apart from that can be handled by the generic driver 
+just fine.
 
-> > 
-> > A eBPF program that works on one kernel should have no guarantee that
-> > it will work on another version of the kernel. Because eBPF is
-> > basically just that, a module. It is compiled into native code that
-> > runs in kernel space. Exactly like a module, with the caveat that it
-> > must first go through a verifier.  
-> 
-> Based on the encouragement we gave as kernel developers, certain
-> tracing as a service companies that previously had propritary modules
-> (Sysdig for instance) are now moving over to using tracing with eBPF. 
+While there are many proponents of "eBPF is good for everything and your 
+grandma" aproach, this opinion is not universally shared. One big risk is 
+that this will eventually lead to possibility of having whole drivers / 
+core code written in eBPF, which could potentially lead to decreased 
+maintainability and supportability, also due to big fragmentation of the 
+code (eBPF programs might not necessarily be shipped together with the 
+kernel codebase).
 
-I wasn't in this conversation, so I'm unaware of the advantages of it.
+This could potentially be a big risk for distros as well, as we (as a 
+distro vendor) might be very quickly losing control over what is actually 
+running in the context of the kernel they are bound to be supporting.
 
-> At the time we thought this was good for the kernel; if we now try to
-> tell them "actually you can't use the interface because it's completely
-> unstable" that's going to undermine our whole argument to them for
-> dumping proprietary modules.  So I don't think no eBPF at all is stable
-> is a tenable position for us.
-> 
-> Equally well, I don't think it's as hard as a userspace ABI meaning it
-> can never change.  I think we can get away with changes that force
-> tracing and other value added service providers to change their eBPF, I
-> just don't think we can do it very often without damaging the value of
-> eBPF over proprietary modules.
+In the specific case of drivers, there also is also some similarity in 
+principle with UDI, which is a concept that hasn't proved viable quite 
+some time ago already :)
 
-Perhaps we should add a place in tools/bpf for "upstream bpf programs". Or
-is there already something there? Again, I would like to treat bpf no
-different than modules. Sorry, I don't see a "convince proprietary
-module folks to create proprietary bpf programs" as progress. If anything,
-it's going backwards.
+I feel like we are currently lacking a clear borderline, defining what is 
+still acceptable by the community to be implemented in terms of eBPF, and 
+what is over the line as it'd be causing big supportability and 
+maintainability concerns (see e.g. Christoph's concern to the HID eBPF 
+implementation implications [2]).
 
-If you want a "stable ebpf program" then you submit it upstream and we can
-make sure that it works with any internal API changes, the same way we do
-for modules. Those with out-of-tree modules will have the technical debt of
-changing every time a new kernel release is out, and so should out-of-tree
-bpf programs.
+So I'd like to propose a session where we'd ideally converge closer to 
+defining a borderline between acceptable and non-acceptable usecases for 
+eBPF in the kernel.
 
-> 
-> > > Unfortunately, this "just select a subset" aproach has been proven
-> > > not to work with tracepoints (which is exactly why some subsytems
-> > > systematically refused to add tracepoints in the first place,
-> > > because they explicitly did want to avoid being constrained by
-> > > tracepoints having to be stable), which in this particular aspect
-> > > is a similar problem.  
-> 
-> As I said above, I think we have to provide *some* stability, but for a
-> sophisticated consumer it doesn't have to be the absolute stability
-> guarantee of an ABI.  I think we should debate what kinds of slightly
-> unstable stability we could provide
+[1] https://lore.kernel.org/all/20220518205924.399291-1-benjamin.tissoires@redhat.com/
+[2] https://lore.kernel.org/all/YoX7iHddAd4FkQRQ@infradead.org/
 
-What you define as "somewhat stable" others may define as "not stable at
-all". There is no happy medium (as you said, "you can wish for a Pony, but
-there's no guarantee you'll get one").
+Thanks,
 
-Once you say you will have some stability, that will become an albatross
-around your neck forever.
-
--- Steve
-
+-- 
+Jiri Kosina
+SUSE Labs
