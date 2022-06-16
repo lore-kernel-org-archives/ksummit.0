@@ -1,47 +1,55 @@
-From: Jiri Kosina <jkosina@suse.cz>
-Date: Wed, 15 Jun 2022 08:55:47 +0200 (CEST)
+From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Date: Thu, 16 Jun 2022 14:14:30 +0200
 Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
-Message-ID: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
+In-Reply-To: <20220616114856.GA11127@lst.de>
+References: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
+ <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
+ <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
+ <20220615170407.ycbkgw5rofidkh7x@quack3.lan>
+ <87h74lvnyf.fsf@meer.lwn.net> <20220615174358.GA26358@lst.de>
+ <CAO-hwJKqA07KX+6QtotCS8PtHFtk3DLQPJ3W8puaHOv7tOdi+Q@mail.gmail.com>
+ <20220616114856.GA11127@lst.de>
+Message-ID: <CAO-hwJKEOiAin_9Hq2tav2WQGV=17-EHoQ6qPYMZ5znLJUmYxA@mail.gmail.com>
 
-As everyone is pretty much aware, eBPF adoption is quickly expanding for 
-various usecases in the kernel. For example, there has recently been 
-effort invested into adding eBPF support to HID subsystem [1], in order to 
-make adding quirks for specific devices easier, not requiring a "full" 
-proper driver for devices that just need a tiny bit of special handling 
-here and there but apart from that can be handled by the generic driver 
-just fine.
+On Thu, Jun 16, 2022 at 1:49 PM Christoph Hellwig <hch@lst.de> wrote:
+>
+> On Wed, Jun 15, 2022 at 08:34:19PM +0200, Benjamin Tissoires wrote:
+> > Also, one of the things I'd like to have in kfuncs is to be able to
+> > restrict them to a set of tracepoints, not just "all tracing
+> > programs".
+>
+> Yes.
+>
+> > Because the thing I do not want is users hijacking the kfunc API I
+> > define in other use cases I haven't thought of, and this would prevent
+> > changes.
+>
+> Yes.  And I also think the BTF_IDs for kfuncs need to become something
+> like EXPORT_SYMBOL_EPBF to be more explicit and greppable and need to
+> see the same process.  That is in-tree users and no guarantee of stability
+> for out of tree users.
 
-While there are many proponents of "eBPF is good for everything and your 
-grandma" aproach, this opinion is not universally shared. One big risk is 
-that this will eventually lead to possibility of having whole drivers / 
-core code written in eBPF, which could potentially lead to decreased 
-maintainability and supportability, also due to big fragmentation of the 
-code (eBPF programs might not necessarily be shipped together with the 
-kernel codebase).
+Sounds interesting :)
 
-This could potentially be a big risk for distros as well, as we (as a 
-distro vendor) might be very quickly losing control over what is actually 
-running in the context of the kernel they are bound to be supporting.
+>
+> > And AFAICT, I consider everything eBPF I do in HID as ABI, and treat
+> > it as such, and document it from day one.
+>
+> Yikes.  So you're adding a UDI-like stable driver ABI?
+>
 
-In the specific case of drivers, there also is also some similarity in 
-principle with UDI, which is a concept that hasn't proved viable quite 
-some time ago already :)
+No, I mean I am carefully defining the eBPF api I am willing to export
+to user space, and will restrain myself from shuffling arguments every
+single release.
 
-I feel like we are currently lacking a clear borderline, defining what is 
-still acceptable by the community to be implemented in terms of eBPF, and 
-what is over the line as it'd be causing big supportability and 
-maintainability concerns (see e.g. Christoph's concern to the HID eBPF 
-implementation implications [2]).
+The last change in the HID core protocol was 20 years old, so we
+roughly know what it does. It is not so much of a task to define what
+will be unlikely to change.
 
-So I'd like to propose a session where we'd ideally converge closer to 
-defining a borderline between acceptable and non-acceptable usecases for 
-eBPF in the kernel.
+Maybe a better way of putting it: "I consider *almost* everything eBPF
+I do in HID as *UAPI*, and treat it as such, and document it from day
+one."
 
-[1] https://lore.kernel.org/all/20220518205924.399291-1-benjamin.tissoires@redhat.com/
-[2] https://lore.kernel.org/all/YoX7iHddAd4FkQRQ@infradead.org/
+Cheers,
+Benjamin
 
-Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
