@@ -1,42 +1,49 @@
-From: Jiri Kosina <jikos@kernel.org>
-Date: Wed, 15 Jun 2022 20:25:41 +0200 (CEST)
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 16 Jun 2022 13:37:56 +0200
 Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
-In-Reply-To: <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
+In-Reply-To: <nycvar.YFH.7.76.2206160959080.14340@cbobk.fhfr.pm>
 References: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
  <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
  <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
- <20220615170407.ycbkgw5rofidkh7x@quack3.lan> <87h74lvnyf.fsf@meer.lwn.net>
- <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
-Message-ID: <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
+ <CAO-hwJJmW_STS=nT22n4pcaZf9gz953K4o2vhgmq-ig4OzxOLg@mail.gmail.com>
+ <nycvar.YFH.7.76.2206160959080.14340@cbobk.fhfr.pm>
+Message-ID: <CACRpkdY24aHp+iJschxZzTC4wyX51qH028YY++LZOMu94COeZQ@mail.gmail.com>
 
-On Wed, 15 Jun 2022, Paul E. McKenney wrote:
+On Thu, Jun 16, 2022 at 10:02 AM Jiri Kosina <jikos@kernel.org> wrote:
+> On Wed, 15 Jun 2022, Benjamin Tissoires wrote:
+>
+> > One point that was also raised in the various HID-BPF patch series is
+> > that for "hardware enablement" like support, the eBPF programs would be
+> > in-tree, and automatically loaded by the kernel itself.
+> >
+> > Alexei has some ideas on how to implement that, I had others, but the
+> > hallway track discussions showed that everybody has a different idea on
+> > the automatic mechanism, but it is a requirement and worth discussing :)
+> >
+> > Which means that in that case, eBPF would be a more convenient way for
+> > users to fix their device, without having to rely on a full or partial
+> > kernel recompilation.
 
-> > Relevant to this whole thing, I think, is the multigenerational LRU
-> > discussion at LSFMM: https://lwn.net/Articles/894859/
-> > 
-> > One aspect that was only dropped in as a response to a question is that
-> > the plan is to add a BPF hook to manage the movement of pages between
-> > LRU generations; this will be done because nobody really knows how to
-> > come up with an optimal solution to that problem for the general case.
-> > That's about as core as it gets and, if users are tweaking memory
-> > management with BPF, that will surely achieve ABI status in short order.
-> > 
-> > Beyond that, though, is the temptation to say "we don't have to figure
-> > out this hard problem, we'll just add a BPF hook and let the users find
-> > a solution for themselves".  The line between providing a useful means
-> > for expert users to optimize their systems and skipping out on our own
-> > duty to optimize things is not always clear, at least to me.
-> 
-> I might as well ask the naive question:  Should subsystems document
-> which hooks they intend to treat as ABI?  ;-)
+Convenient for some definition of convenient. I might be biased in asking
+how much harder it is to set up a kernel compile, rebuild a module
+and run a few insmod/rmmod to find a quirk compared to setting up
+the eBPF compiler and figure out how to compile and push in such
+programs.
 
-Unfortunately, this "just select a subset" aproach has been proven not to 
-work with tracepoints (which is exactly why some subsytems systematically 
-refused to add tracepoints in the first place, because they explicitly did 
-want to avoid being constrained by tracepoints having to be stable), which 
-in this particular aspect is a similar problem.
+I guess I could be convinced.
 
--- 
-Jiri Kosina
-SUSE Labs
+> That definitely does solve one of the issues. It's basically following the
+> model of perf, where the ABI must not be kept intact, because the user(s)
+> of it are in-tree and released in lockstep with the ABI changes.
 
+I agree, I would actually go so far as to taint the kernel if programs that are
+not in-tree are used. That is fine for the goal here: users can create new
+eBPF snippets and debug them, but they can't ship them because then
+the kernel gets tainted, so they MUST be submitted upstream.
+
+Do you think we could do this? Pushing taint in the face of people who
+don't follow our established contribution process is essentially the big
+hammer we have to stop fragmentation.
+
+Yours,
+Linus Walleij
