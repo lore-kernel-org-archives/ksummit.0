@@ -1,53 +1,36 @@
-From: Jiri Kosina <jikos@kernel.org>
-Date: Fri, 17 Jun 2022 09:53:52 +0200 (CEST)
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
-In-Reply-To: <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
-References: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
- <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
- <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
- <20220615170407.ycbkgw5rofidkh7x@quack3.lan> <87h74lvnyf.fsf@meer.lwn.net>
- <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
- <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
- <20220616122634.6e11e58c@gandalf.local.home>
- <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
- <20220616125128.68151432@gandalf.local.home>
- <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
-Message-ID: <nycvar.YFH.7.76.2206170947520.14340@cbobk.fhfr.pm>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Date: Thu, 16 Jun 2022 14:52:07 +0200
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Regression tracking &
+ fixing: current state, problems, and next steps
+Message-ID: <6223a720-c835-d841-eb1d-e090875a3a91@leemhuis.info>
 
-On Thu, 16 Jun 2022, James Bottomley wrote:
+This session is meant to complement the kernel summit session with the
+same title I just submitted separately
+(https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2022-June/007339.html
+). The idea is to summarize in this session what has been discussed and
+agreed on in that ksummit session and further discuss issues that need
+further discussion.
 
-> > If you want a "stable ebpf program" then you submit it upstream and
-> > we can make sure that it works with any internal API changes, the
-> > same way we do for modules. Those with out-of-tree modules will have
-> > the technical debt of changing every time a new kernel release is
-> > out, and so should out-of-tree bpf programs.
-> 
-> Assuming eBPF takes off, that would have some poor maintainer managing
-> the whole of the compatibility changes for the entire eBPF ecosystem
-> ... I really don't think that's scalable.
+I used a similar model in 2017 and it seems it worked well for everyone.
+What exactly will be discussed in this sessions depends on how the
+kernel summit session evolves, but I expect the following topics might
+need further discussion among the core maintainers (for details on any
+of these points please see the kernel summit submission linked above):
 
-I nevertheless still see this as the best and only option we have; that 
-is, have an infrastructure in the kernel tree for maintaining eBPF 
-programs, somehow sorted per subsystem so that it mirrors the standard 
-maintainership / subsystem structure proper, and have the maintainers 
-responsible for keeping the eBPF programs related to their subsystem in 
-sync with the internal changes happening in the subsystem.
+ * How slow quite a few mainline regressions are resolved, as even
+simple regression fixes sometimes linger in -next for weeks before being
+mainlined.
 
-At the end of the day, it will be the subsystem maintainers themsleves 
-accepting the program into the tree in the first place, so it's not like 
-they are receiving responsibility for something they never wanted in the 
-first place. So we'll probably end up with subsystems with many eBPF 
-programs, and also subsystems with zero. Similarly to tracepoints.
+ * Do we care that some regressions (and many bugs) reported in
+bugzilla.kernel.org are never forwarded to the maintainers? And if so,
+what do we want to do about it? I tried to keep an eye on things, but
+that's sometimes quite time-consuming.
 
-I.e. pretty much the 'perf' model, but on much wider scale (as eBPF can 
-hook to just about anything).
+ * Should I track all or some regression with regzbot that were reported
+by CI systems?
 
-Any other option seems to lead to having eBPF programs sprinkled all over 
-the internet that depend on particular kernel version / API, leading to 
-nothing else than unhappy users, because "I downloaded it, it didn't work, 
-Linux sucks".
+ * open question: Am I holding this regression tracking thingy right or
+do you want me to do it differently somehow? Or is there anything else I
+can do to make my regression tracking efforts more useful for maintainers?
 
--- 
-Jiri Kosina
-SUSE Labs
-
+Ciao, Thorsten
