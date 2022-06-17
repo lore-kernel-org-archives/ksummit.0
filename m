@@ -1,158 +1,184 @@
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-Date: Sat, 18 Jun 2022 09:24:47 +0100
-Subject: [Ksummit-discuss] [TECH TOPIC] What kernel documentation could
- be
-In-Reply-To: <87sfo3nh3t.fsf@meer.lwn.net>
-References: <87sfo3nh3t.fsf@meer.lwn.net>
-Message-ID: <20220618092447.5ebed314@sal.lan>
-Message-ID: <20220618082447.t7QWk05AIHhP7EYEEecnzekIsZ-TYYKeaFoZJDFu1tE@z>
+From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Date: Fri, 17 Jun 2022 13:25:04 +0200
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
+In-Reply-To: <dc6ca88d-d1ef-a1ab-dbef-e9338467271d@redhat.com>
+References: <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
+ <20220615170407.ycbkgw5rofidkh7x@quack3.lan> <87h74lvnyf.fsf@meer.lwn.net>
+ <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
+ <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
+ <20220616122634.6e11e58c@gandalf.local.home>
+ <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
+ <20220616125128.68151432@gandalf.local.home>
+ <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
+ <nycvar.YFH.7.76.2206170947520.14340@cbobk.fhfr.pm>
+ <20220617103050.2almimus5hjcifxl@quack3.lan>
+ <CAO-hwJJxCteD_BHZTeqQ1f7gWOHoj+05qP8bmFsRYVfMc_3FxQ@mail.gmail.com>
+ <dc6ca88d-d1ef-a1ab-dbef-e9338467271d@redhat.com>
+Message-ID: <CAO-hwJ+DJGYzKeGd8q7ma3L_qfd=phxczyfPqPnoz-DV9By_Cg@mail.gmail.com>
 
-Hi John,
+On Fri, Jun 17, 2022 at 1:16 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>
+> Hi Benjamin,
+>
+> Deliberate offlist reply.
 
-Em Fri, 17 Jun 2022 14:57:10 -0600
-Jonathan Corbet <corbet@lwn.net> escreveu:
+[re-adding the list as your last comment]
 
-> The development community has put a lot of work into the kernel's
-> documentation directory in recent years, with visible results. But the
-> kernel's documentation still falls far short of the standard set by many
-> other projects, and there is a great deal of "tribal knowledge" in our
-> community that is not set down. I'd like to look at the successes and
-> failures of the work so far, but intent to focus on a discussion of what
-> our documentation should be and what we can do to get it there.
-> 
-> Questions to discuss include:
-> 
->  - Bringing an coherent overall structure to Documentation/
+>
+> On 6/17/22 13:04, Benjamin Tissoires wrote:
+> > On Fri, Jun 17, 2022 at 12:31 PM Jan Kara <jack@suse.cz> wrote:
+> >>
+> >> On Fri 17-06-22 09:53:52, Jiri Kosina wrote:
+> >>> On Thu, 16 Jun 2022, James Bottomley wrote:
+> >>>
+> >>>>> If you want a "stable ebpf program" then you submit it upstream and
+> >>>>> we can make sure that it works with any internal API changes, the
+> >>>>> same way we do for modules. Those with out-of-tree modules will have
+> >>>>> the technical debt of changing every time a new kernel release is
+> >>>>> out, and so should out-of-tree bpf programs.
+> >>>>
+> >>>> Assuming eBPF takes off, that would have some poor maintainer managing
+> >>>> the whole of the compatibility changes for the entire eBPF ecosystem
+> >>>> ... I really don't think that's scalable.
+> >>>
+> >>> I nevertheless still see this as the best and only option we have; that
+> >>> is, have an infrastructure in the kernel tree for maintaining eBPF
+> >>> programs, somehow sorted per subsystem so that it mirrors the standard
+> >>> maintainership / subsystem structure proper, and have the maintainers
+> >>> responsible for keeping the eBPF programs related to their subsystem in
+> >>> sync with the internal changes happening in the subsystem.
+> >>>
+> >>> At the end of the day, it will be the subsystem maintainers themsleves
+> >>> accepting the program into the tree in the first place, so it's not like
+> >>> they are receiving responsibility for something they never wanted in the
+> >>> first place. So we'll probably end up with subsystems with many eBPF
+> >>> programs, and also subsystems with zero. Similarly to tracepoints.
+> >>>
+> >>> I.e. pretty much the 'perf' model, but on much wider scale (as eBPF can
+> >>> hook to just about anything).
+> >>>
+> >>> Any other option seems to lead to having eBPF programs sprinkled all over
+> >>> the internet that depend on particular kernel version / API, leading to
+> >>> nothing else than unhappy users, because "I downloaded it, it didn't work,
+> >>> Linux sucks".
+> >>
+> >> OK, but if we keep eBPF programs this closely coupled to the kernel, then
+> >> what is the advantage of using eBPF, say for HID as was discussed earlier
+> >> in this thread, compared to just making sure HID has appropriate hooks and
+> >> the handling of the device quirks is done in normal C code (kernel module)
+> >> attached to these hooks?
+> >
+> > [sorry some of my messages are kept in the moderation queue]
+> >
+> > This is something I tried to explain in my talk at Kernel Recipes 2
+> > weeks ago [1].
+> >
+> > Basically, for regular users, it will be simpler for them to test patches:
+> > A developer patches the device through a bpf program, compiles it and
+> > sends to the user the source and the bytecode. The user just has to
+> > drop the bytecode in the file system and a udev rule automatically
+> > loads it without having to reboot the current kernel, making testing
+> > way faster and simpler for users.
+> >
+> > Then developers take the burden of upstreaming the bpf program through
+> > the usual email submission.
+> >
+> > This way users are testing the actual code that is upstreamed without
+> > too much hurdle.
+> >
+> > IMO those kinds of fixes should be in-tree because they are actual fixes.
+> >
+> >
+> >>
+> >> Because frankly for me the main value of eBPF over patching and recompiling
+> >> the kernel is that I can tweak the eBPF code exactly to my needs and load
+> >> it to the kernel without needing to reboot, over time it is less work than
+> >> maintaining a source code patch out of tree, and usually it is a hacky
+> >> tweak I use for some debugging so merging it upstream does not make sense.
+> >>
+> >
+> > And that's also why I want to give *some* guarantees that the eBPF
+> > hooks I am putting in HID are somewhat stable. Or at least I won't
+> > break everything at each release and look carefully when there is a
+> > change in the API.
+> >
+> > But these guarantees are just *my* constraints I put on *my*
+> > subsystem. I have reasons to believe I can ensure that, so I will.
+> >
+> > But I am not saying any internal HID function will have ABI
+> > guarantees. Only the few hooks I am explicitly documenting as such.
+> >
+> > So the idea is that your debugging program can live in your own tree,
+> > without being submitted, but this is just a contract between myself as
+> > a subsystem maintainer and you, not the entire eBPF or ftrace
+> > community.
+> >
+> > I made this so I can put any fancy new kernel API out in eBPF
+> > programs, that would be handled by the actual user of that kernel API.
+>
+> I think you need to clarify this, to me it now reads that you want
+> to use eBPF to implement new APIs, where as what you mean is that
+> you want to avoid the need to add new APIs like e.g. sysfs knobs
+> or kernel-module-parameters, right ?
 
-Fully agreed. We dedicated a lot of resources on the past years to
-convert documentation to ReST and on kernel-doc, but not so much
-on placing the topics at the right order.
+Yes. Exactly. It's not about regular and standard API. It's a device
+specific property/feature that is usually handled through module
+parameters or custom sysfs entries that have only one single user.
 
-There are a huge amount of such documentation that describe border cases,
-or have just kernel-doc tags without any (or very small) descriptions.
-Kernel-doc markups are important, as they help to keep the documentation
-updated, but explaining subsystem's principles is equally important, as
-it can save a lot of time from maintainers if the contributors are aware
-on how and why the subsystem's kAPIs were organized the way it is.
+>
+> > If a user wants to set some fancy feature on a particular device,
+> > instead of having a kernel parameter that no one will ever use besides
+> > that program that may be short-lived, we can then load that
+> > functionality with the eBPF program.
+>
+> I think you need to clarify here that you mean changing some settings
+> on the device through e.g. a HID feature report which would require
+> a sysfs-attribute or kernel-module-parameters without ePBF and you want
+> to avoid adding more and more sysfs-attributes / kernel-module-parameters?
 
-We should imagine documentation as if this is a series of books describing
-every aspect of the kernel. So, I would expect it to be organized with
-some structure that would place the topics on some order that would make
-easier for people to read, being either new contributors or experienced
-developers that need to touch other parts of the Kernel that are out of
-his past experiences.
+Yep yep :)
 
-For instance to the kAPI documentation, I would expect something like:
+>
+> At least I think this is what you are trying to say, and I think that
+> without some clarification this is not what most kernel-devs will
+> understand here.
 
-	- How to contribute / Submission process;
-	- An introductory chapter that would describe the most used
-	  components that all developers need to know, like:
+Thanks for saying it better than I do :)
 
-		- how to write a driver;
-		- fs principles;
-		- scheduler principles;
-		- mm most used functions (kmalloc & friends);
-		- wait queues;
-		- kernel threads;
-		- softirqs;
-		- arch-dependent items to consider (like bit order), weak
-		  memory model, etc;
-		- ...
+>
+> Feel free to copy/paste from this reply to use my attemps at clarifying
+> things, or just reply to this with the list added back to the Cc :)
 
-	  IMO, we could take a look at the index of some already-existing 
-	  books like LDD 3, Linux Kernel Development and others in order to
-	  get a rough idea about the items to be covered there.
-	- Bus-related subsystems (USB, PCI, I2C, ...);
-	- Then, place per-subsystem's documentation, all having their
-	  texts explaining basic principles.
+And done through the lazy option, just forward to the list :)
 
-IMO, we should write an index file and a couple of new ReST files with an
-skeleton for the above, and then ask people to help filling the blanks.
+Cheers,
+Benjamin
 
->  - Making it easier for developers to improve the documentation.
+>
+> Regards,
+>
+> Hans
+>
+>
+>
+> > Or if a user is only interested in a particular event in a report for
+> > a device (with the custom protocols some gaming devices are enjoying),
+> > then that user can load a BPF program and keep it outside of the tree
+> > because the program doesn't make sense without the userspace
+> > component.
+> >
+> > I hope it clarifies a little bit now. For HID at least.
+> >
+> > Cheers,
+> > Benjamin
+> >
+> > [1] https://kernel-recipes.org/en/2022/talks/hid-bpf/ and
+> > https://www.youtube.com/watch?v=nhJqaZT94z0&t=14923s
+> >
+> > _______________________________________________
+> > Ksummit-discuss mailing list
+> > Ksummit-discuss@lists.linuxfoundation.org
+> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> >
+>
 
-A well-prepared skeleton would make life easier. From time to time, we
-have discussions and patches shifting documentation between different
-directories.
-
->  - What we would like from Sphinx and what we can do to make it happen
-
-The big missing feature on Sphinx itself is with regards to per-C-type
-domain. So, if we have one struct and one function both called "foo",
-the cross-references will be broken. This issue is known since Sphinx
-3.1, and there are already patches fixing it since then (I remember
-testing them) but, up to today, the Sphinx upstream patches meant
-to fix it weren't applied yet (as far as I can tell).
-
-Another problem is with regards to the documentation's build time.
-
-One feature we're not using yet is intersphinx. Right now, we can
-build parts of the documentation with:
-
-	make SPHINXDIRS="foo" htmldocs
-
-But, if "foo" have cross-references to "bar", the build will produce
-warnings and the documentation's cross-references to "bar" won't work.
-
-Properly setting interphinx would allow this to work, as such references
-would point, instead, to some remote place (like kernel.org).
-
-This could be used to help improving the documentation's build time 
-during doc development.
-
-Also, I would love to have a good way to just produce html (and pdf) from
-the documents I'm actually working with. The way I do it right now is
-that I create a "Documentation/foo" directory, adding there just the docs
-I'm currently working with, placing them on a fake index.rst file.
-
-This way, I can build them really fast, without needing to rebuild
-everything at the same book. Perhaps something like that could be 
-automated - or Sphinx itself could support something like:
-
-	make htmldocs SPHINXFILES="foo.rst bar.rst"
-
->  - Making the docs build system less ugly and more maintainable
-
-I guess shifting the minimal Sphinx version would help to remove some
-bad things there.
-
-One thing that probably be solved on a different way is to have
-a better solution for things like:
-
-	Functions for feature 1
-	=======================
-
-	.. kernel-doc:: include/some_header.h
-	   :doc: Feature 1
-
-	.. kernel-doc:: include/some_header.h
-	   :functions:
-		func1
-		func2
-
-	Functions for feature 2
-	=======================
-
-	.. kernel-doc:: include/some_header.h
-	   :doc: Feature 2
-
-	.. kernel-doc:: include/some_header.h
-	   :functions:
-		func3
-		func4
-
-Perhaps we could change Kernel-doc in a way that doing just:
-
-	.. kernel-doc:: include/some_header.h
-
-would be enough.
-
-> - Integrating rustdoc documentation
-
-Won't comment much about that, as never touched any of those.
-
-Life would be a lot easier on this side if rustdoc could
-support ReST.
-
-Regards,
-Mauro
