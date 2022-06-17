@@ -1,97 +1,53 @@
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 15 Jun 2022 10:05:14 +0200
+From: Jiri Kosina <jikos@kernel.org>
+Date: Fri, 17 Jun 2022 09:53:52 +0200 (CEST)
 Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
-In-Reply-To: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
+In-Reply-To: <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
 References: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
-Message-ID: <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
+ <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
+ <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
+ <20220615170407.ycbkgw5rofidkh7x@quack3.lan> <87h74lvnyf.fsf@meer.lwn.net>
+ <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
+ <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
+ <20220616122634.6e11e58c@gandalf.local.home>
+ <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
+ <20220616125128.68151432@gandalf.local.home>
+ <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
+Message-ID: <nycvar.YFH.7.76.2206170947520.14340@cbobk.fhfr.pm>
 
-On Wed, Jun 15, 2022 at 8:55 AM Jiri Kosina <jkosina@suse.cz> wrote:
+On Thu, 16 Jun 2022, James Bottomley wrote:
 
-> As everyone is pretty much aware, eBPF adoption is quickly expanding for
-> various usecases in the kernel. For example, there has recently been
-> effort invested into adding eBPF support to HID subsystem [1], in order to
-> make adding quirks for specific devices easier, not requiring a "full"
-> proper driver for devices that just need a tiny bit of special handling
-> here and there but apart from that can be handled by the generic driver
-> just fine.
+> > If you want a "stable ebpf program" then you submit it upstream and
+> > we can make sure that it works with any internal API changes, the
+> > same way we do for modules. Those with out-of-tree modules will have
+> > the technical debt of changing every time a new kernel release is
+> > out, and so should out-of-tree bpf programs.
+> 
+> Assuming eBPF takes off, that would have some poor maintainer managing
+> the whole of the compatibility changes for the entire eBPF ecosystem
+> ... I really don't think that's scalable.
 
-I see your concern as subsystem maintainer not wanting HID to turn
-into a dumping ground for various vendor extensions. I submitted
-a Razer keyboard bling driver that was nixed with "put it in userspace",
-i.e. using hidraw, and I was directed to the project called "razertest"
-https://github.com/z3ntu/razer_test
-https://patchwork.kernel.org/project/linux-input/patch/20181128222443.13062-1-linus.walleij@linaro.org/
+I nevertheless still see this as the best and only option we have; that 
+is, have an infrastructure in the kernel tree for maintaining eBPF 
+programs, somehow sorted per subsystem so that it mirrors the standard 
+maintainership / subsystem structure proper, and have the maintainers 
+responsible for keeping the eBPF programs related to their subsystem in 
+sync with the internal changes happening in the subsystem.
 
-One of the concerns raised was (Luca) "I wouldn't put too much functionality
-into the kernel driver as new devices are being released all the time and it
-would probably take very long for those patches to arrive at users of
-non-rolling distros."
+At the end of the day, it will be the subsystem maintainers themsleves 
+accepting the program into the tree in the first place, so it's not like 
+they are receiving responsibility for something they never wanted in the 
+first place. So we'll probably end up with subsystems with many eBPF 
+programs, and also subsystems with zero. Similarly to tracepoints.
 
-The problem with this is that while the kernel has a highway into *all*
-distros and how many distros even carry "razer_test"? Not Fedora
-for example. That surely has not reached users of any distro AFAICT.
+I.e. pretty much the 'perf' model, but on much wider scale (as eBPF can 
+hook to just about anything).
 
-So what we have here is three prominent HID contributors: Benjamin,
-Luca and Jiri. One of you work for RedHat and one of you work for SuSE.
-And yet none of your distributions have packaged Luca's userspace project?
-Can't you see that this isn't working?
+Any other option seems to lead to having eBPF programs sprinkled all over 
+the internet that depend on particular kernel version / API, leading to 
+nothing else than unhappy users, because "I downloaded it, it didn't work, 
+Linux sucks".
 
-I feel HID is maybe missing the point that creating new userspace
-projects is really hard and resource-craving, involving a lot of social
-problem, process and lobbying compared to maintaining
-a few more driver files in the kernel.
+-- 
+Jiri Kosina
+SUSE Labs
 
-Referring people to misc half-adopted userspace projects for full support
-of the hardware on their desk isn't really sustainable, no matter if
-they use eBPF or not. (Asking them to go and create their own userspace
-driver extension libraries is even less helpful.)
-
-I once created libmtp for MTP communication with storage devices
-such as all Android phones. In a way it is a success since it is
-deployed in all distros and even used on Mac by Google for
-accessing Android devices. Would I implement it today I would
-seriously discuss with Greg to make this a kernel driver instead.
-Simply because the kernel has more momentum, community
-and attention. More bugs get fixed there, maintenance actually
-happens. I'm really suspicious of other microkernel-like projects
-such as libsane and cups as well, but they can talk for
-themselves.
-
-To me the big question is rather: does HID have a working userspace
-project community outside of the kernel, which is adopted by all major
-distributions? I know it is a chicken and egg problem, and that you
-need to create something to get accepted but is there some
-momentum in these projects?
-
-At a minimum, do what Bartosz did for the libgpiod library that we
-(reluctantly) developed for userspace GPIO access, and put the git
-for the userspace on git.kernel.org so people know where to find it
-and get the cuddly feeling that it has something to do with the official
-Linux kernel.
-
-> While there are many proponents of "eBPF is good for everything and your
-> grandma" aproach, this opinion is not universally shared. One big risk is
-> that this will eventually lead to possibility of having whole drivers /
-> core code written in eBPF, which could potentially lead to decreased
-> maintainability and supportability, also due to big fragmentation of the
-> code (eBPF programs might not necessarily be shipped together with the
-> kernel codebase).
-(...)
-> I feel like we are currently lacking a clear borderline, defining what is
-> still acceptable by the community to be implemented in terms of eBPF, and
-> what is over the line as it'd be causing big supportability and
-> maintainability concerns (see e.g. Christoph's concern to the HID eBPF
-> implementation implications [2]).
-
-I must say from my own experience I side with Christoph here.
-
-I just want to add some code to the kernel so my hardware works
-(better) out of the box, is that really so voluminous for the HID maintainers
-to maintain that it need to be referred to userspace?
-
-I kind of feel like rebasing and resubmitting my razer driver from 2018
-to raise a discussion here. Will I be asked to rewrite it in eBPF
-if I do?
-
-Yours,
-Linus Walleij
