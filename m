@@ -1,111 +1,160 @@
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Date: Thu, 16 Jun 2022 14:49:40 +0200
-Subject: [Ksummit-discuss] [TECH TOPIC] Regression tracking & fixing:
- current state, problems, and next steps
-Message-ID: <20a02cbc-c0d5-e6f9-93fa-c1bf7592cfab@leemhuis.info>
+From: Hans de Goede <hdegoede@redhat.com>
+Date: Fri, 17 Jun 2022 13:32:42 +0200
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
+In-Reply-To: <CAO-hwJ+DJGYzKeGd8q7ma3L_qfd=phxczyfPqPnoz-DV9By_Cg@mail.gmail.com>
+References: <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
+ <20220615170407.ycbkgw5rofidkh7x@quack3.lan> <87h74lvnyf.fsf@meer.lwn.net>
+ <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
+ <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
+ <20220616122634.6e11e58c@gandalf.local.home>
+ <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
+ <20220616125128.68151432@gandalf.local.home>
+ <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
+ <nycvar.YFH.7.76.2206170947520.14340@cbobk.fhfr.pm>
+ <20220617103050.2almimus5hjcifxl@quack3.lan>
+ <CAO-hwJJxCteD_BHZTeqQ1f7gWOHoj+05qP8bmFsRYVfMc_3FxQ@mail.gmail.com>
+ <dc6ca88d-d1ef-a1ab-dbef-e9338467271d@redhat.com>
+ <CAO-hwJ+DJGYzKeGd8q7ma3L_qfd=phxczyfPqPnoz-DV9By_Cg@mail.gmail.com>
+Message-ID: <983e1c60-49f3-7e7c-c6a7-d9e1d2b3d9b5@redhat.com>
 
-Hi all! I?d like to propose a session on my regression tracking efforts
-for the kernel summit:
+Hi,
 
-* I want to give a relative short "state of the union" overview about my
-regression tracking efforts -- including a quick depiction of the (still
-immature and rough) "regzbot", which handles some of the hard work for me.
+On 6/17/22 13:25, Benjamin Tissoires wrote:
+> On Fri, Jun 17, 2022 at 1:16 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>>
+>> Hi Benjamin,
+>>
+>> Deliberate offlist reply.
+> 
+> [re-adding the list as your last comment]
+> 
+>>
+>> On 6/17/22 13:04, Benjamin Tissoires wrote:
+>>> On Fri, Jun 17, 2022 at 12:31 PM Jan Kara <jack@suse.cz> wrote:
+>>>>
+>>>> On Fri 17-06-22 09:53:52, Jiri Kosina wrote:
+>>>>> On Thu, 16 Jun 2022, James Bottomley wrote:
+>>>>>
+>>>>>>> If you want a "stable ebpf program" then you submit it upstream and
+>>>>>>> we can make sure that it works with any internal API changes, the
+>>>>>>> same way we do for modules. Those with out-of-tree modules will have
+>>>>>>> the technical debt of changing every time a new kernel release is
+>>>>>>> out, and so should out-of-tree bpf programs.
+>>>>>>
+>>>>>> Assuming eBPF takes off, that would have some poor maintainer managing
+>>>>>> the whole of the compatibility changes for the entire eBPF ecosystem
+>>>>>> ... I really don't think that's scalable.
+>>>>>
+>>>>> I nevertheless still see this as the best and only option we have; that
+>>>>> is, have an infrastructure in the kernel tree for maintaining eBPF
+>>>>> programs, somehow sorted per subsystem so that it mirrors the standard
+>>>>> maintainership / subsystem structure proper, and have the maintainers
+>>>>> responsible for keeping the eBPF programs related to their subsystem in
+>>>>> sync with the internal changes happening in the subsystem.
+>>>>>
+>>>>> At the end of the day, it will be the subsystem maintainers themsleves
+>>>>> accepting the program into the tree in the first place, so it's not like
+>>>>> they are receiving responsibility for something they never wanted in the
+>>>>> first place. So we'll probably end up with subsystems with many eBPF
+>>>>> programs, and also subsystems with zero. Similarly to tracepoints.
+>>>>>
+>>>>> I.e. pretty much the 'perf' model, but on much wider scale (as eBPF can
+>>>>> hook to just about anything).
+>>>>>
+>>>>> Any other option seems to lead to having eBPF programs sprinkled all over
+>>>>> the internet that depend on particular kernel version / API, leading to
+>>>>> nothing else than unhappy users, because "I downloaded it, it didn't work,
+>>>>> Linux sucks".
+>>>>
+>>>> OK, but if we keep eBPF programs this closely coupled to the kernel, then
+>>>> what is the advantage of using eBPF, say for HID as was discussed earlier
+>>>> in this thread, compared to just making sure HID has appropriate hooks and
+>>>> the handling of the device quirks is done in normal C code (kernel module)
+>>>> attached to these hooks?
+>>>
+>>> [sorry some of my messages are kept in the moderation queue]
+>>>
+>>> This is something I tried to explain in my talk at Kernel Recipes 2
+>>> weeks ago [1].
+>>>
+>>> Basically, for regular users, it will be simpler for them to test patches:
+>>> A developer patches the device through a bpf program, compiles it and
+>>> sends to the user the source and the bytecode. The user just has to
+>>> drop the bytecode in the file system and a udev rule automatically
+>>> loads it without having to reboot the current kernel, making testing
+>>> way faster and simpler for users.
+>>>
+>>> Then developers take the burden of upstreaming the bpf program through
+>>> the usual email submission.
+>>>
+>>> This way users are testing the actual code that is upstreamed without
+>>> too much hurdle.
+>>>
+>>> IMO those kinds of fixes should be in-tree because they are actual fixes.
+>>>
+>>>
+>>>>
+>>>> Because frankly for me the main value of eBPF over patching and recompiling
+>>>> the kernel is that I can tweak the eBPF code exactly to my needs and load
+>>>> it to the kernel without needing to reboot, over time it is less work than
+>>>> maintaining a source code patch out of tree, and usually it is a hacky
+>>>> tweak I use for some debugging so merging it upstream does not make sense.
+>>>>
+>>>
+>>> And that's also why I want to give *some* guarantees that the eBPF
+>>> hooks I am putting in HID are somewhat stable. Or at least I won't
+>>> break everything at each release and look carefully when there is a
+>>> change in the API.
+>>>
+>>> But these guarantees are just *my* constraints I put on *my*
+>>> subsystem. I have reasons to believe I can ensure that, so I will.
+>>>
+>>> But I am not saying any internal HID function will have ABI
+>>> guarantees. Only the few hooks I am explicitly documenting as such.
+>>>
+>>> So the idea is that your debugging program can live in your own tree,
+>>> without being submitted, but this is just a contract between myself as
+>>> a subsystem maintainer and you, not the entire eBPF or ftrace
+>>> community.
+>>>
+>>> I made this so I can put any fancy new kernel API out in eBPF
+>>> programs, that would be handled by the actual user of that kernel API.
+>>
+>> I think you need to clarify this, to me it now reads that you want
+>> to use eBPF to implement new APIs, where as what you mean is that
+>> you want to avoid the need to add new APIs like e.g. sysfs knobs
+>> or kernel-module-parameters, right ?
+> 
+> Yes. Exactly. It's not about regular and standard API. It's a device
+> specific property/feature that is usually handled through module
+> parameters or custom sysfs entries that have only one single user.
+> 
+>>
+>>> If a user wants to set some fancy feature on a particular device,
+>>> instead of having a kernel parameter that no one will ever use besides
+>>> that program that may be short-lived, we can then load that
+>>> functionality with the eBPF program.
+>>
+>> I think you need to clarify here that you mean changing some settings
+>> on the device through e.g. a HID feature report which would require
+>> a sysfs-attribute or kernel-module-parameters without ePBF and you want
+>> to avoid adding more and more sysfs-attributes / kernel-module-parameters?
+> 
+> Yep yep :)
+> 
+>>
+>> At least I think this is what you are trying to say, and I think that
+>> without some clarification this is not what most kernel-devs will
+>> understand here.
+> 
+> Thanks for saying it better than I do :)
 
+You're welcome. Actually thinking more about this I think this
+is somewhat akin to Windows HID filter drivers and given BPF-s
+history in packet-filtering I think that that actually is a helpful
+analogy to make.
 
-* Outline and discuss oddities and problems in Linux development I
-noticed during my regression tracking efforts. Among them:
+Regards,
 
- - How slow quite a few mainline regressions are resolved, as even
-simple regression fixes sometimes linger in -next for weeks before being
-mainlined. Sometimes they simply idle there until the next merge window.
- This especially happens often for regressions introduced in one cycle
-but only found after that cycle ended.
+Hans
 
-   The recently added document
-Documentation/process/handling-regressions.rst contains a section
-explaining indirectly that this is unwanted. Is that enough to improve
-things over time, if I and others prod developers when a fix is
-progressing only slowly? Or is more than this needed?
-
- - Closely related to the previous point: is our workflow working well
-enough when it comes to regressions in stable series caused by patches
-recently merged to mainline and backported before it became known that
-the change causes a regression? Should those patches maybe be reverted
-in stable more often and reapplied later once a fix for the regression
-was mainlined, as it sometimes takes quite a while to get them fixed
-there (see above)? BTW: how should regzbot handle such regressions? Show
-them for both mainline and stable?
-
- - The bugzilla.kernel.org situation: many reports for regressions (and
-regular bugs, too) submitted there are not acted upon, often because the
-report isn't sent to the appropriate maintainers/developers. Do we care?
-Backstory:
-https://lore.kernel.org/all/6808cd17-b48c-657d-de60-ef9d8bfa151e@leemhuis.info/
-Noteworthy here is Konstantin?s "have an actual kernel developer be
-responsible for managing bugzilla" comment in that threat:
-https://lore.kernel.org/all/20220420163223.kz32qomzj3y4hjj5@nitro.local/
-Side note: is this something that should be discussed separately? Or
-something just for the maintainers summit?
-
-
-* Outline and discuss problems I face during my regression tracking
-efforts. Among them:
-
- - How do we want to deal with regression reports from CI systems?
-Should I and regzbot start keeping an eye on those that seem to be legit
-(and not just theoretical problems only test systems will find)? Or will
-those that run CI systems ensure the regressions they find are fixed?
-
- - How developers sometimes make regression tracking unintentionally
-hard. Most importantly: how do I make more developers add proper "Link:"
-tags to their commit description to link to the report. I care, because
-regzbot relies on them to connect reports for tracked regressions with
-patches posted and committed to fix the particular regression.
-
-   I quite a few time even had to argue that this tag is exactly for
-this purpose (I recently updated the
-Documentation/process/submitting-patches.rst and
-Documentation/process/5.Posting.rst submitting-patches.rst to clarify
-this), but many maintainers do not use them (side note: Linus really
-wants them, too:
-https://lore.kernel.org/lkml/CAHk-=wjPR+bj7P1O=MAQWXp0Mx2hHuNQ1acn6gS+mRo_kbo5Lg@mail.gmail.com/).
-Should checkpatch.pl maybe warn if it sees a "Fixes:" tag without an
-accompanying "Link:"? Sure, sometimes there is no dedicated report to
-link to, but that's why it's just a warning people can ignore.
-
- - Should checkpatch.pl warn if developer instead of 'Link:' (which
-regzbot relies on) use tags like 'BugLink:', 'References:' and a few
-others that Linus afaics doesn't like (and right now are ignored by
-regzbot):
-https://lore.kernel.org/all/CAHk-=wgs38ZrfPvy=nOwVkVzjpM3VFU1zobP37Fwd_h9iAD5JQ@mail.gmail.com/
-
- - How should I handle low-quality or problematic reports (for example
-with vendor kernels, outdated kernels, tainted kernels, ....) for
-regressions that seems legit to me -- for example if the report is for a
-relative fresh and untainted vendor kernel that is known to be nearly
-vanilla? There are quite a few of those in bugzilla and some on the
-lists as well. I fear maintainers will start to get annoyed by me if I
-simply prod them with too many bad reports. That's why I sometimes ask
-reporters to improve their report before forwarding the issue, but that
-quickly turned into a big and annoying time-sink.
-
- - I see many mainline commits fixing regressions I never noticed, which
-made me wonder: is it a problem that I apparently seem to not become
-aware of many regressions reports? If the regression was fixed that
-obviously is not a problem. But it always makes me wonder how many
-regression reports are out there that were not addressed?
-
-
-* Outline a new or planned features to make regression tracking with
-regzbot more useful for developers and maintainers
-
-* Discuss what developers would like me or regzbot to do to make
-everyone's life easier or my regression tracking efforts more useful for
-all of us.
-
-FWIW, I plan to submit a session to the maintainers summit as well (a
-mail about this will follow in a few minutes). The idea is to outline
-what has been agreed on in this session and further discuss issues that
-might need it (the bugzilla situation might be one of those).
-
-Ciao, Thorsten
