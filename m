@@ -1,36 +1,123 @@
-From: Steven Rostedt <rostedt@goodmis.org>
-Date: Thu, 16 Jun 2022 15:08:45 -0400
+From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Date: Fri, 17 Jun 2022 13:04:35 +0200
 Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] How far to go with eBPF
-In-Reply-To: <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
-References: <nycvar.YFH.7.76.2206150834520.14340@cbobk.fhfr.pm>
- <CACRpkdaYx5uOt8Xi8AY3N2BcQjG7J5ZUwr6yueF_pet1HoOrFQ@mail.gmail.com>
- <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
- <20220615170407.ycbkgw5rofidkh7x@quack3.lan>
- <87h74lvnyf.fsf@meer.lwn.net>
+In-Reply-To: <20220617103050.2almimus5hjcifxl@quack3.lan>
+References: <nycvar.YFH.7.76.2206151023250.14340@cbobk.fhfr.pm>
+ <20220615170407.ycbkgw5rofidkh7x@quack3.lan> <87h74lvnyf.fsf@meer.lwn.net>
  <20220615174601.GX1790663@paulmck-ThinkPad-P17-Gen-1>
  <nycvar.YFH.7.76.2206152022550.14340@cbobk.fhfr.pm>
  <20220616122634.6e11e58c@gandalf.local.home>
  <bbb46f66bb8518e90030fe97a1225adf178654d1.camel@HansenPartnership.com>
  <20220616125128.68151432@gandalf.local.home>
  <a522bfa4241eb263e354ebbb293b0d629dd2e026.camel@HansenPartnership.com>
-Message-ID: <20220616150845.22e83f9a@gandalf.local.home>
+ <nycvar.YFH.7.76.2206170947520.14340@cbobk.fhfr.pm>
+ <20220617103050.2almimus5hjcifxl@quack3.lan>
+Message-ID: <CAO-hwJJxCteD_BHZTeqQ1f7gWOHoj+05qP8bmFsRYVfMc_3FxQ@mail.gmail.com>
 
-On Thu, 16 Jun 2022 14:25:44 -0400
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On Fri, Jun 17, 2022 at 12:31 PM Jan Kara <jack@suse.cz> wrote:
+>
+> On Fri 17-06-22 09:53:52, Jiri Kosina wrote:
+> > On Thu, 16 Jun 2022, James Bottomley wrote:
+> >
+> > > > If you want a "stable ebpf program" then you submit it upstream and
+> > > > we can make sure that it works with any internal API changes, the
+> > > > same way we do for modules. Those with out-of-tree modules will have
+> > > > the technical debt of changing every time a new kernel release is
+> > > > out, and so should out-of-tree bpf programs.
+> > >
+> > > Assuming eBPF takes off, that would have some poor maintainer managing
+> > > the whole of the compatibility changes for the entire eBPF ecosystem
+> > > ... I really don't think that's scalable.
+> >
+> > I nevertheless still see this as the best and only option we have; that
+> > is, have an infrastructure in the kernel tree for maintaining eBPF
+> > programs, somehow sorted per subsystem so that it mirrors the standard
+> > maintainership / subsystem structure proper, and have the maintainers
+> > responsible for keeping the eBPF programs related to their subsystem in
+> > sync with the internal changes happening in the subsystem.
+> >
+> > At the end of the day, it will be the subsystem maintainers themsleves
+> > accepting the program into the tree in the first place, so it's not like
+> > they are receiving responsibility for something they never wanted in the
+> > first place. So we'll probably end up with subsystems with many eBPF
+> > programs, and also subsystems with zero. Similarly to tracepoints.
+> >
+> > I.e. pretty much the 'perf' model, but on much wider scale (as eBPF can
+> > hook to just about anything).
+> >
+> > Any other option seems to lead to having eBPF programs sprinkled all over
+> > the internet that depend on particular kernel version / API, leading to
+> > nothing else than unhappy users, because "I downloaded it, it didn't work,
+> > Linux sucks".
+>
+> OK, but if we keep eBPF programs this closely coupled to the kernel, then
+> what is the advantage of using eBPF, say for HID as was discussed earlier
+> in this thread, compared to just making sure HID has appropriate hooks and
+> the handling of the device quirks is done in normal C code (kernel module)
+> attached to these hooks?
 
-> Not if it's managed correctly.  One method could simply be to not care
-> but be careful.  After all, lots of companies still manage to produce
-> proprietary modules even with us actively trying to break the API. 
-> Either it's not as difficult as we think or API changes are easier to
-> cope with than we assume.
+[sorry some of my messages are kept in the moderation queue]
 
-All I read from this is that eBPF is the new way that proprietary modules
-can have their stable API.
+This is something I tried to explain in my talk at Kernel Recipes 2
+weeks ago [1].
 
-The problem I have here is that eBPF is becoming extremely invasive. It is
-now hooking to any function in the kernel that isn't marked notrace. If
-there's not a clear border on what is considered non-stable now, we will be
-fighting with those that say "hey this broke my bpf program, revert it
-please" for a long time coming.
+Basically, for regular users, it will be simpler for them to test patches:
+A developer patches the device through a bpf program, compiles it and
+sends to the user the source and the bytecode. The user just has to
+drop the bytecode in the file system and a udev rule automatically
+loads it without having to reboot the current kernel, making testing
+way faster and simpler for users.
 
--- Steve
+Then developers take the burden of upstreaming the bpf program through
+the usual email submission.
+
+This way users are testing the actual code that is upstreamed without
+too much hurdle.
+
+IMO those kinds of fixes should be in-tree because they are actual fixes.
+
+
+>
+> Because frankly for me the main value of eBPF over patching and recompiling
+> the kernel is that I can tweak the eBPF code exactly to my needs and load
+> it to the kernel without needing to reboot, over time it is less work than
+> maintaining a source code patch out of tree, and usually it is a hacky
+> tweak I use for some debugging so merging it upstream does not make sense.
+>
+
+And that's also why I want to give *some* guarantees that the eBPF
+hooks I am putting in HID are somewhat stable. Or at least I won't
+break everything at each release and look carefully when there is a
+change in the API.
+
+But these guarantees are just *my* constraints I put on *my*
+subsystem. I have reasons to believe I can ensure that, so I will.
+
+But I am not saying any internal HID function will have ABI
+guarantees. Only the few hooks I am explicitly documenting as such.
+
+So the idea is that your debugging program can live in your own tree,
+without being submitted, but this is just a contract between myself as
+a subsystem maintainer and you, not the entire eBPF or ftrace
+community.
+
+I made this so I can put any fancy new kernel API out in eBPF
+programs, that would be handled by the actual user of that kernel API.
+If a user wants to set some fancy feature on a particular device,
+instead of having a kernel parameter that no one will ever use besides
+that program that may be short-lived, we can then load that
+functionality with the eBPF program.
+Or if a user is only interested in a particular event in a report for
+a device (with the custom protocols some gaming devices are enjoying),
+then that user can load a BPF program and keep it outside of the tree
+because the program doesn't make sense without the userspace
+component.
+
+I hope it clarifies a little bit now. For HID at least.
+
+Cheers,
+Benjamin
+
+[1] https://kernel-recipes.org/en/2022/talks/hid-bpf/ and
+https://www.youtube.com/watch?v=nhJqaZT94z0&t=14923s
+
