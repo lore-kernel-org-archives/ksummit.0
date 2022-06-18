@@ -1,27 +1,53 @@
-From: Jonathan Corbet <corbet@lwn.net>
-Date: Fri, 17 Jun 2022 14:57:10 -0600
-Subject: [Ksummit-discuss] [TECH TOPIC] What kernel documentation could be
-Message-ID: <87sfo3nh3t.fsf@meer.lwn.net>
-Message-ID: <20220617205710.QALI-P3fei6--HyNgkD8H_Vy4lhy8DoJZ0NewhhNAEQ@z>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Sat, 18 Jun 2022 23:44:03 +0300
+Subject: [Ksummit-discuss] [TECH TOPIC] Rust
+In-Reply-To: <Yq44nyu7P1uhBVGi@pendragon.ideasonboard.com>
+References: <CANiq72nNKvFqQs9Euy=_McfcHf0-dC_oPB3r8ZJii2L3sfVjaw@mail.gmail.com>
+ <Yq44nyu7P1uhBVGi@pendragon.ideasonboard.com>
+Message-ID: <Yq45E0yUEypGPhzi@pendragon.ideasonboard.com>
+Message-ID: <20220618204403.CoVgeEFc3bUWUJ3wHnlDW9oKowNIbsz6D_XCVraxeOg@z>
 
-The development community has put a lot of work into the kernel's
-documentation directory in recent years, with visible results. But the
-kernel's documentation still falls far short of the standard set by many
-other projects, and there is a great deal of "tribal knowledge" in our
-community that is not set down. I'd like to look at the successes and
-failures of the work so far, but intent to focus on a discussion of what
-our documentation should be and what we can do to get it there.
+On Sat, Jun 18, 2022 at 11:42:09PM +0300, Laurent Pinchart wrote:
+> Hi Miguel,
+> 
+> On Sat, Jun 18, 2022 at 10:33:01PM +0200, Miguel Ojeda wrote:
+> > The effort to add Rust support to the kernel is ongoing. There has
+> > been progress in different areas during the last year, and there are
+> > several topics that could benefit from discussion:
+> > 
+> >   - Dividing the `kernel` crate into pieces, dependency management
+> > between internal crates, writing crates in the rest of the kernel
+> > tree, etc.
+> > 
+> >   - Whether to allow dependencies on external crates and vendoring of
+> > useful third-party crates.
+> > 
+> >   - Toolchain requirements in the future and status of Rust unstable features.
+> > 
+> >   - The future of GCC builds: upcoming compilers, their status and
+> > ETAs, adding the kernel as a testing case for them...
+> > 
+> >   - Steps needed for further integration in the different kernel CIs,
+> > running tests, etc.
+> > 
+> >   - Documentation setup on kernel.org and integration between
+> > Sphinx/kernel-doc and rustdoc (this can be part of the documentation
+> > tech topic submitted earlier by Jon).
+> > 
+> >   - Discussion with prospective maintainers that want to use Rust for
+> > their subsystem.
+> 
+> All previous topics but this one are technical. To restore the balance a
+> bit (and also because I believe it's important to the success of this
+> project :-)), I'd like to also discuss the impact on the kernel
+> maintenance at large, beyond just the maintainers who opt in to be early
+> adopters of rust in their subsystem.
 
-Questions to discuss include:
+This may be better addressed as part of the maintainers summit (I've
+just seen your proposal for that event), but I'm concerned that the
+audience there will be very restricted due to the size of the event.
 
- - Bringing an coherent overall structure to Documentation/
+-- 
+Regards,
 
- - Making it easier for developers to improve the documentation.
-
- - What we would like from Sphinx and what we can do to make it happen
-
- - Making the docs build system less ugly and more maintainable
-
- - Integrating rustdoc documentation
-
-jon
+Laurent Pinchart
