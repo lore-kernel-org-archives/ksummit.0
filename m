@@ -1,47 +1,158 @@
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Date: Sat, 18 Jun 2022 23:42:07 +0300
-Subject: [Ksummit-discuss] [TECH TOPIC] Rust
-In-Reply-To: <CANiq72nNKvFqQs9Euy=_McfcHf0-dC_oPB3r8ZJii2L3sfVjaw@mail.gmail.com>
-References: <CANiq72nNKvFqQs9Euy=_McfcHf0-dC_oPB3r8ZJii2L3sfVjaw@mail.gmail.com>
-Message-ID: <Yq44nyu7P1uhBVGi@pendragon.ideasonboard.com>
-Message-ID: <20220618204207.SOUP1SIWSRd_ExcNPaec34WaPRdMaumu4f67XCcF9Oc@z>
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+Date: Sat, 18 Jun 2022 09:24:47 +0100
+Subject: [Ksummit-discuss] [TECH TOPIC] What kernel documentation could
+ be
+In-Reply-To: <87sfo3nh3t.fsf@meer.lwn.net>
+References: <87sfo3nh3t.fsf@meer.lwn.net>
+Message-ID: <20220618092447.5ebed314@sal.lan>
+Message-ID: <20220618082447.t7QWk05AIHhP7EYEEecnzekIsZ-TYYKeaFoZJDFu1tE@z>
 
-Hi Miguel,
+Hi John,
 
-On Sat, Jun 18, 2022 at 10:33:01PM +0200, Miguel Ojeda wrote:
-> The effort to add Rust support to the kernel is ongoing. There has
-> been progress in different areas during the last year, and there are
-> several topics that could benefit from discussion:
-> 
->   - Dividing the `kernel` crate into pieces, dependency management
-> between internal crates, writing crates in the rest of the kernel
-> tree, etc.
-> 
->   - Whether to allow dependencies on external crates and vendoring of
-> useful third-party crates.
-> 
->   - Toolchain requirements in the future and status of Rust unstable features.
-> 
->   - The future of GCC builds: upcoming compilers, their status and
-> ETAs, adding the kernel as a testing case for them...
-> 
->   - Steps needed for further integration in the different kernel CIs,
-> running tests, etc.
-> 
->   - Documentation setup on kernel.org and integration between
-> Sphinx/kernel-doc and rustdoc (this can be part of the documentation
-> tech topic submitted earlier by Jon).
-> 
->   - Discussion with prospective maintainers that want to use Rust for
-> their subsystem.
+Em Fri, 17 Jun 2022 14:57:10 -0600
+Jonathan Corbet <corbet@lwn.net> escreveu:
 
-All previous topics but this one are technical. To restore the balance a
-bit (and also because I believe it's important to the success of this
-project :-)), I'd like to also discuss the impact on the kernel
-maintenance at large, beyond just the maintainers who opt in to be early
-adopters of rust in their subsystem.
+> The development community has put a lot of work into the kernel's
+> documentation directory in recent years, with visible results. But the
+> kernel's documentation still falls far short of the standard set by many
+> other projects, and there is a great deal of "tribal knowledge" in our
+> community that is not set down. I'd like to look at the successes and
+> failures of the work so far, but intent to focus on a discussion of what
+> our documentation should be and what we can do to get it there.
+> 
+> Questions to discuss include:
+> 
+>  - Bringing an coherent overall structure to Documentation/
 
--- 
+Fully agreed. We dedicated a lot of resources on the past years to
+convert documentation to ReST and on kernel-doc, but not so much
+on placing the topics at the right order.
+
+There are a huge amount of such documentation that describe border cases,
+or have just kernel-doc tags without any (or very small) descriptions.
+Kernel-doc markups are important, as they help to keep the documentation
+updated, but explaining subsystem's principles is equally important, as
+it can save a lot of time from maintainers if the contributors are aware
+on how and why the subsystem's kAPIs were organized the way it is.
+
+We should imagine documentation as if this is a series of books describing
+every aspect of the kernel. So, I would expect it to be organized with
+some structure that would place the topics on some order that would make
+easier for people to read, being either new contributors or experienced
+developers that need to touch other parts of the Kernel that are out of
+his past experiences.
+
+For instance to the kAPI documentation, I would expect something like:
+
+	- How to contribute / Submission process;
+	- An introductory chapter that would describe the most used
+	  components that all developers need to know, like:
+
+		- how to write a driver;
+		- fs principles;
+		- scheduler principles;
+		- mm most used functions (kmalloc & friends);
+		- wait queues;
+		- kernel threads;
+		- softirqs;
+		- arch-dependent items to consider (like bit order), weak
+		  memory model, etc;
+		- ...
+
+	  IMO, we could take a look at the index of some already-existing 
+	  books like LDD 3, Linux Kernel Development and others in order to
+	  get a rough idea about the items to be covered there.
+	- Bus-related subsystems (USB, PCI, I2C, ...);
+	- Then, place per-subsystem's documentation, all having their
+	  texts explaining basic principles.
+
+IMO, we should write an index file and a couple of new ReST files with an
+skeleton for the above, and then ask people to help filling the blanks.
+
+>  - Making it easier for developers to improve the documentation.
+
+A well-prepared skeleton would make life easier. From time to time, we
+have discussions and patches shifting documentation between different
+directories.
+
+>  - What we would like from Sphinx and what we can do to make it happen
+
+The big missing feature on Sphinx itself is with regards to per-C-type
+domain. So, if we have one struct and one function both called "foo",
+the cross-references will be broken. This issue is known since Sphinx
+3.1, and there are already patches fixing it since then (I remember
+testing them) but, up to today, the Sphinx upstream patches meant
+to fix it weren't applied yet (as far as I can tell).
+
+Another problem is with regards to the documentation's build time.
+
+One feature we're not using yet is intersphinx. Right now, we can
+build parts of the documentation with:
+
+	make SPHINXDIRS="foo" htmldocs
+
+But, if "foo" have cross-references to "bar", the build will produce
+warnings and the documentation's cross-references to "bar" won't work.
+
+Properly setting interphinx would allow this to work, as such references
+would point, instead, to some remote place (like kernel.org).
+
+This could be used to help improving the documentation's build time 
+during doc development.
+
+Also, I would love to have a good way to just produce html (and pdf) from
+the documents I'm actually working with. The way I do it right now is
+that I create a "Documentation/foo" directory, adding there just the docs
+I'm currently working with, placing them on a fake index.rst file.
+
+This way, I can build them really fast, without needing to rebuild
+everything at the same book. Perhaps something like that could be 
+automated - or Sphinx itself could support something like:
+
+	make htmldocs SPHINXFILES="foo.rst bar.rst"
+
+>  - Making the docs build system less ugly and more maintainable
+
+I guess shifting the minimal Sphinx version would help to remove some
+bad things there.
+
+One thing that probably be solved on a different way is to have
+a better solution for things like:
+
+	Functions for feature 1
+	=======================
+
+	.. kernel-doc:: include/some_header.h
+	   :doc: Feature 1
+
+	.. kernel-doc:: include/some_header.h
+	   :functions:
+		func1
+		func2
+
+	Functions for feature 2
+	=======================
+
+	.. kernel-doc:: include/some_header.h
+	   :doc: Feature 2
+
+	.. kernel-doc:: include/some_header.h
+	   :functions:
+		func3
+		func4
+
+Perhaps we could change Kernel-doc in a way that doing just:
+
+	.. kernel-doc:: include/some_header.h
+
+would be enough.
+
+> - Integrating rustdoc documentation
+
+Won't comment much about that, as never touched any of those.
+
+Life would be a lot easier on this side if rustdoc could
+support ReST.
+
 Regards,
-
-Laurent Pinchart
+Mauro
