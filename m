@@ -1,43 +1,71 @@
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Date: Sun, 19 Jun 2022 16:53:46 +0300
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 19 Jun 2022 21:08:08 +0200
 Subject: [Ksummit-discuss] [TECH TOPIC] Rust
-In-Reply-To: <d3ba4011-a31d-05fa-b5de-808a1a5ee56f@kernel.dk>
+In-Reply-To: <Yq8pXroV+23xr5w5@pendragon.ideasonboard.com>
 References: <CANiq72nNKvFqQs9Euy=_McfcHf0-dC_oPB3r8ZJii2L3sfVjaw@mail.gmail.com>
- <Yq44nyu7P1uhBVGi@pendragon.ideasonboard.com>
- <Yq6+p+aRCjeZ7QsS@infradead.org>
+ <Yq44nyu7P1uhBVGi@pendragon.ideasonboard.com> <Yq6+p+aRCjeZ7QsS@infradead.org>
  <Yq70keAYGQQmyJLm@pendragon.ideasonboard.com>
  <2513dc4528c71d34d400c104e91ada6517869886.camel@HansenPartnership.com>
- <d3ba4011-a31d-05fa-b5de-808a1a5ee56f@kernel.dk>
-Message-ID: <Yq8qaqr673UFFG6y@pendragon.ideasonboard.com>
-Message-ID: <20220619135346.p_Ppx0G9VAVHnqLWNuFtySq-GinkwhGDjGVkIU3S9Jc@z>
+ <Yq8pXroV+23xr5w5@pendragon.ideasonboard.com>
+Message-ID: <CAMuHMdW02U7qdvGNqijyg_5NbJ3aKyCB8j26FjeAMR-aMY_bDQ@mail.gmail.com>
+Message-ID: <20220619190808.WVx2g8ibwXnY1YJUXlcqcB2Prcxk0hCR28G9OsEfemI@z>
 
-On Sun, Jun 19, 2022 at 07:19:38AM -0600, Jens Axboe wrote:
-> On 6/19/22 6:56 AM, James Bottomley wrote:
-> >> One point I'd like to explicitly address, as it seems to be very
-> >> relevant to me when it comes to whether or not the pain is worth the
-> >> gain, is how we'll deal with the fact that the rust compiler will
-> >> tell a non-negligible [*] part of the kernel developers that they
-> >> don't have the skills to write kernel code. Will we have a credible
-> >> option to offer there to help people improve their skills set, and
-> >> how will we deal with the fact that some people will be left on the
-> >> side of the road ? Or would we acknowledge what may be the elephant
-> >> in the room that this would actually be a good thing for the kernel
-> >> code quality ? What about the impact on a community that is already
-> >> overworked and prone to burn-out ?
-> >>
-> >> [*] I have no way to quantify this at the moment, maybe I'm overly
-> >> pessimistic, and the number will likely vary depending on areas,
-> >> probably impacting BSPs differently than mainline.
-> > 
+Hi Laurent,
+
+On Sun, Jun 19, 2022 at 3:49 PM Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Sun, Jun 19, 2022 at 08:56:46AM -0400, James Bottomley wrote:
+> > On Sun, 2022-06-19 at 13:04 +0300, Laurent Pinchart wrote:
+> > > On Sat, Jun 18, 2022 at 11:13:59PM -0700, Christoph Hellwig wrote:
+> > > > On Sat, Jun 18, 2022 at 11:42:07PM +0300, Laurent Pinchart wrote:
+> > > > > All previous topics but this one are technical. To restore the
+> > > > > balance a bit (and also because I believe it's important to the
+> > > > > success of this project :-)), I'd like to also discuss the impact
+> > > > > on the kernel maintenance at large, beyond just the maintainers
+> > > > > who opt in to be early adopters of rust in their subsystem.
+> > > >
+> > > > Yes.  That is I think the most important point.
+> > > >
+> > > > I've played around with rust a bit for userspace project, and there
+> > > > is things I like a lot like strict type safety and the ownership
+> > > > model, and things I detest like verbose and unlogic syntax, the
+> > > > cargo cult of vendoring libraries instead of a sane shared library
+> > > > and versioning model (althought that should be largerly irrelevant
+> > > > for the kernel), and compared to many other languages it seems
+> > > > overall rather sane.
+> >
+> > This is more or less my assessment from playing with rust as well.
+> >
+> > > > But I'm really worried about the impact on the kernel, as interface
+> > > > between languages are a real pain, and so far I'm not convinced at
+> > > > all that this pain is worth the gain, even if that could change in
+> > > > the future.
+> > >
+> > > One point I'd like to explicitly address, as it seems to be very
+> > > relevant to me when it comes to whether or not the pain is worth the
+> > > gain, is how we'll deal with the fact that the rust compiler will
+> > > tell a non-negligible [*] part of the kernel developers that they
+> > > don't have the skills to write kernel code. Will we have a credible
+> > > option to offer there to help people improve their skills set, and
+> > > how will we deal with the fact that some people will be left on the
+> > > side of the road ? Or would we acknowledge what may be the elephant
+> > > in the room that this would actually be a good thing for the kernel
+> > > code quality ? What about the impact on a community that is already
+> > > overworked and prone to burn-out ?
+> > >
+> > > [*] I have no way to quantify this at the moment, maybe I'm overly
+> > > pessimistic, and the number will likely vary depending on areas,
+> > > probably impacting BSPs differently than mainline.
+> >
 > > I don't think that's a huge concern.  After all rust isn't going to
 > > penetrate every subsystem all at once ... and realistically it will
 > > only penetrate some subsystems if there's the ability to review it.
-> > 
+> >
 > > I really doubt anyone at the maintainer or reviewer level of the kernel
 > > doesn't have the ability to learn rust (now whether they have the
 > > desire to is quite another matter) and I'd be surprised if we can find
 > > any kernel developer who only speaks C.  I think the biggest problem
-> > with rust is that there's definitely an anti-C bias in the language. 
+> > with rust is that there's definitely an anti-C bias in the language.
 > > What I mean by that is if you look at Java they chose to be as close to
 > > C where possible to make the language easier to learn.  Rust seems to
 > > have taken the opposite view and picked a lot of things which could
@@ -47,33 +75,33 @@ On Sun, Jun 19, 2022 at 07:19:38AM -0600, Jens Axboe wrote:
 > > the anti-C biases in the language and are constantly having to look the
 > > basic syntax up.  This really increases the learning curve going from C
 > > to rust, which gets annoying very fast, but it's not insurmountable.
-> > 
-> > All that said, I expect once we start getting rust based patches, it
-> > will quickly become apparent where the rust receptive subsystems are
-> > and I would expect reviewers in those subsystems will quickly become
-> > rust fluent.  This doesn't answer the pain vs gain aspect, but I
-> > suspect we won't know that until we actually try.
-> 
-> FWIW, I agree with you here, James. And I have to say that the original
-> sentiment expressed here by Laurent is weirdly elitist, and not
-> something that seems positive if that's the case. I'd suggest
-> re-calibrating that mindset...
+>
+> Time to invent a C-like version of rust ? :-) Jokes aside, as far as I
+> understand the syntax is different from C because it was inspired by
+> other languages, not out of a desire to be anti-C. I could be wrong
+> though, and it doesn't really matter anyway, I doubt there's anything we
+> could do there.
 
-I'm not sure about the elitist part, but it's certainly not a positive
-statement. I'm concerned about the pain that rust in the kernel would
-inflict. Whether it's worth the gain or not is not for me to decide, but
-I'm certainly concerned that it could lead to a catastrophe if we don't
-carefully think about the issues, acknowledge them, and find ways to
-solve them. I don't think winging it is a real option here, but I'd be
-more than happy to be shown that my concerns are not founded :-)
+When reading "things which could have been C like", I had the exact
+same thought ;-)
 
-> Some subsystem maintainers are pretty much spread as thinly as they can
-> be in terms of workloads, while other subsystems are less active and
-> supposedly have more spare cycles on their hands. Some handle multiple
-> subsystems, some subsystems are tiny, some are huge. All of this will
-> impact both the motivation abd ability to adopt rust.
+In the past, many new paradigms were implemented in a variety of new
+languages, usually inspired by other languages (e.g. some looked like
+C, others like Pascal).
 
--- 
-Regards,
+At the risk of sounding too procrastinating (perfect is the enemy
+of good, and see James' thread about becoming too fearful...),
+perhaps it is wise to question if Rust arrived too soon, and a more
+C-like language implementing the same safety paradigms is just around
+the corner, or already in its infancy?
 
-Laurent Pinchart
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
