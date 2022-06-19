@@ -1,50 +1,71 @@
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Date: Sat, 18 Jun 2022 00:48:21 +0300
-Subject: [Ksummit-discuss] [TECH TOPIC] What kernel documentation could
-	be
-In-Reply-To: <87sfo3nh3t.fsf@meer.lwn.net>
-References: <87sfo3nh3t.fsf@meer.lwn.net>
-Message-ID: <Yqz2pVwvyo4MFJYO@pendragon.ideasonboard.com>
-Message-ID: <20220617214821.p27Doc_vOhZGTH8XFll1EpqSGKAfPdQysaVh8Z5HCyk@z>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+Date: Sun, 19 Jun 2022 10:27:08 -0400
+Subject: [Ksummit-discuss] [TECH TOPIC] Rust
+In-Reply-To: <Yq8qaqr673UFFG6y@pendragon.ideasonboard.com>
+References: <CANiq72nNKvFqQs9Euy=_McfcHf0-dC_oPB3r8ZJii2L3sfVjaw@mail.gmail.com>
+ <Yq44nyu7P1uhBVGi@pendragon.ideasonboard.com>
+ <Yq6+p+aRCjeZ7QsS@infradead.org>
+ <Yq70keAYGQQmyJLm@pendragon.ideasonboard.com>
+ <2513dc4528c71d34d400c104e91ada6517869886.camel@HansenPartnership.com>
+ <d3ba4011-a31d-05fa-b5de-808a1a5ee56f@kernel.dk>
+ <Yq8qaqr673UFFG6y@pendragon.ideasonboard.com>
+Message-ID: <cefa5e41b74c96c81003cfd421cf754a03cc7f52.camel@HansenPartnership.com>
+Message-ID: <20220619142708.pYldRgCpVLaokVBL_GMJuU4SRqjoN9BS7UeCQ7iAmb4@z>
 
-Hi Jon,
-
-On Fri, Jun 17, 2022 at 02:57:10PM -0600, Jonathan Corbet wrote:
-> The development community has put a lot of work into the kernel's
-> documentation directory in recent years, with visible results. But the
-> kernel's documentation still falls far short of the standard set by many
-> other projects, and there is a great deal of "tribal knowledge" in our
-> community that is not set down. I'd like to look at the successes and
-> failures of the work so far, but intent to focus on a discussion of what
-> our documentation should be and what we can do to get it there.
+On Sun, 2022-06-19 at 16:53 +0300, Laurent Pinchart wrote:
+> On Sun, Jun 19, 2022 at 07:19:38AM -0600, Jens Axboe wrote:
+> > On 6/19/22 6:56 AM, James Bottomley wrote:
+[...]
+> > > All that said, I expect once we start getting rust based patches,
+> > > it will quickly become apparent where the rust receptive
+> > > subsystems are and I would expect reviewers in those subsystems
+> > > will quickly become rust fluent.  This doesn't answer the pain vs
+> > > gain aspect, but I suspect we won't know that until we actually
+> > > try.
+> > 
+> > FWIW, I agree with you here, James. And I have to say that the
+> > original sentiment expressed here by Laurent is weirdly elitist,
+> > and not something that seems positive if that's the case. I'd
+> > suggest re-calibrating that mindset...
 > 
-> Questions to discuss include:
-> 
->  - Bringing an coherent overall structure to Documentation/
-> 
->  - Making it easier for developers to improve the documentation.
+> I'm not sure about the elitist part, but it's certainly not a
+> positive statement. I'm concerned about the pain that rust in the
+> kernel would inflict.
 
-I've been wondering recently if it would help to have a place where we
-can record documentation wishes.
+I get that, and I think it's a serious concern.  I just also think we
+would waste more time second guessing this issue that we would consume
+if we just tried it.  It's not like allowing Rust into the kernel is
+some sort of Rubicon that once crossed we can never go back.  I think
+we won't know the pain vs gain until at least a year into the
+experiment of accepting Rust.  Even at that late stage, if everyone
+agrees it caused more problems than it solves, I bet it could all be
+quickly excised.
 
-It has happened quite a few times that my searches for particular pieces
-of documentation in the kernel were unfruitful, or that the related
-documentation left me none the wiser (one example, which is just an
-example and not finger-pointing, is the runtime PM documentation in
-Documentation/power/runtime_pm.rst that feels like reading a
-calculus-related PHD thesis when all you want is to understand how to
-add two numbers). I rarely had time to write documentation patches as a
-result, and my pains were thus left unnoticed by maintainers and
-developers, who may be willing to improve the documentation if they knew
-that users were struggling.
+So the bottom line is I think while we have a community of volunteers
+willing to try it we let them on the understanding the results will be
+evaluated at some point.
 
->  - What we would like from Sphinx and what we can do to make it happen
-> 
->  - Making the docs build system less ugly and more maintainable
-> 
->  - Integrating rustdoc documentation
+>  Whether it's worth the gain or not is not for me to decide,
+> but I'm certainly concerned that it could lead to a catastrophe if we
+> don't carefully think about the issues, acknowledge them, and find
+> ways to solve them. I don't think winging it is a real option here,
+> but I'd be more than happy to be shown that my concerns are not
+> founded :-)
 
--- 
-Regards,
+Have more faith in the community and open source process. We've screwed
+up many times (devfs anyone ...) learned from the mistake and fixed it.
+I'm happy to bet that accepting Rust will be no different from all the
+other screwups we allowed in and later fixed.  So I don't think there
+will be a catastrophe.  Either the rust experiment works or it will
+become fairly quickly apparent if it doesn't and it will get removed. 
+The worst case, I suppose, is that the benefit is marginal in which
+case there's no consensus on removal vs continuation and we simply
+continue through inertia.  I bet in that situation Rust penetration
+will be fairly minimal and confined to enthusiastic subsystems with the
+rest taking steps to isolate themselves from it.  What we'd need in
+this case is some opinionated person running the tree and able to make
+the call for us ... now who could that be?
 
-Laurent Pinchart
+James
+
+
