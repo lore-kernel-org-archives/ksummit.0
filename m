@@ -1,83 +1,80 @@
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com [209.85.219.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B1217CE
-	for <ksummit@lists.linux.dev>; Wed, 10 Aug 2022 08:50:32 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id EE9565C03FE;
-	Wed, 10 Aug 2022 04:50:31 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute2.internal (MEProxy); Wed, 10 Aug 2022 04:50:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1660121431; x=1660207831; bh=IeZJEFNwj/
-	VdPGU0xS4noMI2zX4SBKDyjp4Prx352+w=; b=ptKtrcorO7jPWdCnnDGAQgnPXx
-	hrXLlU1nVp1B80aLNCgV/xaVJ5CCekM5YkFp0ub09S2DH7kH2e1gfXYi/yko5Adu
-	3PBUrYZ9LgBrFlQ5yte6J+IdI8obRzphPccqIyNnAdxkGKpyy/yxdpnA1/5XM83b
-	MEC3EJ3+0heYYULyJ2/yjmaeV8T3HE4kZczWZm4TUw8lnI/CXL6IHKo6gWlAjNPA
-	0e2cTroP75ccgccWjsA2LQ69HzgkbsAAuRJEjsmosCVznkGiajfZZH3PX5I7jiIp
-	eelmOKWERkM3u4noIJabssluhDZeNFOfqkBrQViyTMAEINzBfEziZYByb+vQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1660121431; x=1660207831; bh=IeZJEFNwj/VdPGU0xS4noMI2zX4S
-	BKDyjp4Prx352+w=; b=vZ+HHeFRYWq7NAQRzXZWn7oVKJwaWifiHS5U8gfPTDEY
-	Z+OUcM5UMV5g5U9dUl1T4vWWT8lnON3Py/FpMvTyn+dJ6dgeTTdoDAhEQyHRwEX8
-	+XLMMuKLVIIoAT/57liO5PNarorddRJCDIbSi5nKMMEij0iGE6JBVBMiYzGRlrbg
-	zH+3+dlc8KLJbbMUTJcIS5ULuTH9OETQVq904tNpsy/EheSQ+DJwk7sgtIA3BCkk
-	cjarwbmxDLzc8fWc23uqJUoP+NBo+GaOBfiKOgyXOd4PdX7h5yX6fMMM6QUGAY2W
-	ebyeHQ4dzqLPyQuz0RY/udLOVmw5T13JC9C20vnPCg==
-X-ME-Sender: <xms:V3HzYjlZkIB_GvA5YcRnmStneaylXsLeWSwZOyGXNyb1maBLAR2vLg>
-    <xme:V3HzYm1PIWR3REA-FqgriflKgHd88afsf3qRWppEYJLFuh743U3WKU65iLmpHU2Qw
-    u2VO2KNhTcCJQ>
-X-ME-Received: <xmr:V3HzYpoXZ0XLvcHupepOkifozvOnNfi4dHXV8UCG33ejtfAHkhqQqvcZPauGKppwl4xkkCBU31etmdDrHXHqstEhrKtVqhKx>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdegvddgtdeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
-    ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepheegvd
-    evvdeljeeugfdtudduhfekledtiefhveejkeejuefhtdeufefhgfehkeetnecuvehluhhs
-    thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
-    hhrdgtohhm
-X-ME-Proxy: <xmx:V3HzYrnU9L5xVuISLhKm_YAmyzAl9cMVgM5SvG8zb9hxCk9X3jkRTg>
-    <xmx:V3HzYh2NLAqBexuyg7Yx7l4m03zyzDRXK7HsDmsqS6W2PAJDxFYmrw>
-    <xmx:V3HzYqu_YhmPSCTFd5upewO1zoLsi6QHU2h5FN0gmhFHqiNzWcG4sQ>
-    <xmx:V3HzYsQTm73qBiPoY4tzpYVSLDDI5vreJA8mx2vEuHtC7xmktErw1g>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 10 Aug 2022 04:50:31 -0400 (EDT)
-Date: Wed, 10 Aug 2022 10:36:45 +0200
-From: Greg KH <greg@kroah.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Stephen Hemminger <stephen@networkplumber.org>, ksummit@lists.linux.dev
-Subject: Re: Validating MAINTAINERS entries?
-Message-ID: <YvNuHXePj53gJPKX@kroah.com>
-References: <20220809171316.1d6ce319@hermes.local>
- <20220810082640.GK3438@kadam>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04B05CB5
+	for <ksummit@lists.linux.dev>; Wed, 10 Aug 2022 08:55:55 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id e127so22205491yba.12
+        for <ksummit@lists.linux.dev>; Wed, 10 Aug 2022 01:55:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc;
+        bh=RYLv6XKClN5tHHI9T4MIJ7mpBoywq5nwM3Jbpfvdb3c=;
+        b=I4WVn6OQFZ1Z/XvmCeNLY1cNDxAu9i/47DZahiPbMFqPot7AKu5YtkKiywPJWiZyhi
+         tacgp0M0WJlPpjrju7NmEfFaTxrZYrKmEF8ZkyMEgYhJMySrsZdx9bNtOaIFkcpPvf90
+         hUS3UWpgWIiaET71TddttQC8xCbYLEL8AKhulOVlOfK7c1V91bKdohosHgk7epUVassP
+         7APOJHlKfIfgP70opN7MO73NG1/ARd7hM5aPnbJzBF9RyB9Wa2PY9yBbvp+G9P3YOeji
+         ufAAy32+vcWCf9ND2ZGhPEgCbPmEf85UoDN1iOjrg8WnklREwd0PE6bxFf27sNxt6Djy
+         yHMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc;
+        bh=RYLv6XKClN5tHHI9T4MIJ7mpBoywq5nwM3Jbpfvdb3c=;
+        b=ezz72xbelrFBpxg8OK4c9SxbZQraSyMprIG0oCNx7TZB8Fq51+VU7ymnkNW291a6Hj
+         6ln9rJXB/PLqUlY/WQnDcFTWpZkgJGo/CQLpfPh+7VYU0/WUlKzctZ/+1kwUz1RI+391
+         W1XYYl2PBjy6zM+Dmx3cKxMMjFASwWBIwJ20ORCIlYOBCBmPFQgaOdtePLrx/H6Yc7iS
+         n2ntBLA2JvtPxjl8YrLCN2XBMIja0eR5DkUmVhLGHAblzEZxsMhopN7RFbkAEgRCPTLk
+         pAlGNC5mQ30vIS5dSsvbJSA0vEy5osgRvbrbGygIj53Bn6al6U7t//wMITpOANo9+Ym7
+         Qpqw==
+X-Gm-Message-State: ACgBeo282/HWsGPsO4Jc0+k3OvyTwGj+uZn55AK1Ap1yKUqyC1jDNlQI
+	yrFs+Q6M8yZ1TeTOkmP7NTbibaqj7UitjHZgQso=
+X-Google-Smtp-Source: AA6agR4CmHyaq2R/4DSj4WGMGmAk4ByOpSRTv1JKXH8u3bZXXpDwx7oiYWxwjxKhbD/8VMVVP9FqsI3PJz75v1XeSMw=
+X-Received: by 2002:a25:e6cd:0:b0:675:8f5d:60a6 with SMTP id
+ d196-20020a25e6cd000000b006758f5d60a6mr22443165ybh.389.1660121754876; Wed, 10
+ Aug 2022 01:55:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220810082640.GK3438@kadam>
+References: <20220809171316.1d6ce319@hermes.local> <20220810082640.GK3438@kadam>
+ <YvNuHXePj53gJPKX@kroah.com>
+In-Reply-To: <YvNuHXePj53gJPKX@kroah.com>
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Date: Wed, 10 Aug 2022 10:55:44 +0200
+Message-ID: <CAKXUXMwOAuqD=o1ryZP4oq2dLvTi+7iwQc6gfBF2DiU+_7NH9A@mail.gmail.com>
+Subject: Re: Validating MAINTAINERS entries?
+To: Greg KH <greg@kroah.com>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>, 
+	Stephen Hemminger <stephen@networkplumber.org>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 10, 2022 at 11:26:40AM +0300, Dan Carpenter wrote:
-> On Tue, Aug 09, 2022 at 05:13:16PM -0700, Stephen Hemminger wrote:
-> > Several times in the past, when using MAINTAINERS list either automatically
-> > (or from manual entry) have found the mailing address in the file is no longer valid.
-> > 
-> > What about doing an annual probe mail to all maintainers and sending
-> > a patch to prune out any addresses that auto respond as dead.
-> > This won't catch ghost entries but would find any dead ones.
-> > 
-> 
-> Also we could add a RETIRED file or something for when people retire and
-> don't want get_maintainer.pl hassling them.
+On Wed, Aug 10, 2022 at 10:50 AM Greg KH <greg@kroah.com> wrote:
+>
+> On Wed, Aug 10, 2022 at 11:26:40AM +0300, Dan Carpenter wrote:
+> > On Tue, Aug 09, 2022 at 05:13:16PM -0700, Stephen Hemminger wrote:
+> > > Several times in the past, when using MAINTAINERS list either automatically
+> > > (or from manual entry) have found the mailing address in the file is no longer valid.
+> > >
+> > > What about doing an annual probe mail to all maintainers and sending
+> > > a patch to prune out any addresses that auto respond as dead.
+> > > This won't catch ghost entries but would find any dead ones.
+> > >
+> >
+> > Also we could add a RETIRED file or something for when people retire and
+> > don't want get_maintainer.pl hassling them.
+>
+> Isn't that what CREDITS is for?
+>
 
-Isn't that what CREDITS is for?
+I agree with Greg here.
+
+For:
+"a RETIRED file or something for when people retire" -> CREDITS
+"don't want get_maintainer.pl hassling them" -> .get_maintainer.ignore
+
+Choose what fits for your case.
+
+Lukas
