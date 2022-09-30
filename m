@@ -1,158 +1,106 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2E74C6C;
-	Fri, 30 Sep 2022 15:32:06 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi [62.78.145.57])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 48FB647C;
-	Fri, 30 Sep 2022 17:32:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1664551922;
-	bh=mTuLYwADIeUGmGPOf0wEJTbdd0piiIq2iVXXQcEBpzg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=owlFLKksPQPXE3tX6XlEFkn0KHVB8N63xkjxLNBIl8QWyvS2Nsl+ilDWTbH6+I88+
-	 oRn0nKgb/yy1CWQ6EbE6Qh8gnqy4U8PYrWsDu4/2o/a/ayIUMkqqIhU7aH9m1MrrbM
-	 /0uyyrkVubXYXBH7y3YUkPGbYA18/nLBbYKJopOQ=
-Date: Fri, 30 Sep 2022 18:32:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: "Artem S. Tashkinov" <aros@gmx.com>
-Cc: Thorsten Leemhuis <linux@leemhuis.info>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	workflows@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	ksummit@lists.linux.dev
-Subject: Re: Planned changes for bugzilla.kernel.org to reduce the "Bugzilla
- blues"
-Message-ID: <YzcL8VLpk00hC1so@pendragon.ideasonboard.com>
-References: <aa876027-1038-3e4a-b16a-c144f674c0b0@leemhuis.info>
- <05d149a0-e3de-8b09-ecc0-3ea73e080be3@leemhuis.info>
- <93a37d72-9a88-2eec-5125-9db3d67f5b65@gmx.com>
- <20220929130410.hxtmwmoogzkwcey7@meerkat.local>
- <5d15ec50-e0b7-dc90-9060-3583633070e8@leemhuis.info>
- <52d93e6c-c6f0-81dd-07ca-cdae13dffba4@gmx.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354E9139C;
+	Fri, 30 Sep 2022 16:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1664555650;
+	bh=3zWxdH8sXT33FbMc4doFfyvYiySHCK+56G14z1qLRwU=;
+	h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PcF+bMpchmAH6+VCT2UI4htW6DEO7SQQ82sziJ9u/9uttPLHYRqGpl93z487H8bZ2
+	 Oov5YOlyoWAsZtS3tCqvxnRXs2PeNVqvpMZj50xVaEfM0zX0RWkefX3ak/W6ZZqlWV
+	 PO19Qma2PZ9zSDoxhBJPm8LUebDQMtJE9IXyXZj0=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.1.252] ([5.166.161.56]) by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MpUYu-1p1YNS2MMW-00pqlM; Fri, 30
+ Sep 2022 18:34:10 +0200
+Message-ID: <3cfaef48-744f-000f-1be5-6f96d64dea24@gmx.com>
+Date: Fri, 30 Sep 2022 16:34:08 +0000
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <52d93e6c-c6f0-81dd-07ca-cdae13dffba4@gmx.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Subject: Re: Planned changes for bugzilla.kernel.org to reduce the "Bugzilla
+ blues"
+To: "Bird, Tim" <Tim.Bird@sony.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Thorsten Leemhuis <linux@leemhuis.info>
+Cc: Slade Watkins <srw@sladewatkins.net>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ "workflows@vger.kernel.org" <workflows@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
+References: <aa876027-1038-3e4a-b16a-c144f674c0b0@leemhuis.info>
+ <05d149a0-e3de-8b09-ecc0-3ea73e080be3@leemhuis.info>
+ <93a37d72-9a88-2eec-5125-9db3d67f5b65@gmx.com>
+ <20220929130410.hxtmwmoogzkwcey7@meerkat.local>
+ <7b427b41-9446-063d-3161-e43eb2e353f9@gmx.com>
+ <20220929135325.4riz4ijva2vc7q5p@meerkat.local>
+ <95c3384b-53d0-fd6c-6ec5-a7e03fdeddfc@gmx.com>
+ <F300ED64-5E8E-4060-89DC-C98BC5FF08E6@sladewatkins.net>
+ <YzXK6Px+BrNuuMZH@pendragon.ideasonboard.com>
+ <a86adc6d-05db-ec2e-c5de-d280aad9fb8a@leemhuis.info>
+ <Yzbtuz6L1jlDCf9/@pendragon.ideasonboard.com>
+ <BYAPR13MB250377AAFCC43AC34E244795FD569@BYAPR13MB2503.namprd13.prod.outlook.com>
+From: "Artem S. Tashkinov" <aros@gmx.com>
+In-Reply-To: <BYAPR13MB250377AAFCC43AC34E244795FD569@BYAPR13MB2503.namprd13.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:kse/28aPLtGmqGjjXZgR1b6Qfc3LOQrx3vRwvnNBr8/KW22As4+
+ lIggKreAYdNcT1+7zc+DsXGRcZL1Uu/O6c/z3L/Cq4rmKbkSvR1OmJkEZ+bi1t4VF8s1znC
+ steXm60GQjttlJcUHi64dBSKvfEAUylTqQPcKq34/JhUswbJisKNuqQMhkoOCmU9JQkRJtU
+ k8lW6M5zFjkCrJi6y+Buw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:oO6iha8tZbM=:mufWOqKYMfiWLCeAKGBbos
+ HVL+Oy4hsVhEL24MMd1yATAxLWZN4SgdDMZB0DQ+LulP6l28k5ClbbGVmwmimL/BiBL3XWrNQ
+ dig8Y9ZLjId/zNFoUyGZZ3kJ98NntljuoQwk6yY/Nye46wLBP7cWf4D1h7W+BvUhgbJfKr2U8
+ +0XP3sr+0cRvlA7hx7as3tEP3a35gQVGkoGmtzAo0wsrwCn2WnDnnjJeinICQ/usTZagSHw/K
+ mwkdUjuBxNOt27FlBpNpQkro2YRR0sjsKjy9WRi5Ojs786WUQ2l4c5bas54JUNsE9Rk8tXS0z
+ XrKhiDyajqs9EP0e5XrLvPZ0JBcn8El0TmA7Lilk3bUoLTPk9EDE6oyZ9ehKkykaVhEsdjo8O
+ wpJ3L6ttapxW4L0pMjNG8iWsZ9szQ7f5onjSI/1Yio5XXf+ArGJTX4ea8i+FQQRZy/8/1Xv4o
+ CLZYTPkX/blOSdgtrGT3sf97PvHejfvtBAXopU2U3j3uw11imk8GfgLSkQqsrwIV2A1HWyPEm
+ zAxMqK9Lwq54g0zzpRUcliudV1pJkoTC6+342E6bJGuCEYwEvjf/ghOQ+s3bINHqpGKYwLUGg
+ uEPB8m+0egvNEDJuMsCpWwJYOGiTA3UaPVMSISeRqyuy5Pxpt1WuTYlJRPhzobFe+BUHfunnB
+ 4UtFXXIfmLWDAEx+GqNsyk/dDzo89+e/PW6SLuCeQ/TNPFTblv8bzomGLIRf7RHdK66bXpQyp
+ SSnt0IzJ8fVYgrpmjf3ZkaQdrN8/xRPam8S+mpAIbKOUmsYg897qsOs2mqjPPsiVNXsM9aKWZ
+ Fl0Dabk9tbPTn01x0Ao5Ii4RTaZ6Z0jqH4QGP4wjsWMvEXBWqJcCt9PSztU0DFRs8KUUt6Lvy
+ sJORGLV9LCCh6qVgOHn21VUVq6tVoVpT1/4IHZoiatMONIB5ngXleq/sbrpWVrOs19ROpOywd
+ r7Ak31BiviD9Jp62xCP1wZH0glrNgrrnbprSjTwYbGJi1QAHa6mpIljMifVNYk3MU1IQzUfik
+ dh9hMm7KPXd+Qanp03SYdR3+dcK0aW5KS4KVBk8Y60xrYs8R5yB7TgdoXWvS8p9vLHXlDN1la
+ /SoEFi7a2L8HgB7/qExUEJwlED2krmVR5zlQaKpze6Y5iijBNDiU+hzIMKSJ/lX92MjOUpWG+
+ vHwjE+8a8nDLnc/IV+n9erD3JD
 
-On Fri, Sep 30, 2022 at 09:03:39AM +0000, Artem S. Tashkinov wrote:
-> On 9/30/22 08:47, Thorsten Leemhuis wrote:
-> > On 29.09.22 15:04, Konstantin Ryabitsev wrote:
-> >> On Thu, Sep 29, 2022 at 12:22:35PM +0000, Artem S. Tashkinov wrote:
-> >> [...]
-> >> We do have ability to fund development efforts -- LF has been the primary
-> >> sponsor behind public-inbox.org over the past 3 years. However, there must be
-> >> a clear, strong, and well-articulated mandate from the community. From what I
-> >> heard, the vast majority of maintainers simply want a web form that would
-> >> allow someone to:
-> >>
-> >> 1. clearly state what kernel version they are using
-> >> 2. clearly describe what they were trying to do
-> >> 3. explain what they expected vs. what they got
-> >> 4. attach any files
-> >> 5. give this bug report a unique identifier
-> >
-> > Sometimes there are days where I think "let's go down the 'do everything
-> > by mail' rabbit hole some more and couple a pastebin and a somewhat
-> > improved regzbot with an app (usable both locally and on the web) that
-> > helps users preparing a report they can then send with their usual
-> > mailer". And then there are days "ohh, no, that might be a totally
-> > stupid thing to do". :-/
-> 
-> Emails are absolutely horrible in terms of keeping track of the state of
-> the issue. Who has replied? Who has provided the necessary data? Where
-> can this data be found? What if a person has forgotten to "Reply All"
-> and instead clicked "Reply"?
+On 9/30/22 16:19, Bird, Tim wrote:
+> E-mails sent from a web interface could have as much structure as you'd =
+like.
+> So one avenue would be to set up a nice interface for bug reporting, tha=
+t just
+> delivered the form data in e-mail format to the proposed bug-receiving m=
+ail list.
+>
+> Also, if an e-mail receiver (something automated) gave a quick response =
+on missing fields, I think
+> you could quickly train users (even first-time bug submitters) to provid=
+e required
+> data, even if they're sending from a free-form e-mail client.
+>
+> Just my 2 cents.
+>
+>   -- Tim
 
-E-mail *clients* are horrible to keep track of state. E-mail itself, as
-in RFC822 (and newer), SMTP and other protocols, only handle transport
-of data. As the data within the e-mail body is free-formed, and wasn't
-meant to track items and their state, clients never evolved in that
-direction. This could (possibly) be (partially) fixed, but likely at a
-very high development cost, and getting users on board would be very
-hard too. I do agree with Thorsten though, I'm often tempted to go
-through the "let's do everything by e-mail" path. More than 10 years
-ago, I worked for a large OEM that had an e-mail frontend for
-integration and testing. You would send a specially-crafted e-mail to a
-bot, with a base image version, plus a list of repositories and
-branches, and the bot would build a new image for you, run all the
-automated integration tests, and if you requested it (and had permission
-to do so), would push the image down a manual testing queue. It was just
-magic.
+Debian uses an email based bug tracker and you know what? Most people
+avoid it like a plague. It's a hell on earth to use. Ubunutu's Launchpad
+which looks and feels like Bugzilla is a hundred times more popular.
 
-> Hell, no. Then people get swamped with their own emails,
+Sometimes programmers have to realize that most people around are not as
+smart as they are.
 
-Bugzilla won't solve this. The huge elephant in the room is that most
-maintainers are overworked. Whether a bug report arrives in my mailbox
-as an e-mail straight from the reporter or from a bug tracker will make
-very little difference if I don't have time to look into it (I would
-even argue that bug trackers are even worse there: if I'm really short
-of time, I'm more likely to prioritize replying to e-mails instead of
-having to open a link in a web browser).
-
-As long as we don't address the maintainer bottleneck in the kernel, bug
-tracking will suffer.
-
-> the previous email from this discussion went straight
-> to SPAM for my email provider. It's too easy to lose track of everything.
-> 
-> The kernel bugzilla has helped resolve critical issues and add
-> impressive features with dozens of people collaborating. This is nearly
-> impossible to carry out using email except for dedicated developers
-> working on something.
-> 
-> In the LKML and other Open Source mailing lists I've seen a ton of RFC
-> patches with no follow up. Even core developers themselves aren't
-> particularly enjoying the format. And those patches often perish and
-> work goes to waste.
-> 
-> >> Then a designated person would look through the bug report and either:
-> >>
-> >> a. quick-close it (with the usual "talk to your distro" or "don't use a
-> >>     tainted kernel" etc)
-> >
-> > I think having some app would be good here, as it could help gathering
-> > everything and catch problems early, to prevent users from spending a
-> > lot of time on preparing a report that will be ignored.
-> >
-> >> b. identify the responsible maintainers and notify them
-> >>
-> >> The hard part is not technical -- the hard part is that "designated person."
-> >
-> > +1
-> >
-> >> Being a bugmaster is a thankless job that leads to burnout, regardless of how
-> >> well you are paid. Everyone is constantly irate at you from both ends [...]
-> >
-> > Tell me about it. Nevertheless I sometimes wonder if I should give it a
-> > try once I got all this regression tracking thing established somewhat
-> > more, as in the end there I'm kind of a bugmaster for regressions already...
-> >
-> >> Before we try to fix/replace bugzilla,
-> >
-> > Just to be sure: I assume you meant "replacing bugzilla or fixing it for
-> > real" here, and not my band-aid efforts outlined at the start of this
-> > thread? Or do you have a problem with what I proposed to at least make
-> > things less bad for now?
-> >
-> >> we really need to figure out the entire
-> >> process and pinpoint who is going to be the one in charge of bug reports. If
-> >> you think that LF should establish a fund for a position like that, then you
-> >> should probably approach LF fellows (Greg KH, Shuah Khan), who can then talk
-> >> to LF management. The IT team will be happy to support you with the tooling,
-> >> but tooling should come second to that -- otherwise we'll just be replacing an
-> >> old and rusty dumpster on fire with a new and shiny dumpster on fire.
-> 
-> Bugzilla with all its issues is still super convenient.
-
--- 
-Regards,
-
-Laurent Pinchart
+Best regards,
+Artem
