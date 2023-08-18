@@ -1,86 +1,108 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED64C182BC
-	for <ksummit@lists.linux.dev>; Fri, 18 Aug 2023 15:30:40 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi [213.243.189.158])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 837BAC85;
-	Fri, 18 Aug 2023 17:29:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1692372564;
-	bh=buADElh1KjhL97do2nIxHHDyCqf0KQiIH/Mn4+Lt9Iw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A93E182B5
+	for <ksummit@lists.linux.dev>; Fri, 18 Aug 2023 16:10:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C66C433C7;
+	Fri, 18 Aug 2023 16:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1692375016;
+	bh=9XmgBHrNNNvGQtBo1aBpISDikDlaDV0vhJfr2lYw3aA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hSzrzNpnypdAoWu+VMtctGLGcW2n0C7N2jw0UrENJHsbNqVl7mbTdferAQuXF+oVX
-	 SJ1qAKk0q4AOybsSnrljMlwzBxIbXMvqWZbjF3eFbuR46kyo3vlLe+B/mPgU5AgsSO
-	 zMNNUJUYUqZis9sPi3JTGsUtcbfrcP4xJ3olMWV8=
-Date: Fri, 18 Aug 2023 18:30:45 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
+	b=hSRTTHXK3BtR65wlgLQl7o/WEXHtdcdDMTY22q0dLF+tgR9ndi0UOBUWgakBRa0JT
+	 +4moOmktc6HKPCl1zUswZS+M3L2PDqZ1LRM+fkgNkITL/IAIhuM6FHL+5wGbvomod2
+	 DM+yZHAAdfNoiLvI8wUX+pzCPY0JlOlF9RoJNEQmyZUqReagmAgdF16x3TyrUeNYwg
+	 pSbEGrRr2uRRQ4pfU0BAOhB2uyBRiQSE6LZR/GQGQ5lV8xe9PCGErdGFWirgYqhDm3
+	 BNYyNcVHg5IA0IpX50HRQtAk8ZCXywBWD5QNQvQRDcXckHmtr/2sTqjlFks1sVZUzt
+	 u7Jo3j5GWhU5Q==
+Date: Fri, 18 Aug 2023 17:10:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
 	Luis Chamberlain <mcgrof@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>, ksummit@lists.linux.dev,
-	Jeff Layton <jlayton@kernel.org>, Song Liu <song@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>
+	Jeff Layton <jlayton@kernel.org>, Song Liu <song@kernel.org>
 Subject: Re: [MAINTAINERS SUMMIT] Maintainer burnout
-Message-ID: <20230818153045.GB13558@pendragon.ideasonboard.com>
+Message-ID: <e1b0f9e6-8e40-4365-868b-8340153e6a9c@sirena.org.uk>
 References: <20230816180808.GB2919664@perftesting>
  <ZN0uNrpD8JUtihQE@bombadil.infradead.org>
- <87ttsx98ue.fsf@intel.com>
- <f7915398-b59a-4c9c-97c1-669be7471ec2@sirena.org.uk>
- <20230817124255.GI21668@pendragon.ideasonboard.com>
- <CANiq72m73vvbCLaRUkPVBfE6e+7FOYjBqd-EBJaLW-geukB2dA@mail.gmail.com>
- <20230817150336.GJ21668@pendragon.ideasonboard.com>
- <CANiq72=_4vo9eS-sdCY2vPuRN5iSrkbypU061VKN5Qx4VzPCtw@mail.gmail.com>
+ <20230817093914.GE21668@pendragon.ideasonboard.com>
+ <44814ed5-7bab-4e56-9ca6-189870f97f41@lunn.ch>
+ <20230817081957.1287b966@kernel.org>
+ <CAADnVQ+6=RjVziJG6rXwiC0+dEKGTGFNPUgsa4dyPP66NyTbog@mail.gmail.com>
+ <CACRpkdbfSzNwkwnew-5YN4j4yBjgh=fCiaKdPmiRbViTdOcXkw@mail.gmail.com>
+ <20230818152629.GA13558@pendragon.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="weAUELek/DUak90e"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72=_4vo9eS-sdCY2vPuRN5iSrkbypU061VKN5Qx4VzPCtw@mail.gmail.com>
+In-Reply-To: <20230818152629.GA13558@pendragon.ideasonboard.com>
+X-Cookie: Your aim is high and to the right.
 
-(CC'ing Greg)
 
-On Thu, Aug 17, 2023 at 07:41:43PM +0200, Miguel Ojeda wrote:
-> On Thu, Aug 17, 2023 at 5:03 PM Laurent Pinchart wrote:
-> > On Thu, Aug 17, 2023 at 03:56:43PM +0200, Miguel Ojeda wrote:
-> >
-> > > I think the bot should simply reply commenting on the issues it has
-> > > found, without judging whether the patch should or should not be
-> > > reviewed (and the bot could perhaps explicitly say so to avoid
-> > > submitters getting discouraged).
-> > >
-> > > Then, depending on what the bot finds, i.e. the amount and kind of
-> > > issues, reviewers can decide and reply as needed. RFC patches could be
-> > > skipped by the bot.
-> >
-> > This defeats a little bit the point of lowering the workload of
-> > reviewers though, if they have to review each bot report and reply to it
-> > manually :-)
-> 
-> No, it does not. The point is that you don't need to point out trivial
-> mistakes anymore, nor devote time to find them.
-> 
-> Just by judging the length of the bot's reply and the importance of
-> the spotted issues, you can make an assessment.
+--weAUELek/DUak90e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-But you'll still need to reply to the submitter to tell what to expect.
-As far as I understand, this was considered enough of an issue by Greg
-to be automated to remove even the human need to push a button, see
-https://github.com/gregkh/gregkh-linux/blob/master/forms/patch_bot.
+On Fri, Aug 18, 2023 at 06:26:29PM +0300, Laurent Pinchart wrote:
+> On Fri, Aug 18, 2023 at 03:55:11PM +0200, Linus Walleij wrote:
 
-> And, of course, you can also group particular issues as "no-go", so
-> that the bot already says there needs to be most likely a new version
-> (e.g. no SoB, no license, no commit message, bad formatting, build
-> errors...), suited to the particular subsystem.
+> > The DRI/DRM community has group maintainership that works a little
+> > bit.
+> > Essentially it boils down to ask people to review your stuff and you
+> > will review and also merge their stuff in return.
+> > Sometimes this works.
+> > Especially if you are a circle of acquaintances working full
+> > time on similar things, yay! So much support.
+> > When you are a sporadic contributor it doesn't work as well.
+> > Because you cannot always find some matching contribution to
+> > review and you feel like begging.
+> > So different solutions for different contributors may be needed.
 
-That would work for me, and I think that's essentially what Greg's bot
-does.
+> I've also experienced mixed results from "trading reviews". It's
+> certainly nice on paper, and it works sometimes, especially when asking
+> contributors to review patches that are directly related to their
+> business interest. I remember asking a contributor from a large company
+> to help me with reviews, to free some of my time to review their
+> patches. The contributor helped with reviewing third-party contributions
+> to the driver they're actively working on. When I asked for help
+> reviewing an entirely separate driver that their employer had no
+> business interest in, however, I faced the "we're busy and don't have
+> time" argument.
 
--- 
-Regards,
+> Maybe part of the solution here, to share the maintenance burden, is to
+> expect contributors, especially the ones with large financial resources,
+> to spent a certain percentage of their time reviewing code that is in
+> their area of expertise but not in their area of business interest.
 
-Laurent Pinchart
+That issue with people having the background knowledge needed to
+adequately review things they don't have specific experience with can be
+a problem here.  It's not typically *harmful* other than issues with
+people doing disproportionately pedantic reviews (which can be a
+problem) but you do still need to keep an eye on things it can feel a
+bit make work so there's a balance with making it an explicit
+requirement.
+
+--weAUELek/DUak90e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmTfl94ACgkQJNaLcl1U
+h9ASkgf/QcF/ksskyU25RqQxbdTnyPWgKzXWgyUo0Zs8EkeJODXJ7SMbgCuSvmn3
+anQuvBBS5tuqzUvSngbluHPsF0mqdEjASsSIGD/rZFaK8yg0YZaDlcZzwMw+1seC
+2vzGUJaEUtr2vJ5VrU5J9DLLNBfl3sI8ETBjRDrQri0BqoAZPfxBY/yNOZ2V10qq
+BUL19yygRts5aXoK9qS29NHeeIFrCeuJ8snQ6TPqvj1U9HSQIe6qLFizHXAAokEI
+Fp/WBKukwhQFg1a/yi6fhXkXpF3MuZm06FQ2Qgy/JAHXyOO3UgCkW5trk2iWX86T
+YrFctnV5XjD36B2TCGJzC1WHGeC2hQ==
+=+hu8
+-----END PGP SIGNATURE-----
+
+--weAUELek/DUak90e--
