@@ -1,97 +1,88 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF3C10E3
-	for <ksummit@lists.linux.dev>; Tue, 19 Sep 2023 05:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JbEsJiZbiePyr03jReWi7ze2b4drn08csPH6tc8v8PE=; b=ZsHi1QrJzYiMSgzP+GrmnFRwFr
-	QaCeJAjNuUVM6hWTJZdA1NSSD0l1BxTQvbhikWZA9EEmEoxGdNqv9XwqdbOO751W+N3WIvAix9abi
-	2M1iS/fo02Kqu7DUpZHkdzhNa3zm/T09KP9hOMPiobcljOs9+TziBV7yUiM/aXPfqTb2SXBR19A0+
-	TC3oAIyMPer8UiiapNFOTmN3m2h4rHbnmUjVdsovwVqGXFF/oFTVmW9BivU2yWse1JOQAZjJZgPZL
-	MMiSNHzTuWQVM6d4m23Otkk8Q1CnFvfXT9MxBVPrNAorGrBE+qQ54zlykccPRNhWEYD8PsI8bNNRH
-	cZWnUQmg==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1qiT6v-00FLZz-6i; Tue, 19 Sep 2023 05:17:21 +0000
-Date: Tue, 19 Sep 2023 06:17:21 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Dave Chinner <david@fromorbit.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	NeilBrown <neilb@suse.de>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Eric Sandeen <sandeen@sandeen.net>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Christoph Hellwig <hch@infradead.org>, ksummit@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [MAINTAINERS/KERNEL SUMMIT] Trust and maintenance of file systems
-Message-ID: <ZQku4dvmtO56BvCr@casper.infradead.org>
-References: <20230906225139.6ffe953c@gandalf.local.home>
- <ZPlFwHQhJS+Td6Cz@dread.disaster.area>
- <20230907071801.1d37a3c5@gandalf.local.home>
- <b7ca4a4e-a815-a1e8-3579-57ac783a66bf@sandeen.net>
- <CAHk-=wg=xY6id92yS3=B59UfKmTmOgq+NNv+cqCMZ1Yr=FwR9A@mail.gmail.com>
- <ZQTfIu9OWwGnIT4b@dread.disaster.area>
- <db57da32517e5f33d1d44564097a7cc8468a96c3.camel@HansenPartnership.com>
- <169491481677.8274.17867378561711132366@noble.neil.brown.name>
- <CAHk-=wg_p7g=nonWOqgHGVXd+ZwZs8im-G=pNHP6hW60c8=UHw@mail.gmail.com>
- <ZQj2SgSKOzfKR0e3@dread.disaster.area>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2FB5237
+	for <ksummit@lists.linux.dev>; Tue, 19 Sep 2023 16:09:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871B9C433C7;
+	Tue, 19 Sep 2023 16:09:28 +0000 (UTC)
+Date: Tue, 19 Sep 2023 12:10:01 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: ksummit@lists.linux.dev, tech-board-discuss@lists.linux-foundation.org
+Subject: [MAINTAINERS SUMMIT] Maintainers Support Group
+Message-ID: <20230919121001.7bc610d4@gandalf.local.home>
+X-Mailer: Claws Mail 3.19.1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZQj2SgSKOzfKR0e3@dread.disaster.area>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 19, 2023 at 11:15:54AM +1000, Dave Chinner wrote:
-> This was easy to do with iomap based filesystems because they don't
-> carry per-block filesystem structures for every folio cached in page
-> cache - we carry a single object per folio that holds the 2 bits of
-> per-filesystem block state we need for each block the folio maps.
-> Compare that to a bufferhead - it uses 56 bytes of memory per
-> fielsystem block that is cached.
+There has been several topics brought up already about maintainer burnout.
+A while back, I was talking with another maintainer that basically told me
+that they were ready to quit being a maintainer because it's not fun
+anymore. There's a lot of requirements and basically have to deal with crap
+from submitters. The Code of Conduct has been successful in helping to keep
+a more civil environment, but all the focus has mainly been around telling
+maintainers how to behave. But maintainers are humans too, and their work
+can cause a large amount of frustration to build up with no way to release
+that pressure.  When that frustration boiled over, it use to come out with
+a nasty rant to at some unlucky submitter. Although this may have helped
+the maintainer, but in the long run, this was not healthy for the community
+in the whole, and the CoC has been created to prevent that from happening.
+The problem is that there's been no replacement for the maintainer to
+release their frustration.
 
-56?1  What kind of config do you have?  It's 104 bytes on Debian:
-buffer_head          936   1092    104   39    1 : tunables    0    0    0 : slabdata     28     28      0
+I brought up to the TAB a suggestion of starting basically a "Maintainer's
+support group". A place a maintainer, or even a submitter can go to when
+they are feeling frustrated. This is not a replacement for the Code of
+Conduct committee. This is more of a preventive measure. Ideally, the Code
+of Conduct committee members should be very bored where there are no
+submitted reports.  That would mean our community is running in a very
+smooth way. But that's currently not the case. There's been a few cases
+that have come up where if the maintainer had someone to vent to, it could
+have prevented the violation of the Code of Conduct.
 
-Maybe you were looking at a 32-bit system; most of the elements are
-word-sized (pointers, size_t or long)
+The idea is this:
 
-> So we have to consider that maybe it is less work to make high-order
-> folios work with bufferheads. And that's where we start to get into
-> the maintenance problems with old filesysetms using bufferheads -
-> how do we ensure that the changes for high-order folio support in
-> bufferheads does not break the way one of these old filesystems
-> that use bufferheads?
+When a maintainer is getting frustrated with a submitter or another
+maintainer, or even a submitter is getting frustrated with a maintainer,
+they would have a place to find a list of people that can help. They would
+pick one of the people and send an email to them with a subject of
+"[MAINTAINER SUPPORT]" (or something like that). This would let the
+supporting maintainer know that this email is about support and should be
+confidential and follow the guidelines. The email will include who and why
+they are frustrated with the other person. Again, this is *not* a Code of
+Conduct issue. This is not to point blame, just frustration. Sometimes
+people just can not work with other people. The supporting maintainer can
+be an outside POV and can possibly help with explaining why the other
+person is acting the way they are. Or the supporting maintainer can find
+another maintainer to work with this person.
 
-I don't think we can do it.  Regardless of the question you're proposing
-here, the model where we complete a BIO, then walk every buffer_head
-attached to the folio to determine if we can now mark the folio as being
-(uptodate / not-under-writeback) just doesn't scale when you attach more
-than tens of BHs to the folio.  It's one bit per BH rather than having
-a summary bitmap like iomap has.
+Several of us already do some of this. But its only a few. I would like to
+make it a more formal process where those that have not gone to conferences
+and such would still know who they can talk with.
 
-I have been thinking about spitting the BH into two pieces, something
-like this:
+We discussed this within the TAB, but I would like to bring this up to a
+more general discussion at Maintainers Summit.
 
-struct buffer_head_head {
-	spinlock_t b_lock;
-	struct buffer_head *buffers;
-	unsigned long state[];
-};
+I know some people would just dismiss this as unneeded, but I've talked to
+others that said this would be very useful. If it's useful for some, then I
+think it's worth it. If you believe it's unneeded, then you don't need to
+be involved with it (although someone could be submitting something about
+their frustrations with you ;)
 
-and remove BH_Uptodate and BH_Dirty in favour of setting bits in state
-like iomap does.
+To recap what I'm asking: We would have a list of volunteers of support
+group members. There would be guidelines on how to interact.  These guidelines
+will be public so that the submitter is also aware of them. One of the
+guidelines we discussed was what happens if the volunteer is just too busy,
+or they themselves do not want to deal with the individual submitting their
+frustrations. Both cases would have the same response, and that is to reply
+saying that they are not available and to please reach out to someone else
+on the list.
 
-But, as you say, there are a lot of filesystems that would need to be
-audited and probably modified.
+Thoughts?
 
-Frustratingly, it looks like buffer_heads were intended to be used as
-extents; each one has a b_size of its own.  But there's a ridiculous
-amount of code that assumes that all BHs attached to a folio have the
-same b_size as each other.
+-- Steve
