@@ -1,49 +1,49 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FDE328D7;
-	Wed, 25 Oct 2023 21:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A236A341B5;
+	Wed, 25 Oct 2023 21:38:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mji2T3q7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="a6CuNMue"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oZZBP9+K";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jk4O7qAB"
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D75B42011E;
-	Wed, 25 Oct 2023 21:14:31 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BA861219BD;
+	Wed, 25 Oct 2023 21:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1698268471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1698269921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DvLSIEyFugabfeMNCq5Clh9avW5u2HN5Oqybq4n6v9c=;
-	b=mji2T3q72mWB9YI7CeeOyzHGmXXFifklx2QFDx/ZS3F0wW0trvKKjtfuKNMOPvcsJ9zDjD
-	P3rzBUppNOovwU/1Tt6xmqwsX64jXVW9XcKAHaRDJVnJfZNQchLPtbmqaeWxyligqSRqHF
-	5IO6duguD3p5oZV/UZcU4mj+eZehXM0=
+	bh=VGyFxFel+gqzSE5l+ZOVvzu3LDR9TOju1S3dGmL+0l4=;
+	b=oZZBP9+KNe+AioQLYdgXSRErqGWIK0lEzZL0VdHqjgVSDzT81F5mI58fiUQZyNPJm8DhmB
+	dx7QwObbeXThRQeMpEnMKkcBqwUME++fQ5bWW2XmIweIsJhdiY6F8V72AbwFGu5FouK4Ah
+	fRL63DXB/LskyGsu1mYuwGd9Cdxe2YU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1698268471;
+	s=susede2_ed25519; t=1698269921;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DvLSIEyFugabfeMNCq5Clh9avW5u2HN5Oqybq4n6v9c=;
-	b=a6CuNMuelj9qz4JEecvrt2nR3TITI/FjdCWlSdnNbioFUotsjHq7pidv9j+T0bStJVUQz0
-	E/Gavu8DBaSp9iBw==
+	bh=VGyFxFel+gqzSE5l+ZOVvzu3LDR9TOju1S3dGmL+0l4=;
+	b=jk4O7qAB1c0sYb6xEYyw+lVwI30xPfKyu1z5OPYG1CkCrg7DwWSewI1293zKRG+Mciu2DV
+	vnC5UbyZmhGZl4Bw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82090138E9;
-	Wed, 25 Oct 2023 21:14:29 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 64C3E138E9;
+	Wed, 25 Oct 2023 21:38:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id EmSIDjWFOWWRLwAAMHmgww
-	(envelope-from <neilb@suse.de>); Wed, 25 Oct 2023 21:14:29 +0000
+	id Aq1lB9+KOWVDNwAAMHmgww
+	(envelope-from <neilb@suse.de>); Wed, 25 Oct 2023 21:38:39 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -51,22 +51,22 @@ List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 From: "NeilBrown" <neilb@suse.de>
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>
+To: "James Bottomley" <James.Bottomley@HansenPartnership.com>
 Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
  "Andrew Morton" <akpm@linux-foundation.org>,
  "Dan Carpenter" <dan.carpenter@linaro.org>, ksummit@lists.linux.dev,
  outreachy@lists.linux.dev, kernel-janitors@vger.kernel.org
 Subject: Re: KTODO automated TODO lists
 In-reply-to:
- <CAMuHMdXaSv3w0iAJBZ_8PrjMV=A2neZ0a72XbqftxrYVJyCzsA@mail.gmail.com>
+ <53c584c21f273548004a7ddb5aa4c04ec7bca1c5.camel@HansenPartnership.com>
 References: <369bc919-1a1d-4f37-9cc9-742a86a41282@kadam.mountain>,
  <20231023114949.34fc967988c354547f79c4e7@linux-foundation.org>,
  <8ca50d4c-3c96-4efa-a111-fca04d580ab5@kernel.org>,
  <169818295461.20306.14022136719064683486@noble.neil.brown.name>,
- <CAMuHMdXaSv3w0iAJBZ_8PrjMV=A2neZ0a72XbqftxrYVJyCzsA@mail.gmail.com>
-Date: Thu, 26 Oct 2023 08:14:25 +1100
-Message-id: <169826846576.20306.981035382886610843@noble.neil.brown.name>
-Authentication-Results: smtp-out2.suse.de;
+ <53c584c21f273548004a7ddb5aa4c04ec7bca1c5.camel@HansenPartnership.com>
+Date: Thu, 26 Oct 2023 08:38:36 +1100
+Message-id: <169826991635.20306.16184430997322997935@noble.neil.brown.name>
+Authentication-Results: smtp-out1.suse.de;
 	none
 X-Spam-Level: 
 X-Spam-Score: -11.10
@@ -89,67 +89,71 @@ X-Spamd-Result: default: False [-11.10 / 50.00];
 	 BAYES_HAM(-3.00)[100.00%]
 X-Spam-Flag: NO
 
-On Wed, 25 Oct 2023, Geert Uytterhoeven wrote:
-> Hi Neil,
->=20
-> On Tue, Oct 24, 2023 at 11:29=E2=80=AFPM NeilBrown <neilb@suse.de> wrote:
+On Wed, 25 Oct 2023, James Bottomley wrote:
+> On Wed, 2023-10-25 at 08:29 +1100, NeilBrown wrote:
 > > On Wed, 25 Oct 2023, Krzysztof Kozlowski wrote:
 > > > On 23/10/2023 20:49, Andrew Morton wrote:
-> > > > On Thu, 19 Oct 2023 07:11:36 +0300 Dan Carpenter <dan.carpenter@linar=
-o.org> wrote:
-> > > >> Yesterday someone on my lists just sent an email looking for kernel
-> > > >> tasks.
-> > > >
-> > > > Well here's a task: write a bot which follows the mailing lists and
-> > > > sends people nastygrams if one of their emails is more than 95%(?)
+> > > > On Thu, 19 Oct 2023 07:11:36 +0300 Dan Carpenter
+> > > > <dan.carpenter@linaro.org> wrote:
+> > > > 
+> > > > > Yesterday someone on my lists just sent an email looking for
+> > > > > kernel
+> > > > > tasks. 
+> > > > 
+> > > > Well here's a task: write a bot which follows the mailing lists
+> > > > and
+> > > > sends people nastygrams if one of their emails is more than
+> > > > 95%(?)
 > > > > quoted text.
-> > > >
-> > > > It's happening significantly more lately.  Possibly because the gmail
+> > > > 
+> > > > It's happening significantly more lately.  Possibly because the
+> > > > gmail
 > > > > client helpfully hides quoted text.
-> > >
-> > > I would also point to reviewers and maintainers who give a Rb/Ack tag:
-> > > 1. somewhere at the top, without any footer like Best regards, and then
-> > > quote entire patch, so I don't know shall I look for more comments after
+> > > 
+> > > I would also point to reviewers and maintainers who give a Rb/Ack
+> > > tag:
+> > > 1. somewhere at the top, without any footer like Best regards, and
+> > > then
+> > > quote entire patch, so I don't know shall I look for more comments
+> > > after
 > > > Rb/Ack?
-> > >
+> > > 
 > > > 2. quote entire email and then add Rb/Ack, so I need to figure out
-> > > whether there was something between the hundreds of lines of text or no=
-t.
-> >
+> > > whether there was something between the hundreds of lines of text
+> > > or not.
+> > 
 > > Here we all are, brilliantly talented computer programmers who spend
 > > our days making amazing fast digital devices do amazingly clever and
-> > subtle things, inventing time-saving tools and processing vast amounts
-> > of data without blinking, but for some reason we think the task of
-> > skipping over a few thousand lines that all start with '> " is too hard
-> > for us and that we should, in stead, complain to some other human to
-> > convince them to make our life easier for us.
-> >
+> > subtle things, inventing time-saving tools and processing vast
+> > amounts of data without blinking, but for some reason we think the
+> > task of skipping over a few thousand lines that all start with '> "
+> > is too hard for us and that we should, in stead, complain to some
+> > other human to convince them to make our life easier for us.
+> > 
 > > Does anyone else see the irony?
->=20
-> Please compare the numbers:
->   1. 1 sender removes irrelevant parts,
->   2. N receivers skip irrelevant parts.
+> 
+> So if I'm a brilliantly talented driver, it's OK for other people to
+> drive on the wrong side of the road because I should be able to avoid
+> them?
 
-That is one way to look at the numbers.
-Another is:
+No, we are programmers, not MUAs or drivers.  We program the car to
+predict and avoid all other road users, no matter where they are.
+That project might take a bit longer than fixing MUAs though.
 
-  12 - fix about a dozen MUAs to summaries quotes properly
-  12000 - fix an unknownable number of people to quote just exactly the
-          amount that their particular audience is going to want
+> 
+> The point being there are some situations where observing global
+> etiquette is way more helpful than an individual solution, however
+> talented the individual.
 
-and when it comes to fixing-code versus fixing-people, I know which this
-community is better at.
-
-I guess there is also the option
-
-   1 - fix vger.kernel.org to reject postings from people who don't
-        think and quote like "us", because we already have too many
-        contributor and want to block the heretics
-
-This is really just a form of the "platform problem" which lwn.net has
-occasionally written about.  The "problem" is that we treat the platform
-(library code or other infrastructure) as fixed and develop ugly hacks
-in our own code to work around some shortcoming, rather the going into
-the platform and fixing it once for everyone there.
+True, and we all use (some version of) English for exactly that reason.
+But imagine how it would be if we could all have high quality
+translation code built into our MUAs so that anyone in the world could
+email us in their own language, and we could each read in our own
+language.  That would be awesome.
+It would be only slightly less awesome if we could all post with
+whichever quoting style works for us, and we could all read emails
+seeing whichever quoting style works for us.
+Unfortunately we cannot yet translate top-posting to post-posting, but
+we *can* translate verbose quoting to terse quoting.
 
 NeilBrown
