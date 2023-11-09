@@ -1,65 +1,76 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from mail.fsf.org (mail.fsf.org [209.51.188.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3365374CA;
-	Wed,  8 Nov 2023 21:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A858612D;
+	Thu,  9 Nov 2023 05:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fsf.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fsf.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="b2b5RoWz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=zWpxLdqSdpI0Nl4LOY7KMFY0dNTcCVZ05UZ1n2/pXck=;
-	t=1699479719; x=1700689319; b=b2b5RoWz8K48WVj1t7XhgpgFeyU+lWOu4Tf/1/PObMQc/ZZ
-	H4o0+dGedPbtN/O4CuOnjnnvi9X9ZVX5uVGfg8XL5JBJBMTK1+YdgzPERDq2JNPM2zR6nUCvoKWXp
-	fcLWXFvgBoUhRT3NQXu1sUqGobkw2p9NFxE3ACFilVOW2SB6wcxyj8TA/42jeJmGbhCmcc7Zal6Y8
-	0IP3X9PKDPxNwVnjXjQ8mCy+V3Y0ryGDR6PeTnH2cIjkvrjoOkaNJVD6RcFWAMbOHZ03KdW8tuH6j
-	E5Jhp1Kpm4V38ehhURKYiWD6pLwcBRS3iPCUT/JQRa6PX2h+WKDy3athxn11zQOQ==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.97)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1r0pwl-00000000mwk-0I2T;
-	Wed, 08 Nov 2023 22:18:47 +0100
-Message-ID: <af631204f66cefb63b0980d2bd58b5f808867bd9.camel@sipsolutions.net>
+	dkim=pass (2048-bit key) header.d=fsf.org header.i=@fsf.org header.b="xXzJaG+7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=fsf.org;
+	s=mail-fsf-org; h=MIME-Version:In-reply-to:Date:Subject:To:From:References;
+	 bh=+peS4VBY4EGWor8h12YXS9AConj23+2mTwIf7zUaVeA=; b=xXzJaG+77GHXS66K6QyOxC23e
+	BX8LK2Tk3eAFo02Ba+l1qXHmAQvfsbt5EqnUtBMu8vkrRia49/AAP2HpYACB0YN98WiwUncHAZvIa
+	7aziZtoRjnDB72XT30LL7R/TrTDTQaJ9O6LB4RQwKQLmvpmJlfCQ9PLjkQ0MQixe+9RLl2vioLDvY
+	bFoWceH+poa7lj0yKcnW0ZG3ZVlFa7GIhjzgu4cGFleGajz0wBnRpeK5VNA2/T1ED5E0vCh8KncaP
+	DxAcPxjnxoGWacTg6JdFmQe5tsqXD7Ct3yxDP96bAwQBBP833CajQqYMTMmZMOiQBI4jmF/C8HPfG
+	4FVmBI8+Q==;
+References: <20231106-venomous-raccoon-of-wealth-acc57c@nitro>
+ <87r0l2yi7v.fsf@email.froward.int.ebiederm.org>
+ <ZUkcyCb5DEVEDkKj@infradead.org>
+ <20231106-mega-albatross-of-beauty-f2a7e9@meerkat>
+User-agent: mu4e 1.10.3; emacs 30.0.50
+From: Ian Kelling <iank@fsf.org>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Cc: Christoph Hellwig <hch@infradead.org>, "Eric W. Biederman"
+ <ebiederm@xmission.com>, users@linux.kernel.org, ksummit@lists.linux.dev
 Subject: Re: RFC: switching "THE REST" in MAINTAINERS away from
  linux-kernel@vger.kernel.org
-From: Johannes Berg <johannes@sipsolutions.net>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, "Bird, Tim"
- <Tim.Bird@sony.com>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-  "users@linux.kernel.org" <users@linux.kernel.org>,
- "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
-Date: Wed, 08 Nov 2023 22:18:45 +0100
-In-Reply-To: <d9309638d8f6037e661c3450ef3342dd915d66eb.camel@HansenPartnership.com>
-References: <20231106-venomous-raccoon-of-wealth-acc57c@nitro>
-	 <BN8PR13MB27385D63AA7DAF65B6CAAA34FDA8A@BN8PR13MB2738.namprd13.prod.outlook.com>
-	 <d9309638d8f6037e661c3450ef3342dd915d66eb.camel@HansenPartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+Date: Wed, 08 Nov 2023 22:55:11 -0500
+In-reply-to: <20231106-mega-albatross-of-beauty-f2a7e9@meerkat>
+Message-ID: <87pm0jmvbi.fsf@fsf.org>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain
 
-On Wed, 2023-11-08 at 16:04 -0500, James Bottomley wrote:
-> On Wed, 2023-11-08 at 20:04 +0000, Bird, Tim wrote:
-> > Is there a way to use b4, lei, lore, etc. for responding to mail on a
-> > list one is not subscribed to?
->=20
-> lore has a "reply" link which formats a reply correctly to be in-reply-
-> to the email (provided your local mail client supports this).
->=20
 
-If it doesn't or you want the email to quote it, you can also click the
-'raw' link, download the file and import it (it's a one-mail mbox), and
-then reply. Kind of like the b4 suggestion, just without the tool.
+Konstantin Ryabitsev <konstantin@linuxfoundation.org> writes:
 
-Now if you want to actually reply from gmail, I don't know how to get
-that in there, but I guess there's some way.
+> On Mon, Nov 06, 2023 at 09:05:12AM -0800, Christoph Hellwig wrote:
+>> How about restricting access to all lists for gmail addresses if gmail
+>> is so
+>> broken?
+>
+> Today it's gmail, tomorrow it's something else. Just a month ago all
+> services
+> using outlook.com were broken for days:
+> https://learn.microsoft.com/en-us/answers/questions/1388775/outlook-com-servers-tells-server-busy-please-try-a
+>
+> All I want is to know is why someone wants to receive a copy of all
+> patches
+> via SMTP when much more effective mechanisms to achieve the same are
+> available. If someone can provide a valid reason -- such as being a
+> high-profile maintainer -- then of course I'll be happy to let them
+> subscribe.
+>
+> -K
 
-johannes
+All kinds of services go down every day, smtp has good and bad, but I
+see no reason to think it should be deprecated or anything. For example,
+a good is that outgoing smtp is more resilient to ddos attacks than web
+servers. Part of being a sysadmin is that things keep breaking tomorrow
+and the next day, and we have to keep fixing them and it won't ever
+stop. Yes, sometimes migrating people to very different software is the
+fix, but I have experience running smtp at lists.gnu.org and from what
+I've read so far, I think the problems you've described can be
+effectively mitigated without restricting subscriptions nearly as much
+as you propose in a reasonable effort. I'd be happy to provide a bit of
+technical assistance.
+-- 
+Ian Kelling | Senior Systems Administrator, Free Software Foundation
+GPG Key: B125 F60B 7B28 7FF6 A2B7  DF8F 170A F0E2 9542 95DF
+https://fsf.org | https://gnu.org
