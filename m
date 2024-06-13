@@ -1,82 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532161448E4
-	for <ksummit@lists.linux.dev>; Thu, 13 Jun 2024 13:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B77A20E3
+	for <ksummit@lists.linux.dev>; Thu, 13 Jun 2024 13:45:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718285958; cv=none; b=bZ+uFPO4AHiUPsz5qpDuH5pfF/ah8KalAojmLzglMlkhipdmyXsxebfH8v2vSOILo3ZTXVyk4MzOGMnuRA0w3MbBFuMHHrolfjqYJGkZ/0zdfM61jhx4TMb7yag6JctYod+KZb48b96fYK42+NlnfswsS/Pma9z+DYR717INPWc=
+	t=1718286348; cv=none; b=DunyB8HwrILRGjXwLZ8Tw0NhjYAtSd+8G7ke1VfM4PlyTuEQ0NxrJe4wpu8EswqAqpBTkf2TsxRLOfk/+v+gUjo7fJ0QqTyZjL6oh39MF40Pq9R/M1WcAzecsR+UM0kXvx4Jcnpzhc5QAyfiBZYztELLf0//Ah6h20fa7PXPSEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718285958; c=relaxed/simple;
-	bh=/0jIyw34pld3xUXvXx1u9wHaL7OnaeIQ++WR+q+y/+I=;
+	s=arc-20240116; t=1718286348; c=relaxed/simple;
+	bh=B+ceXy9WlXEliVHsBLlr5nAm8Mvy903JjCwSdpG8LH4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=syz1EpetJTM7AMsWmxeu0Z2Vk1QZ29TDpgJSx2jMosYr782oCWRf20HevJGl+rC8Pl1SLX4rofBoQfYh7ecKW9UWWB2WkJcvejqFGPu2dc1QpZykWlpTzjyDVNL48OZ7SirNjECfHDLZ/qE5J9yNCKEdvNy1d7lngamAGOkMlBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R0oGojIr; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=lt9So/oWJbjTnMYejMA57QxVjBrdJ4/pNLXmHjOhoDq2zJZn25kTDPRR+VqoqNtSrIkTXBywVZW6ML8JWtIvDMuH7WFVBGksyyItIg/Q/X0AJKM0aesTDMqoam6b3NYMINOQ1bO+kWvkTsSoI1pWZb7dE1SBqpnsHtsZDm4qwxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D8iUmQu4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R0oGojIr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CC7C2BBFC;
-	Thu, 13 Jun 2024 13:39:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718285958;
-	bh=/0jIyw34pld3xUXvXx1u9wHaL7OnaeIQ++WR+q+y/+I=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D8iUmQu4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5915C2BBFC;
+	Thu, 13 Jun 2024 13:45:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1718286348;
+	bh=B+ceXy9WlXEliVHsBLlr5nAm8Mvy903JjCwSdpG8LH4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=R0oGojIrAZUFRTuEvWQt0UUMhTCwRUhNn/IT+5WtgjmeiaI2Byn11WgyjO6r6rebv
-	 BPo/Cd2kur4PWP+JyH6o9fIn/KepyuWWxRdCXRn9N9ZxCdPqyL3pUQAFJuwtfXxLpT
-	 QjuoMGHZT9xbCLM6kIYII7AURXMpOG1J1DurBSYlC6IvxHM5MQ1DtFIbpgM8LrlEUG
-	 A+M3AN+UktoXjo35XUjEDhUCKcfWpZstxmd9l2OUuL01DwgxM3JVZTrGxBh9jO/6xI
-	 v/1/T8nWuolaMW8CEhqrN37LMD2hLz02zSwv7t3Mak1bvNkPUnFeXQ+G7YkjH6DCBo
-	 ZmsK2TcF+C7Vg==
-Date: Thu, 13 Jun 2024 09:18:28 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
+	b=D8iUmQu4xQV5faBwE7AQho1DLAeRQupBDqOY8wqqys1lDma+rxIcGJo289DIQCAq4
+	 0XI2WFbP1OfLdxLIko2pXlu+hQCms/oGTOghHU4rVTxLmSqUEWFPXUVx3Df88nxez1
+	 24Qs72joFM4x0s0eOSShOwHTJnSeKBwYpEt7hKUk=
+Date: Thu, 13 Jun 2024 15:45:45 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: Thorsten Leemhuis <linux@leemhuis.info>,
 	"ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
-Subject: Re: [MAINTAINERS SUMMIT] [2/4] Ensure recent mainline regression are
- fixed in latest stable series
-Message-ID: <ZmrwuE9REjmK4sDo@sashalap>
+Subject: Re: [MAINTAINERS SUMMIT] [4/4] Discuss how to better prevent
+ backports of commits that turn out to cause regressions
+Message-ID: <2024061327-browse-sterling-9bf6@gregkh>
 References: <c6be1b86-f224-417c-a501-6c778999a04f@leemhuis.info>
- <c10b7cb2-6ea8-4a15-86a7-9ae689064f6b@leemhuis.info>
- <68ad780601dd5788ab7c18e8ba683e808cf98f4c.camel@sipsolutions.net>
- <2024061332-amazingly-haggler-de9a@gregkh>
+ <e7f9ae0f-7635-4bf7-827b-bad2d58bf228@leemhuis.info>
+ <7794a2b09ae4fa73ac35fdaec4858145a665efea.camel@HansenPartnership.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2024061332-amazingly-haggler-de9a@gregkh>
+In-Reply-To: <7794a2b09ae4fa73ac35fdaec4858145a665efea.camel@HansenPartnership.com>
 
-On Thu, Jun 13, 2024 at 01:21:15PM +0200, Greg KH wrote:
->On Thu, Jun 13, 2024 at 01:02:44PM +0200, Johannes Berg wrote:
->> On Thu, 2024-06-13 at 10:32 +0200, Thorsten Leemhuis wrote:
->> >
->> > I know I'm asking a lot here, especially from the file system folks due
->> > to the testing this will require. And I fully understand the
->> > participation in stable maintenance always has been and still is
->> > optional for mainline developers -- and that this would change it.
->> >
->> > But I'm bringing this up anyway, as users afaics expect "fix recently
->> > introduced problems with new minor releases'
->>
->> You are saying that users can have it both ways: not test each release,
->> but actually get fixes in each release...
->>
->> So no, I strongly object to putting *even* more work onto maintainers,
->> basically making us all responsible for stable releases.
->
->I also agree.  Remember, the FIRST rule of us doing a stable release at
->all was that we would NOT put any extra work on any maintainer or
->developer that did not want to do anything extra.  Let's not change that
->please.
+On Thu, Jun 13, 2024 at 07:58:58AM -0400, James Bottomley wrote:
+> On Thu, 2024-06-13 at 10:42 +0200, Thorsten Leemhuis wrote:
+> > The scenario shown at the start of the thread illustrates a problem I
+> > see frequently: commits with a Fixes: tag end up in new to stable
+> > series releases just days after being mainlined and cause regressions
+> > -- just like they do in mainline, which just was not known yet at the
+> > time of backporting. This happens extremely often right after merge
+> > windows when huge piles of changes are backported to the stable trees
+> > each cycle shortly after -rc1 is out (which even some kernel
+> > developers apparently are somewhat afraid to test from what I've
+> > seen).
+> 
+> I haven't really observed this for curated fixes.  For most subsystems,
+> patches with Fixes tags that are cc'd to stable tend to go steadily
+> outside the merge window.  Obviously a few arrive within it, but
+> usually at roughly the rate they arrive outside it.
+> 
+> What I observe in the merge window is huge piles of patches go into
+> stable *without* a cc:stable tag from the autosel machinery (and quite
+> a few even without fixes: tags).
 
-Nor is this something we want to start policing on our end.
+The merge window has a huge number of patches sent to Linus _with_ a
+Fixes: tag, or a cc: stable tag.  It's our busiest time of the cycle by
+far.  But overall, it's still a smaller % of the patches that end up in
+the tree overall, so it looks big to us and everyone else, but it's
+really not.  The % going in during the end -rc cycles is still higher,
+as it rightfully should.
 
-What happens if someone breaks this rule? Do we ban them from sending
-stuff upstream?
+Only patches I see in our trees that do not come from autosel without
+fixes: tags should have a stable-dep-of: tag, OR it is because someone
+has sent it to us for explicit inclusion.  If you see stuff that does
+not meet that criteria, please let us know.
 
--- 
-Thanks,
-Sasha
+thanks,
+
+greg k-h
