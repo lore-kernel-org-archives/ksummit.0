@@ -1,113 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from wfhigh5-smtp.messagingengine.com (wfhigh5-smtp.messagingengine.com [64.147.123.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F486C8C7
-	for <ksummit@lists.linux.dev>; Thu, 13 Jun 2024 14:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41541C8C7
+	for <ksummit@lists.linux.dev>; Thu, 13 Jun 2024 14:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.147.123.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1718287307; cv=none; b=vF91Ia5gNef4jC/TBoyQKWhh1ePCMshae0bQH6i8Z4/kihu6UnLcWT6mEN7BHtR62DwNasP891P3VY7E44T7JPd65VCKhyAkoQ8OVpSOsbvhv9H32b6pXXtfty4X+CF3kUwdVNzvosu9JDRDQ9pFECJDrPzrDZLZp/WfE/lzrcc=
+	t=1718287364; cv=none; b=evOuvuVUAoIlnjZslgIFb67D2EWd/MG4Re0Z2d9rseuSn3qmlWeZZSpK/fQGLgO/PorDHBXfs03KeUYR5MtJp/qthbYY3UTslQpgMmqJ2YEMgMimy3hey1RvM86xOTPvlZ8tVeXkWVfcoKsuQ83Slx95YNmXBmxgTeAH4rsUWms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1718287307; c=relaxed/simple;
-	bh=gpI0GIgFu02Gv9R4FofmsgeaffxYjpqTMOgUl2aaCEs=;
+	s=arc-20240116; t=1718287364; c=relaxed/simple;
+	bh=uZn2Uf0CUBACJ5DTK6XvpIsze6VVSu/yRpF00uUjMw8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n4ZU/G53RPN8MUaVA4Jh6to2dzDO50qK2npkc8/4Yqg9arBblcG3Dj2FL97D6dvqkGT0fdR+1mY/p7jzBHUAX/3YCSUf8PAbr1xTLbpBH4eOWY17Hp6EI9FqJ6bw6A0klVCH1U73KFZfoVy0Rqeta066NF31BlaXQyp5o68sbkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShAcqxdG; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=cu89yuzB0HK7wgjlZUl9N/nTgDiAV6IJzb50beDE1lvrgP1FGBQGEUqNQuvHQ6IslDkSxHG1N63NBMbM91wN9gcoQCHvmF1xZve6Bw5AmvuHk1rZh548+aHUvNTihowuF/0bWreoOnqdQdXgE9VxMRBHCNcwdusPe8S4xQdaKJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=bxZDFi7o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Tz3I69L1; arc=none smtp.client-ip=64.147.123.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShAcqxdG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3623FC2BBFC;
-	Thu, 13 Jun 2024 14:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718287306;
-	bh=gpI0GIgFu02Gv9R4FofmsgeaffxYjpqTMOgUl2aaCEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ShAcqxdGOp67NeEPNaEfjgshCJdGyxh8aliT5kyaL3GyJuHxKpSLGJGLInGUSxd6U
-	 W6DaaDHAW1WiAHEkRXIpHLU2vb6TQEFql8jkZ1hx28lUOEpi562MufF7ok3pwd+fK5
-	 qR+Tly7NxWb8qDJJdyJD9D4bIh+6nQPSy1EZb4wQYW7A9qvRel5Zp4Yo247dItZWsj
-	 WPwNOohQp3PyNveT23mz5rw2m9JIhTvzgpZdGG2h91NuTOxU5EWmJOIYAy+X0JQB+1
-	 sNI7ee1Eqe5Y1plZkycGQbyDPuQUhY0qDdpozqYqv94RSRd7vcaiOCIcUdPL0WIf8B
-	 LhckU/ugRHTzw==
-Date: Thu, 13 Jun 2024 09:40:42 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="bxZDFi7o";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Tz3I69L1"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailfhigh.west.internal (Postfix) with ESMTP id E525818000B7;
+	Thu, 13 Jun 2024 10:02:39 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Thu, 13 Jun 2024 10:02:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1718287359;
+	 x=1718373759; bh=6Ez/x5iuVpmP1ywP3365V3Iu+tsaH5R/RbXfVCYYkVM=; b=
+	bxZDFi7ohGwA1tfCWLsYyZnSUEbMKfz4wrj2FMMKLNw7r/nBw4YU3LwjeYiYfZgJ
+	+FpoBLbnV4YvWxVJGd0C2Umd2dlHc6iyBJane51ffDJ66TbKiBjUJ0tWnbFseQ1h
+	F/Sb5ClKU934pRYHB0DJ6Lx4roq3IIuV4r4DO/fPNweX3ke8XobciPG4zoxiXN7v
+	i80MWw07+OzCkHo1+DXecOrIEOj/hch9wkMHvc1PMbGdAq75o9/neJDZPiCrEqJS
+	2ZSrv0g4vGfi3DaLme6lTa6hIrBxb67WKG8VOS5yNKzL8WK/OlJH2bXLl9La+Lgx
+	9YDCeJ3gpNEDCq9rhANWWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1718287359; x=
+	1718373759; bh=6Ez/x5iuVpmP1ywP3365V3Iu+tsaH5R/RbXfVCYYkVM=; b=T
+	z3I69L1LXvf7V+yhGnFQXW17uJWS5Ywen69PmVlgJ/m///50FCWiuXu8p7T3sxv5
+	gTLuHJgVDGW843aKHtGF5v87Undx0ZYe629Pu/Y2T07cAg/S3Rx3Mi77BSQy08K1
+	omCMa8i364HpSiuGVFyBbwGADG/DSBoEdXVE9uhtqaGs8HJFw9mmJ/j0DPWL2kFR
+	yOSby6+h30aYavwG/H2PQTIFZP7+/k4rz4SGDMaN/ol/lYSGujERvI+KULVz2DeZ
+	FEFTQJO5xVbRILEydEzhjrzO+N9Bm6kK2DmKxxmfZXFTwWBubrl6oKbgBqAIwZ8q
+	tr/OkuQGbUbv8HG1lk+Yw==
+X-ME-Sender: <xms:_vtqZlVQ3WsnV8BmnW4mrwR48MS-NxIU3bUWxN9WXrhQOoKtOlQ7OQ>
+    <xme:_vtqZlmuuc_RTyoC4hfb3S04pkauFCynh712OHYaZBvU0vjWp_WEIm70Ir977_48N
+    x6_dBRgFx0Qbw>
+X-ME-Received: <xmr:_vtqZhaKHyQKpQddONCn5ZVJQEIM1UUNlDJdfHqlxrUPZxdlUz17EypG3tHSXngz0MY9cppnSSYYWmrgh8BvUMZp7KQLdt5OuKmPlA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedujedgieelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefirhgv
+    ghcumffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeegve
+    evtefgveejffffveeluefhjeefgeeuveeftedujedufeduteejtddtheeuffenucffohhm
+    rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+    hmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
+X-ME-Proxy: <xmx:_vtqZoX7qFw5E1fBQQMAK5o7I1wRnHkg6ORd8lnwzeb7qGj4djNsAA>
+    <xmx:_vtqZvlZzLb5TzMT2t9Df7y7iXuv7WYDhg5boNSxeUAF25IA2Tlpvg>
+    <xmx:_vtqZlehSs52sGQSXMnywi57poXyGNye9Kyxxax_GZ0X4tePshU2rw>
+    <xmx:_vtqZpFtjIN7c2t2LNGzJTxyKcSdbI9SBiH8v4eaYxyf5FBaDzj12Q>
+    <xmx:__tqZh4kvXQLE1DTu6Um9vH5ug8MzSQ6u7lNZSlogoHloJ3zrpvccovr>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 13 Jun 2024 10:02:38 -0400 (EDT)
+Date: Thu, 13 Jun 2024 16:02:34 +0200
+From: Greg KH <greg@kroah.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	"ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
 Subject: Re: [MAINTAINERS SUMMIT] [4/4] Discuss how to better prevent
  backports of commits that turn out to cause regressions
-Message-ID: <Zmr22oK1_clYwDNi@sashalap>
+Message-ID: <2024061305-swimming-politely-30f3@gregkh>
 References: <c6be1b86-f224-417c-a501-6c778999a04f@leemhuis.info>
  <e7f9ae0f-7635-4bf7-827b-bad2d58bf228@leemhuis.info>
+ <7794a2b09ae4fa73ac35fdaec4858145a665efea.camel@HansenPartnership.com>
+ <ZmruqWDTG2PK-rbu@sashalap>
+ <dea93a79fc457d8a5424a18f8c138a4f75def064.camel@HansenPartnership.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <e7f9ae0f-7635-4bf7-827b-bad2d58bf228@leemhuis.info>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dea93a79fc457d8a5424a18f8c138a4f75def064.camel@HansenPartnership.com>
 
-On Thu, Jun 13, 2024 at 10:42:01AM +0200, Thorsten Leemhuis wrote:
->I would like to discuss how to better prevent backports of mainline
->commits to stable that turn out to cause regressions.
+On Thu, Jun 13, 2024 at 09:56:56AM -0400, James Bottomley wrote:
+> On Thu, 2024-06-13 at 09:06 -0400, Sasha Levin wrote:
+> > On Thu, Jun 13, 2024 at 07:58:58AM -0400, James Bottomley wrote:
+> > > On Thu, 2024-06-13 at 10:42 +0200, Thorsten Leemhuis wrote:
+> > > > The scenario shown at the start of the thread illustrates a
+> > > > problem I see frequently: commits with a Fixes: tag end up in new
+> > > > to stable series releases just days after being mainlined and
+> > > > cause regressions -- just like they do in mainline, which just
+> > > > was not known yet at the time of backporting. This happens
+> > > > extremely often right after merge windows when huge piles of
+> > > > changes are backported to the stable trees each cycle shortly
+> > > > after -rc1 is out (which even some kernel developers apparently
+> > > > are somewhat afraid to test from what I've
+> > > > seen).
+> > > 
+> > > I haven't really observed this for curated fixes.  For most
+> > > subsystems, patches with Fixes tags that are cc'd to stable tend to
+> > > go steadily outside the merge window.  Obviously a few arrive
+> > > within it, but usually at roughly the rate they arrive outside it.
+> > > 
+> > > What I observe in the merge window is huge piles of patches go into
+> > > stable *without* a cc:stable tag from the autosel machinery (and
+> > > quite a few even without fixes: tags).
+> > 
+> > Could you provide a concrete example? This shouldn't happen.
+> 
+> This one has no fixes or cc stable:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=37f1663c91934f664fb850306708094a324c227c
+> 
+> Yet here it is backported:
+> 
+> Message-id: 20240603121056.1837607-1-sashal@kernel.org
+> 
+> (I can't give a lore reference because conveniently it was a personal
+> cc with no tracked mailing list).
+> 
+> I picked that one because we discovered a bug with the strlcpy to
+> strscpy conversions in SCSI which it looks like this backport has.
 
-If you can tell us which backports cause regression we promise not to
-backport them :)
+It says, in the commit message:
+	 Stable-dep-of: c3408c4ae041 ("scsi: qla2xxx: Avoid possible run-time warning with long model_num")
 
-But more seriously:
+That is why it was backported.
 
->* For patches that are tagged for backporting it's easy to for
->developers to influence the timing, as they can use a stable tag like
->`Cc: <stable@vger.kernel.org> # after -rc4` to delay backporting (see
->Documentation/process/stable-kernel-rules.rst for details). But for
+thanks,
 
-We can delay, but in practice many of the regressions are discovered
-*because* they land in stable. There is relatively little testing on -rc
-releases.
-
-I'd argue that in most cases, delaying until a later point in time will
-just mean that the issue is discovered later, which isn't helpful...
-
-[ snip ]
-
->* We could ask the stable team to only backport changes once they have
->been in mainline for a certain time (something like "at the earliest two
->weeks after the change was present in a mainline release or
-
-We could, but is the net result positive? This also means that fixes for
-real issues take longer to get to users.
-
-It would make sense if most backports cause a regression. Is it the
-case?
-
->pre-release"?). But to not delay urgent fixes we then would need
->developers to mark the urgent ones somehow. That is likely a hard sell,
->but maybe less so then what the previous point outlined; untangling
->could help here, too.
-
-I'd argue that even developers don't necessarily know if something is
-"urgent" or not. Heck, what does "urgent" mean? There are so many
-usecases for the kernel that it's impossible to define what is urgent
-and what is not.
-
->* Maybe convince the stable team to consider all commits with just a
->Fixes: tag as "non urgent", if they were merged during a merge window
->with a committer (or author?) date from before the merge window -- and
->then only backport them after -rc4 to ensure they got at least three
->weeks of mainline testing before they are backported. This is imperfect
->and has downsides, but would be relatively simple to realize.
-
-The tricky part here is that we can't rely on stable tags for importance
-determination. Individuals and subsystems simply don't add stable tags
-because they don't want to, not because their commits are not important
-or urgent.
-
->* We could extend the Fixes tag in a fashion similar to the stable tag
->(see above) to establish something like `Fixes: cafec0cacafe ("foo: bar:
->foobar baz") # after -rc4 if considered backportworthy` -- but some of
->these lines will become awfully long (they already are occasionally even
->without this add-on note).
-
-See above :)
-
--- 
-Thanks,
-Sasha
+greg k-h
