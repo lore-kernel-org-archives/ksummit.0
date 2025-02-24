@@ -1,88 +1,131 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BABB10F2
-	for <ksummit@lists.linux.dev>; Mon, 24 Feb 2025 12:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A568418BC2F
+	for <ksummit@lists.linux.dev>; Mon, 24 Feb 2025 14:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1740401920; cv=none; b=GuMtL0iAx1s1+Ujwal0M1Yyy1Li0eru6Y09b6F0wktmRPFc0PiZsbDISE914NXSw9v96+u6DuQshC/SBgaXFwHUdGuxPJpWr9jQbM+KYPBbwzyLXdGycaN6Zw3b7EmUrGzfI0c/QZevTnqLbY4MHxAnM7FJKDjhlL/AzkNeTVJY=
+	t=1740408475; cv=none; b=aEFG6Zii4SwjP2kKWDSshc3imWffM+IXzYYsGog0tycOMpYsE53cStN4FALlX4G4L+0YPs/fShvfbs6unnOjJ3xlsnGueQqvAq+jIQ9/mtyTCsQ6idQzu/xGHAIfQzH8tBO3O/QlwoBHg298Dc8F+9h5ci17i7Xl3xm+5ufqfOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1740401920; c=relaxed/simple;
-	bh=iId1Db8PjY2Oaef1qiwFX4D8BeJwIQWLyEI8Zp99plw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GPPn+mJKQWtWDjS15pdhYw+4+Cc+FJ6n+7YZiroT3xpznKmV59GHwzoKi+BBLPXYPRUUwA7GhOhpYYAmOSRVKMdj4sS6+1fZmOZp8ofWRCQeT45jXH600dCsaZ4rqDyOmsShA9eY5li9z5WL14zvpXlb6hTp0CIjIKzPUIGQ9ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
-Received: from trampoline.thunk.org (pool-173-48-113-172.bstnma.fios.verizon.net [173.48.113.172])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 51OCw50M018389
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 24 Feb 2025 07:58:06 -0500
-Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id 3927C2E010B; Mon, 24 Feb 2025 07:58:05 -0500 (EST)
-Date: Mon, 24 Feb 2025 07:58:05 -0500
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: Ventura Jack <venturajack85@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-        Kent Overstreet <kent.overstreet@linux.dev>,
-        Gary Guo <gary@garyguo.net>, airlied@gmail.com, boqun.feng@gmail.com,
-        david.laight.linux@gmail.com, ej@inai.de, gregkh@linuxfoundation.org,
-        hch@infradead.org, hpa@zytor.com, ksummit@lists.linux.dev,
-        linux-kernel@vger.kernel.org, miguel.ojeda.sandonis@gmail.com,
-        rust-for-linux@vger.kernel.org
-Subject: Re: C aggregate passing (Rust kernel policy)
-Message-ID: <20250224125805.GA5729@mit.edu>
-References: <CAFJgqgRygssuSya_HCdswguuj3nDf_sP9y2zq4GGrN1-d7RMRw@mail.gmail.com>
- <20250222141521.1fe24871@eugeo>
- <CAFJgqgSG4iZE12Yg6deX3_VYSOLxkm5yr5yu25HxN+y4wPD5bg@mail.gmail.com>
- <6pwjvkejyw2wjxobu6ffeyolkk2fppuuvyrzqpigchqzhclnhm@v5zhfpmirk2c>
- <CAHk-=wgq1DvgNVoodk7JKc6BuU1m9UnoN+k=TLtxCAL7xTP=Dg@mail.gmail.com>
- <CAFJgqgSqMO724SQxinNqVGCGc7=ibUvVq-f7Qk1=S3A47Mr-ZQ@mail.gmail.com>
+	s=arc-20240116; t=1740408475; c=relaxed/simple;
+	bh=89ktW5BzAn9iOHa5jek6f3ZHeVoyWQD1oH7vDvuK3rc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dFLCF3uQFYo+LSF5amgZyW3NRPzxNI0lvRiD1rCGBomQfuP6tYQApGmQvZSHF8yie+/OEDdHtYd/pCpxL5JeAs0ekjuipp1tCZ0SLURWODzg3JjWKgOq352rRgwTzNYOgmCogy3jRd4XBXmV/R9OS7nLE2lsC+FkvK1EZuu1kzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LDLN9h8o; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LDLN9h8o"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-2fc95e20e72so1229249a91.1
+        for <ksummit@lists.linux.dev>; Mon, 24 Feb 2025 06:47:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1740408473; x=1741013273; darn=lists.linux.dev;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RtB7Dub5njCes9mrJllt2CsrhPv34KUY3ewp7hLxbD8=;
+        b=LDLN9h8oj4jRmvQrCQ82VPOR9EaxJRYz/KFEto1fcYpnX5yZX4HmTCJjRuY0QakNW0
+         4fl0ckJmcC8lm0bi5wud8mCEEa9aOvcHUpu4rBxICsVKb4cgOA6FGpY9RC0gZIPAAgOV
+         m27xv6/up2b75byNzk948khsrxq1Yw0F0cbO2MfH8kviHYuMb+i6xQP49sTW4dJmKoNy
+         QOifqo37/wNEKFun/oKL2uuJQdXBf0NtqSsA6y4JdP8mhip7BjBYuz6ke2EDWKQcCRxE
+         p1BbDGBd86f7RAVbYx1+DefvU1uhZ0FXkrH5vqZShIumDEc980Mdcoa/u//bWqivI49C
+         bsgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1740408473; x=1741013273;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RtB7Dub5njCes9mrJllt2CsrhPv34KUY3ewp7hLxbD8=;
+        b=hIxJnVyMKhGmu0Ag8lspXu0GCRObqfS8LMZofWKvlxXqJEMo/gzJziKbpjyTXPHkYJ
+         kIZxTCc1STvrAskXbfKv/6VLbIWHNk9eLdDFBYGztjK/tO1ft8VdLcWICqiaSF2Go1Cl
+         0S1EspoG+W2iLsTeBFZfcbBIV03+u6JdWtrRAYCw7+9J9b93prpcSY6LQrnqU+lIusUc
+         Na5tZbJ8oXCkIZiEGhkJm3XJ4We0egt98MVPO/JGlyzmEILP3Dy7vcSy+OJRcvrT66lx
+         KQ2MFhzK+uaKi2HCr6J5DKgMgS+rr0x0WYT+R0Bn8BRgWtnLqgBfXlA8ntkaaNyHv0SF
+         rkPw==
+X-Forwarded-Encrypted: i=1; AJvYcCVZ4oyBvNrj20aEvtlovkMcsTyRs5pK6Gz9GvQNm1OSscrF5zED7Q5PxakK3AfxYZoqS9lrTAGc@lists.linux.dev
+X-Gm-Message-State: AOJu0YwRilfQWepMgdEmGPrzJZE8zmvd9kLX34ThtQsYYveCl5LmOhPC
+	k23Qwzqy6kOxHkW6BGz/8OOi7uIcrsoPFiJdktndGQppsaXl7KKIGQVGPyRqctUb7qG7lN3kVtU
+	W9LMvgUsBuIHEfzq6+IQAdEefzpo=
+X-Gm-Gg: ASbGncsAezAkLO6+LjK5MUk6JAJJNosB5sI7MfHYqKG9W1u7NG6S89Tx8Qb7EXehI+a
+	EzYKYo8XsrXI0GS/coWHv2fp3hUnm2BD9jDZn5zJUl0R3hZUuItN64uBpZhbC6rysNzu1bWD3wv
+	kl9nmHRvE=
+X-Google-Smtp-Source: AGHT+IFtHAt/2673bkl85WSepaiv/6+wkEUSaW/P5TB+5VYx4rV2nWG972KMsbRKwHotrhVZYVS2P5weLvxESTGhMug=
+X-Received: by 2002:a17:90b:3848:b0:2ee:acea:9ec4 with SMTP id
+ 98e67ed59e1d1-2fce7af8da8mr8559798a91.3.1740408472804; Mon, 24 Feb 2025
+ 06:47:52 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFJgqgSqMO724SQxinNqVGCGc7=ibUvVq-f7Qk1=S3A47Mr-ZQ@mail.gmail.com>
+References: <CAFJgqgRygssuSya_HCdswguuj3nDf_sP9y2zq4GGrN1-d7RMRw@mail.gmail.com>
+ <20250222141521.1fe24871@eugeo> <CAFJgqgSG4iZE12Yg6deX3_VYSOLxkm5yr5yu25HxN+y4wPD5bg@mail.gmail.com>
+ <6pwjvkejyw2wjxobu6ffeyolkk2fppuuvyrzqpigchqzhclnhm@v5zhfpmirk2c>
+ <CAHk-=wgq1DvgNVoodk7JKc6BuU1m9UnoN+k=TLtxCAL7xTP=Dg@mail.gmail.com>
+ <CAFJgqgSqMO724SQxinNqVGCGc7=ibUvVq-f7Qk1=S3A47Mr-ZQ@mail.gmail.com> <20250224125805.GA5729@mit.edu>
+In-Reply-To: <20250224125805.GA5729@mit.edu>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 24 Feb 2025 15:47:39 +0100
+X-Gm-Features: AWEUYZlCQihPBjrSNYZpOKd-BwVo0fXGumHDWwVlhI4X09pccnCoeiBNU37wuHI
+Message-ID: <CANiq72k-K3-Cbnm=0556sXAWs0kXBCB4oR67M4UtD=fq=kyp7A@mail.gmail.com>
+Subject: Re: C aggregate passing (Rust kernel policy)
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: Ventura Jack <venturajack85@gmail.com>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Kent Overstreet <kent.overstreet@linux.dev>, Gary Guo <gary@garyguo.net>, airlied@gmail.com, 
+	boqun.feng@gmail.com, david.laight.linux@gmail.com, ej@inai.de, 
+	gregkh@linuxfoundation.org, hch@infradead.org, hpa@zytor.com, 
+	ksummit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, Ralf Jung <post@ralfj.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Feb 23, 2025 at 08:30:06AM -0700, Ventura Jack wrote:
-> Rust aliasing:
-> - Is not a keyword.
-> - Applies to certain pointer kinds in Rust, namely
->     Rust "references".
->     Rust pointer kinds:
->     https://doc.rust-lang.org/reference/types/pointer.html
-> - Aliasing in Rust is not opt-in or opt-out,
->     it is always on.
->     https://doc.rust-lang.org/nomicon/aliasing.html
-> - Rust has not defined its aliasing model.
->     https://doc.rust-lang.org/nomicon/references.html
->         "Unfortunately, Rust hasn't actually
->         defined its aliasing model.
->         While we wait for the Rust devs to specify
->         the semantics of their language, let's use
->         the next section to discuss what aliasing is
->         in general, and why it matters."
+On Mon, Feb 24, 2025 at 1:58=E2=80=AFPM Theodore Ts'o <tytso@mit.edu> wrote=
+:
+>
+> Hmm, I wonder if this is the reason of the persistent hostility that I
+> keep hearing about in the Rust community against alternate
+> implementations of the Rust compiler, such as the one being developed
+> using the GCC backend.  *Since* the aliasing model hasn't been
 
-Hmm, I wonder if this is the reason of the persistent hostility that I
-keep hearing about in the Rust community against alternate
-implementations of the Rust compiler, such as the one being developed
-using the GCC backend.  *Since* the aliasing model hasn't been
-developed yet, potential alternate implementations might have
-different semantics --- for example, I suspect a GCC-based backend
-might *have* a way of opting out of aliasing, much like gcc and clang
-has today, and this might cramp rustcc's future choices if the kernel
-were to depend on it.
+I guess you are referring to gccrs, i.e. the new GCC frontend
+developed within GCC (the other one, which is a backend,
+rustc_codegen_gcc, is part of the Rust project, so no hostility there
+I assume).
 
-That being said, until Rust supports all of the platforms that the
-Linux kernel does has, it means that certain key abstractions can not
-be implemented in Rust --- unless we start using a GCC backend for
-Rust, or if we were to eject certain platforms from our supported
-list, such as m68k or PA-RISC....
+In any case, yes, there are some people out there that may not agree
+with the benefits/costs of implementing a new frontend in, say, GCC.
+But that does not imply everyone is hostile. In fact, as far as I
+understand, both Rust and gccrs are working together, e.g. see this
+recent blog post:
 
-						- Ted
+    https://blog.rust-lang.org/2024/11/07/gccrs-an-alternative-compiler-for=
+-rust.html
+
+> developed yet, potential alternate implementations might have
+> different semantics --- for example, I suspect a GCC-based backend
+> might *have* a way of opting out of aliasing, much like gcc and clang
+> has today, and this might cramp rustcc's future choices if the kernel
+> were to depend on it.
+
+The aliasing model is not fully defined, but you can still develop
+unsafe code being conservative, i.e. avoiding to rely on details that
+are not established yet and thus could end up being allowed or not.
+
+In addition, the models being researched, like the new Tree Borrows
+one I linked above, are developed with existing code in mind, i.e.
+they are trying to find a model that does not break the patterns that
+people actually want to write. For instance, in the paper they show
+how they tested ~670k tests across ~30k crates for conformance to the
+new model.
+
+In any case, even if, say, gccrs were to provide a mode that changes
+the rules, I doubt we would want to use it, for several reasons, chief
+among them because we would want to still compile with `rustc`, but
+also because we will probably want the performance, because some
+kernel developers may want to share code between userspace and
+kernelspace (e.g. for fs tools) and because we may want to eventually
+reuse some third-party code (e.g. a compression library).
+
+Cheers,
+Miguel
