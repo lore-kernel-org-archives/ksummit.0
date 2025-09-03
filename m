@@ -1,116 +1,127 @@
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727742FC887
-	for <ksummit@lists.linux.dev>; Wed,  3 Sep 2025 14:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF321A2C04;
+	Wed,  3 Sep 2025 14:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1756909110; cv=none; b=n1uOOtQWejHZPL4WCcBaqZ1Q9R2ijQNr+MFdENEHdtbXfrw1SgBfbOFGknvq8TDXsdUq0DnHvYMltmWGMPoEb4p2NQkF2RKMcNzso8D13c69zjg3sA7tUiU7IT9OumJgjgzB4CFbBfeZng2JQJ9//lJxcPkctDO5W/Yyzd69UJ8=
+	t=1756911440; cv=none; b=QXnyiTu5xOyj5OJBV6pdqExfM2flBIVWebj/G5JmiLV/ogBHCNqdcSegOY3Q1KoJA8KZo8s4vcHRUwtYQ1Lq0hKW5QWst/gmokKC28SgmvwQpZ51cgJ7yn2wCDachl2na/6Trc3dOvTgztTZhiRkVBtQao3/aF3EYUMKtTvYAaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1756909110; c=relaxed/simple;
-	bh=eoQxeBC5N0ILHmoJkoh+0vK4Ilhq4T+MfyLupDOSxAU=;
-	h=From:To:Cc:References:Date:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=DyC5GBUmbNf7yekJdipaE4bUGourZfnTcqFYNIr+bhdHLiFyFLeYaMxhM7rbipaVPIx4x/nFR/TA9TZ4Z5+DCvcCjmV68rP1BA+i3brGZSdevo8I++peexpHYJB+9j9awLhsFnT+/Ez7gc1X+fd9kAdJcn/x6i/2orOy1upiGCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; arc=none smtp.client-ip=166.70.13.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
-Received: from in01.mta.xmission.com ([166.70.13.51]:42556)
-	by out01.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1utnOn-0086eu-67; Wed, 03 Sep 2025 07:19:41 -0600
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:37238 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in01.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1utnOm-00FPUD-99; Wed, 03 Sep 2025 07:19:40 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,  Rob Herring
- <robherring2@gmail.com>,  Jiri Kosina <jikos@kernel.org>,
-  ksummit@lists.linux.dev
-References: <CACMJSes7ZnGo+Wyk_Db8VEUb8iXFB6-ev3hceY9aY1vjhpywTQ@mail.gmail.com>
-	<CAHk-=wgOXd-meRuz5Gv2oz0W0wBUOpMO5CK9eifjfdR5Xz_-Fw@mail.gmail.com>
-	<536or9s2-r219-2854-2n7s-q299s7q7noq9@xreary.bet>
-	<CAHk-=wi2E0BBX1ZUEo5B5a0E+M_eFU_NgWgp+cABfsqR9f-cAQ@mail.gmail.com>
-	<CACMJSesxLDH+ZPcbFq+s-4E+3QmhU4JejYZ6-SoYBfM0ePCCtQ@mail.gmail.com>
-	<CAL_JsqKqO2Qg6VnRaotQdfrfoo78Y8AA1AKQBrD_XVSEK2BMgA@mail.gmail.com>
-	<CAHk-=whkAe8f4=ttQmZhtoKvGtCLhEA-oHwUEvQFftYAwfVwCA@mail.gmail.com>
-	<CACMJSevrym+yvkmNTXcavDG7Xi5wOrnYYunuMo4ZMP7ti-ve7Q@mail.gmail.com>
-Date: Wed, 03 Sep 2025 08:19:22 -0500
-In-Reply-To: <CACMJSevrym+yvkmNTXcavDG7Xi5wOrnYYunuMo4ZMP7ti-ve7Q@mail.gmail.com>
-	(Bartosz Golaszewski's message of "Thu, 28 Aug 2025 17:11:09 +0200")
-Message-ID: <87ecsn3c85.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
+	s=arc-20240116; t=1756911440; c=relaxed/simple;
+	bh=UBGOcVsN02FLc+3G4s7YCvByclUEO3H7WjNbWeIbvsY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bvCB3bwQxbJFKPVmck8+5HpgFlK4LCmR1qMKiPvm6cSkvQ0YkmGVY11BjcG2XyKx0/X+84g4buNCT95jsabpmxD7brSpefC/PJ/iQJiFhGl3Ugtoaa02eltjoHxikxDiai+BX7NhiSY9i5uuPz32tR99WHyo49Qz3Ff7SLCh2jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibBhD+9Q; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibBhD+9Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93686C4CEE7;
+	Wed,  3 Sep 2025 14:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756911438;
+	bh=UBGOcVsN02FLc+3G4s7YCvByclUEO3H7WjNbWeIbvsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ibBhD+9QlIfb/auG56wGqNncNbljPd90aOZCGj4MUsbqmHNLPBl8fQ6/xZt1/3J7Z
+	 e9i59dTBWkPrNnjhoW8MoGNARcR427mG9Tp0XjGn5V4GUX3kW6AhjaC4eIJg27AyE8
+	 lT0JJdr0dtBJwQgwG3VNeXDSxSEE+RW/436vVfXoerrK2g+Iq/J3F3rzixSvBfs/e+
+	 2ublm/Qh30tl7ZXbyCwEm/oIGNCuvPx6MPBM4l8IT2EJrAiPzUA4UCGyAIPB+FW35K
+	 M5Jw0sFHK8RNhGskUybZQY+OpI67mSbmfGSHAI1MXxkCktrIz5b4tsZDSoTbY16YCm
+	 siON00oM26H2w==
+Received: from mchehab by mail.kernel.org with local (Exim 4.98.2)
+	(envelope-from <mchehab+huawei@kernel.org>)
+	id 1utovD-00000007AQa-40MK;
+	Wed, 03 Sep 2025 16:57:15 +0200
+Date: Wed, 3 Sep 2025 16:57:15 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jani Nikula <jani.nikula@intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Vegard Nossum <vegard.nossum@oracle.com>, ksummit@lists.linux.dev, 
+	Linux Documentation <linux-doc@vger.kernel.org>, Akira Yokosawa <akiyks@gmail.com>, 
+	Bagas Sanjaya <bagasdotme@gmail.com>, Matthew Wilcox <willy@infradead.org>
+Subject: Re: [TECH TOPIC] Kernel documentation - update and future directions
+Message-ID: <xxlm3ozmpel5iadhtambkzfx273oysjraffcizdmgexzhuqtwf@qxkwdvqmbadw>
+References: <20250902141434.3e5b14e4@foz.lan>
+ <8339a5dd-446d-4717-9d68-983f5e2354b3@sirena.org.uk>
+ <xni5csulan6a3kngfw66okhrea2v2u4cwvfkk5vqy5p4xonowf@ajubzphgygit>
+ <87ecsox4uy.fsf@trenco.lwn.net>
+ <20250902191929.504977bf@foz.lan>
+ <87frd4vfys.fsf@trenco.lwn.net>
+ <b20224870cd266f93e11ed8ac75c9e77478884eb.camel@sipsolutions.net>
+ <20250903124229.332dfeae@foz.lan>
+ <431ce4a26d70de6b6d63778e62b732dc035633f9.camel@sipsolutions.net>
+ <a88f4cad41b2b0930f2cd486dc6c2ffc64300fa6.camel@sipsolutions.net>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1utnOm-00FPUD-99;;;mid=<87ecsn3c85.fsf@email.froward.int.ebiederm.org>;;;hst=in01.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;spf=pass
-X-XM-AID: U2FsdGVkX18zDE9INeVj5QTUQxQExdLXji/qbLGXPY0=
-X-Spam-Level: 
-X-Spam-Virus: No
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.4654]
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa03 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.2 XM_B_SpammyWords One or more commonly used spammy words
-X-Spam-DCC: XMission; sa03 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ;Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 448 ms - load_scoreonly_sql: 0.03 (0.0%),
-	signal_user_changed: 3.5 (0.8%), b_tie_ro: 2.4 (0.5%), parse: 0.65
-	(0.1%), extract_message_metadata: 10 (2.3%), get_uri_detail_list: 0.80
-	(0.2%), tests_pri_-2000: 16 (3.7%), tests_pri_-1000: 1.84 (0.4%),
-	tests_pri_-950: 1.05 (0.2%), tests_pri_-900: 0.78 (0.2%),
-	tests_pri_-90: 76 (16.9%), check_bayes: 75 (16.6%), b_tokenize: 4.2
-	(0.9%), b_tok_get_all: 6 (1.3%), b_comp_prob: 1.44 (0.3%),
-	b_tok_touch_all: 60 (13.4%), b_finish: 0.70 (0.2%), tests_pri_0: 325
-	(72.4%), check_dkim_signature: 0.37 (0.1%), check_dkim_adsp: 3.2
-	(0.7%), poll_dns_idle: 1.02 (0.2%), tests_pri_10: 2.5 (0.6%),
-	tests_pri_500: 8 (1.9%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [MAINTAINER SUMMIT] Enforcing API deprecation
-X-SA-Exim-Connect-IP: 166.70.13.51
-X-SA-Exim-Rcpt-To: ksummit@lists.linux.dev, jikos@kernel.org, robherring2@gmail.com, torvalds@linux-foundation.org, bartosz.golaszewski@linaro.org
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out01.mta.xmission.com); SAEximRunCond expanded to false
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a88f4cad41b2b0930f2cd486dc6c2ffc64300fa6.camel@sipsolutions.net>
+Sender: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-Bartosz Golaszewski <bartosz.golaszewski@linaro.org> writes:
+On Wed, Sep 03, 2025 at 12:54:04PM +0200, Johannes Berg wrote:
+> On Wed, 2025-09-03 at 12:45 +0200, Johannes Berg wrote:
+> > 
+> > I don't follow. If this setup breaks the build then that's good, I'll
+> > fix the env. If the build does magic inside and sort of ignores $PATH,
+> > that's bad.
+> 
+> Or maybe it's not ignoring $PATH, but rather picking the "best"
+> python3.xy binary from $PATH - still that's annoying because you'd have
+> to control which ones are there and/or know which ones it might pick.
+> 
+> Far more predictable and usable to just use "python3" and print a
+> message saying you might want to use a better version if you think it's
+> too slow.
 
-> On Wed, 27 Aug 2025 at 18:58, Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
->>
->> All I'm saying is that people who do new API's should either just
->> accept that, or just convert between the two. None of this "deprecate"
->> garbage. None of this "blame other developers because they use the old
->> interface".
->>
->
-> How about "let developers know, people are actively working to replace
-> this old, bad* API with a better alternative so at least don't
-> (unknowingly) sabotage their efforts"?
+There are actually 3 different issues that depend on python version:
 
-Perhaps the old API could be hidden in the header files unless
-an appropriate macro is defined before including the headers.
-Something like:
+1. sphinx-pre-install:
 
-#define I_REALLY_REALLY_WANT_TO_USE_THIS_OLD_JANKY_API
+    This used to be a Perl script. The goal is to check if sphinx-build
+    is installed and works, and identify missing dependencies.
 
-Everything can be mass converted to that safely, and any random
-stragglers can be updated quickly.
+    The problem is: if one installs python3xx-Sphinx, instead of
+    python3-Sphinx, the script will fail, except if it first switches
+    to python3.xx;
 
-At which point any new uses will be at least give people a hint
-that something else is going on.  There would still be a lot of
-cat herding involved to get the conversion done.
+2. sphinx-build logic inside makefile, required for doc-specific targets:
 
-Finding uses of the old api would be a simple as grepping for the
-define, or changing the define in the header and doing a complete
-kernel build.
+   - If python < 3.7, doc builds fail;
+   - If python3xx-Sphinx is installed, build only works if started using
+     the right python3.xx exec
 
-Eric
+3. kernel-doc via command line. Python >=3.6 and <= 3.11 works. It is
+   just 60% slower.
+
+For (3), I agree with you: let it run at the slow way, printing a warning;
+eventually suggesting a newer version and, as Jon suggested, added a
+command line like --newest-python that could optionally pick the fastest
+version.
+
+Now, for (1) and (2), it should be possible to allow building docs even
+if the distro requires Python < 3.7, providing extra packages for newer
+Python, as almost all distros do. See, several distros require python
+on their minimal install images, because it can be using during package
+install. Removing the default python replacing by a new version may break
+the system, as the newer version may not be backward-compatible.
+
+So, what distros do, instead, to ensure backward-compatibility is to
+provide multpile Python versions (together with python libraries).
+
+The htmldocs/pdfdocs/... targets must support it somehow.
+
+The best alternative seems to check if:
+
+- python version is bellow the minimal supported version;
+- there is a newer python binary at PATH;
+- check if sphinx-build runs with the newest version.
+
+If all those 3 conditions are met, build docs with a version that works,
+printing a message to tell the user what Python binary was used.
+
+Thanks,
+Mauro
