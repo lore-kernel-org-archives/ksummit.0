@@ -1,72 +1,89 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9CE212560
-	for <ksummit@lists.linux.dev>; Wed,  8 Oct 2025 20:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD5F1EB36
+	for <ksummit@lists.linux.dev>; Wed,  8 Oct 2025 20:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1759955878; cv=none; b=Lq+q5cV93ByMmKDEvfIaApfiaVWoebEXHvZqssCHBcFbUCeUXfB7k/bNZz3V5aE9rU/xYBhQhtM2IPQqGtX3N6SvZ0bZTA7VhhOHVJ6myp6UNLFzH8M4n4r2CckQNCNfBBFjq21/m9/f+Zj3OLAyRJHvSzwsctmImovbO6gr5nY=
+	t=1759956787; cv=none; b=ArSPpEoTNJzZZJSRvwe79CZnid0nrlsPQTcBTTA75Zp4eTcCC2M1HU0ZXWmoHBSl4h1kVove35ZXSLhxeuoqx6TgXOnO01ctZxTyUB9LoxVOCy7rfzPC2ciKJuXXBv2u4Jf40G5FAPHgRa71A32YgnSuoRN1za+/tggT+qpODjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1759955878; c=relaxed/simple;
-	bh=Gnot31WV6Rf6UwO1lyaZdKvq8BytFWacetNeQork5qY=;
+	s=arc-20240116; t=1759956787; c=relaxed/simple;
+	bh=lUx5yXmuBhEcITptFpKEr2xjLvBf7VIKUEdu2pD83bk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X6gAWUgv5HsStcxHGlVWNS7AEyTfI/TB3zIFxgd+N87eITontFlFniuPNz6G0YEteWN6BEpsqeI0xgRGtx9fB5t6HL4yZe84rKInEBgrKAeDlV4wBRixdULrfAhRwDvT3jQ3bPVElZCWAW8t3yODPff69m5/ffSHOlka1nYFpXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Fu4v/LEH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=MQC8ErxB2xDszisVopdaeBDmyVQl2xbpY26WkiLPiWOQNIlY18Nd98cyxo1OariFewZTubS65miUgvcZr1Nq6DfEbUOey6H9f1aIBIKGj9AVgtTSY5hUr/BFTpf5NuCcgSq6XC+DjeRauYPozA+L7P9P/NOwMAtUmy/EI30cfyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jj6uYgni; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Fu4v/LEH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=uOtBgy59neRwzlFN7vRpeDS9F6fy/XHcekh+X9rM7j4=; b=Fu4v/LEHTtQvxF+1M+VZp87a6Z
-	FKqmHc3yaf20n53vyb+DRPO9+sHsliF92O3eHk7QsQsW7rps//Up9BwWMV+J8BnGtOxHcqwT0bi4f
-	ZwT5Fyyv/K0zy+uLogdXOTMvuhLp/zf2BHvhmv59624llEY+GIKPX3ti+g+dQLaWPxHE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1v6av1-00ATg6-PT; Wed, 08 Oct 2025 22:37:51 +0200
-Date: Wed, 8 Oct 2025 22:37:51 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Chris Mason <clm@meta.com>, ksummit@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jj6uYgni"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3451FC4CEE7;
+	Wed,  8 Oct 2025 20:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1759956784;
+	bh=lUx5yXmuBhEcITptFpKEr2xjLvBf7VIKUEdu2pD83bk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jj6uYgniPPKG4GdrYXUBzkh+UaW1qB9lwnOIVv/x5ztk2VXrl/PTh2EcNGG1b/ely
+	 vs3B6DorTkr6LbA8e43CM6gjU8YwGDw8shWKAPuFSjHJu+Sho6LpakOR/k5IwlSMv/
+	 c/AsHTEA0hS53296oRa2D5O1DABypyHwOXKmH1gyg09ljmIDXt7ByZFTN6o1WSluBI
+	 jLv8FCScPE1Po0ILYXD+HspvRvXk5qZmygGO+Na0nGT5n/uP0zsKHPjDOtHFymZ745
+	 TrX/s8mRdOGI2LhshIY7sXMJElYysFrmYGEaROyrrKK959+StDg5v4x1ysU8BuC7pB
+	 UZbvNAKlc8K+w==
+Date: Wed, 8 Oct 2025 21:53:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Chris Mason <clm@meta.com>, ksummit@lists.linux.dev,
 	Dan Carpenter <dan.carpenter@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>, Rob Herring <robh@kernel.org>
+	Alexei Starovoitov <ast@kernel.org>
 Subject: Re: [MAINTAINERS / KERNEL SUMMIT] AI patch review tools
-Message-ID: <2c04a89f-abd5-48c6-abfc-2e71d24e913f@lunn.ch>
+Message-ID: <693be05a-2b23-461e-904e-f016f33c208e@sirena.org.uk>
 References: <fc05f97b-1257-4dee-966f-ba66fff8aef1@meta.com>
  <fe0b8ef3-6dc7-4220-842b-0d5652cae673@lunn.ch>
- <20251008192934.GH16422@pendragon.ideasonboard.com>
+ <aOa7Tn0QbXwL-Ydo@x1>
+ <20251008193349.GI16422@pendragon.ideasonboard.com>
+ <aOa95ZFLXgaEh5PJ@x1>
+ <64f6eab8-1f0a-42e2-835f-a548d2fd6df5@lunn.ch>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MMG9FvMgaEkvE3mi"
+Content-Disposition: inline
+In-Reply-To: <64f6eab8-1f0a-42e2-835f-a548d2fd6df5@lunn.ch>
+X-Cookie: 10.0 times 0.1 is hardly ever 1.0.
+
+
+--MMG9FvMgaEkvE3mi
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251008192934.GH16422@pendragon.ideasonboard.com>
 
-> This raises the interesting and important question of how to get patch
-> submitters to follow a recommended workflow. We routinely get patches
-> that produce checkpatch errors that are clearly not false positives.
-> Rob Herring implemented a bot to run checks on device tree bindings and
-> device tree sources because lots of patches fail those checks. I'm sure
-> there are lots of other examples that have led maintainers to automate
-> checks on the receiver's side, through various types of standard CIs or
-> hand-made solutions. Submitters should run more tests, how to get them
-> to do so is a broader question.
+On Wed, Oct 08, 2025 at 10:29:11PM +0200, Andrew Lunn wrote:
 
-The netdev CI tooling is available from github. You can run it as a
-docker image. So it is possible for a netdev developer to run the same
-tests as netdev Maintainers do. Maybe we need more subsystems to make
-their CI tooling available to their developers so they can be run
-locally?
+> But this also requires these tests are reproducible, and that is one
+> question i have. checkpatch, sparse, kdoc, Coccinelle are all
+> reproducible. They give the same answer every time. If it passes for
+> the developer, it should also pass for the Maintainer. But is this
+> true of AI tools? Are they reproducible?
 
-It has also been pointed out elsewhere, b4 is gaining more testing
-capabilities. We should keep building this out, making subsystem
-tooling more subsystem specific, while b4 can do all the standard
-stuff we expect all developers to do before submission.
+Even for the more stable tools there's issues with people running
+different versions of the tools, or for something like DT validation
+running with a different schema version.
 
-	Andrew
+--MMG9FvMgaEkvE3mi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmjmzysACgkQJNaLcl1U
+h9D+ywf7BXmsjBKAG6a3qzJdHPdiYByxqBRJl0M+f18ng/cDGfTmJQOBua8/ZO1S
+NaArbebPdr+YDCMBZsUbwhSxijsHoOlc7O4QLXpzwzXOEhacpBNqZe+vzYaKNlJG
+O1/d4pE/XoDc6Zg9KwO6ZUz/H0InCWkaEVr81xooyYOtknEEyd8vtLcX1vC4i5II
+0U4meHA4trQpzqX4YBwqz6XOI34VhsdoXbfhvFt+La3RkANzY3KQ/wdV+OfgjHBp
+ZbtySF/jE9SNPoQzNMxEIK3tP2sCTUWJ8Lf6zRdH6BrwuRO30LjTMIuHMnXUI7/E
+PBsI60+j4lYSyErS8Bjmer9DwjQj+Q==
+=FKw0
+-----END PGP SIGNATURE-----
+
+--MMG9FvMgaEkvE3mi--
