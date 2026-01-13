@@ -1,213 +1,222 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BF21AAE13
-	for <ksummit@lists.linux.dev>; Tue, 13 Jan 2026 18:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768330265; cv=fail; b=JQG5eUjhkGgu/i8bKjYoi9A0FYiFLNlnWBWQlSeCw+DelebhwGRZCX222Sw2tfHc4jb8qq88LDK9hpYo16sNVur2G1Rq7IvcFwOW1PUFsOd8qA9FVwe71ufCnaj/vQecZciZmqFRVMlxxE3wI862TfEyA/EniygsNfqxiKg6/9I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768330265; c=relaxed/simple;
-	bh=NqSQeWEHzPDkVBXVTQ3nPGzV4tj0piPTKbiTykbgdtM=;
-	h=From:Date:To:CC:Message-ID:In-Reply-To:References:Subject:
-	 Content-Type:MIME-Version; b=AKvEGD2GM191EoyKL3tPt94kXyTIttMJJapc6VNk8kYKykaqyv6UoGaaDBeAoG/F4eeNNO3yn9zmh0sxolGxuQnYsREjVWiavSeWhgGvKhcYe+gfhy/aNeU7NfDktlY+tLZJjWC8pvtytl7kGruHtg4WHoRpVnZf3ekPWuLs5Ec=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SH6fgEKz; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7312536AB51
+	for <ksummit@lists.linux.dev>; Tue, 13 Jan 2026 19:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1768332134; cv=none; b=kGPHtSpEvB18Is/qb//OQOWU3HXzTS0ZHRHc6ZimOCPig59AaRUeZ76m5p677WxZZZ5iTsWNpbYHBtpc/rBLQxToHV0kmbFVj76gR8MvtrAyNUCn5budHYn1ZcXm7S7M5QX6kDLA9R2Fe0MoVkyHNpmyg0gSzJEwMj4NDv95a78=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1768332134; c=relaxed/simple;
+	bh=fliP3u1AyBaQEW8zTrzwBptj8SvPrltHjbIqzwRwQo8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TIPWu0qK8X61QTbMB+Ggz73Os8TnKpuBuVu9RDtP94uWGnwH7m4X6S/yed+7OkslZYs7EN04NUnQKHGY8ToNp+EcQGaSSD0vbctA1XBdrlU7SxVRpkG7z52O4f6TcxuHu7n/RgKKTJn0H11qMqP/tIpbzt2mRVhAjf9i2kEt2GA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=Q9VH+1ob; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SH6fgEKz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1768330265; x=1799866265;
-  h=from:date:to:cc:message-id:in-reply-to:references:
-   subject:content-transfer-encoding:mime-version;
-  bh=NqSQeWEHzPDkVBXVTQ3nPGzV4tj0piPTKbiTykbgdtM=;
-  b=SH6fgEKzy1tIVxPUX4npzAb9HH21k+kq8gJJwK1FsyhkVX7uzVsFOuXm
-   5U95K3Bz0ER5keV04czPrPka/ekZH841HaRokvcbVreZnp6mXb0N/Arqc
-   bVvfwpcHewj/farofjAG+ygsv8842nmjzFtakq+i3KwWT6ht6Rh2qW2k2
-   +ip9T+jbG4PdOQfT6opF0gaPGgQlie8mQAsZSIwNE3Ghowf9Ncdh08jsw
-   XDPMkPxjH657a/0s/rDvK1vtx+lI1kXHBfK8CXMiIJYvW0iyWiDYrmFb2
-   KulOdFF/2YujOGh+oJbWudGpWrENZs/PXGVzzKAFIn72EZlb3jc9B38qT
-   Q==;
-X-CSE-ConnectionGUID: bPRDldxnS8qShkR8e+OqiA==
-X-CSE-MsgGUID: LIJN/MZ8S8W7/jP9epDU6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11670"; a="73257884"
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; 
-   d="scan'208";a="73257884"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jan 2026 10:50:49 -0800
-X-CSE-ConnectionGUID: n1vU3DfwTKqQZEeGcaLk/g==
-X-CSE-MsgGUID: 4wU4621AROyue5ZjW/nzdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; 
-   d="scan'208";a="208618559"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jan 2026 10:50:48 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 13 Jan 2026 10:50:48 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29 via Frontend Transport; Tue, 13 Jan 2026 10:50:48 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.67) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 13 Jan 2026 10:50:48 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Eq+fJuumF/XcgWaEZYkL4TQGOuZRjUc0s17C7eW9+/OiwlLi8AlC6bFY09pvGgyf810b/tuG2ceH5pwWoVfT+xAmvgcVZzkYqs9Z4ppf/jU6XyL76uz2ETcNM2rDq0y6K1rEPQr8s7kUP/pSbaOcKSLMRDdok/LIH7nRVZNePmt+xlDJb03/vSsblN0NKsbvIA0tDLynA1toDjpejtBp66t65l54jSIQuGhEefWxU6DwG+q5443Dcbge8Q1M+DHYCjq+Fw39QsGWnkWE8aKQm7vbbcYg68fHYsBzrhq4n9vEjwNdP0Dbb+U4t8V+82Kbx63VShQdkQZ2ktXQprkZTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NqSQeWEHzPDkVBXVTQ3nPGzV4tj0piPTKbiTykbgdtM=;
- b=uZ1Ca3nBj/12ggbNp4Gjt5FvSJxN14cdDBLXmWjiXFnsacYsjUjP7zTA1Fj1xs3EsprvQ0GTAeaRD1HUjoLG8uDD8sc5D7Rzlc+0+NvsR86Gq2V4amJTOw8M28wyd+hChFg1oS8p6cEdA04WFhoAlZ8wZtB2n3kxq+Z4Kmecwz4+7qwbaqrgsCrpkkeiaMYQ2EdBQdTos7zOZczFoYdAOdUFPHwSRbvbNs6nlE1iiIQZpGa2dbxT9U9w0eF9gZcUw7PzuH0zS1A/MOq9iLt0oPVfHYbPZkCxht8/3r+wq9ukv8nI5O1/9GmewUPIg/T8L07xJzFe3YtVggngftNlxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB8107.namprd11.prod.outlook.com (2603:10b6:510:256::6)
- by SJ1PR11MB6156.namprd11.prod.outlook.com (2603:10b6:a03:45d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Tue, 13 Jan
- 2026 18:50:45 +0000
-Received: from PH8PR11MB8107.namprd11.prod.outlook.com
- ([fe80::1ff:1e09:994b:21ff]) by PH8PR11MB8107.namprd11.prod.outlook.com
- ([fe80::1ff:1e09:994b:21ff%4]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
- 18:50:44 +0000
-From: <dan.j.williams@intel.com>
-Date: Tue, 13 Jan 2026 10:50:44 -0800
-To: Sasha Levin <sashal@kernel.org>, <dan.j.williams@intel.com>
-CC: Dan Carpenter <dan.carpenter@linaro.org>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <linux-kernel@vger.kernel.org>, Shuah Khan
-	<shuah@kernel.org>, Kees Cook <kees@kernel.org>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, "Luis
- Chamberlain" <mcgrof@kernel.org>, SeongJae Park <sj@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Paul E . McKenney" <paulmck@kernel.org>,
-	Simon Glass <simon.glass@canonical.com>, NeilBrown <neilb@ownmail.net>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Theodore Ts'o <tytso@mit.edu>,
-	Jonathan Corbet <corbet@lwn.net>, Vlastimil Babka <vbabka@suse.cz>,
-	<workflows@vger.kernel.org>, <ksummit@lists.linux.dev>
-Message-ID: <69669404e2bf_875d10028@dwillia2-mobl4.notmuch>
-In-Reply-To: <aWaSQsl8h2wnBjzj@laps>
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="Q9VH+1ob"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 0235E40C7C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1768332124; bh=hkrY2AHtEhWHIFzb7ipRx+NbI+67cl2riZoulH8Zh4M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=Q9VH+1obGDExVRj9iX1SeIQmx3kLPJoUaGi6wooBhiaT5f+Bm8hZ1JRcTYI5yvcHx
+	 E3kLjSKdKafoxlH1u1E0DO8CUMp4twjGYjR1XlEXCIn9uS5K2zNpNTya13/PYlCtXv
+	 /YKAid7tOhRDYY/PbzkiXYLJKykI9xtVKxQ7ISKWA3jHHbGEjBvhYuonVvtZF59q7N
+	 Kt8/zDDsZV+YK4mOrXh2BURoaKacs6v2HaSdyVL3hBsJ6vAbWwKXJ6+9ROHz1TFtXM
+	 cYL8uWrbtEduANjz0YV8K1WYy8TAkBoqp/vU10xiu3nKJEeLoCNcyKHdXhd0ZhWl+b
+	 PKqHe1mNfmiZA==
+Received: from localhost (unknown [IPv6:2601:280:4600:27b::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 0235E40C7C;
+	Tue, 13 Jan 2026 19:22:03 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, Shuah Khan
+ <shuah@kernel.org>, Kees Cook <kees@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, Luis
+ Chamberlain <mcgrof@kernel.org>, SeongJae Park <sj@kernel.org>, Dan
+ Williams <dan.j.williams@intel.com>, Steven Rostedt <rostedt@goodmis.org>,
+ "Paul E . McKenney" <paulmck@kernel.org>, Simon Glass
+ <simon.glass@canonical.com>, NeilBrown <neilb@ownmail.net>, Lorenzo
+ Stoakes <lorenzo.stoakes@oracle.com>, Theodore Ts'o <tytso@mit.edu>, Sasha
+ Levin <sashal@kernel.org>, Vlastimil Babka <vbabka@suse.cz>,
+ workflows@vger.kernel.org, ksummit@lists.linux.dev
+Subject: Re: [PATCH] [v5] Documentation: Provide guidelines for
+ tool-generated content
+In-Reply-To: <20260113000612.1133427-1-dave.hansen@linux.intel.com>
 References: <20260113000612.1133427-1-dave.hansen@linux.intel.com>
- <aWXYi35pu9IHf2eE@stanley.mountain>
- <69668cfc63bb1_875d1004@dwillia2-mobl4.notmuch>
- <aWaSQsl8h2wnBjzj@laps>
-Subject: Re: [PATCH] [v5] Documentation: Provide guidelines for tool-generated
- content
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0126.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::11) To PH8PR11MB8107.namprd11.prod.outlook.com
- (2603:10b6:510:256::6)
+Date: Tue, 13 Jan 2026 12:22:03 -0700
+Message-ID: <875x95xqqs.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB8107:EE_|SJ1PR11MB6156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3929d921-ee5a-4caf-6f90-08de52d4a888
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?c3g0eDVLWWJrMGZ3WXVHUjd2RFcrTzhsZnZTdk5odEd1bm5tZHQ5SzFLOU1Z?=
- =?utf-8?B?RXExRE1OMk5uQjU2WEcxV0orc29kNlU0c1I5c1Q4a29ObWNCaE02Tk1NK3RW?=
- =?utf-8?B?ODVYeGUxOXBKVnlxZFlRRW5obnVqU0UrTlRKb2xBdk4xalhGeTJiWGRVWTRp?=
- =?utf-8?B?VTJtL2JOUGhraVBRb2xacFkwOUNNMzg4KzBhM1EySFJvWWp1RVljbkFmaERX?=
- =?utf-8?B?dWZReU1mbk5ndVh6dlNDUEM5RlRHQnZjbE1lejQzQ25ERDVMNDZ1ZUY4TXVz?=
- =?utf-8?B?eXg0VU1UQ2RWbUV6VVJrdFJZT2JiRnZxb2JhU0h2WDgyRUNydk9XL2xBY2M0?=
- =?utf-8?B?ZVVCeXArY2hzaUdsYU01TDF2bEJ2OUlUWkR0eTZscVR5Tnc2QjhzVUV2bG50?=
- =?utf-8?B?MkNROHJlTm5YYjZTU1pFcmdyZUNDYkpIN1NPbTcxNXVrdis1aHYwTlNmQ3c3?=
- =?utf-8?B?TmlQSXhOZm9la2lnSTVwd3JMdU1vYm1sTjZPa0loam9JalY0eXhaZWx5MVdS?=
- =?utf-8?B?TDZNeEgxK2puZkg4ajd1UllZdDhCM25RRXNmM3B3djFHeWIxbU1wTlJhaTJI?=
- =?utf-8?B?enJXdjRoanA2dkhRZm45R2tiRi9QWmdGdnVEMSt2Q3FoTGV3bDlTWHJoUFVJ?=
- =?utf-8?B?WXJDZ3VOYnNqY3ZadmRncVdyTGE2NjMxV0Z4c25xaS84a3RrNlBiZXdqbnpN?=
- =?utf-8?B?NDhvZ2Zsc29Eelh1eHFJQWlNVjlZVU1vYjFmUVBTeklZenFPQXVDOUNrVEJU?=
- =?utf-8?B?eHJEUjk0Q01CR0wzd1RkWldHK1VsQ1lYV2I5RTlGU0dJYnNsRHhqUmFNaGlm?=
- =?utf-8?B?WEQyNVRwVW5NT1JxM3lGQ1ZhZjBZakRodTZGZ0tsWXh2T2lhbWJOV3MxaUFs?=
- =?utf-8?B?Njc5VjlGTXc0S0hkWFZUREt0SmtpUFkzKy9WUnJUbFhIMGNNbEVTS3ZMdzE2?=
- =?utf-8?B?d2RqYVNlSFJwM2c2WnV1WE1NT3VJZ3cxZ0Z3TFAvUkZ4V012WWtkWWE4aFhz?=
- =?utf-8?B?bTh4Q2l1ajVMbGdrSHAvRDAwRHlIMW5DU202WmMvVEU5SE55RU5Fd3B4alc1?=
- =?utf-8?B?Lzc1czd2N2YzL3U4dkJHMmxhSzMwdlUvN3F4T0Q2YWpEZ3cyZHdBZ3dlYlBy?=
- =?utf-8?B?LzUyd2VVaGZOLytvRlBmam5aYWd2M1Nmbld6QmRCa084OW1NeXI3SUtyNmpa?=
- =?utf-8?B?MFE5UVgzays0cHAyOU1sSmloVml1dkJmYkNFSHJtN2g4RDBkSDlITVRIUEJa?=
- =?utf-8?B?TjZtS3RjdzR4ekJQaFNQcFFMTlVHamdja1NOYVVrd1FUbkZRTXV6YWxTT2JE?=
- =?utf-8?B?KythTm1CUGxrY0VwMnBwSEFXRi9zSlhaeG5QU1BlYnRWRkk4bWd4eVdDTnAy?=
- =?utf-8?B?QVJzYXlRcmxQS3c3Q3U4MW82ZzkycXpUdVlDQXJKSGJyenBZVUczVm5aZXg3?=
- =?utf-8?B?ZGFXcklqZG56TVgrZkJhWkVSNG5INDd2Z0xFTUN6ZmxJbThWNFlCOEtIVHpK?=
- =?utf-8?B?QjFyMnlmeEhFaGxOMjlSSm41eWJiVndtRmdIVXNTOFFWOVZ0aHI1RTdlQjZF?=
- =?utf-8?B?ckwxenZxcWx4SzJLRTdLOVVUcDNVcVBkaUt2WHhYT3hKd2pFejQySDBsMHpC?=
- =?utf-8?B?Y2g4bVVnVUdmak1CVFB1NHJKMGIrSWdxaUhtVVVKZUl5c3NWTHVsc3hLSVFs?=
- =?utf-8?B?aXdPWURvVGQrNkxrOGNrRitkMC9wUkVnZTR2MVZEMHFQazhNekVqMXVrNDhv?=
- =?utf-8?B?b0dNc0lYb2lWbHlUQlFJZkE1OGVVQkJVT3VlanFIQnJUTHkrbFRObnhONVFM?=
- =?utf-8?B?OHNrZzhSVms4UGJXWE41MHh4RkYvUUpxM0wwSWJZQktVcHFVSDBJOFVGRHJ6?=
- =?utf-8?B?RFMyTk1SeldNTVRFTnB1RjVWcDVrSDhmeC85UTFhZUlpbWtSeGpoSSswNzA5?=
- =?utf-8?Q?G+dl+SdFL3m4YeeEhwBxurLP+jeDZfMi?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB8107.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1JMS3NsUVhadmZoWG1DamJKMXhOeUpGOW90akpTQi9qaFY4WTIzODlMU3FD?=
- =?utf-8?B?NHFER2U1THlJbGdibks0MDJEaDV3K2hjUHR0dmg2d2VLZzJNNW1zbUhIa3Ez?=
- =?utf-8?B?bHAyZ09DaHdMeU5aMjZzSlVVd21sQ1hLVWsrb3l1ZXpOTXlZSG5LR3ZnWnNI?=
- =?utf-8?B?bjdHd2JpY3ZBcW16cFZJWW0rYTZBWWkwYWFiMzA3cVZVNUh3WE02TXRlRWdx?=
- =?utf-8?B?aThNb1R2NU1vbC9mS0FoY0ZKVFRtRzFQZG5Tb3FhTzFFcmpGdHBQeDFkWFlo?=
- =?utf-8?B?WGNtZHhtcS9EYWcySlowSnBqamZkdS83UFo1WkNxS2lFQ2p3Z0tCMjBEQk1E?=
- =?utf-8?B?WkZKak9ydU42SklxeTZKRmdQdHl2NHZWQ0c1OEFlU3BVaVZ1MlNKYTVpTWp3?=
- =?utf-8?B?NkNMNi9TWW5XN2RhMkpJTGJQOHRoSSttRlk5clZqUG9mQTlrRUJxQkdiZU5N?=
- =?utf-8?B?Qm9ucnRQb2gzQzZqQmk4aEpBTkNha0gxNklJTmxZamdubXAvVEFjRkVpMzdS?=
- =?utf-8?B?OG1LU2lxSDBXaEJmeWtNVGNCdUpwZVg1bUVuMVlLeG9MTzNTM3FBN2l2bTFK?=
- =?utf-8?B?RFFRbTQyQkxibWdtM05HdWFJRXUwbEoxUUQ4blF0Z3dhYTVJQjlSRCs1NHRN?=
- =?utf-8?B?SFpnbUpxbWZnMVBkUm9JN2RQYkdJWUdUNlh2VkxMNGFsaktMS2V4bkFRZlhn?=
- =?utf-8?B?Sm9vcSt6UTI0K0FKMkljZGRyQmVDT0c3U2x6Q1I5VVBsbVI3ZG9kRXVsMW9J?=
- =?utf-8?B?OFlqb09jV0prY3JsN0lkYU93V1czUHRrdW5UVFJUVmQvQlIybGNzSDJBalYx?=
- =?utf-8?B?TE5ta0VuZ0NHbU1LUFB4L240bk1Rb2ZSaENoLzRFaXg0ZWVJd3J1MGw0b2Q5?=
- =?utf-8?B?RHVHR1dHWHF4M2R4VGlVcFU4UCtvemlzMnNNaWU4MkttKzBoZDJiNk5kNHFz?=
- =?utf-8?B?eWVWVkgwSWlSQU1TZm11U0xQUDdlYjFTYVhMOGpQb1A1cVBUSkJteWEvcTAz?=
- =?utf-8?B?MGs2Y3VXbDZvRU1LOWd5UTUxV1JMejMvMUEzcEtWYlpWeWNNbk1Ca3RvandU?=
- =?utf-8?B?dGgyT0t3d3I3TmVta01qZWkwOGRBb2dmRXp3N2ZkNlZwNFJiSUtaNkZVQjBt?=
- =?utf-8?B?c2RjZTI2eXpBK1IvbDljSmFiYXg5ZEVKT0Z1QmtNeVBzN1lFeFhFbVpadTVR?=
- =?utf-8?B?eWMyMDZDNHk2b0tRcitSdWlNa082T1cvSWpIdVNiN1pNQXM2QkRlZWJmVFQx?=
- =?utf-8?B?cDFOWlYwZkhLcUZINTh1V0tFajNrUGpLbmNYZFgxZlI3ZjlqM05IeXo3b1py?=
- =?utf-8?B?Nm1jQXFrYWNyc2ZpVllkWDlkZlBxcGZYcXV1MzBnK0JtN2NyNnpwZjBYYUNN?=
- =?utf-8?B?U0hPWEhZeGJFckhhQzVwaFBXRU9aNVI3UXBHZHFaNHhMd001MCtLenEyZkJX?=
- =?utf-8?B?dkN2SVlNZGtqMlVDM0twZ0ZqYXF6alR0Rkw0OTh4TGNJbkMvR0xlTkZsU01H?=
- =?utf-8?B?UkZFamtrQng4b1BTc2ZNSm11TnVENUhLUjRUNUtYcVZQSDkvRFpXVy9WeC9i?=
- =?utf-8?B?RXF0SUtYMFF4S1FFcnpvTHpRZmNGNUVCT2tnbmVBblBva0lLdEtwSmh4K25q?=
- =?utf-8?B?Tkk5MEg3WENwblAwTElmNHZhbFNVZjRDQ1p6VEF6TEEzNytRMXQzU1lOU3FH?=
- =?utf-8?B?dW9KekcxeFc5VlNBaUlEQStyd080SWJIc0lLQ01FVWVGSXJ5YmNjOEVLNk9G?=
- =?utf-8?B?M3hWYmVHM2lxTTRtU3ZaUHVTZVE3OXFNVVBvclVDaUZCdkdKaUZyZ044UGph?=
- =?utf-8?B?MDU5eFhPdk15TGNHU1lqcWcvNEZDLzU3VnVuVHpzNXhSTE5WNUlxTE1FcG51?=
- =?utf-8?B?UjZSZkExUW9ZMm1VeEFCMFV6amNvcUxBY1RGOEg1Qm12RmpTZkRqTEI0bnEw?=
- =?utf-8?B?aG16RXNuTUVlVm1BaVBjTDlwZ3VYWEgycC9aajM2S042LzcxQVprYSs0UTdp?=
- =?utf-8?B?MGFWTlE5RUNEeDZQMWlvMUhNZGwydDljdlpjUVFVQUNRMGV6b3E3ZXREeVhO?=
- =?utf-8?B?ZnhsZ0g0cERsenlEOWgxaFplbTQwWEVJczNaYWc4aE5uSCtzOFphR0d1ZHRI?=
- =?utf-8?B?R2xibEZBVlpOMEJ3Y3pjeFF6L0lveHlUNlQ2cnpsdk5xTEo1eVhHVTdockkw?=
- =?utf-8?B?V1pkRHdWYmFNbVBQcmhhMUpkSHhTMi9ycnF2bmtTbkUrRmhLa2dZcitaaVYx?=
- =?utf-8?B?MjR5WERwNGo1NzBVVGMxSFZHM2xTNHFTbHErZ2lLaDYwYng5QVJPRWUwQWpk?=
- =?utf-8?B?T3lNOUE1OU5YT0lENng5Vnk3U1cvN0dVM3hXUy9ZQUgzTTFKL3RHRVg0ZE4r?=
- =?utf-8?Q?khfUOFAlmmv7L0hs=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3929d921-ee5a-4caf-6f90-08de52d4a888
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8107.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 18:50:44.8643
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gOIGYFuZAjxfXY9SrYiue8yWPT9JclA8yJ9V2C8bxIhddo2IDMe6h15C3RZUjzHpU4dO8hHEdG8zLvi4sKACkmmcyFh152EtGee2SwYHKIM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6156
-X-OriginatorOrg: intel.com
+Content-Type: text/plain
 
-Sasha Levin wrote:
-[..]
-> With a rule like the above, 1700+ contributors would have not been able to send
-> their patch in.
+Dave Hansen <dave.hansen@linux.intel.com> writes:
 
-Good point, I am not suggesting a Reviewed-by hurdle, but can see it
-reading that way. I expect that there will always be a significant class
-of contributions that will never need author trust to be accepted. Yes,
-would need to be careful not to destroy that wellspring of new
-contributors.
+> In the last few years, the capabilities of coding tools have exploded.
+> As those capabilities have expanded, contributors and maintainers have
+> more and more questions about how and when to apply those
+> capabilities.
+>
+> Add new Documentation to guide contributors on how to best use kernel
+> development tools, new and old.
+
+So, in substance, this seems fine to me.
+
+Naturally I have some nits I'll point out below.  But if you're tired of
+this I'm happy to apply this version as well, let me know.
+
+For the record, going forward, I'm likely to treat proposed changes to
+this file the way I do coding-style.rst - I'll be highly reluctant to
+apply them without a strong sense of community consensus behind them.
+
+[...]
+
+> diff --git a/Documentation/process/generated-content.rst b/Documentation/process/generated-content.rst
+> new file mode 100644
+> index 000000000000..867bf8894289
+> --- /dev/null
+> +++ b/Documentation/process/generated-content.rst
+> @@ -0,0 +1,108 @@
+> +============================================
+> +Kernel Guidelines for Tool-Generated Content
+> +============================================
+> +
+> +Purpose
+> +=======
+> +
+> +Kernel contributors have been using tooling to generate contributions
+> +for a long time. These tools can increase the volume of contributions.
+> +At the same time, reviewer and maintainer bandwidth is a scarce
+> +resource. Understanding which portions of a contribution come from
+> +humans versus tools is helpful to maintain those resources and keep
+> +kernel development healthy.
+> +
+> +The goal here is to clarify community expectations around tools. This
+> +lets everyone become more productive while also maintaining high
+> +degrees of trust between submitters and reviewers.
+> +
+> +Out of Scope
+> +============
+> +
+> +These guidelines do not apply to tools that make trivial tweaks to
+> +preexisting content. Nor do they pertain to AI tooling that helps with
+
+It seems you have gone out of your way to avoid using "AI" and refer to
+"tooling" in general, so it's a bit strange to see that term here,
+especially at the head of a list of mostly non-AI tasks.
+
+> +menial tasks. Some examples:
+> +
+> + - Spelling and grammar fix ups, like rephrasing to imperative voice
+> + - Typing aids like identifier completion, common boilerplate or
+> +   trivial pattern completion
+> + - Purely mechanical transformations like variable renaming
+> + - Reformatting, like running Lindent, ``clang-format`` or
+> +   ``rust-fmt``
+> +
+> +Even if your tool use is out of scope, you should still always consider
+> +if it would help reviewing your contribution if the reviewer knows
+
+s/if/whether/
+
+> +about the tool that you used.
+> +
+> +In Scope
+> +========
+> +
+> +These guidelines apply when a meaningful amount of content in a kernel
+> +contribution was not written by a person in the Signed-off-by chain,
+> +but was instead created by a tool.
+> +
+> +Detection of a problem and testing the fix for it is also part of the
+> +development process; if a tool was used to find a problem addressed by
+> +a change, that should be noted in the changelog. This not only gives
+> +credit where it is due, it also helps fellow developers find out about
+> +these tools.
+> +
+> +Some examples:
+> + - Any tool-suggested fix such as ``checkpatch.pl --fix``
+> + - Coccinelle scripts
+> + - A chatbot generated a new function in your patch to sort list entries.
+> + - A .c file in the patch was originally generated by a coding
+> +   assistant but cleaned up by hand.
+> + - The changelog was generated by handing the patch to a generative AI
+> +   tool and asking it to write the changelog.
+> + - The changelog was translated from another language.
+> +
+> +If in doubt, choose transparency and assume these guidelines apply to
+> +your contribution.
+> +
+> +Guidelines
+> +==========
+> +
+> +First, read the Developer's Certificate of Origin:
+> +Documentation/process/submitting-patches.rst. Its rules are simple
+> +and have been in place for a long time. They have covered many
+> +tool-generated contributions. Ensure that you understand your entire
+> +submission and are prepared to respond to review comments.
+> +
+> +Second, when making a contribution, be transparent about the origin of
+> +content in cover letters and changelogs. You can be more transparent
+> +by adding information like this:
+> +
+> + - What tools were used?
+> + - The input to the tools you used, like the Coccinelle source script.
+> + - If code was largely generated from a single or short set of
+> +   prompts, include those prompts. For longer sessions, include a
+> +   summary of the prompts and the nature of resulting assistance.
+> + - Which portions of the content were affected by that tool?
+> + - How is the submission tested and what tools were used to test the
+> +   fix?
+> +
+> +As with all contributions, individual maintainers have discretion to
+> +choose how they handle the contribution. For example, they might:
+> +
+> + - Treat it just like any other contribution.
+> + - Reject it outright.
+> + - Treat the contribution specially like reviewing with extra scrutiny,
+
+s/ like/, for example,/
+
+> +   or at a lower priority than human-generated content.
+> + - Suggest a better prompt instead of suggesting specific code changes.
+> + - Ask for some other special steps, like asking the contributor to
+> +   elaborate on how the tool or model was trained.
+> + - Ask the submitter to explain in more detail about the contribution
+> +   so that the maintainer can be assured that the submitter fully
+> +   understands how the code works.
+> +
+> +If tools permit you to generate a contribution automatically, expect
+> +additional scrutiny in proportion to how much of it was generated.
+> +
+> +As with the output of any tooling, the result may be incorrect or
+> +inappropriate. You are expected to understand and to be able to defend
+> +everything you submit. If you are unable to do so, then do not submit
+> +the resulting changes.
+> +
+> +If you do so anyway, maintainers are entitled to reject your series
+> +without detailed review.
+> diff --git a/Documentation/process/index.rst b/Documentation/process/index.rst
+> index aa12f2660194..e1a8a31389f5 100644
+> --- a/Documentation/process/index.rst
+> +++ b/Documentation/process/index.rst
+> @@ -68,6 +68,7 @@ beyond).
+>     stable-kernel-rules
+>     management-style
+>     researcher-guidelines
+> +   generated-content
+
+At some point, $SOMEBODY should probably add a brief reference to
+submitting-patches.rst as well.
+
+Thanks,
+
+jon
