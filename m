@@ -1,100 +1,74 @@
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com [209.85.208.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAD219C542
-	for <ksummit@lists.linux.dev>; Sat, 24 Jan 2026 22:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ECC3EBF09;
+	Sat, 24 Jan 2026 22:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1769294607; cv=none; b=lmtPeHAOGa6P/ic5+1GyYJ8xauKoC0lwb3zj4hlAU/dhFHr/kReZBKnBqP/KwIUd3okZGCdocg14Y47wIbeyKyOh3Pa3+bTbcar87d6F3gNbjYuuNyBHpGMBLUdO+tOWnCMos1yw6mDQF7XFwT+c2mHdEdjLNo6EBB2U3KJGpcU=
+	t=1769294836; cv=none; b=Z86vQEXbjyufxPVpUDk3fKV08wpsNGfuddcW3lzlbrGl5/93C04jNkBLR8/jGZ7GwrE5Gcj43vXykNbHSBRSvhJjYwdXzj+j1vhUvBC3fFtQgEXOOlv+QZ8JiF2c2DH/5NZCxmTdFgTVLJcTdFBDGePAyV/lU8wSbnSD9MbiW0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1769294607; c=relaxed/simple;
-	bh=bFs74ldgEs545C9dYyMjWQKSP4myYMqAPs821jlWLR0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fbCO6ixL957JbNphzoKUlXVq99gGTSCduBNZ2OJXr9PTk2fWytdtn/UzLjd8zIC0twxxq/J5HAW27XG+eHolwS2Shlg5bAJDqAheoFeIMXdtbcB2BlpUAIP50f+gL4GYINoqHRGCUbZI4Ug/aAlAPcEc9Rms1TPxs2C3Sv6S7y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Yw3t0tv6; arc=none smtp.client-ip=209.85.208.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1769294836; c=relaxed/simple;
+	bh=v5i945rsxdRPOnac8FtdEXRvSwdZDDATSrtGFsd16hU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=HmivAC1dIjeFzpamOw3SV2lsRVP+hlbngLgN3NVNaf6gaeL2omdQHYNas9IrUbK9DejHyXtMfbxNwE3jvidbkbQDB5kh/zGKuOGZX7LAKegPrnKbT77yG8oXc9FqHQ2ujLsNrorNmINDmpAjPPSYHdn8mCreFN67hvzApAH9uHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nKKRsZ4q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Yw3t0tv6"
-Received: by mail-ed1-f68.google.com with SMTP id 4fb4d7f45d1cf-6581af9c94aso6941309a12.1
-        for <ksummit@lists.linux.dev>; Sat, 24 Jan 2026 14:43:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1769294603; x=1769899403; darn=lists.linux.dev;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2asHAGon+VNideICZe8pfEIOiUzoTaBEh/1oj8i9XDU=;
-        b=Yw3t0tv64FUSNXt5QeZ848rdl4EOMOLaTdKVe7w1VEt1tpXQ8VWa8SKfXg4xUO/y+j
-         m3SAfl5idQo6CtGCNNvOjQ8isabIAGTAkid15GXyLPdtKlcYsEhA11HnsVP6HP/iaPpw
-         L6jB2aGTdPiT0eAQLdzbDsV1KegybCjMkszac=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769294603; x=1769899403;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2asHAGon+VNideICZe8pfEIOiUzoTaBEh/1oj8i9XDU=;
-        b=OoCKPKhxl/7yibE5EMGH9MrVuo7RYyKQwmnE88pSM1aXwHVTazai9D/1D/p5JXTPHx
-         XEC1Q4CBKBrQ1wCFmtIxhEGMVRs4bS9iAxcpo4zOfsOQdhoMOYTTOEnvfYx7qzqimHuU
-         yVwe4V+Y2gTvl42B8ggZ9ppXIeKUH/voWmFCVVOq5Dq4UJp3r0qtQwpLgKnfLekmI4la
-         RYqWWThaJyMZRlrYtctSWs/31zt8vGnHIpKPiZRDCB++5+fmWlZOLpJJdmpDAYFAg88b
-         Tdb3J8AqFWjtSSDY1mgtLp3kPcK7c/Vmaa+nVdNVgzL4kUAp1S6vtEIEmSMGPQP9T2g+
-         No5g==
-X-Forwarded-Encrypted: i=1; AJvYcCU8rPXKrbO0ESS5OOKtmT13C8SbIHvu30GFFFEOeUpKKhhYrxXEuaJuqiwMGwHmokYWVw0Ixj+z@lists.linux.dev
-X-Gm-Message-State: AOJu0Yynb8ShpvG7J0+MR7Nq2YZca1SactjE0dBysYQ3NOZRMHqFjSmO
-	Ik8k6ABztU8eilqHvsLdPCCzMYo2RROhQJBSTrUtHj0qZmdGjbqEJzENdaOIpeTd8OU5ZYoHiSm
-	Kc6oGB+megw==
-X-Gm-Gg: AZuq6aLbWuAvr1QMJIhfuiB1vujSpxKf7ZJKbHeBWX2RFmWtucjyn2zCjEtKWSJAv2e
-	gd02tQA9+LdJpeO95cROtj8/5TBUur3ZUtCiDX30yfRwhHJGbizkEvV+cY5vOv15hpiraJNI38B
-	bhcYyZoSpSbbVGtRjipC9+kXeWr+aaddvwnMaty1mK1JVBk4oUFCVjwUwMfGK3BBc4Q+U2WpvFu
-	MgyBDKpCFZ/PMha1MCV9pNvZQGR5EJJGr0EPVvgFCPrzNJcjPj459AqzHbTK/apkjBq9XdSHHuB
-	iuoWtZKcwrwqdDejcDmMgXX6wuOfvBbcWlya0mhVe8y8f9QtaFZH9y0Cucbj0kZLgxwnoiK2vpT
-	FoWDeCvy1XqR5x3i5ZSIqmtglATer0w7bcJZ+UJlYZEiaGB/5Pm8w6U5WenVHhmHT4DlK1MPkvP
-	/LuNDXWEwxKa9mt05Cw/JK4UX4Y2pKMRJumvKYbzQNWTUcoJ6XoupGK8seaVlf
-X-Received: by 2002:a17:907:7248:b0:b87:bb45:bd59 with SMTP id a640c23a62f3a-b8d2e823c49mr2401766b.45.1769294603159;
-        Sat, 24 Jan 2026 14:43:23 -0800 (PST)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com. [209.85.208.42])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b885b419642sm344464866b.28.2026.01.24.14.43.22
-        for <ksummit@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Jan 2026 14:43:22 -0800 (PST)
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-64b92abe63aso7027523a12.0
-        for <ksummit@lists.linux.dev>; Sat, 24 Jan 2026 14:43:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWnCAWHQc/7Fwrahg2u10UkYdycgjgtizbN4PfSZFVlGX/uWORu40dpXtUWBAsgg3NoS9KMSZj+@lists.linux.dev
-X-Received: by 2002:a17:907:7fa7:b0:b7f:e703:fd77 with SMTP id
- a640c23a62f3a-b8d0a73aea6mr3091666b.11.1769294601833; Sat, 24 Jan 2026
- 14:43:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nKKRsZ4q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C342C116D0;
+	Sat, 24 Jan 2026 22:47:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1769294836;
+	bh=v5i945rsxdRPOnac8FtdEXRvSwdZDDATSrtGFsd16hU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=nKKRsZ4qCMt3leBEPR70Ew2rT9q/ZCKBlyRIPmUYTWec3mrIqmqQxCc44lKy6uv8N
+	 eOFH8L9pBDVg23N0+vWTb08E46om49xhX7sD/UdvvGIJBJvnuNN8+TZVEaJXY1rdrc
+	 mWbHchyR4GUZNPsv45r2Zc4fywor1sCX9NtRIU9Dw572OqNLGf3NCQs6o7nlRswjDm
+	 lumn+QRR3mGCx5OfbUMDOAYSpNEc8zx79neZRujY/e64+YE38EgxHsUHxfGp/Mti4L
+	 RjScLudC4/gMBUX5ZVshydNrZiyBlDE5/nu1RpBZjJcRgVRtlEmdkJ9D625l048Gwk
+	 Xl0RTlL9F63lw==
+Date: Sat, 24 Jan 2026 23:47:13 +0100 (CET)
+From: Jiri Kosina <jikos@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+cc: Dan Williams <dan.j.williams@intel.com>, corbet@lwn.net, 
+    ksummit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+    tech-board-discuss@lists.linux.dev, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Miguel Ojeda <ojeda@kernel.org>, Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH] Documentation: Project continuity
+In-Reply-To: <CAHk-=whUg3js1GV4f0dmC+nvJbiNfsM7QZv7k8Q6AoFUfeH-KQ@mail.gmail.com>
+Message-ID: <o552411n-nn6s-q3rp-nrp8-2669so1s868s@xreary.bet>
+References: <20260124012256.1856709-1-dan.j.williams@intel.com> <CAHk-=whUg3js1GV4f0dmC+nvJbiNfsM7QZv7k8Q6AoFUfeH-KQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260124012256.1856709-1-dan.j.williams@intel.com>
-In-Reply-To: <20260124012256.1856709-1-dan.j.williams@intel.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 24 Jan 2026 14:43:05 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whUg3js1GV4f0dmC+nvJbiNfsM7QZv7k8Q6AoFUfeH-KQ@mail.gmail.com>
-X-Gm-Features: AZwV_Qg6PDHeQgXMVxUcoyhou_bAcrr-GB6hjHU90Bv4hQ_FUyctMpKtga7aN2o
-Message-ID: <CAHk-=whUg3js1GV4f0dmC+nvJbiNfsM7QZv7k8Q6AoFUfeH-KQ@mail.gmail.com>
-Subject: Re: [PATCH] Documentation: Project continuity
-To: Dan Williams <dan.j.williams@intel.com>
-Cc: corbet@lwn.net, ksummit@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	tech-board-discuss@lists.linux.dev, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Kees Cook <kees@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 23 Jan 2026 at 17:21, Dan Williams <dan.j.williams@intel.com> wrote:
->
-> Document project continuity procedures.
+On Sat, 24 Jan 2026, Linus Torvalds wrote:
 
-I think I'll just commit this as-is, and directly.
+> > Document project continuity procedures.
+> 
+> I think I'll just commit this as-is, and directly.
+> 
+> Sure, it could just go through the doc tree, and that would be
+> "standard procedure", but when it comes to something like this, I
+> think it looks better to just have me commit it myself than have me
+> pull it from some other source.
+> 
+> Any future updates from further discussion can then go through the doc
+> tree as normal...
 
-Sure, it could just go through the doc tree, and that would be
-"standard procedure", but when it comes to something like this, I
-think it looks better to just have me commit it myself than have me
-pull it from some other source.
+FWIW
 
-Any future updates from further discussion can then go through the doc
-tree as normal...
+	Reviewed-by: Jiri Kosina <jkosina@suse.com>
 
-            Linus
+(or Supported-by:, or whatnot).
+
+Thanks,
+
+-- 
+Jiri Kosina
+SUSE Labs
+
