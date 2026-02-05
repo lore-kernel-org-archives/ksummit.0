@@ -1,145 +1,213 @@
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7723739A819
-	for <ksummit@lists.linux.dev>; Thu,  5 Feb 2026 10:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9776C30595B
+	for <ksummit@lists.linux.dev>; Thu,  5 Feb 2026 18:07:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770286451; cv=none; b=pS7sSWuGsvW72LL5JWJClSXcHBYwhYt87m87lmAzGRlNLMegwydJCdw3tXSEr1t1HQMRwhEKcAUB5cRFOQ1A4npO/Bt1gpCCDg/DQ8lkcDKI5GfQRxEabRN8kk7SjYsz6aB4ZFYbsTfkjowi2SMCCj9mdITiqKqoE89p6W5jypg=
+	t=1770314853; cv=none; b=H1WLvrRL/m61YSju59Mcesf2v9uEcnZy4vpFSyoilJwXLruuG+tKCeD7YbvIsExd6JgnTWz9L7Ri4vOL0irjv22wkX/Ut9oSvy3dNvqGQDyFyeq6J53UFrBzkcIT1qHe37nSCY87x5jp2CJQ7+GI98qKjpk8vxFhH4kR3CYv6lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770286451; c=relaxed/simple;
-	bh=tXbU51XlubVwmg6faYAmpd3Qr2U36fBfBc2opX0LIII=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sclvpaEiPenTx9km0lpQDevD+nX1pzri8Uuj7nHx3EXrH7y3yzTeq/Phe+fV6EFx6R9P4RHIQoE1/tYYNqSRird+mYOVHB+9OoAj7OFCL9ogSDjjV4EylsPxrgVIVg7Wb1xAYGzAKgSiMouZh6ZPWYRZPDTiPKimSPVeaTFm5lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=PhB1ExYs; arc=none smtp.client-ip=198.37.111.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	s=arc-20240116; t=1770314853; c=relaxed/simple;
+	bh=xQg3Bxv8duiCCJvDMUdTrANfjTrKNfDqNv64Vo83tnw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tmj3vs2TBNRn7slIvLp0tFxggkqWhj/hYufSIW9M+7gT0YuHT667uj4eWuZS+nnPJwsdyMcnAJiMuVNJWu9c+uTvWR2PS9y4550+eZXRM3cGYzNGyZgZexygNJkxSxg0+Zl/j0dHxe1pilwRqMdleJQZH2fkYIIaZy6ZXyVX6Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrDcVqjc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="PhB1ExYs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1770286450;
-	bh=tXbU51XlubVwmg6faYAmpd3Qr2U36fBfBc2opX0LIII=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=PhB1ExYs6PPi4sdErByzobD3VHQzA1QBsPvBu5Db/iL3nzTdKbHGzJn5wr+wAwyfg
-	 KWYD1ZKn54L2FrxdukWctc/TeWdeQVnw/J7o8Ks4f06BHve67WhTTQxnKh8sR8D+dl
-	 oTCqm94SweFk5z6wmg9wbO26t11C5vELZAdFgymY=
-Received: from [10.10.7.5] (unknown [51.52.16.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 93A771C0294;
-	Thu, 05 Feb 2026 05:14:09 -0500 (EST)
-Message-ID: <7289c75f84bf43ad939b1899d2b251977c30359e.camel@HansenPartnership.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrDcVqjc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A77C2C4CEF7;
+	Thu,  5 Feb 2026 18:07:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770314853;
+	bh=xQg3Bxv8duiCCJvDMUdTrANfjTrKNfDqNv64Vo83tnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OrDcVqjcodcm+4nKMsxDAIwIJNZiVu5KEeGieXQAFxCR9mV65+APdNSCYCwbAHmgI
+	 ZSo+uAR4wwtTcRr+pn7XuV12jFRlhjfclO7kS+FIGlyFJHv4JtV3wDrZOZtFntbsgq
+	 GW0qMHgkbm+S1Z64/7QNB85vu4ZYrgw4R1lF5VBEhtxPC+BDWgb98V44XiKFM2zxU/
+	 v/WSlk29QU8rIgfr5Pf60CvQRMJqqnpkTDbrPNaQeJjNzFOn02J6lDGqBVTVnf/72M
+	 mbjO+zB781xi6E6tP0BgOUXcDDHPMdspaP94c5kkBTByThsKpKCPZrzIiFMlf5CS89
+	 MRKMkP5nIIPxA==
+Date: Thu, 5 Feb 2026 19:07:30 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Konstantin Ryabitsev <mricon@kernel.org>, Greg KH <gregkh@linuxfoundation.org>, users@kernel.org, 
+	ksummit@lists.linux.dev, "Neal H. Walfield" <neal@walfield.org>
 Subject: Re: Web of Trust work [Was: kernel.org tooling update]
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>, Linus
- Torvalds <torvalds@linux-foundation.org>
-Cc: Konstantin Ryabitsev <mricon@kernel.org>, Greg KH
- <gregkh@linuxfoundation.org>, users@kernel.org, ksummit@lists.linux.dev,
- "Neal H. Walfield" <neal@walfield.org>
-Date: Thu, 05 Feb 2026 10:14:06 +0000
-In-Reply-To: <2nvtfc5plg2i77hbv7jpco7q5kyym53dwume67vd3c6yvcmsyc@uaybcsxhnqjw>
-References: 
-	<806a695eff99bd2eba935d0d5ada29cc29b31818.camel@HansenPartnership.com>
-	 <2026012340-wildlife-scratch-1efd@gregkh>
-	 <8fde8057e2bacb1bd3bd2c15134a6f69ef037699.camel@HansenPartnership.com>
-	 <20260123-provocative-tungsten-curassow-cc2aac@lemur>
-	 <c4aa6604-e076-4f04-85a6-d0267a3fb8e8@kernel.org>
-	 <20260126-sophisticated-beluga-of-hurricane-00e16b@lemur>
-	 <x5nnix4t2w74flef4xnivzw43gx7wdk7v3cirawq52qfd6qdty@he74b5uk26zc>
-	 <2ef60fa3afe287cec92020b8b77a37c0b70cefaa.camel@HansenPartnership.com>
-	 <4ilnblmm3srkyzq7o5ehlr2gnlrrnmr67dpoqxiy5vbrrqlqd5@my3rxybcpu5t>
-	 <CAHk-=whoJY_pORG8M_K5kSA-x0+MwRa5wHwkHY4sbYbPFegc_g@mail.gmail.com>
-	 <2nvtfc5plg2i77hbv7jpco7q5kyym53dwume67vd3c6yvcmsyc@uaybcsxhnqjw>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- prefer-encrypt=mutual;
- keydata=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
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ErX81akyDw4C7KEPR0zL"
-User-Agent: Evolution 3.50.3 
+Message-ID: <2biipobzkforfbvidexqhz5zoqduyl4wkqx6sg4ubrhqdatrgp@dx3gxqgiy5bx>
+References: <8fde8057e2bacb1bd3bd2c15134a6f69ef037699.camel@HansenPartnership.com>
+ <20260123-provocative-tungsten-curassow-cc2aac@lemur>
+ <c4aa6604-e076-4f04-85a6-d0267a3fb8e8@kernel.org>
+ <20260126-sophisticated-beluga-of-hurricane-00e16b@lemur>
+ <x5nnix4t2w74flef4xnivzw43gx7wdk7v3cirawq52qfd6qdty@he74b5uk26zc>
+ <2ef60fa3afe287cec92020b8b77a37c0b70cefaa.camel@HansenPartnership.com>
+ <4ilnblmm3srkyzq7o5ehlr2gnlrrnmr67dpoqxiy5vbrrqlqd5@my3rxybcpu5t>
+ <CAHk-=whoJY_pORG8M_K5kSA-x0+MwRa5wHwkHY4sbYbPFegc_g@mail.gmail.com>
+ <2nvtfc5plg2i77hbv7jpco7q5kyym53dwume67vd3c6yvcmsyc@uaybcsxhnqjw>
+ <7289c75f84bf43ad939b1899d2b251977c30359e.camel@HansenPartnership.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sph7egmvzphst7id"
+Content-Disposition: inline
+In-Reply-To: <7289c75f84bf43ad939b1899d2b251977c30359e.camel@HansenPartnership.com>
 
 
---=-ErX81akyDw4C7KEPR0zL
-Content-Type: text/plain; charset="UTF-8"
+--sph7egmvzphst7id
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: Web of Trust work [Was: kernel.org tooling update]
+MIME-Version: 1.0
 
-On Wed, 2026-02-04 at 11:49 +0100, Uwe Kleine-K=C3=B6nig wrote:
-> On Tue, Jan 27, 2026 at 01:08:12PM -0800, Linus Torvalds wrote
-[...]
-> > I have never ever seen any good reason for automatic expiration,
-> > and it causes actual real problems because *NOBODY* ever renews
-> > those expiration in time and makes sure that they actually
-> > percolate out.
+Hello James,
+
+On Thu, Feb 05, 2026 at 10:14:06AM +0000, James Bottomley wrote:
+> On Wed, 2026-02-04 at 11:49 +0100, Uwe Kleine-K=F6nig wrote:
+> > On Tue, Jan 27, 2026 at 01:08:12PM -0800, Linus Torvalds wrote
+> > > I have never ever seen any good reason for automatic expiration,
+> > > and it causes actual real problems because *NOBODY* ever renews
+> > > those expiration in time and makes sure that they actually
+> > > percolate out.
+> >=20
+> > A good reason is that it forces the users of your certificate to
+> > participate in the percolation of your cert. This is relevant to make
+> > updates to the key (new or revoked UIDs and subkeys) known. For that
+> > an expiry time of 2 years is even quite long.
 >=20
-> A good reason is that it forces the users of your certificate to
-> participate in the percolation of your cert. This is relevant to make
-> updates to the key (new or revoked UIDs and subkeys) known. For that
-> an expiry time of 2 years is even quite long.
+> That's not a good reason: we already have a set of key distribution
+> mechanisms now and have no need of additional percolation ...
+> particularly as our key uses are mostly limited to tag signing for one
+> person.
 
-That's not a good reason: we already have a set of key distribution
-mechanisms now and have no need of additional percolation ...
-particularly as our key uses are mostly limited to tag signing for one
-person.
+OK, if you're just using your key for signing tags and you don't care
+about the reasons I gave in my previous mail, I probably cannot convince
+you.
 
-[...]
+But let me note that it's not you who maintains the kernel.org
+infrastructure and thus you don't have a strong interest to disable
+accounts of people who are MIA. It is also not me, but if I were in
+Konstantin's position I'd push for a policy to only accept keys with an
+expiry date just that everyone has that dead man's switch that is easy
+to push for them and easy to check for me.
+
+> > > So no. No expiration dates. They are stupid and do not work in
+> > > practice. End of story.
+> >=20
+> > This is a poor argument. Such a failure doesn't necessarily mean that
+> > the concept of expiry dates is wrong.
 >=20
-> > So no. No expiration dates. They are stupid and do not work in
-> > practice. End of story.
+> OK, so come up with a good argument how short expiry would work for the
+> way kernel developers use keys.
+
+You're changing the topic here. My point is that Linus's reasoning is
+wrong and expiration dates have a justification. For that a smooth
+workflow is somewhat orthogonal. Anyhow:
+
+If you consider the reasons I gave in my previous mail as relevant for
+you, the only burden is that you create a calendar reminder, and when it
+triggers run:
+
+	gpg --quick-set-expire $yourkeyid 2y
+
+and then publish the result e.g. using
+
+	gpg --keyserver hkps://keys.openpgp.org/ --send-key $yourkeyid
+
+or whatever is needed to get your certificate into WKD or DNS or
+the kernel keyring once every two years. Nothing more is needed and it
+even works when you missed the expiry date.
+
+And with https://gitlab.com/sequoia-pgp/sequoia-sq/-/issues/622 fixed
+(for GnuPG) you don't even need the calendar reminder.
+
+> You're the one asking for us to adopt a currently non-standard
+> practice, so the burden is on you to argue for it. (and the
+> percolation argument above isn't good enough because it's irrelevant
+> to our workflow).
+
+In my bubble using no expiry date on key material is non-standard. (See
+also TLS certificates and DANE signatures. Also more real-life stuff
+like government issued ID cards and credit cards have a validity.)
+
+Looking at your cert (which btw I was unable to retrieve from
+keys.opengpg.org and WKD which I consider the two most usual ways to get
+PGP certificates; and keyserver.ubuntu.com only has an old copy that
+will expire in March 2026) until recently you used 5 year intervals to
+extend your expiry and only the last update uses 10 years. So it seems I
+don't have to convince you to use my "non-standard" practice in general,
+only maybe that you use shorter intervals ;-)
+=20
+> > Here is another weakness of how GnuPG handles things. In Sequoia,
+> > import and trusting are two separate steps whereas when using a
+> > curated keyring (which is what you seem to do with GnuPG), importing
+> > and trusting are a single step. This means that users have to be very
+> > careful to not inadvertently import a certificate they don't trust.
+> > The Sequoia model allows you to import an untrusted key and only use
+> > a broken signature as indicator for something being wrong but without
+> > having much trust in a good signature.
 >=20
-> This is a poor argument. Such a failure doesn't necessarily mean that
-> the concept of expiry dates is wrong.
+> That's just propaganda: gpg can absolutely manipulate the trust
+> database independently from the signatures on import.  I think I
+> explained this on the users list only the other day (how we could use
+> trustdb to compensate for all our 2011 issued sha1 key signatures in
+> the kernel keyring).  However, trustdb manipulations are hard for
+> casual users to understand and get right.
 
-OK, so come up with a good argument how short expiry would work for the
-way kernel developers use keys.  You're the one asking for us to adopt
-a currently non-standard practice, so the burden is on you to argue for
-it. (and the percolation argument above isn't good enough because it's
-irrelevant to our workflow).
+I agree to everything you said in this paragraph apart from "That's just
+propaganda". So yes, GnuPG can handle the trust stuff, and it is hard to
+get right and thus most people (including obviously Linus) don't use it.
+That's exactly my point when I say this is a weakness of how GnuPG
+handles things.
 
-[...]
->=20
-> Here is another weakness of how GnuPG handles things. In Sequoia,
-> import and trusting are two separate steps whereas when using a
-> curated keyring (which is what you seem to do with GnuPG), importing
-> and trusting are a single step. This means that users have to be very
-> careful to not inadvertently import a certificate they don't trust.
-> The Sequoia model allows you to import an untrusted key and only use
-> a broken signature as indicator for something being wrong but without
-> having much trust in a good signature.
+BTW, having to extend the validity of your key material regularly also
+creates a good opportunity to check if everything is still on par with
+reality. And there is something to do for many keys in the kernel
+pgpkeys repo: If the currently 637 certificates in that repo are passed
+to the Sequoia certificate linter (`sq cert lint`) it diagnoses:
 
-That's just propaganda: gpg can absolutely manipulate the trust
-database independently from the signatures on import.  I think I
-explained this on the users list only the other day (how we could use
-trustdb to compensate for all our 2011 issued sha1 key signatures in
-the kernel keyring).  However, trustdb manipulations are hard for
-casual users to understand and get right.
+	Examined 637 certificates.
+	...
+	  274 have at least one User ID protected by SHA-1. (BAD)
+	  261 have at least one non-revoked, live subkey with a binding signature =
+that uses SHA-1. (BAD)
+	...
+	  9 certificates have at least one non-revoked, live, signing-capable subk=
+ey with a strong binding signature, but a backsig that uses SHA-1. (BAD)
 
-Regards,
+Now if all these keys were in need of an update regularly and GnuPG
+fixed these issues en passant during such an update (which technically
+it could do easily and IMHO should do but doesn't) we would already have
+got rid of the SHA-1 binding issue.
 
-James
+(If you want to check if your key is affected, see
+https://lore.kernel.org/all/fxotnlhsyl2frp54xtguy7ryrucuwselanazixeax3motyy=
+oo3@7vf7ip6gxyvx/
+for instructions or
+https://www.kleine-koenig.org/~uwe/resign-sha1/?certid=3D79BE3E4300411886
+for diagnosis also covering 3rd party signatures.
+(Replace 79BE3E4300411886 by your own key ID in the 2nd link if you're
+not Linus.))
 
+Best regards
+Uwe
 
---=-ErX81akyDw4C7KEPR0zL
+--sph7egmvzphst7id
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABMIADkWIQTnYEDbdso9F2cI+arnQslM7pishQUCaYRtbhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMSwyLDIACgkQ50LJTO6YrIUycgEA9B9Jj83Ou6ZYMI0dqcjm
-C3s5c9zOqFgZaEQbO8q3q7MBAPpBebtXUr+3WaGI3ZnA2wG4a8vRNdRHLh0y4qfD
-6y8D
-=RbDX
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmmE3F8ACgkQj4D7WH0S
+/k5p1Af+LqTqIRey7ffi9syH2B5AwyslFYe+/H+GLcupa6kXewBuhbQCQj2951IY
+u108+QFdxzZPWhKic5m11ko0PPmMxgipiF6r13DQLFhuDqfV3w6x8x8pfnPAr8Ua
+5rxpeg+IYFCsRnmNzhUpsZuoO+l/1nG97H1NFhyL79A2ExgsDQDJWm+EYQQOP572
+36I9bVJO/LmnLWKfGMlkqe91T5oToS5jkYL1Fd5P6i1bXCga/6rKZBQVYTD/uBKT
+PuKo0v3em9pDUQze+ghUmCbo0mps3wXJS4RhqaYtp+h7FklLY8XmEIz/ouMxsVnM
+YQYsG48EGh0cu6xMKUSYySgwiZYWWQ==
+=kIpt
 -----END PGP SIGNATURE-----
 
---=-ErX81akyDw4C7KEPR0zL--
+--sph7egmvzphst7id--
