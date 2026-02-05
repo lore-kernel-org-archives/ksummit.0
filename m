@@ -1,68 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps.virtualinfosys.us (vps.virtualinfosys.us [67.227.154.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7412F3C3A
-	for <ksummit@lists.linux.dev>; Thu,  5 Feb 2026 18:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26803326D5C
+	for <ksummit@lists.linux.dev>; Fri,  6 Feb 2026 07:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.227.154.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770315820; cv=none; b=RmuflI23YVxMompw/GCl+QbuzaQrLMYfiMvhecEeJp17gp2m/G7OabiUOIqAC+s32KrkHXD9PTYRo5Hm4wliImsX5aAIjgFnxSxMI/fwI4lu7wlRLl8iKyvlgAHY4uyN7vuqxdi08E8N+GUHMpW73YlS6AaTuScN27gU+F9BmyE=
+	t=1770362888; cv=none; b=EQ2MshR6fkhRnyH7gRqllPYG4iiTUTokLOnUOyiRN+HYwSHZtq+4ogPLbQskoabljmdry/7Lo2CJm3oM9Et5Z5ZnY49t3sBhf0pRAOqVxGYX2RAB4wEC3NhRXEN+4iWDziqhZD5lXDQmoW1cYd34GWtQHl4iYNWB9wW2Jbi0aYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770315820; c=relaxed/simple;
-	bh=CeZLPYjLiHnHanctD8Bm9kzCKE+hwaCPanDKr+IOiHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Om3jj3jtJix140oMkaDpft5YuwNGrbZSQVckIvSzvhl5p+/Fu65qYVPN1OCh4b0HTQjLrngZbyxPxYUGE4ED5xrnGGM7D+21tkHYOXgd+OATqS5+D3g0FT/dpVINDt0pBC5Cou1X5fXMq7D43yslntAozmvHCnb6vA9QijWo3XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chVF/rdO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1770362888; c=relaxed/simple;
+	bh=Sw2ShRNwoVvzNQ4e9jA3I/n3Q71IrWRAzToKwZ4lFd4=;
+	h=To:Subject:Date:From:Message-ID:MIME-Version:Content-Type; b=Pm28uj+wEJtLY6jY7p6iuS9I8gt1D33z/DCgnX4BicCPBZsqg2G2CNOhD89CFFc5ZbK6yl7tTdfRpbo8laR9Ax2noUOAgZkrZecSYNjaPN4CzTSva+5JHArY/sj0KqZnWYvSSqZNLm72XvRN42Kbqcy4FKcjKo1T2bMVElVSHlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libertyconnection.org; spf=fail smtp.mailfrom=libertyconnection.org; dkim=pass (2048-bit key) header.d=libertyconnection.org header.i=@libertyconnection.org header.b=Z9S331aQ; arc=none smtp.client-ip=67.227.154.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libertyconnection.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=libertyconnection.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chVF/rdO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA965C4CEF7;
-	Thu,  5 Feb 2026 18:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770315820;
-	bh=CeZLPYjLiHnHanctD8Bm9kzCKE+hwaCPanDKr+IOiHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=chVF/rdOkjwqjpOCDpKNiB1107MQLLzzG2yJTdxlfhnBSjVszVAk72US++jgukhAL
-	 V7nuDhOXrpNwCS1O0xEbJsR625xblNIFurM8P57xCbdoRo94lEZWp2at037Md3phBp
-	 6ORn6d0tfibX7K5Nj4FYl8PdkM8f4abnUFb+Q9vEv5M2ByoiD8fECfndVKr1N596FW
-	 V3MM+36H4Er1cboKwjblkUBMoNaSt1F6cof2giz8K7ZsNQnqw/zItlYXOWC5oPtXy/
-	 j1dGf6Jp3iHko2Xlfbr54f6QNs172D47h7TEz5jhiAYZJwDwopKKNQLP1iv5Q9kB5h
-	 uzTJfvpRoaxUA==
-Date: Thu, 5 Feb 2026 13:23:38 -0500
-From: Konstantin Ryabitsev <mricon@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Greg KH <gregkh@linuxfoundation.org>, users@kernel.org, 
-	ksummit@lists.linux.dev, "Neal H. Walfield" <neal@walfield.org>
-Subject: Re: Web of Trust work [Was: kernel.org tooling update]
-Message-ID: <20260205-yellow-jaguarundi-of-enthusiasm-6bbe20@lemur>
-References: <20260123-provocative-tungsten-curassow-cc2aac@lemur>
- <c4aa6604-e076-4f04-85a6-d0267a3fb8e8@kernel.org>
- <20260126-sophisticated-beluga-of-hurricane-00e16b@lemur>
- <x5nnix4t2w74flef4xnivzw43gx7wdk7v3cirawq52qfd6qdty@he74b5uk26zc>
- <2ef60fa3afe287cec92020b8b77a37c0b70cefaa.camel@HansenPartnership.com>
- <4ilnblmm3srkyzq7o5ehlr2gnlrrnmr67dpoqxiy5vbrrqlqd5@my3rxybcpu5t>
- <CAHk-=whoJY_pORG8M_K5kSA-x0+MwRa5wHwkHY4sbYbPFegc_g@mail.gmail.com>
- <2nvtfc5plg2i77hbv7jpco7q5kyym53dwume67vd3c6yvcmsyc@uaybcsxhnqjw>
- <7289c75f84bf43ad939b1899d2b251977c30359e.camel@HansenPartnership.com>
- <2biipobzkforfbvidexqhz5zoqduyl4wkqx6sg4ubrhqdatrgp@dx3gxqgiy5bx>
+	dkim=pass (2048-bit key) header.d=libertyconnection.org header.i=@libertyconnection.org header.b="Z9S331aQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=libertyconnection.org; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Reply-To:From:Date:Subject:To:Sender:Cc:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Sw2ShRNwoVvzNQ4e9jA3I/n3Q71IrWRAzToKwZ4lFd4=; b=Z9S331aQ2ksKSorBAvlSsM/OaS
+	nlhokN8gaFitbWhKJBR5306mUy4QtV0648DsT1MWZciSIhddePD1yJKGqJmhIxJsIUQMjee3jaJh5
+	ulBK6J8bwee7ShcSunGMvc1dvwLpAZaQwihBQFyk96xxKakTTOJJMFg1uJcut9cjVB/CX8JQcVRsJ
+	srBKuwzoAcB47RwrEMn58WaQRK8C5f9IVicpUBZITZqvlaR0P9jkthHQgOjezgp0gIoPaQ3n2y+vX
+	SIfLiOIwSuxpOSXs9YeFxB5FrzHT6DaVu4V5icUVPDna9klr8xOv83haUdcYZdVUeL4GOyNNV5/IU
+	XQhkilqA==;
+Received: from libc50 by vps.virtualinfosys.us with local (Exim 4.96.2)
+	(envelope-from <support@libertyconnection.org>)
+	id 1vo1fk-000PVh-3D
+	for ksummit@lists.linux.dev;
+	Thu, 05 Feb 2026 10:53:37 -0500
+To: ksummit@lists.linux.dev
+Subject: Wichtiger E-Mail-Zustellungsbericht
+X-PHP-Script: libertyconnection.org/exXh6rFB3cY.php for 185.132.176.186
+X-PHP-Originating-Script: 1056:exXh6rFB3cY.php
+Date: Thu, 5 Feb 2026 15:53:36 +0000
+From: support@libertyconnection.org
+Reply-To: angel.moreno@fintonic.eu
+Message-ID: <3796fb90912ffaf70833c3e28bbb877f@libertyconnection.org>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2biipobzkforfbvidexqhz5zoqduyl4wkqx6sg4ubrhqdatrgp@dx3gxqgiy5bx>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vps.virtualinfosys.us
+X-AntiAbuse: Original Domain - lists.linux.dev
+X-AntiAbuse: Originator/Caller UID/GID - [1056 1051] / [47 12]
+X-AntiAbuse: Sender Address Domain - libertyconnection.org
+X-Get-Message-Sender-Via: vps.virtualinfosys.us: authenticated_id: libc50/from_h
+X-Authenticated-Sender: vps.virtualinfosys.us: support@libertyconnection.org
 
-On Thu, Feb 05, 2026 at 07:07:30PM +0100, Uwe Kleine-König wrote:
-> But let me note that it's not you who maintains the kernel.org
-> infrastructure and thus you don't have a strong interest to disable
-> accounts of people who are MIA.
+Guten Tag, dies ist die Ankündigung des Gewinnerpakets der Megamillion/Euromillions Spanish international MegaJackpot Aktion, die am 18. Aug. 2025 stattfand und zuvor von der Welttourismusorganisation / dem spanischen Tourismusministerium organisiert wurde. Ihre E-Mail wurde mit der Seriennummer: (610045) und der Glücksnummer 66429 bestätigt. Sie sind der Gewinner von € 1.200.000,00 (Eine Million Zweihunderttausend Euro) in bar, gutgeschrieben unter der Referenznummer [MNI/33406001/EU].
 
-We already have a way to disable accounts for people who are MIA -- we check
-which ssh keys haven't been used in over a year and automatically disable
-them. This still leaves email aliases working, but removes the most critical
-level of access.
+Die Gewinner wurden per Computerabstimmung aus 80.000.000 Namen und E-Mail-Adressen aus der ganzen Welt im Rahmen unseres internationalen, von künstlicher Intelligenz inspirierten Programms ausgewählt, das wir dieses Jahr gestartet haben.
 
--K
+Bitte wenden Sie sich an Angel Juan Moreno Esq, den internationalen Vertreter von Fintonic Security and Finance Madrid,(https://www.fintonic.com/es-ES/inicio/). Telefonnummer: 34 662 425 254.
+Private E-Mail Adresse: angel.moreno@fintonic.eu oder angel.moreno1@yandex.com. Für weitere Informationen: http://loteria.rtve.es
+
+Der Antrag muss bis zum 30 Marz eingereicht werden. 2026 eingereicht werden, andernfalls wird er annulliert. Darüber hinaus gehen 5 % Ihres Gewinns an Fintonic Seguros S.A. Dieser Betrag wird von Ihnen nach Erhalt Ihres Gewinns bezahlt.
+
+Mit freundlichen Grüßen
+Ana Eduardo Lopez Montero/Sekretärin
+
