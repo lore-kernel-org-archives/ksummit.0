@@ -1,70 +1,112 @@
-Received: from vps.virtualinfosys.us (vps.virtualinfosys.us [67.227.154.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26803326D5C
-	for <ksummit@lists.linux.dev>; Fri,  6 Feb 2026 07:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.227.154.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2987D1F9ECB
+	for <ksummit@lists.linux.dev>; Fri,  6 Feb 2026 13:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1770362888; cv=none; b=EQ2MshR6fkhRnyH7gRqllPYG4iiTUTokLOnUOyiRN+HYwSHZtq+4ogPLbQskoabljmdry/7Lo2CJm3oM9Et5Z5ZnY49t3sBhf0pRAOqVxGYX2RAB4wEC3NhRXEN+4iWDziqhZD5lXDQmoW1cYd34GWtQHl4iYNWB9wW2Jbi0aYo=
+	t=1770385095; cv=none; b=cWlHA/1rcs8m7f8KMyD+y6vUUN1H8sttcktpXY7cSUrICQ87ZFBo4QeY7H4KWxeRJMwUDlHQK9k3+/RedhNX5eI3sYbFCmeCz2mTx4KT8p2GPpZ1hvA+C3tEcr0RnVJ93+vwrbzfdikNeP+6COqaAgmmujguZBDQz96Zivy0vCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1770362888; c=relaxed/simple;
-	bh=Sw2ShRNwoVvzNQ4e9jA3I/n3Q71IrWRAzToKwZ4lFd4=;
-	h=To:Subject:Date:From:Message-ID:MIME-Version:Content-Type; b=Pm28uj+wEJtLY6jY7p6iuS9I8gt1D33z/DCgnX4BicCPBZsqg2G2CNOhD89CFFc5ZbK6yl7tTdfRpbo8laR9Ax2noUOAgZkrZecSYNjaPN4CzTSva+5JHArY/sj0KqZnWYvSSqZNLm72XvRN42Kbqcy4FKcjKo1T2bMVElVSHlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libertyconnection.org; spf=fail smtp.mailfrom=libertyconnection.org; dkim=pass (2048-bit key) header.d=libertyconnection.org header.i=@libertyconnection.org header.b=Z9S331aQ; arc=none smtp.client-ip=67.227.154.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=libertyconnection.org
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=libertyconnection.org
+	s=arc-20240116; t=1770385095; c=relaxed/simple;
+	bh=QtpYn1ngG1pIquTSteEA1Exh0swUCVcvcJ4ErqB34cg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=txgfR3NB2Yo0OnqOL9D6tGVrPiPWiXlT6sXSe51bFS4nos/2PjOMthHG+q/BLnYrC4gxThqM0K+vhQbdk4DXVZEsFbxGlUgBAahbdqDv6gGhEsE0hpoBe+FpMCKQjRXYfjEW2IJ0HLMF6xZsPZF2YIZElbsJdETJ/+G5k2vnAmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RhCN/MwS; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=libertyconnection.org header.i=@libertyconnection.org header.b="Z9S331aQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=libertyconnection.org; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Reply-To:From:Date:Subject:To:Sender:Cc:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Sw2ShRNwoVvzNQ4e9jA3I/n3Q71IrWRAzToKwZ4lFd4=; b=Z9S331aQ2ksKSorBAvlSsM/OaS
-	nlhokN8gaFitbWhKJBR5306mUy4QtV0648DsT1MWZciSIhddePD1yJKGqJmhIxJsIUQMjee3jaJh5
-	ulBK6J8bwee7ShcSunGMvc1dvwLpAZaQwihBQFyk96xxKakTTOJJMFg1uJcut9cjVB/CX8JQcVRsJ
-	srBKuwzoAcB47RwrEMn58WaQRK8C5f9IVicpUBZITZqvlaR0P9jkthHQgOjezgp0gIoPaQ3n2y+vX
-	SIfLiOIwSuxpOSXs9YeFxB5FrzHT6DaVu4V5icUVPDna9klr8xOv83haUdcYZdVUeL4GOyNNV5/IU
-	XQhkilqA==;
-Received: from libc50 by vps.virtualinfosys.us with local (Exim 4.96.2)
-	(envelope-from <support@libertyconnection.org>)
-	id 1vo1fk-000PVh-3D
-	for ksummit@lists.linux.dev;
-	Thu, 05 Feb 2026 10:53:37 -0500
-To: ksummit@lists.linux.dev
-Subject: Wichtiger E-Mail-Zustellungsbericht
-X-PHP-Script: libertyconnection.org/exXh6rFB3cY.php for 185.132.176.186
-X-PHP-Originating-Script: 1056:exXh6rFB3cY.php
-Date: Thu, 5 Feb 2026 15:53:36 +0000
-From: support@libertyconnection.org
-Reply-To: angel.moreno@fintonic.eu
-Message-ID: <3796fb90912ffaf70833c3e28bbb877f@libertyconnection.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RhCN/MwS"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43590777e22so471495f8f.3
+        for <ksummit@lists.linux.dev>; Fri, 06 Feb 2026 05:38:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1770385093; x=1770989893; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=d8pYDbKNA5AQ3P17kRU1z60TuuwN1/YoGwGgawp5G8U=;
+        b=RhCN/MwS8ilL2UsHoOx0F7QKd7KPbzyNrtjnx/5hI6KaOof3pHX4XuoieTN1v5IHYq
+         6IUj+2IWz2PCKBhI5Kj/G7evf2HaT5R9ypyAzfrCi9w5NjmgLdZDpIWBjgLMmQW+2Ibr
+         5XVKdT5wAKvJSlg1pKm+mlojZC+eANZQJ2W/okpnJFQAVs1O2uy3UBh8/UhCtFAh8mZz
+         Lt76Vba5Cx4V/HLMM3ddZ40fiPrkYUmsfMUN2tbt6v9xVI2SxK4iWRuy/jYIDQ/caz46
+         fsnbrgjU8RBTdBlkyRXfRzvqmBU/MzwhAjam5DgYRGHhW6J46aijuIplbPRfx28yiizY
+         dbdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770385093; x=1770989893;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=d8pYDbKNA5AQ3P17kRU1z60TuuwN1/YoGwGgawp5G8U=;
+        b=BTlR/yWP//m6/0MVAMXbBMtToifgb02vDz3LkZ58r9b5e8mR1wZ3QTr8gNzZYLDCkh
+         XHTRDXdfJvxh3+PI+fxJiY50f05zR7T4HzAM5L8585UyxRtHSVcCGzaeVtQAY5LDn4vX
+         Kjt0BM/Hoh7sdb3GdhM3X02KFjKjAoQDaEk1FaBpw7wtUGDSoKj0M19tzNlhnkHr0un6
+         FgoBYNqo9BmAo41crL/N/tOxbjn+FNovvNfJGEEasmrYNedhiLunVgbfW4Jp9w2eQUTt
+         x+lIUYy6cdqW9x4Ko7QUWYBAobzpOTHvyorWp1bxjJGdvgeqlL2GpAFexEYPuNXPG9xX
+         nahA==
+X-Forwarded-Encrypted: i=1; AJvYcCWQ61mdwIbpFAocKU5FJB/487BNTS7oYGXgERBVvwg6TDHk4NDPQ3WSHe+Fzrr7xt3HDb7891ev@lists.linux.dev
+X-Gm-Message-State: AOJu0Yw4VYNicVyrXZbUzvNjrWFDOpL51afO06LqhEwWuvxUe1J5o7Dc
+	LEbMFQTnIfh5BReUnUUzrxyEFCxPh0UDLx+UykR9O2e1NvdMldvFg4wAbcLO2S50WzCUMG7jdti
+	3w0AI
+X-Gm-Gg: AZuq6aKgnFUMYouQSEbiJEf2KlzB2VXzUxNdx8GL/BMElCoox55XlT1eYh/cllQuRFT
+	NT0s+IXqPNNUo21gNSIRcXqj9349JUMBAs8cDWvXlhkzYj0GmsodSwX6unXvOis0rouMdseWPf9
+	rgoJbg63jzL0JDrlqtexPJLL6V8OUL0FN3qrG0+THXlf15emAEeyXnpU/XnuQu47djb2saqhVrZ
+	h3Pl87M2y2LNdGD6sP73P0hJ4KQBe3Ev7CZIuPPoCnLSXCqdxEWTuAbBdBA1RJ7NSNEquYEwJDe
+	aO5h7aqtFTfgnUtuJoJhOHFKGSMoOA6fpyz3t1PenWB2coEOHOsPNv/Ax5iMCI8a4XC0SUH/Pve
+	l9QrJI2jmnpJLPQcBPj1vcQ1ypcKYXD0cRHTepx8jLmDKbxf6nkEwP71Pgw+iY2vkeNE06Mvgiy
+	yzWoiIAI4fPKmdBoj8
+X-Received: by 2002:a05:6000:613:b0:431:266:d134 with SMTP id ffacd0b85a97d-436293bb199mr4269151f8f.53.1770385093391;
+        Fri, 06 Feb 2026 05:38:13 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-436296b25casm6269253f8f.4.2026.02.06.05.38.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Feb 2026 05:38:12 -0800 (PST)
+Date: Fri, 6 Feb 2026 16:38:09 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: linux-kernel <linux-kernel@vger.kernel.org>, ksummit@lists.linux.dev,
+	Bill Fletcher <bill.fletcher@linaro.org>,
+	Randy Linnell <randy.linnell@linaro.org>,
+	Brad Spengler <brad.spengler@opensrcsec.com>
+Cc: vincent.guittot@linaro.org, lina.iyer@linaro.org
+Subject: Re: Support needed to continue Smatch work
+Message-ID: <caa37f28-a2e8-4e0a-a9ce-a365ce805e4b@stanley.mountain>
+References: <aTaiGSbWZ9DJaGo7@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vps.virtualinfosys.us
-X-AntiAbuse: Original Domain - lists.linux.dev
-X-AntiAbuse: Originator/Caller UID/GID - [1056 1051] / [47 12]
-X-AntiAbuse: Sender Address Domain - libertyconnection.org
-X-Get-Message-Sender-Via: vps.virtualinfosys.us: authenticated_id: libc50/from_h
-X-Authenticated-Sender: vps.virtualinfosys.us: support@libertyconnection.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aTaiGSbWZ9DJaGo7@stanley.mountain>
 
-Guten Tag, dies ist die Ankündigung des Gewinnerpakets der Megamillion/Euromillions Spanish international MegaJackpot Aktion, die am 18. Aug. 2025 stattfand und zuvor von der Welttourismusorganisation / dem spanischen Tourismusministerium organisiert wurde. Ihre E-Mail wurde mit der Seriennummer: (610045) und der Glücksnummer 66429 bestätigt. Sie sind der Gewinner von € 1.200.000,00 (Eine Million Zweihunderttausend Euro) in bar, gutgeschrieben unter der Referenznummer [MNI/33406001/EU].
+I need to post an update on the current situation with Smatch.
 
-Die Gewinner wurden per Computerabstimmung aus 80.000.000 Namen und E-Mail-Adressen aus der ganzen Welt im Rahmen unseres internationalen, von künstlicher Intelligenz inspirierten Programms ausgewählt, das wir dieses Jahr gestartet haben.
+First of all, I want to start by thanking Brad Spengler from grsecurity
+who reached out to me on this, offered some funding, and has been
+trying to push the Smatch work forward.  It really means a lot to me.
 
-Bitte wenden Sie sich an Angel Juan Moreno Esq, den internationalen Vertreter von Fintonic Security and Finance Madrid,(https://www.fintonic.com/es-ES/inicio/). Telefonnummer: 34 662 425 254.
-Private E-Mail Adresse: angel.moreno@fintonic.eu oder angel.moreno1@yandex.com. Für weitere Informationen: http://loteria.rtve.es
+Unfortunately, we haven't been able to raise enough support to continue
+my Smatch work.  I have still been filtering zero day bot warnings and
+I am a bit worried that people have the impression that I'm reviewing
+static checker warnings when I am not.
 
-Der Antrag muss bis zum 30 Marz eingereicht werden. 2026 eingereicht werden, andernfalls wird er annulliert. Darüber hinaus gehen 5 % Ihres Gewinns an Fintonic Seguros S.A. Dieser Betrag wird von Ihnen nach Erhalt Ihres Gewinns bezahlt.
+The situation isn't great.  The zero day bot can't do cross function
+analsysis and it only looks at checks with a low false positive rate.
+We're missing out on a bunch of bugs.  I'm going to add some of the
+those missed warnings to this thread so people have a better picture of
+what we're missing.  There are some buffer overflows in there.  A bunch
+of off by one bugs.  A missing error code in fork().  And random other
+minor things as well.
 
-Mit freundlichen Grüßen
-Ana Eduardo Lopez Montero/Sekretärin
+https://lore.kernel.org/all/caa37f28-a2e8-4e0a-a9ce-a365ce805e4b@stanley.mountain/
+
+I am still trying to figure out a way to restart Smatch checking.  The
+funding model would be that several companies would support this project
+by paying a proportion of my salary.  Part of that goes to reporting
+bugs like the ones above and part of that goes to developing Smatch and
+writing new checks.  Please, contact
+Bill Fletcher <bill.fletcher@linaro.org> if you would like to support
+this work.
+
+regards,
+dan carpenter
 
