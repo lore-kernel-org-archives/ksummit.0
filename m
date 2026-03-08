@@ -1,156 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD560328251
-	for <ksummit@lists.linux.dev>; Sat,  7 Mar 2026 16:19:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3634617A2EA
+	for <ksummit@lists.linux.dev>; Sun,  8 Mar 2026 07:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1772900399; cv=none; b=NDPO5Wm2ggNxNt8/2s9zl3CH+ts9LfF9qzPWMKxzOjAdB7Alt0csSviMUHBA9jytehf5lpotaUwSkCyEuJJg6/tY0bUJ8pv8XZp88gZkXefOLJKg6PjyAS/iS9tm/w1SGeFa2Y1ywXZz8tk53MKmFc5OEkdBbJ92t7KuKg5aNiU=
+	t=1772954482; cv=none; b=q+fFTa+eNRsSxKK14ps2HofhzJmCf7rO6+RRkLcMxQp36qX4t684LOMOdX9CS8CXKppmVpc7srcY4XRlQVMVsg+pneXCpo2PE34zInY+uZ2gpzE9GN+YKi4n5HaeLWe0M0i56iVkdtThM63KYi9qIOkeFddNJT2s86wy1L36T64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1772900399; c=relaxed/simple;
-	bh=nx507oHUwoXqYg2sJlsCMVzNdhUzoxeY6kkP1NAg6h0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cu4BvKIe0BuEgbJmjuFjbL2g29OdVAPD99rAydEy571NuvJFi9mo3CYqsAwk/j9MgrrkuTEEZB9PaTRJhgsbTR51rDOip2fA4bfZTFUS589QyAzg3c8RN82i9dqDOEfjgmjwK7IvHjVXTQEqTLX6KtPx3YPJZTXb44sMPU/kglw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/QhU8BI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1772954482; c=relaxed/simple;
+	bh=aWoMRDB2Nw3q20V2kcIj5+rBJl8KAtOx1S8t7HGwJL0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dM7uystdgr5ZOI77YlkAZ/T322jgc6kjVVYQQVRWzi1cwyABzge/jaPPGB+TL+72uuJL+XpSw+b+O35WBJXgX/zWSjkMc0n4QIiV2p8VkNgEELhdPPYDouf41TWLyvsT/cemQsYIR6J5OXlN9yio+p7J3SP7AjD1/ByKrs9XZiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUWbkaeA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/QhU8BI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31745C19422;
-	Sat,  7 Mar 2026 16:19:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUWbkaeA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D6EC116C6;
+	Sun,  8 Mar 2026 07:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772900399;
-	bh=nx507oHUwoXqYg2sJlsCMVzNdhUzoxeY6kkP1NAg6h0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=X/QhU8BIsEdgo1XYZomf6SvjGfZon/u7gJFHEV770w/VBZ8H5PPtpShruoUtebbNf
-	 9gJahodFqrDPz07HDcq5LxfTf/J4erfy+GLkPv/RUAEwpJ47IXctsH1Z4SAfxA7fRy
-	 AqXYB5NPwqy8iIyegnoYWs3/HdP9WYW1cOfHlz+NvzxUAOW0pRrjpx+DSvYShaThNF
-	 vV0fZuKP90qXKIPADWPaYcwd3Vz7v4Y2Kl6rLkGrfQSJ2GV4I1Zc3dZViBJfqQhr75
-	 fLixxsVQCNPsCqlP1MrXLHS0j7Y5Xkb1GZLU+STys7hd54labgHyDj85kI8vTBizFV
-	 GCAo8GYRVEAHw==
-Date: Sat, 7 Mar 2026 11:19:57 -0500
-From: Sasha Levin <sashal@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Richard Weinberger <richard@nod.at>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	users <users@kernel.org>, ksummit <ksummit@lists.linux.dev>
-Subject: Re: slowly decommission bugzilla?
-Message-ID: <aaxQLSmMlpwwcOA-@laps>
-References: <1661016163.157.1772303364121.JavaMail.zimbra@nod.at>
- <20260228152617.06b392de@fedora>
- <583136576.604.1772310537428.JavaMail.zimbra@nod.at>
- <20260228155611.70911c0f@fedora>
- <aaRZ1EIDE-SlqWOo@laps>
- <20260301153526.GE2860169@killaraus.ideasonboard.com>
- <aaRegZjbE6SgyaDq@laps>
- <20260301161317.GA2906342@killaraus.ideasonboard.com>
- <aaRo1kuzKj0dxl5i@laps>
- <20260306150124.GD2879901@killaraus.ideasonboard.com>
+	s=k20201202; t=1772954481;
+	bh=aWoMRDB2Nw3q20V2kcIj5+rBJl8KAtOx1S8t7HGwJL0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lUWbkaeAcmes8uIkPP6L5rpB9yhJ/6ifFlUVdKk/mm9jMoH/5TW4Ayi1fe20TET3Q
+	 xFoKLPn7z1Zy1HDDSjsT+8qK9AoomOvZci+14mFi+2oS9IXE29YTqX/oW4l9mTH4B7
+	 KuCRST/5nbx0OYDLIqaeaL7FkGLc/+XXdF0AiYNeFIVLisk9onbecO7lTW3CD/yqMF
+	 qX+FBe2H69Jq8XDLBo79yC/3cIUr34pghSS6gShqvfYfr1k5hkZQe0GSiGZGIsQKz/
+	 zvLD206zbB24YFXQA0ORE0vTmJjZUr+NZ5h13e48SsChpo2yIgB9heZPUlG3rlRR81
+	 IbXTxA4O75dEA==
+Message-ID: <3dd58b76-7461-4e8b-9dc6-a936a41d8faa@kernel.org>
+Date: Sun, 8 Mar 2026 08:21:12 +0100
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260306150124.GD2879901@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Web of Trust work [Was: kernel.org tooling update]
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>, users@kernel.org,
+ ksummit@lists.linux.dev
+References: <20251209-roaring-hidden-alligator-068eea@lemur>
+ <6e0c8c00-4efe-432a-92e8-c51aa15b4a34@kernel.org>
+ <2026012340-cannot-spud-5d46@gregkh>
+Content-Language: en-US, de-DE
+From: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+In-Reply-To: <2026012340-cannot-spud-5d46@gregkh>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------SK43T7JPQyarnYlQJksG19LP"
 
-On Fri, Mar 06, 2026 at 04:01:24PM +0100, Laurent Pinchart wrote:
->I seem to have failed to convey my opinion properly, I'll try better.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------SK43T7JPQyarnYlQJksG19LP
+Content-Type: multipart/mixed; boundary="------------QkbO1pA6tLaAxQPZqNnB90r0";
+ protected-headers="v1"
+From: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>, users@kernel.org,
+ ksummit@lists.linux.dev
+Message-ID: <3dd58b76-7461-4e8b-9dc6-a936a41d8faa@kernel.org>
+Subject: Re: Web of Trust work [Was: kernel.org tooling update]
+References: <20251209-roaring-hidden-alligator-068eea@lemur>
+ <6e0c8c00-4efe-432a-92e8-c51aa15b4a34@kernel.org>
+ <2026012340-cannot-spud-5d46@gregkh>
+In-Reply-To: <2026012340-cannot-spud-5d46@gregkh>
 
-Thanks, I appreciate that. Let me try too.
+--------------QkbO1pA6tLaAxQPZqNnB90r0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
->> >> can you propose a different
->> >> deterministic solution that would have worked for
->> >> https://lore.kernel.org/all/DGRCO9SL0T5U.JTINSHJQ9KPK@imlonghao.com/ ?
->> >
->> > Not as a procedure to extract line numbers that will work retroactively
->> > of course, but I don't think that's the point.
->> >
->> > As we're discussing new developments to replace bugzilla, working with
->> > distributions to streamline bug reporting would be more deterministic.
->> > Running the stack trace decode in the server side is a good idea, and
->> > the server should receive in addition to the stack trace either the
->> > debuginfo or, when running a distro kernel, an identifier of the exact
->> > kernel version to download the debuginfo from an authoritative source.
+Hello Greg,
+
+On 1/23/26 10:29, Greg KH wrote:
+> On Fri, Jan 23, 2026 at 10:19:56AM +0100, Uwe Kleine-K=C3=B6nig wrote:
+>> On 12/10/25 05:48, Konstantin Ryabitsev wrote:
+>>> ## Web of Trust work
+>>>
+>>> There is an ongoing work to replace our home-grown web of trust solut=
+ion (that
+>>> does work but has important bottlenecks and scaling limitations) with=
+
+>>> something both more distributed and easier to maintain. We're working=
+ with
+>>> OpenSSF to design the framework and I hope to present it to the commu=
+nity in
+>>> the next few months.
 >>
->> Look at the bug reports we discussed in the thread: one is a custom built
->> kernel, and one is a kernel without available debug symbols.
->
->Note that for custom-built kernels I think it's reasonable to ask the
->submitter for debuginfo (probably in the form of a decoded stack trace).
->If someone is able to build a kernel manually, I expect them to be able
->to run a stack trace decoding tool.
->
->> Even if we had the
->> best relationships with all our distro friends, had a central DB with all debug
->> symbols, we would still not able to tackle this.
->
->Sure, nothing we do will be able to increase our bug report handling to
->100% success. I even agree that there are cases where heuristics could
->be helpful. This being said, I haven't checked personally, but I would
->be very surprised if the majority of the bug reports were related to
->kernels for which debuginfo can't be accessed one way or another.
->
->What concerned me in my initial reply, and still concerns me, is
->applying a non-deterministic method to the problem when the vast
->majority of cases can be solved deterministically. It would mean we
->would consume more resources to get a suboptimal results, which is
->guaranteed to sometimes produce wrong but plausible-looking results.
->It's becoming an increasingly common pattern to throw LLMs as a magic
->solution to all problems, despite all the drawbacks, and I'm really
->getting tired of that.
+>> the current home-grown solution is https://git.kernel.org/pub/scm/docs=
+/kernel/pgpkeys.git/, right?
+>>
+>> I wonder what the bottlenecks and scaling limitations are that you men=
+tion.
+>>
+>> Is there some info available already now about the path you (and OpenS=
+SF) intend to propose?
+>=20
+> There will be a presentation about this in February at a conference and=
 
-I don't think this is an either/or thing though. We can do both - have
-deterministic tooling *and* use LLMs where they help. They solve
-different parts of the problem.
+> hopefully it will be made public then as the work is still ongoing.
 
-If I'm arguing for using an LLM as a solution for something, it doesn't mean
-that I object to any other approach.
+The event was
+https://lfms26.sched.com/event/2ETT5/the-first-person-linux-kernel-mainta=
+iner-verification-project-greg-kroah-hartman-linux-kernel-maintainer-dani=
+ela-barbosa-lf-decentralized-trust-glenn-gore-affinidi
+, right?
 
->My initial thought, before seeing your proposal, was to handle the
->majority case with a DB of debuginfo. Yes, it will require coordination
->with distributions, and some development, but what is being discussed in
->this mail thread is development of a new service anyway. Maybe I fail to
->see where this would be difficult or require more development effort
->than we can afford ?
->
->I now see you've made a proposal in this thread to embed file and line
->info in kallsyms. It seems better than what I had in mind, I will review
->it.
+I don't find a way to profit from what was presented there, do you know
+if there is video coverage? Or is there other material about the
+proposal?
 
-Thanks, I'd appreciate that.
+Best regards
+Uwe
 
-But I also don't think either kallsyms or debuginfo DB can do this alone.
-Decoding the stack trace is just step one - someone still has to figure out
-what actually went wrong. The LLM approach I've been hacking on goes a lot
-further than just running decode_stacktrace.sh: it reads the relevant source,
-digs through git history to find the commit that likely broke things, and
-searches lore for prior reports and related discussions.
+--------------QkbO1pA6tLaAxQPZqNnB90r0--
 
-Take the CC list as a concrete example. get_maintainer.pl gives you the
-subsystem maintainers for the affected files, which is fine as a starting
-point. But what you really want for a bug is to reach the person who wrote the
-offending commit, or the developer who posted a related fix that never got
-merged, or someone who reported a similar crash six months ago on a different
-list. The bot finds those people by searching lore and git history and CCs
-them. You can't really do that with a deterministic tool - it needs to
-understand what's actually relevant in context.
+--------------SK43T7JPQyarnYlQJksG19LP
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
->Let's see if you proved yourself wrong with the patch you posted in the
->mail thread :-)
+-----BEGIN PGP SIGNATURE-----
 
-I really really am not trying to religiously argue for or against LLMs: we can
-keep throwing ideas at the problem and see what sticks. Tools that work well
-will live on, the ones that fail will disappear.
+iQEzBAEBCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmmtI2kACgkQj4D7WH0S
+/k7+twf/ZpKX7s/EBATvSu5zNIPYaRVm4jVfMv8iy3txZdIOT0TPg4ToQRsGy0s7
+KtThorJY81AJs+gFgQpDPHzX0bqQFOkkVmporywQ3pzKJD54gPIoNhlwjkpPCfay
+eVtC0fO5f9QtTixeRhaY2s5CgPmoVAU4zcSzrQiMvgG7Rth+4cYlWgGGRyyaD67t
+8Rf/lI1iWdj21km8T/zIFCzW84z/mk25VVU2nDNNsZgsn5pkuubP308TQ8zMVePN
+BiZWa39c7g+bCQ2AyXpQcd6f6ny2c9O796+zRjZkftRnoAODsa4zHVcsYWj/Bzvk
+O753boU/N6YzD1Uid6BIkAmTJj/asg==
+=k6d6
+-----END PGP SIGNATURE-----
 
-There's no one way door decision we're making by giving LLMs a spin. If they
-suck, we just drop that tool.
-
--- 
-Thanks,
-Sasha
+--------------SK43T7JPQyarnYlQJksG19LP--
