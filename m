@@ -1,59 +1,73 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9D739C658
-	for <ksummit@lists.linux.dev>; Tue, 30 Jun 2026 18:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D743126BF
+	for <ksummit@lists.linux.dev>; Thu,  9 Jul 2026 16:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782845982; cv=none; b=Ri0kVBQ4R9shUbm9wxI0FM9i949X/hVNywGRjjGe5SVMge1mhB88SljELjb3cTwyVJocuAETqQeCgGVx4b5DNBRKd56HvK4GsLas0vbn5/4xRbnrDjyJrS3WVHSR/JHX62R+Ate+IROj2oOOVktVd6bCsRHSDdHxGtWA5fUd01c=
+	t=1783616319; cv=none; b=lsxOSqvayPWgCiZKn3fFXdjLSMtR/IH7htTZJq6c/OmtjLayNHxyUNK7UN+sSmGYgQaNWJt5CLUXt5hUS0/8Om+vGj49r6Lt8NlkWySo/YuEybgYxPU8xq4su8/Zz6/Ys3fot6B12pQzvzpwmibvZJuRNrrLlZS0eC2qUwmgu48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782845982; c=relaxed/simple;
-	bh=nhq2xK7KJ96F3vKsPspGYgcNn60Hi6ntzgs74NlB/cA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rvvusPm0nHaQoFhbH085fRH4wlr0k4LZPWgJPSnHiIOaVL0sCDz2Owok1llQ2KyG/PiWFNMQtjfuZvRoIcjJCpjxeJDhcIp4sClmK14AH8+8Ko1PO6NgiZrNK1IcetcqduQh7iW4Naj0DCgil2RAwLp1wrZiy5XKSbHPU3oLFQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id DA4F21405CD;
-	Tue, 30 Jun 2026 18:54:01 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 4CAFA20027;
-	Tue, 30 Jun 2026 18:54:00 +0000 (UTC)
-Date: Tue, 30 Jun 2026 14:53:54 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
+	s=arc-20240116; t=1783616319; c=relaxed/simple;
+	bh=FcPiWtgPyubIXaoKBzOjc7W2MGzS0LnqUlApmj4Dss4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6+2GjkvbXECY5EawTBMNKqjuy82QkA6lywG0/9n6BDtqwSLBQdx1sV1gPuVZAXx4bEKPCxFuPAu1G0UxtSLwHidcNP9bv8/JRGlDOudn/UBTK1ZRAPN3C6pu4MPOxQ6ESxzuaOK+aR48i4bH1yF9z6L82tqH9e7Z1PnPssTWs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAuP8drq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAuP8drq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A101F000E9;
+	Thu,  9 Jul 2026 16:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783616318;
+	bh=XU34zcRXsu3/To7u5u5p/2DI2iwKeyT3YMqBTI87UOc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DAuP8drqn02ufNxRZ1Zh7sySZOdTKDo85e6vjbbHtc0qW4rjyKUhItBjV0tUO0QzU
+	 TXzGDZ83ioL0Jq3nWY9bVXe0NLHZus0pAxt0j2YKNLm7dPUrsJq7sdxIwTUT63G1u/
+	 UxF2+/oi0JOh0/xk8i9kG8+ueV+vWiYfsgt2n1VfxreiEOfSXFsaA4bBo67/xbph/v
+	 My55k5URJkYdpb0F3olZzhOnAjINs47tEZHnGDKiY7xjZtgF98jzRJ9Rba3aT38m4P
+	 GebGrdybYZ3xz+7yOfKPdYswqwO3k1hFb7bWeOZqvp8IRDkYpGXYUTZDsYepul5+sZ
+	 Xp0rESxANxDng==
+Date: Thu, 9 Jul 2026 09:58:37 -0700
+From: Kees Cook <kees@kernel.org>
 To: Matthew Wilcox <willy@infradead.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, ksummit@lists.linux.dev
+Cc: ksummit@lists.linux.dev
 Subject: Re: [TECH TOPIC] Implementing malloc
-Message-ID: <20260630145354.3119c1fb@gandalf.local.home>
-In-Reply-To: <akK3KACxE9gIFZSH@casper.infradead.org>
+Message-ID: <202607090956.6381F35@keescook>
 References: <akKBVsFBro_4QM74@casper.infradead.org>
-	<c48a77db-98a3-4860-ab30-bcbbe0884baa@zytor.com>
-	<akK3KACxE9gIFZSH@casper.infradead.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 4CAFA20027
-X-Stat-Signature: ebkx83p6g6btqft3kfg1ijidq3s1tejn
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/oz+srPBTZ2LxdBJKH/X5ccGlJaV8gwMk=
-X-HE-Tag: 1782845640-444463
-X-HE-Meta: U2FsdGVkX1+k5tUjw/iBFSJncQywzKjUMY38yLgOzoG6ZsZOau8nnYUtff0Fbzrd+1c7YDH/KyOuEQTwu8z+gki68GdnE96EKWVeg7wlWKbKHiBkRq54owYMvjA3EQpX3PCQDpVJ5KqEh1SusidB8RwZoE+htOZt/Nv6Na/kNbMM8BTQmQBzrXtl5XhPzlKbMCHzjEvc8+buD+Cl1feI85VyB+S5XaDhe0IQjLXS0urQPSRyY8i/hFzO+2dg/c7gQ2tBTII2A5q36VluKuN8S15wsMDkM/6iwYj4U0KlAqe53z7xSU53gkLrpTQsbgcZwqA4aPoHp73KnZIB4BSnkhzZhxQ0HtBYEu8KqwGcGVmRB/HZ00JB8jlNYoJv1OHdkilTaK79mwhkFHmRZ3UMoQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akKBVsFBro_4QM74@casper.infradead.org>
 
-On Mon, 29 Jun 2026 19:19:20 +0100
-Matthew Wilcox <willy@infradead.org> wrote:
+On Mon, Jun 29, 2026 at 03:29:42PM +0100, Matthew Wilcox wrote:
+> malloc() is a standard part of the C library.  Yet we force new Linux
+> programmers to learn the difference between vmalloc(), kmalloc() and
+> kvmalloc().  They even have to acquire an understanding of the difference
+> between GFP_KERNEL and GFP_ATOMIC.  If they are particularly unlucky,
+> they may have to understand other combinations of GFP flags.
+> 
+> This topic proposes that we should implement malloc() and calloc().
+> Various options will be discussed, their increasing implementation
+> complexity corresponding to utility in a greater range of situations.
+> This will also benefit Rust as we can use the same infrastructure to
+> implement std::alloc.
 
-> #ifdef __KERNEL__
-> #define malloc(x)	kvmalloc(x, GFP_KERNEL)
-> #endif
+No surprise, but I strongly disagree with this. Those APIs are flawed
+and we shouldn't emulate them. This is why we just removed strncpy(),
+for example.
 
-If anything, add a might_sleep() to that, so it triggers a very bad warning
-if called in any context that does not allow a schedule.
+Allocations need to be type-based, not size-based. When we force people
+to reduce it to just byte count tons of metadata that can be used by
+both the kernel and the compiler is lost. The size is a by-product of
+"what do you need space for?" "I need X many Foo objects" or "I need
+Bar with Z many trailing Baz objects" or even "I need a plane of pixels
+X by Y". The uncommon case is "I need X many bytes from this stream".
 
--- Steve
+-Kees
+
+-- 
+Kees Cook
