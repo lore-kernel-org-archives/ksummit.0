@@ -1,150 +1,178 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9A14A1399
-	for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 17:51:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784137908; cv=pass; b=jkP7wYVNgn/RyC/eblMpI1GA8qBHob/qnf6QWl8BdBgfZ0eRlGIC4Jlt3GrjxB2fdWeDz2FPkiHqXWRiyRuzWp1toV/QV1jiCIt/RBoUd5p2wYfeiDwp9rS4JaRExm7tmIhqEC0mwgcx0g4MUZrfKapd1mYVzkVBW7GUCV3ETlU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784137908; c=relaxed/simple;
-	bh=ah1OPZraLxOlE7DDq59+pccgCHZ950h89+u0eQ6ApCg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kcpwT5W/LuqZHHajKWwQJJCw0mNIrJ8zXphOefkZsRuZ9+s40+Ag65O2NxMl1CG5LGoP8rck4WANoPq7166hzrxEhguPEWcQ/81dG4pd5sHNanyiPbPmRsF27ssSerb5HCBnSSW5NR6eQkF+UElhYSwuNZ4Y+e+a+oRPPFyTN/E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y4pChXox; arc=pass smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B852FDC57
+	for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 17:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784138183; cv=none; b=OepSYA0WLeLqtN+ryOF/Xl5/qgDjKTCRKuVhisaFNrL6ZEXLQGb1ZLHsMmssNTwNs0fOvL6o0vwhe4kCFoj29hN/BUomg8R+VVXLSGUAAxnGPvyPVVbkr7e9YtcB/sPtPgeOsdf+4M5ktSfLDAcYXF+FrC75gL4+d0g5I5BDP3s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784138183; c=relaxed/simple;
+	bh=9YrssN6VIuMp2XqC90iJwFMO5KAI2OZfic7UsUYOTiA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IPsM+/UYlJxDW7BVFDhBdrd0eJD5zG7YTWxXVXeE5yOjkPZyC8s4xrPX8vWQOmqV79VGJEuITVgk8YVZBDbmDCKj4MK4PsvZsBOOXNxhpkpY9kRD82xyFs9tUmBI5w45Ryuff0WAuotEZW1cfm4yPBU//IqGib+4pZ7JxxTwWvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SN857/ku; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4pChXox"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38115bbb83dso483588a91.3
-        for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 10:51:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784137906; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R3A1k8L48xsg7P8arlaNwYqROYFKB1KBlNuapGtcWYPp8kxrrNGkF5QkwO8Rid+PgS
-         L0coPT9KHcxfeNhlVSwWhZHrWNXGes+HKFGrw7iob4J7EDVrHOi3OR6v2v1bq51FtxxH
-         qYqls+n3cJ7/eFFDBYIZ1oIaAVcfz/m9vCNbruSje6u+knDxzoaYJWQR/7YIeKXe8yHk
-         IVTmgtAgpwzH5tAfJCx05S7AX48dKyOvtkpWq8tHpJnu8iKvz2wH4rjRDJybLVQ/oAnk
-         OZ/BvaMI9skEhBlmMsNKoaT9d9QbdAhr6OgsU5o8m4yEx2PqZ5eQrDXNo5xfUeXKkDaX
-         dgGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ah1OPZraLxOlE7DDq59+pccgCHZ950h89+u0eQ6ApCg=;
-        fh=9saO7oJhDwCpJTEoPnMczMuwxSuytCpT23pUR/DQt6g=;
-        b=ApDu2vKPaqt2WUAReCShABOUG8qtdPKPGpPJN2wdzzDobKLe43mbOaMMZH8lM5jQFz
-         4MyFAX5XvQ2OZ8dIEJh4ii/uYRKyIIfxsX8Km5hcP34ncf7lwOhub3yueMFjYJnaD+/L
-         iJFDSAtpPs2tUHRpxEQqVfim17ctSOfKywgyG1u4E5X42DW7bkj7d0Ob7TR3YmDbI5U4
-         GVFd1janv3Z5K2kKV+D4LH6F8gqJ/L1cSvGo9qfNa3V2mIHa6jCwAmg5/+U8YWTYdJvx
-         6x9qzzvN+fqP4CaWdaGXRvM9q2dzgLlnqw36pXGmkrOStuMQPdyNgNaA4MS/1/VkAdR8
-         dodQ==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784137906; x=1784742706; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ah1OPZraLxOlE7DDq59+pccgCHZ950h89+u0eQ6ApCg=;
-        b=Y4pChXoxE9YZyHDBaSozFPsynVKKJ7IKHxB3GVKR94ELRW+9BOJABzlKJq1E2Q0BwC
-         xpVKtMvItKyQqzOHAxHnc3Q8EflQERJTKQS9keo/TPwm2GxO6qqoQqGCVJ472WEAYkBu
-         3etzun7StAKrCyC2tqKaMFiprFQm0C6adLDnRupnAPbS0yHmFf5s+1HbpMNMyle9Nl3d
-         gWRMrIgYrJfhm3eu0xsOf8t10P853CJttHo24oIDITUBQbQlP0PTerPNFWpyWbW9zx2I
-         +KW3mhcT71r1FSl5y/Z79hkAqRKwK4/Ffxe6AfcoSmuiOgm8s8lEepFn/E95BNgYslQd
-         I0SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784137906; x=1784742706;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ah1OPZraLxOlE7DDq59+pccgCHZ950h89+u0eQ6ApCg=;
-        b=c/BJUIBDWMpnFa5/Auc1vV92XjixLZT6T7pWRMI2Y0+Vv8KiUMuYyx8kh69nG/yAor
-         uMGwvrIfNq5qE+PGffb0fGCDqhKrE1EFS5N5z9OGz8QASXe8pUaOOnqDwldOCoKQxSfo
-         +F+47MSyY2rNMFUgX0wyQjbBLG4DQPQCZNgAJC1lZwKK8N3AQ2Qo1c0eFRyUnPlsaO8H
-         quI833dmWApFGdrQIdg+MZx3YuR4bXMtkT0OqeWrYs03hB1urPud+xWCCUoc3KfXDqqs
-         tsdgFTQiTnrpswr2kcxrnRE6cQnuA2oo/qgXOPT0qM2LJgNeLIyjkbG/NiTEkwvNv7pr
-         JHNQ==
-X-Gm-Message-State: AOJu0YwoUvbVXdml1Nczr2du7DRqtZbheUUTOyRan0taqqfr5iWKX6Wm
-	Fy9/uI77yRFmQDwXY6o/f3k807IqL0cst4eokX+Vhx4p/Ni+Djd4ug+BY8sVb4xNy+msC5t3xvM
-	vjQ46fnveCZhd4wc1tB3HKDmJ6Qbydn0=
-X-Gm-Gg: AfdE7cmtSDg3QTzfji7MwbGFtTgQCVOFyYBgbXeznTy7yfNp81GGoT2OWyoCs5XfZ3D
-	5oA5jVgvAYzZP/W7ku0XfwGwlWQfeibE5bm98eXS1cvMWSzkr4lpinX2ZNBz+DT017Qz9E4jqUS
-	GjjATvZpU0B9hCQ1IxtljWdjvrxzt977j1zZA6dixZuO9zzOjM3VuAFooTOJ4FJVswwiELKwKHD
-	vzfsbveKgBmse/cEUY2xJ6A9yEhJvRla4zn4bSZKUyupalzs5ARE0EgGyrDPDlfph5qhus3SU5h
-	esYHlzYNMROHIzxq5nkVrwdz4qJz98431+SPIY5WmH50X4K9bxjJv9phdGD9RQkjr2GgTkhmU86
-	IwOOqX/IJBL9s
-X-Received: by 2002:a17:90b:5870:b0:381:1ffc:7d35 with SMTP id
- 98e67ed59e1d1-38dc780f2damr13405217a91.6.1784137906492; Wed, 15 Jul 2026
- 10:51:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SN857/ku"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE761F000E9;
+	Wed, 15 Jul 2026 17:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784138182;
+	bh=vOepxq8Db+NozCaB7G0JihVHNIVXm7RVAtvSthV6jVw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SN857/ku8ZVide+vPZGwDCGbrFOIlTqOd5vzyDWCnBLwdX036O1W2xeUEDxcr67DI
+	 KMbG2n3zZkhs+DKrMfRHAz7B32+ImWju1RWleN95MkG2a6aRZpjC2TRYbZUSMsVlse
+	 dltXiu3b1zhWmwpj0ziImCWZlSkxDDH0crF1N13HjUE/93LQNf7nOBpXSjZjNniJUC
+	 X8QD4S1BYK900sqCG3a4zt+CIFiCcV/0lAMqeV+As5SfVfKFj9KGbIiVgcu7nqJunP
+	 5FQN32eawpiFNEgWJDTg1lzW2vlGSnnH96frdzZCWDKCKQCXUhoG2fAhZP8ZoBzHDY
+	 kar4u/rggnxqA==
+Date: Wed, 15 Jul 2026 19:56:19 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
+ Kernel process
+Message-ID: <20260715195619.6174925f@foz.lan>
+In-Reply-To: <7ia4qzl45h20.fsf@castle.c.googlers.com>
+References: <7ia4qzl45h20.fsf@castle.c.googlers.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <7ia4qzl45h20.fsf@castle.c.googlers.com>
-In-Reply-To: <7ia4qzl45h20.fsf@castle.c.googlers.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 15 Jul 2026 19:51:33 +0200
-X-Gm-Features: AUfX_myloSwuHEJAAq9lu6OYztq6q1C0VcIIR0Vhl5Yo6kJLwk5hklTh0Jligvk
-Message-ID: <CANiq72nKeDuMqWWy3ipdhOgCwUVyN5xt_MDXnu9AVbixH50PrQ@mail.gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
- Kernel process
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: ksummit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 15, 2026 at 6:55=E2=80=AFPM Roman Gushchin <roman.gushchin@linu=
-x.dev> wrote:
->
+On Wed, 15 Jul 2026 16:55:03 +0000
+Roman Gushchin <roman.gushchin@linux.dev> wrote:
+
+> Sashiko and AI code reviews in general have gained a lot of traction in
+> the kernel community over the last few months. I think it is fair to say
+> that at this point there are no more questions about the usefulness of
+> AI code review in general. However, there are many questions about how
+> to improve current workflows and better integrate them into the kernel
+> development process.
+
+Heh, I was about to propose the same theme. IMO, we do need to discuss
+more about AI, specially after the discussions related to linux-media
+and Sashiko that it is happening those days.
+
+---
+
+Besides code review, there's one area I also want to propose some
+discussions:=20
+
+Use AI to fix documentation issues
+----------------------------------
+
+If we run:
+
+	$ scripts/kernel-doc -Wall .
+
+it will generate a ~77k warnings due to bad documentation. This
+includes files that are not currently on Documentation, but even if
+we pick just the ones included there, the number is really big.
+
+Several of them are there since the beginning, and we ended removing
+-Wall from kernel-doc generation to avoid a too noisy documentation
+build.
+
+I'm proposing to discuss using AI to at least partially address
+the documentation warning noise and then finally enable -Wall for
+kernel-doc warnings.
+
+---
+
+
+> Some specific topics I propose we discuss:
 > * Review of LTS patches and kernel releases.
+> Currently, Sashiko reviews only publicly proposed changes, and it is
+> completely up to individual maintainers whether to take the findings
+> into account. By starting to review kernel releases and LTS backports,
+> we can likely significantly improve security and minimize the number of
+> regressions. However, this adds to the workload of maintainers, and we
+> need to agree on a specific process. For example, we could agree to
+> bring up only critical and high-severity issues and expect the authors
+> of corresponding changes to provide a fix-up or explain why it is not an
+> issue.
 
-For the backporting case, I think this could help, and there are
-certain things we could ask for, i.e. custom prompts.
+Makes sense to me, but I would start with very specific prompts to
+check issues where LLM is particularly good on checking, and where
+compiler warnings don't report.
 
-It may also have less noise, in the sense that the AI has the original
-commit in mainline as a baseline, i.e. it is not a completely new
-patch of unknown quality.
+One such area is to check error paths: Kernel works reasonably
+well when registration/memory allocation/resource allocation/...
+succeeds, but there is a large number of fix patches that sometimes
+take several years to be applied related to error condition
+failures.
 
-I imagine Sasha et al. have experience with this.
+Also, if we're willing to do that, it is probably be worth to
+have something similar to what we had in Coverity: an interface
+where maintainers could navigate at the found issues, with their
+fixes, ordered by priority, and eventually tag as false positive,
+preventing future reports of the same issue.
 
 > * How to maintain the long-term stability of Sashiko?
+> Several kernel engineers and maintainers have rightfully expressed
+> concerns about relying on infrastructure provided by a single company
+> without clear formal guarantees. It would be great to discuss what a
+> more sustainable model could realistically look like and how we might
+> get there.
 
-How hard do you think it would be to get at least one more AI company
-to donate some tokens (for their own model)? Could that be a simple
-start to begin reducing the single-provider issue?
+IMO, the solution is to use open source LLM models, preferably in
+a way they could run outside the cloud.
 
 > * Handling of pre-existing bugs.
+> Currently, Sashiko reports pre-existing bugs alongside new issues
+> (while trying hard to highlight that these issues were not introduced by
+> the proposed change). This approach comes with significant pros (a
+> steady stream of bug fixes) and cons (additional noise and workload for
+> maintainers).=20
 
-Do you mean the AI would be able to query that database? Or directly
-being part of the prompt for that subsystem/file if it is not too big?
+> I am considering a database of pre-existing issues to
+> ensure they are reported only once (or once per year), with an option
+> for the respective maintainers to flag them as false positives. This
+> will also provide maintainers an access to a deduplicated and ranked
+> list of potential issues in their subsystem=E2=80=99s codebase.
 
-Ideally some of those cases would just be a comment in the source code
-(like we already do) -- local and in-band, and it may help other
-readers too.
+Makes total sense to me.
 
+>=20
 > * Prompt development and testing.
+> Currently, prompts are maintained in two GitHub repositories and are
+> changed manually or with the help of AI coding agents. However, there is
+> no established practice for testing them, especially across various LLM
+> models. At the last LSFMMBPF conference, there was a discussion about
+> moving them into the kernel tree. I see some pros and cons to this
+> approach, but the ownership and testing models are not entirely clear.
 
-Yeah, it is pretty much a black box at the moment, especially since a
-maintainer doesn't control the runs, i.e. even worse than a local LLM
-that one can do several quick tries etc.
+I don't think it is a good idea to move to the Kernel tree, but
+it makes sense to have them on a shared repository (or database)
+where each maintainer can be able to adjust the prompts as needed.
 
-Regarding putting the prompts into the tree, that sounds similar to
-the in-tree CI files. That could help, but I wonder if it should be as
-general, shared guidelines for a subsystem (i.e. useful for humans
-too) or truly LLM-only notes (i.e. to overcome certain weaknesses of
-the AI etc.).
+For this to work properly, IMO we need an interface to be able to
+trigger a test on Sashiko using the new prompts and see the output
+differences before/after the changes, before committing it to
+production. Perhaps we can use github/gitlab workflows for such
+purpose, I dunno.
 
 > * Interactive mode.
+> Many engineers have asked for some sort of interactive mode where they
+> can ask additional questions or follow up on the initial feedback from
+> Sashiko. I plan to add this to the local review mode, but for the
+> central public instance, it is problematic from both security and token
+> cost perspectives. Sashiko could analyze false-positive cases reported by
+> engineers, attempt to verify them, and automatically suggest specific
+> prompt adjustments. However, there is a non-trivial number of cases
+> where people are wrong to dismiss AI findings. How should we treat these
+> cases?
 
-Could this access be restricted to, say, people with Gitolite access
-or similar, and rate limited somehow?
+An interactive mode is important, together with the capability of
+running it locally on affordable GPUs. For this to work, we may need
+to have a Linux-Kernel sashiko trained model that could be executed
+locally with a limited number of active parameters.
 
-I am pretty sure you already thought of this, but I wonder how feasible it =
-is.
-
-Thanks!
-
-Cheers,
-Miguel
+Thanks,
+Mauro
