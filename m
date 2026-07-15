@@ -1,127 +1,100 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC9713777E
-	for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 04:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB66C35F5E3
+	for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 16:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784090593; cv=none; b=uxs2um4WyiGKsNgT1mLzGuKoN1pP5nTg3uWXBaEbI3uLuMF5wgImwEP7mLMg2ksbH5uzFVPdWOd+wi1iTRHYd65cKiP2SHGvf+eQlm82zAeo1SrYClUWBOezj+bdQvbzHGyUq5E3fsyezgPCrCBeXTv1m851lTU0UkmY7QC5TRQ=
+	t=1784134538; cv=none; b=AOM36OK9SG0gDzDKKOTn46BSkUX0IRr9vjHQ/cqgGXBawdbErIEo44BQPjxrtUIKh+vLM5k228fC3pwftlnKDkL9gaJ0k6AXdCGiBuC/A5dyWLXCxbDFdjWzr65wgXQYkq6OFBt7WBfT0DoePmJGq4sTFiRqZNwUk4bm2jrFKL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784090593; c=relaxed/simple;
-	bh=4sIsq6nYBqPZRi04ZUCpy9Rx4ckdXNzLhaFJw+j/acc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZIiEbjjME+NddiTaWFbHqzKQy+f0pS1iDdjgzQ8Kx+Oj9AhBVZ9+T+e1/e4UYA7K5cBYpbetWpPMjcdOVDsr7mrQEgODwlHxEu8DzIWVhIN5yni1dhhJ3fUbB4uzn1MtD3EihsUpGQJvmRdQWCF7WgKSoCx/6lphQKAokEIWbIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=VvpT1wdM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=D7uzWUZV; arc=none smtp.client-ip=103.168.172.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1784134538; c=relaxed/simple;
+	bh=H7GiBrgxDUX5IrWgZhDpsg2pz/m9JvL4GWLWcjnn+hg=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PE7Vu4oG/jDIiNcz+gDvV1O9rkBDqvmNdV32/UR3RNYXIKd1oKI64jorBJcCUvtbH8bY98urIy/Kx1HcR0sStn6DBYsS8Tvk3DaMl9UHekr2cps08vVMbBQTvscQ3zCIw+rt3+ykppBipVOMk5qYRmopFd87Rg9mm2unf8llPcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lbkoLlJs; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="VvpT1wdM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="D7uzWUZV"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 3B3281400134;
-	Wed, 15 Jul 2026 00:43:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 15 Jul 2026 00:43:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1784090590; x=1784176990; bh=PS/3AP3BE/
-	YzSAinhSlwzANmbGPK3lJOwmYG4UkhFAk=; b=VvpT1wdM0PlxkxRVBcT/0RV5bJ
-	9pYN7mb13PLpnES9fXVV7ZGivPHh3jUwW93krqqZmbWk9RL9DHl44qeljSiQgCw5
-	8Nd2qBx2vh03xgTbtKcsg/QPO1+69rB06tpYZl3Fd3jLRbQzDN07nZ9PyNc+Cyji
-	byCk2oCWrq/TcfP/tIhrEWhxDiH1Wmhd+pUsnzknzMXW8GeolLeU7lEdpMfwozqI
-	chR7QZGYXHAsXM3KLJ+AZ3AJku2YOHTixRVpzrO1aiv2MytvZ3XLV0mgDggclLd3
-	nzamRHW6+72CLkimwppPr9+hNhEbfTNqz0+afq9c7lb+taZ50B3ytbX8yXZg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1784090590; x=1784176990; bh=PS/3AP3BE/YzSAinhSlwzANmbGPK3lJOwmY
-	G4UkhFAk=; b=D7uzWUZV3i1LeglEa0DLiTLNe6Uz8ewYSg+wnvZqcQHaII4cw0G
-	SWDlO3A/IQajbwQuatWgsx9H7ipMj+CkmbWOvPe/tI6+J2GubzxDiwTJa3ZI4rjH
-	jLc+msK6gwYUjI8pW5lUS6uYd9frdaFtDdaC/0tqOvhdvlla7A0xdNU78ZIJmlMU
-	hozqzYfrdHz+RB6OfWu6ci4gaqHCEkx2qcU75KJndelYku3n78LjwXj+VyRR51Hk
-	ls0RYU5t8PYK7mL/6+8s1gdmS+q6t52F1s7BUZI+bhx+yzNU4vYg3d4FLLyufOLh
-	N+Zb5p91deUJ1V8HmZKLCHvonpJq5k06G/A==
-X-ME-Sender: <xms:3g9Xag5zsCrubRkzgkF4gP-keN4LK8BG0Cs3xEMAupCtwX1MiMCGzw>
-    <xme:3g9Xavueh8Kfar8m9Vx_lBuNstWPYkdpq34Ho-6rvu0MQmu4n_oOr7RxrtVxpNGS-
-    RTOKbEwODCnZb1MyIJyv6oi0nMX0PW55EBvEb_e9q6EvQmHIM4>
-X-ME-Received: <xmr:3g9Xap5oOZP_vJFpGstjm1Q8YNkwhVvdVLC5IsnGAj_R87N3gLpGpXfZ7jbWN-AbCHrBxAqUAu59E-XVA1-_93-PWQ>
-X-ME-Proxy-Cause: dmFkZTEFiyjhWX5bEydgjbZMpeie9dfLoYBUcU2gnFX/PfhuXL+Dwup2cS3MWpMIlaylbC
-    TkjOIXyqVZSneeBX/m7X2DESbKoQ0ZBTNq4yAAOR/5kuHz4g8lh0PcIDrznvLEhnHczZQU
-    +kRSaME5JrcX1bN/033RjIcVm3MJJoh1Q7csHjJMw8ei1m1vsUSY7AcC88nfcS7gcjQfL7
-    fpg1GOWTzH6pLuvJe6dQNePs7Qb/RNPd4/caoBQidZYlzorUCPqkALudx9mItKLpFF5RzR
-    RoiCY9/M3rLxwrfebT6Oc6qcORzB1TdyIBeX2FBk6KOUkweQWp8GOsKZfwFpLBYyLe+IIb
-    UJHCxfjqd2r3mUxkFwYhnhssEe6GZmMF+8/XdHf9grExLAMRd8qKdD2yz7XEDbNJK/9vIi
-    yd1V07kwK9TUmkEM7/COodTMeAbqRtRyLPKLUHkXrRjb2XnJB4igrx3WhIClsYvwhemDAa
-    8Dl148PvAX2VG38Eyf4V9ODDZTuLTOU9sQ3d8wvd/c1l0Ezm0U6v4qhCiA5r/45jWPGd3m
-    CLel9KbHLmcXSkK6NZy2yz6sz+gnxz+4sHu5XC3QSkdPBo6xcuUapjuPs6hN5XUOR6TYdT
-    lATvw30PW0nZ4+SVYJeU8nJtkFCQt0Sj1PFTPV7EWBQnT7w7JxX1G0Ss+COQ
-X-ME-Proxy: <xmx:3g9XaiXNrQfop-363mAMGIcccjivtzsF3OuguQOSPvTRge5cJy2S8Q>
-    <xmx:3g9Xaj-qVifmTP9xBBX6v1qDzqkKYZTbJ6RdulVavaie3dVVM-VeMw>
-    <xmx:3g9Xamn9G0zBPqerxhKwnk_ufmncYN_i1E1Cf79UlU6rCrITzJzByA>
-    <xmx:3g9XapXOddvuFEimqr8Uzhca23Y6Lq1B5dMzsSEw2PBCtlxyoFy-xw>
-    <xmx:3g9Xah3oliQR595G0wuOd3Pqbkva2qE3TBHPx6kQsoWuU527Uo-zGptm>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 15 Jul 2026 00:43:09 -0400 (EDT)
-Date: Wed, 15 Jul 2026 06:43:04 +0200
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
-Message-ID: <2026071553-tuition-hatchery-4588@gregkh>
-References: <albMUqack9yMq0rF@laps>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lbkoLlJs"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784134531;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=H7GiBrgxDUX5IrWgZhDpsg2pz/m9JvL4GWLWcjnn+hg=;
+	b=lbkoLlJsGeJcAQWMml3hQ2Cw6h5UNoZJtv5U+urBRZYY8K2tpqyOzOiw9WsL1yhsgYmeFR
+	gYAYsOmGwpS0QMUK3sCOdSw2e5HTqzLRuhTJty9CpIYpqtbRk/qPVEFQyJjVGFZnH3yEpK
+	w62Jns3qyXpjVmjPSQ7D8OqzqJDYlrw=
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: ksummit@lists.linux.dev
+Subject: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
+ Kernel process
+Date: Wed, 15 Jul 2026 16:55:03 +0000
+Message-ID: <7ia4qzl45h20.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <albMUqack9yMq0rF@laps>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Migadu-Flow: FLOW_OUT
 
-One comment about something I've been working on lately:
+Sashiko and AI code reviews in general have gained a lot of traction in
+the kernel community over the last few months. I think it is fair to say
+that at this point there are no more questions about the usefulness of
+AI code review in general. However, there are many questions about how
+to improve current workflows and better integrate them into the kernel
+development process.
 
-On Tue, Jul 14, 2026 at 07:54:58PM -0400, Sasha Levin wrote:
-> 1. Does security@ still work? It was built for a handful of carefully written
-> reports, handled start to finish by a small group of volunteers. That process
-> never really scaled before, and it won't scale now. Does it make sense to
-> separate the roles? let AI driven tooling handle intake, filtering, and
-> reproduction, and keep the humans for developing and coordinating fixes for
-> reports that survive triage?
+Some specific topics I propose we discuss:
+* Review of LTS patches and kernel releases.
+Currently, Sashiko reviews only publicly proposed changes, and it is
+completely up to individual maintainers whether to take the findings
+into account. By starting to review kernel releases and LTS backports,
+we can likely significantly improve security and minimize the number of
+regressions. However, this adds to the workload of maintainers, and we
+need to agree on a specific process. For example, we could agree to
+bring up only critical and high-severity issues and expect the authors
+of corresponding changes to provide a fix-up or explain why it is not an
+issue.
 
-It was not really "built" for anything other than a place that people
-could report security bugs and get them fixed.  We have changed the way
-it works over the past months, and for right now, things seem _MUCH_
-smoother than ever before.
+* How to maintain the long-term stability of Sashiko?
+Several kernel engineers and maintainers have rightfully expressed
+concerns about relying on infrastructure provided by a single company
+without clear formal guarantees. It would be great to discuss what a
+more sustainable model could realistically look like and how we might
+get there.
 
-Also, we are getting funding "any day now" to have someone work full
-time on this, to be the "point person" for the alias to help when things
-fall through the cracks, as sometimes happens.  We have verbal
-guarantees of at least 6 months funding, and if that goes well, it
-should be extended.
+* Handling of pre-existing bugs.
+Currently, Sashiko reports pre-existing bugs alongside new issues
+(while trying hard to highlight that these issues were not introduced by
+the proposed change). This approach comes with significant pros (a
+steady stream of bug fixes) and cons (additional noise and workload for
+maintainers). I am considering a database of pre-existing issues to
+ensure they are reported only once (or once per year), with an option
+for the respective maintainers to flag them as false positives. This
+will also provide maintainers an access to a deduplicated and ranked
+list of potential issues in their subsystem=E2=80=99s codebase.
 
-LLMs really can't be used for security@ EXCEPT if you use a local model,
-due to the "interesting" legal rules that security@ has to operate
-under.  We've been using it there for a while now, when needed, and it
-has helped to spit out "first cut" patches for reports that do not
-contain a patch to start with.  That usage is gone way down now that we
-ask for a patch in the intial report as all of these reports are being
-generated by a LLM anyway.
+* Prompt development and testing.
+Currently, prompts are maintained in two GitHub repositories and are
+changed manually or with the help of AI coding agents. However, there is
+no established practice for testing them, especially across various LLM
+models. At the last LSFMMBPF conference, there was a discussion about
+moving them into the kernel tree. I see some pros and cons to this
+approach, but the ownership and testing models are not entirely clear.
 
-And attempting to use a LLM to handle intake and filtering just doesn't
-work.  Many people who have experience with being on the recieving end
-of such a feed have agreed, that isn't the real problem with getting
-this feed at all.  The real problem is unresponsive reporters, and
-"middlemen" that like to put their company inbetween the reporter of the
-bug, and us, the fixer of the bug.  A LLM just can't do anything there,
-but I'll let the person who ends up doing the work for this for the next
-6 months have their say after they've been on the recieving end of the
-firehose for a while :)
+* Interactive mode.
+Many engineers have asked for some sort of interactive mode where they
+can ask additional questions or follow up on the initial feedback from
+Sashiko. I plan to add this to the local review mode, but for the
+central public instance, it is problematic from both security and token
+cost perspectives. Sashiko could analyze false-positive cases reported by
+engineers, attempt to verify them, and automatically suggest specific
+prompt adjustments. However, there is a non-trivial number of cases
+where people are wrong to dismiss AI findings. How should we treat these
+cases?
 
-thanks,
-
-greg k-h
+Thanks!
