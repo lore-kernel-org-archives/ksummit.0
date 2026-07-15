@@ -1,71 +1,43 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A04A2C21C4
-	for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 19:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4850B2D8795
+	for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 21:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784144724; cv=none; b=h9siqN5irbSoLi9E6ONSqWXvzS0wmn4TRXT3xOb8UeYKNrVmqc+YQy9GWbs2shxEj/edS0XVc+ARo6isxz8gV0huzDpybTlot9yg39GHDoZX/vQyVhfk/rK8m3PQbnwoxQRYkd6fmjEfxIONqlHwNU/jZT4WzZS8dF4Um575Mmk=
+	t=1784150499; cv=none; b=hP85u1xpYNNjLmAFieqvvXvcBEjMZy6ZeLhs6hHvFgX4bA7XFqCDNoqu0ynkuzvS0AiixJ5HgHpOaMxds+ylNx2GXur1KGlglZLBQtoQYF50WX7nCT+kn+ua+MdUzCOiV1rbk+5Zcaucybse+IR5CFs0ukCZlgKa6Anjcsy44hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784144724; c=relaxed/simple;
-	bh=DFbs4d9TDlmlVjp6/LwdrLiUdfV3gRPK3gnhlKK+9sQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fwwswOnvDBhKfQAbXbS5I+z8E/uS7peY1gt09sr4yLGBU8UMBarJxIl0pXbLl7Xs27a3NkAPJ15IQbLYDeNfKoJ9shjX2ifzylYHZBshCHNVlEAkWJwU21VOfJLTG8fLsPNnb6J8nXZ6H9GPMOG3+oucNcl6934uywHzOPXebZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aDmwEekh; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784150499; c=relaxed/simple;
+	bh=HJvZI0ShRswWTCBzGufakdnRgV23+CVXOmLqWk3Ydps=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mDbRxqss4YjObQv9hVmDrFBv1AO6wLYfNO8q/QtXjQsTScLXARUrloR7GrZAAuZE9nXZvmeaSZmsuzjcBZoQ2CDbl/6ct2g2D3FER2fjLk++J81lYNPPETjvkpklnYGMuyXBdIuqyOJ+YPqjTO94ggrwj632NPY4617Vluv9ib8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=smibgRsu; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aDmwEekh"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cace91f112so54919095ad.0
-        for <ksummit@lists.linux.dev>; Wed, 15 Jul 2026 12:45:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784144723; x=1784749523; darn=lists.linux.dev;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kxpOMyDIT92YlLZOO2iqMOfpwidzd2Q+C4IP/b2OFiM=;
-        b=aDmwEekhVupt1RdHM5EEaS4vLD1DHSf4QVhd18J7QK+s8XUQTVqOp21JyVwDDhvYHR
-         gnRi+UeF6wqsukm4T4oJuxG9edm69+rGvSXxIGv278hTCrprROk+MWPsyXKO/sg75OGz
-         0h9rVmwEz2m3HlUwWBr37xEM2+DUpu2DpBy+5XRrqMl4Oak4qURtzkoMZxFrGHKhuaZX
-         oHgTiMu1jhiE8RVhF3Ulw8qjZFsKr7sO6TkUVIvplPFPKdrBHK2jyBzGut9BNA31pG5y
-         QoZjvKsIgDjH4SQ2QswBW4R5K8VQ0lgIlL+Ova28dkTHoSYMvQnnYu5eiWP5FmTZKmoD
-         Y7UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784144723; x=1784749523;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kxpOMyDIT92YlLZOO2iqMOfpwidzd2Q+C4IP/b2OFiM=;
-        b=pWyEDTYmjMNknNfKr8pJ9jg22G4nofDptFTNXr4wk/i4FjR6sN+xrZF569bmLEpchH
-         CqSgmn0p7nerspI6ftLnaz6b3qN5aRB/VPlVmXfgwY5r/wPbL4k3ZCokKmUa8pF2/Zk9
-         JcaejBiID/nDGdeX9S8tbAeRQRM/WMDhMAaaERhf7jjUvtg9P0WAJfdguQ3lrEZcq6T+
-         WvvneiuQIl/4F8fg1zezhEKq9KxFgc46MEqYnrpNAzF0vSO85Fs9bkqbM7EoRPGQFFH6
-         GGzWxPzzGebL5arUgX0uWAQ2rGt3h506BSi19147Df6WGmrufL5G8TxJeakaEEC0P7ng
-         0yMg==
-X-Gm-Message-State: AOJu0Yw5wigCkU9uHzcsXGce3Zd+4a8lDM+mSx1qgx7yljzF/9SfzZSE
-	RRUAraapSK+3t4SZXWjvjwO8sPaOMwhCMIW62OCTsE56px2J/5H597+c1qOn/g==
-X-Gm-Gg: AfdE7cmN7TEMw1z3t6mbzzCwpUoWs+tp2L9mu8tprjNwPPrid/MK/kBA0bM8q/q2mF1
-	5oPZK+7PMD+YhoPO1XB5tScGHLpNhTiX7MMfW+CcPd3042HkvRxm6CB8+TBx8+fMs2rUpsR1+DH
-	zfa9szelqTnhYeQKsxXYik2q7KJc2zfLC/dD0PjAlPF+L5qVFzu351a8bNM2NzzfZPo6OelaWTy
-	S+uT7C2c4k10edVR9mXQ0A1C4y55m5NNa9pM2Z1fLk7Md4t6zhGkA/beiT19j6ZM9H1waL4qd9b
-	J3mxYafYr8JEbV5zbIlCeEmdQfJw0iQWR4sZfsBZ10kp+i7hhiMVAXPKEOx8AAyk8y7fIBT5d+2
-	8Yj6Mr77eQ3A63I+vl0Cne4PO3dLsSQu1awhStCOpes+ogGN77K/+sCL42OCsOkHeiUzQW4UAeT
-	C9pLt4wXb/rhk/c64eiP5WDZ7IEJ0p/m/9eJ5gm2EPUSNI1xIeiuUY
-X-Received: by 2002:a05:6a20:7344:b0:3c0:9c19:659f with SMTP id adf61e73a8af0-3c36c42ff73mr4442279637.71.1784144722762;
-        Wed, 15 Jul 2026 12:45:22 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:575a:5ca:2b13:aa89])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13cd432f1cesm6143945c88.11.2026.07.15.12.45.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 12:45:21 -0700 (PDT)
-Date: Wed, 15 Jul 2026 12:45:18 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Roman Gushchin <roman.gushchin@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="smibgRsu"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784150494;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HJvZI0ShRswWTCBzGufakdnRgV23+CVXOmLqWk3Ydps=;
+	b=smibgRsuNzhkrCJUc37+WPfC3jbCdwZPqise39+NYOwnHzV3mP1pgCXVZN88+QslOCS1R/
+	7lVVw6bpSxfThMJjekzhcOIKqvan+X2P4IKzMIlzNViTh+mIq518Et46BoWvQU6nTDyyK3
+	x0HGjyWFU27di0sAfupskcE+qMzRg48=
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: Jason Gunthorpe <jgg@nvidia.com>
 Cc: ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
  Kernel process
-Message-ID: <alfiJkwVbKmDksTJ@google.com>
+In-Reply-To: <20260715185757.GA191552@nvidia.com> (Jason Gunthorpe's message
+	of "Wed, 15 Jul 2026 15:57:57 -0300")
 References: <7ia4qzl45h20.fsf@castle.c.googlers.com>
+	<20260715185757.GA191552@nvidia.com>
+Date: Wed, 15 Jul 2026 21:21:03 +0000
+Message-ID: <7ia4pl0oymo0.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -73,36 +45,77 @@ List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7ia4qzl45h20.fsf@castle.c.googlers.com>
+Content-Transfer-Encoding: quoted-printable
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, Jul 15, 2026 at 04:55:03PM +0000, Roman Gushchin wrote:
-> 
-> * Handling of pre-existing bugs.
-> Currently, Sashiko reports pre-existing bugs alongside new issues
-> (while trying hard to highlight that these issues were not introduced by
-> the proposed change). This approach comes with significant pros (a
-> steady stream of bug fixes) and cons (additional noise and workload for
-> maintainers). I am considering a database of pre-existing issues to
-> ensure they are reported only once (or once per year), with an option
-> for the respective maintainers to flag them as false positives. This
-> will also provide maintainers an access to a deduplicated and ranked
-> list of potential issues in their subsystem’s codebase.
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-Having database and either flagging issues or tweaking the prompts would
-be nice.
+> On Wed, Jul 15, 2026 at 04:55:03PM +0000, Roman Gushchin wrote:
+>> * Handling of pre-existing bugs.
+>> Currently, Sashiko reports pre-existing bugs alongside new issues
+>> (while trying hard to highlight that these issues were not introduced by
+>> the proposed change). This approach comes with significant pros (a
+>> steady stream of bug fixes) and cons (additional noise and workload for
+>> maintainers). I am considering a database of pre-existing issues to
+>> ensure they are reported only once (or once per year), with an option
+>> for the respective maintainers to flag them as false positives. This
+>> will also provide maintainers an access to a deduplicated and ranked
+>> list of potential issues in their subsystem=E2=80=99s codebase.
+>
+> I would really like a syzkaller like dashboard of all these
+> pre-existing issues and a nag/summary email so they actually get
+> fixed.
+>
+> I've gone and fixed a bunch on my own, mostly out of fear that they
+> will just disappear and be lost, but it is an annoying urgency. I'd
+> rather have as a giant todo list (that maybe other people could help
+> with too)
+>
+> Often alot of tokens are spent to find these things, it feels wrong
+> that they are effectively lost in the endless stream of reviews..
+>
+>> * Prompt development and testing.
+>> Currently, prompts are maintained in two GitHub repositories and are
+>> changed manually or with the help of AI coding agents. However, there is
+>> no established practice for testing them, especially across various LLM
+>> models. At the last LSFMMBPF conference, there was a discussion about
+>> moving them into the kernel tree. I see some pros and cons to this
+>> approach, but the ownership and testing models are not entirely clear.
+>
+> Having them in the kernel always felt better to me, I wonder what the
+> cons are.
 
-Also I feel that if we simply had separate sections in the review, one
-giving feedback (including "all clear") strictly on the patch itself,
-and another one stating something like:
+A minor problem is that for prompts there is no point to stick to the
+kernel release schedule (merge window, etc), which will only slow down
+things. So it requires Linus being onboard with the idea to accept these
+pull requests all the time.
 
-*** Pre-existng issues identified during patch analysis (address at will) ***
+But also I hope that eventually (and I work on it) we can at least
+enhance prompts in a semi-automatic way, based on the human feedback in
+email replies to sashiko reviews. It's not trivial, requires
+verification and likely a human in the loop at least initially,
+but I hope that mid-term it might turn the whole process into
+more-or-less continuously self-improving system.
 
-and then listing all other issues would help recipients (and maintainers
-too).
+Having prompts in the kernel tree will also have an interesting
+side-effect: newer models will learn on SOME version of these prompts
+and then get a newer version as a prompt. Idk how it will play out.
 
-Thanks.
+That said, I'm not against putting prompts into the kernel tree at all.
+I'm just saying the testing and ownership questions are real and need
+a real discussion.
 
--- 
-Dmitry
+>> Many engineers have asked for some sort of interactive mode where they
+>> can ask additional questions or follow up on the initial feedback from
+>> Sashiko. I plan to add this to the local review mode, but for the
+>> central public instance, it is problematic from both security and token
+>> cost perspectives.=20
+>
+> Could there some way to download the entire context from all the passes
+> to a local environment and have a local llm chew on it to answer
+> questions?
+
+Yeah, it's an option I though about. Like a download button which just
+dumps all relevant context as an .md file, for example.
+
+Thanks!
