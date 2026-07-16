@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029B932B11D
-	for <ksummit@lists.linux.dev>; Thu, 16 Jul 2026 15:17:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029063D88E0
+	for <ksummit@lists.linux.dev>; Thu, 16 Jul 2026 15:28:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784215044; cv=none; b=spt2G15LpefkPv5mhiVsY1IqdPoAB3u3mC92UnfUqj4PQ37CU6sJ5Wji/T7D14gwf7ZM1U16NsFX1cr4ahFIDI09I7cZxIJvNMzFYWVKXwQsW/iTjlhaBl7WnPNui8FXj4fJss1apk0yKyVK0ikwUMMv3xy4tkbYyektD3AUO7U=
+	t=1784215708; cv=none; b=uxDSHQe1nTLSSe66c1cePoyJ0dqmWkQIq32ZtDhTsAybVYjSaBpa09W2+09q5TeDKJOlEB9gBRYMoo4oSEjJPT57HhTGBGtXC4s+FooIQuuwnsEU1aWF09OoaGtPmzZmLw7lsbH1ZODh8VcVDsM6zkKqEXuVzLTECtf7RpXMUXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784215044; c=relaxed/simple;
-	bh=2l3GxBRU1SFghrMkZSysxeifIg4XbuZeIG4C5mqbDps=;
+	s=arc-20240116; t=1784215708; c=relaxed/simple;
+	bh=awtcSoJfBGhJLMLS0aiyQKRtiAmIYQXHUUGG1cQ0QVU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hInX76yJDsZYXlR3XyuceLwUkpbgH6gZXW4dgCnO7a+xVizKPozhT/srIckQryeEayMog4+hgtc+1hqbnnOV7PMvl61KFFoI0iKOF8f2eD1y38Juv2VekIMZ5bRucZZk+znVhV2Pl+5wiQkowFob2/2TBRP++SfeKpGmbPF08UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=haoGn6U/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lXcSbsdAVwd7eMpV14Peql4LRKWCpUvG09SD6UChc25CzyPHsDGt9EDiAbVv2JhoYxgYpFKvwetcG/qGq4UtyJzu5LyJKtIYsEg9a0h0E5FqL1M9locF/q/qCt7CyNEmvTRygmbrE9oMG0PhNpTgt7vHM4K5FHd8oBUryl7OhLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RJ0Ju2Kr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="haoGn6U/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BA41F00AC4;
-	Thu, 16 Jul 2026 15:17:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RJ0Ju2Kr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A054E1F000E9;
+	Thu, 16 Jul 2026 15:28:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784215042;
-	bh=FY1byJB/g3eNWnujM5svpLKcv6p3D00AJvzHmJvzukM=;
+	s=k20260515; t=1784215706;
+	bh=kPRIJ8BWBuRIy/ZyJvUKFe+nI2CjZAo1YowyTE9tGFU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=haoGn6U/IeG4sv3hN/grN6HwR732etAvhFo6xL3/GVVWd3psmKmMiPXbUSpye7XZv
-	 VEl6fpw+HMgZImslArEJdJxZIp0KeRge2YCi6t8y3Ckox29TUUa4iR+G6CXurwOYfu
-	 RAcpTrGryTw/2Jpx/kybaVkiZEV75/xmWWmg+dRIq8R/1E97fZjr+1xEoxFgSAfIn5
-	 7GgOFrnC/Eqvr+fR+/Vpm2tLsjZTpqO0cWd2CSaJfRQq7gcdiKDybYeRx9nxF5Icu1
-	 3tYmeYVs4kvIIrOeB0zIbXW5Hy1YOpwgye0/lQtwBPms8GjyxRwXPfNMmwUjuGBHwA
-	 BTkioUBLJCCIg==
-Date: Thu, 16 Jul 2026 11:17:21 -0400
+	b=RJ0Ju2KrlT2z7OQTQHXprTtMmXxoZN3Wmo1KZrrf9gzurmpGKULMxTiggXehG5m7n
+	 0TEAVBeQlgT2jBknXK8fiecAUIilPqMIjMPLZNKvUXYXIdrEKLrCOzYF6XZoBrmBbS
+	 fKzfQUNdBC0S2isnS8LpawXGC7d+4sCW1Cumi29q+2qnf6jKV4lw9LQDmWOW7B0r57
+	 skfXGeGNQRkJSY05CFfLDc5rfuanHGc6bzqa/B3+PF7mrK/8qjOxvjOBplPTcjXNvz
+	 YKXqN6cFXkktmTw2YZu4ReimZMI1iuE4ZmLsdrAJhC1ingf5YGiHDQG73XCyNhT8Nz
+	 DX+LIq/+QwCAQ==
+Date: Thu, 16 Jul 2026 11:28:25 -0400
 From: Sasha Levin <sashal@kernel.org>
-To: Greg KH <greg@kroah.com>
+To: Jonathan Corbet <corbet@lwn.net>
 Cc: ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
-Message-ID: <alj2AX17zXFMIjZW@laps>
-References: <albMUqack9yMq0rF@laps>
- <2026071553-tuition-hatchery-4588@gregkh>
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
+ etc
+Message-ID: <alj4mYFMfZvuarfx@laps>
+References: <87wluv7yzc.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -42,53 +42,78 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <2026071553-tuition-hatchery-4588@gregkh>
+In-Reply-To: <87wluv7yzc.fsf@trenco.lwn.net>
 
-On Wed, Jul 15, 2026 at 06:43:04AM +0200, Greg KH wrote:
->One comment about something I've been working on lately:
+On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:
+>The use of LLMs in the development process appears to be a clear theme for
+>the upcoming summit.  On top of what others have already suggested, I think
+>we may want to consider these questions:
 >
->On Tue, Jul 14, 2026 at 07:54:58PM -0400, Sasha Levin wrote:
->> 1. Does security@ still work? It was built for a handful of carefully written
->> reports, handled start to finish by a small group of volunteers. That process
->> never really scaled before, and it won't scale now. Does it make sense to
->> separate the roles? let AI driven tooling handle intake, filtering, and
->> reproduction, and keep the humans for developing and coordinating fixes for
->> reports that survive triage?
+>- Do we want to continue naming specific LLMs in the Assisted-by tags, or
+>  put something more generic?  I *think* that this thread:
 >
->It was not really "built" for anything other than a place that people
->could report security bugs and get them fixed.  We have changed the way
->it works over the past months, and for right now, things seem _MUCH_
->smoother than ever before.
+>    https://lore.kernel.org/all/20260701-work-coding-assistants-v1-1-a20a94d1d606@kernel.org/
 >
->Also, we are getting funding "any day now" to have someone work full
->time on this, to be the "point person" for the alias to help when things
->fall through the cracks, as sometimes happens.  We have verbal
->guarantees of at least 6 months funding, and if that goes well, it
->should be extended.
+>  reached a consensus that "Assisted-by: LLM" was better than what we
+>  require now, but it might be good to ratify that in this setting.
 
-It almost sounds like we need a CRM system here rather than a person?
+So originally I've added the full name of the tool and LLM because there was
+interest in a later audit of the tools to determine how useful (or useless)
+some of the tools are.
 
->LLMs really can't be used for security@ EXCEPT if you use a local model,
->due to the "interesting" legal rules that security@ has to operate
->under.  We've been using it there for a while now, when needed, and it
->has helped to spit out "first cut" patches for reports that do not
->contain a patch to start with.  That usage is gone way down now that we
->ask for a patch in the intial report as all of these reports are being
->generated by a LLM anyway.
+If those folks aren't interested in doing so anymore, then sure - we can drop
+it.
+
+But... I find it difficult to see the point of having the tag if we do that.
+
+>- There is a lot of LLM-generated code that lacks an Assisted-by
+>  disclosure.  Often, that seems to be the result of ignorance of the
+>  rules; those contributors will start adding the tags when informed of the
+>  requirement.  But others just lie about it.  A rule that is widely
+>  ignored does not help anybody.  Can we come up with a way to get better
+>  compliance, or should we just drop the tag entirely?
+
+Similarily, I think that one of the bigger reasons for the tag was fear of the
+unknown. We figured that we can tag those commits, and if we ever needed to do
+something about it (revert commits because of copyright issues, broken tools,
+UMN v2, etc) it would make our job easier.
+
+I think that there's room to improve the machinery here (AGENTS.md in the root,
+for example).
+
+>- There are many first-time contributors coming in with LLM-generated
+>  patches.  At times, I could swear that every one of them is focused on
+>  documentation typos, but the truth of the matter is that they are
+>  reaching into subsystems all over the kernel.  We have some brand-new
+>  contributors making significant changes to dozens of subsystems.  An
+>  experienced developer would be hard-put to truly understand what those
+>  changes are doing; a newcomer is unlikely to have that understanding,
+>  and is unlikely to be around to fix eventual problems.
 >
->And attempting to use a LLM to handle intake and filtering just doesn't
->work.  Many people who have experience with being on the recieving end
->of such a feed have agreed, that isn't the real problem with getting
->this feed at all.  The real problem is unresponsive reporters, and
->"middlemen" that like to put their company inbetween the reporter of the
->bug, and us, the fixer of the bug.  A LLM just can't do anything there,
->but I'll let the person who ends up doing the work for this for the next
->6 months have their say after they've been on the recieving end of the
->firehose for a while :)
+>  Our maintainers are not scaling to handle this new flood, and I fear we
+>  are going to see some unfortunate things merged.  One LLM-driven newcomer
+>  recently nearly succeeded in establishing himself as the maintainer of
+>  lib/.  How do we hold the line against this stuff while remaining open to
+>  new developers?
 
-Ignoring the LLM for a moment, is there value in jumping through all these
-hoops if we don't also end up with backports of the issues that are being
-fixed?
+Shouldn't it be a merits question rather than a tools question?
+
+If the commits are correct, does it matter if they were written with an LLM? we
+can insist more on supplying tests and demonstrating correctness, something we
+seem to be doing quite rarely right now.
+
+>- Our process is becoming increasingly dependent on proprietary tools.  We
+>  have done that before and, in 2005, it went pretty badly for us - and
+>  could have been worse.  How do we prepare for the inevitable rugpull?  I
+>  raised this last year, and it was largely brushed off, but I still think
+>  it's something we should be concerned about.
+
+Are we dependent on them, or do we just find them very useful? If
+Claude/Codex/etc goes away next month, will it stall any of our processes?
+
+We have AI reviews, we have many AI tools that help both authors and
+maintainers, but I don't think that any of them play an integral part of our
+process.
 
 -- 
 Thanks,
