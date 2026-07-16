@@ -1,170 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179B6168BD
-	for <ksummit@lists.linux.dev>; Thu, 16 Jul 2026 19:53:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17ABD31327A
+	for <ksummit@lists.linux.dev>; Thu, 16 Jul 2026 20:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784231628; cv=none; b=MsVl0Q0K4usMEA4nRU5f2L5J7lqf0U48D8A6Lunznrfa1z7qqV9AmUtuXwQup1yot9FYy/zioO03aGDeQqC1o2uRAMurjdA9n7bvVGPwm2bw6lJHdWchAmj8dTlrwPDqOzK3WBJ791s3ryBXbEr7xKrczXHMdHzFL3wLWOSeGeU=
+	t=1784232334; cv=none; b=QYAKpsXgoyXJeNbuWW4VqyN1H9SeRyF21kDa4ioKZsh5kogqkSmIx4aps0PxxopsyabfcaNdfVj/jDekaNcuqE+X71nQI92bJ2NdbZ57yyEO+KmdjWZyjSkjS63fEDr5UXn1nqoInW/n2mwB6dGn3sRAx2vsFC0IXEI12amfQig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784231628; c=relaxed/simple;
-	bh=LSSmqDYPw+Ykn5lEWF+f5cSWUgLhqM8bi0q3+Pg/5vQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TI4GcDqZJeNrY7ZLQIdeSb7gF6kUzbw/E+/cxzeP8SVsHBnRc9FDN6kSEq3teb/xuKTCR2P5iE99fXU7lz1PMMv2GoFOKxWz07ay+qjAsdbYJ5JBlweHTHQ4ZutrPQ7xxo7TWxFelLf3sjRaSgIh42voV6ubVERx+uha+JWlFcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbefXx3v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784232334; c=relaxed/simple;
+	bh=sNfquZkt+LJTEwRY8olxc+fSuNj/AU2wqqdgxSJc05M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DT7esJ9GxmXdJzgBLNMma/eLO+CIqy+dtalSlxEnLVj9L9FBmmy12PVEYBiKhtk4VKI9rip43pnHEWxaP0TYOV5Esz5d02MJxdIkfIC0vximzcIa5BVf2OiunPzLELnTwqyRFQN/5qBJJXib3J8d8MQSsCPXNzrnPpvtqcYJtNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=4WmQ+TE2; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbefXx3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE901F000E9;
-	Thu, 16 Jul 2026 19:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784231626;
-	bh=WTJEvIuj46xdRKZ5OK5dlcy8baTeZONJvxIDQAiPdWU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DbefXx3v1rfcwr4fWN7qHAo/hpHQpBryFSl9NxAe58XDExJ1wDrx3VdvDz9NgQGiE
-	 qrsQqGdm9vBNZmXW+/gxGSAiDVlDKfgZwH5jyr6GrMa4MzWzdS5JVg2l91DmNXHTKG
-	 4PQhLt/ZT+XYzh/gZKHrdNifNKHRwpI1ZEUax4kzH/Y8fRmVqf0t4Ht0zt1Unp685a
-	 gAYUfitmv0rt3G26SDXhZ4Ad+sm4Rn8UBW+adCwRO3M1D+6mHqt/ufhYuaCM8rM+dU
-	 WcUBSCfVETEjpRBxD30F1yoJGeMGu/k4qT/JJsP+kSZmQBJ5KXiXEMIVMXokmh2LTT
-	 ppfwTIlZtfd9g==
-Date: Thu, 16 Jul 2026 21:53:42 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags,
- newcomers, etc
-Message-ID: <20260716215342.30e44c2f@foz.lan>
-In-Reply-To: <87y0fa7pdm.fsf@trenco.lwn.net>
-References: <87wluv7yzc.fsf@trenco.lwn.net>
-	<alj4mYFMfZvuarfx@laps>
-	<87y0fa7pdm.fsf@trenco.lwn.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="4WmQ+TE2"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4h1PDD3qp4zlfc3w;
+	Thu, 16 Jul 2026 20:05:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1784232330; x=1786824331; bh=aN2UmnXE2E2mZc+11/19WMdb
+	TVdJuypZLZNaO1wHhJc=; b=4WmQ+TE2MgWl3WpIytP0rMlqg+hZ/SwhjRNJSz/p
+	0P31wtdGXbloyQcvolGc4HiQg6Rc8Mv8yEremLboh7E0OXNRvjiI7CH+b8bzOdRm
+	ScxKfgRwfytYYlZtKwRVvkqOuPhl4kLhM/NHbk7EM8Tx3AOL7FGbP7oA8L8wgQOb
+	7nlqfnOJ2WvtnxZEOsOUz6+GXwYWsaM/E4m0cSOBq5XOW0sE14am9xl7d7YfWac7
+	D1ZA9m5V03GitLs38EHNc0dOuvEvzAsktHIyKSQjS0yY25/m7FZPlldxwhWZoMZp
+	n1IWQvjDLlHd3CZJ+XSln+/POMWPk3BDk0/gCQyY0InBgA==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id Cu3YBinEGDkn; Thu, 16 Jul 2026 20:05:30 +0000 (UTC)
+Received: from [100.119.48.131] (unknown [104.135.180.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4h1PD93VQ4zlfl8H;
+	Thu, 16 Jul 2026 20:05:29 +0000 (UTC)
+Message-ID: <7b58f83a-a680-4c43-b29f-227c7b0c10ed@acm.org>
+Date: Thu, 16 Jul 2026 13:05:28 -0700
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
+ etc
+To: Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>
+Cc: ksummit@lists.linux.dev, Roman Gushchin <roman.gushchin@linux.dev>
+References: <87wluv7yzc.fsf@trenco.lwn.net> <alj4mYFMfZvuarfx@laps>
+ <87y0fa7pdm.fsf@trenco.lwn.net>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <87y0fa7pdm.fsf@trenco.lwn.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 16 Jul 2026 12:36:53 -0600
-Jonathan Corbet <corbet@lwn.net> wrote:
 
-> Sasha Levin <sashal@kernel.org> writes:
-> 
-> > On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:  
-> >>The use of LLMs in the development process appears to be a clear theme for
-> >>the upcoming summit.  On top of what others have already suggested, I think
-> >>we may want to consider these questions:
-> >>
-> >>- Do we want to continue naming specific LLMs in the Assisted-by tags, or
-> >>  put something more generic?  I *think* that this thread:
-> >>
-> >>    https://lore.kernel.org/all/20260701-work-coding-assistants-v1-1-a20a94d1d606@kernel.org/
-> >>
-> >>  reached a consensus that "Assisted-by: LLM" was better than what we
-> >>  require now, but it might be good to ratify that in this setting.  
-> >
-> > So originally I've added the full name of the tool and LLM because there was
-> > interest in a later audit of the tools to determine how useful (or useless)
-> > some of the tools are.
-> >
-> > If those folks aren't interested in doing so anymore, then sure - we can drop
-> > it.
-> >
-> > But... I find it difficult to see the point of having the tag if we do that.  
-> 
-> Folks like Greg have, in the recent past, said that it is useful even
-> without specific product-name information:
-> 
->   https://lore.kernel.org/all/2026070227-payroll-eradicate-8f66@gregkh/
+On 7/16/26 11:36 AM, Jonathan Corbet wrote:
+> What will we do when the current round of corporate generosity ends
+> and that tool goes away?  Maybe I'm worrying too much, but this does 
+> seem, to me, like a possibility we should keep in mind.
 
-I never saw any merit on having such tag: it doesn't help reviewers
-and doesn't provide any useful information at the git history. The
-only think they eventually allow is for someone to reject a patch
-without actually looking on it.
+My understanding is that Sashiko is open source and also that it
+supports multiple LLMs. I do not know whether it supports open weight
+LLMs. Roman, please correct me if I got anything wrong.
 
-What we need to ensure is that:
-1. the patch is good;
-2. author carefully reviewed/modified it and not just did vibe-coding;
-3. the author understands the proposed code.
-
-Unfortunately, (2) and (3)s easily said than done as technology avances,
-though.
-
-Yet, I recently saw a patch series that sounded to be produced by vibe
-coding, probably generated by some proprietary paid model. That was something 
-that would very hardly be accepted by anyone, as LLM did lots of stupid
-changes that are easily recognized as bad merge material. The final result was
-also bad enough. So, for now, it is still easy to identify pure LLM generated
-content.
-
-> >>- There are many first-time contributors coming in with LLM-generated
-> >>  patches.  At times, I could swear that every one of them is focused on
-> >>  documentation typos, but the truth of the matter is that they are
-> >>  reaching into subsystems all over the kernel.  We have some brand-new
-> >>  contributors making significant changes to dozens of subsystems.  An
-> >>  experienced developer would be hard-put to truly understand what those
-> >>  changes are doing; a newcomer is unlikely to have that understanding,
-> >>  and is unlikely to be around to fix eventual problems.
-> >>
-> >>  Our maintainers are not scaling to handle this new flood, and I fear we
-> >>  are going to see some unfortunate things merged.  One LLM-driven newcomer
-> >>  recently nearly succeeded in establishing himself as the maintainer of
-> >>  lib/.  How do we hold the line against this stuff while remaining open to
-> >>  new developers?  
-> >
-> > Shouldn't it be a merits question rather than a tools question?
-> >
-> > If the commits are correct, does it matter if they were written with
-> > an LLM? 
-
-It does if the author doesn't understand the code and can't maintain
-it without LLM. The bigger issue here is actually to allow people that
-doesn't know how to code himself to become a maintainer. 
-
-> > we can insist more on supplying tests and demonstrating
-> > correctness, something we seem to be doing quite rarely right now.  
-
-Perhaps we may need to have some interaction with the developers before
-letting them to become new maintainers. This may allow checking if the
-guy knows what he's doing or if he is only the man-in-the-middle.
-
-> It's definitely a merit question.  But we're not always all that good at
-> determining whether a commit is correct, and we depend a lot on the
-> contributor understanding their work and being around if something goes
-> wrong with it.  That is part of "merit" too.  How confident are we of
-> that merit when a brand-new developer makes significant changes to a
-> dozen or more unrelated subsystems?
-
-If a brand-new developer is touching lots of unrelated subsystems,
-there is a high chance that it is vibe-coding.
-
-> 
-> >>- Our process is becoming increasingly dependent on proprietary tools.  We
-> >>  have done that before and, in 2005, it went pretty badly for us - and
-> >>  could have been worse.  How do we prepare for the inevitable rugpull?  I
-> >>  raised this last year, and it was largely brushed off, but I still think
-> >>  it's something we should be concerned about.  
-> >
-> > Are we dependent on them, or do we just find them very useful? If
-> > Claude/Codex/etc goes away next month, will it stall any of our processes?
-> >
-> > We have AI reviews, we have many AI tools that help both authors and
-> > maintainers, but I don't think that any of them play an integral part of our
-> > process.  
-> 
-> The related discussions have featured a number of maintainers talking
-> about how much time Sashiko has saved them.  I believe them.  How long
-> will it take until nobody does that level of patch review anymore?  What
-> will we do when the current round of corporate generosity ends and that
-> tool goes away?  Maybe I'm worrying too much, but this does seem, to me,
-> like a possibility we should keep in mind.
-
-This is a serious concern. It sounds risky to rely on that, as there's
-no free lunch. We need to rely on something that can be managed in
-an affordable way, prioritizing models that can run on affortable GPUs
-and are open source.
-
-Thanks,
-Mauro
+Bart.
