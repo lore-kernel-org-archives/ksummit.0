@@ -1,109 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D213B39281B
-	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 14:25:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F266542A15F
+	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 14:32:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784298344; cv=none; b=WcsB9ySKYuveJZmse2c+ueLmpXZ3v9EU3K7S9C5dAKiTxCWawpEuhYOCNTqCc61MlBDMhzgqFA7BPeLH6cmp+CNtBZfgsVFu1BsS1p+sLl0CzUwr6Q8mIp0EYFrh2LPiM6PMZLJrCaDJ8G8bDDFPX6+kqAkLOvUdyzXawg8SLUA=
+	t=1784298751; cv=none; b=R7UoIz3B8s2+XIezpGR+T71DU84jDvb/ee31r1guFLrw/y0204y7ri781MAKJSmF36nqPr8fXk8t0kY02Dq71ugSOO5UjAeo+CsmQexzMN+HXR7sE18/wXcnlo7bkp8N3E1yCl0TTs7gXXOAj3jcE03aFeTzMwLO39TwnFvewN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784298344; c=relaxed/simple;
-	bh=M7GUmACCkZpW6OEXrXwVbQJpnJVnxz79VUHXlVc9hzE=;
+	s=arc-20240116; t=1784298751; c=relaxed/simple;
+	bh=cNA1GS504iiUOVKGkhqVOlFEYC6K4j357tK58UcQU8w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FzbtbBF8WZUsxj5fyUP4/0Olrg7Q425t0d2vk2JdC8T3byWwD14LbqsP8ggYUKkmYuFePCbh1POxnQz3AWjCZa2rYaCwnRgU9yWgyFl+7T/AgbZJCqPvetbeFc7dudyrtLhCMx9xdv9gMAbEIDe/P0MdCRlBmdli+v4YmA33SsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCEQadjp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=t/OirkuP+epue+9xxR5i12BzZ4yFAQvB9VvlsIFk+6CgScJEjR4mvOU/AhVLuLvQE7NRznqcWpj0aXSl2roDoiN2qMgVZEElnd1E6MakzH38obv2BdlZjTeWUGukGJ1INmyBtZvtaljvQmedaJQVMMsEjCBzLOwb8qh+et3Tqsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gko4cI5T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCEQadjp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FC31F000E9;
-	Fri, 17 Jul 2026 14:25:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gko4cI5T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361AD1F00A3F;
+	Fri, 17 Jul 2026 14:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784298343;
-	bh=62GjtwsPlVOZue+WDq55J+uP1/To9nF3cBIDfwsfNME=;
+	s=k20260515; t=1784298749;
+	bh=qnHVr+H09jHXiQHMtFLCymu3skmYEqopyijHMt/faGA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MCEQadjpa5P4n+i6tXt6Xum8KgK1duTKqVyptlCQBMPV9Wb/pMTDPqX7XN04KLlBN
-	 hNGCZ7VN8ZBbfz6/ENjigV5Ihwak7MBLmjkmexh/kh0TwVld5skEGhFLbRI00ZnktU
-	 umIm6aKYrNTCxGsB3AGZGwVspOwUXEI5ENnhsPqN9q127DkHIuVnPndzmOsFV8ui0C
-	 DL2K3dNRiKKiBzxrcbhP2FVl0ByXBIBXQgXqbMpkKnNqKwnPpxasWI23GTZjNTMMPj
-	 VrWZ9T3oPyDawDKUu49V5Q+ur/RJYLalfoeXw1ahYgLcEcfc1VGc5n9e6THjDKGyQv
-	 HTd8w3zj4Zt9A==
-Date: Fri, 17 Jul 2026 15:25:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, ksummit@lists.linux.dev
+	b=gko4cI5TjNO+Tu4Pif/8NNE5pbi21/5XMW367dyQ3x3PRtQxge83/Xxvthx+iNF2w
+	 U7/+3G95su/kAZcq7qKSVhJqD9j+9UlWV70wM1oOIsT3ooaJu8RV2whrLpkQWycZbE
+	 dS/1dsFxbFwcJ2JBhYEX7IgkOtGzLJSVULK17zBLe5cHC7tCJUcrgS2jnbkksQZcWk
+	 ecWb4hnYoEOsTqk9u/pw+rUytTcC3B1jtynVv77R44F3e/vgKMi5oXeRcDOrGTlBZQ
+	 grFSG5JlGpJQfvzvYEFrcXbpDv/CYljvV1cHxsrM2aFdkzyNEeRmj1hkJiUBt3qoiW
+	 2CHVbHwBhoVqQ==
+Date: Fri, 17 Jul 2026 10:32:28 -0400
+From: Konstantin Ryabitsev <mricon@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Theodore Tso <tytso@mit.edu>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
  etc
-Message-ID: <68cac6b2-fba1-4c07-a987-cdc25bcf2276@sirena.org.uk>
+Message-ID: <20260717-armored-therapeutic-sawfly-e7a3e0@lemur>
 References: <87wluv7yzc.fsf@trenco.lwn.net>
  <alj4mYFMfZvuarfx@laps>
- <daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk>
- <alkFzdJobnnMjJ4v@laps>
+ <87y0fa7pdm.fsf@trenco.lwn.net>
+ <20260716215342.30e44c2f@foz.lan>
+ <allL7jndw6R-3_8S@mit.edu>
+ <20260717-hissing-successful-rabbit-fecc0c@lemur>
+ <c8bc1bd4-e0ea-47be-ac19-85f8c6906f56@lunn.ch>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aJJ62qiVOp1Pxomb"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <alkFzdJobnnMjJ4v@laps>
-X-Cookie: Enjoy yourself while you're still old.
+In-Reply-To: <c8bc1bd4-e0ea-47be-ac19-85f8c6906f56@lunn.ch>
 
+On Fri, Jul 17, 2026 at 04:24:15PM +0200, Andrew Lunn wrote:
+> > I'd go so far as to say that we DON'T want to feed unfiltered LKML archives
+> > into the model -- we probably want to lean on the work done by the cregit
+> > folks to identify patch sets that were actually accepted and then work
+> > backwards, creating a subset of LKML that resulted in accepted contributions.
+> 
+> I'm not an LLM person....
+> 
+> Is there no value in looking at patches which got rejected, and why
+> they got rejected, as a template what not to do?
 
---aJJ62qiVOp1Pxomb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+There is, but this is part of the "tuning" bit that I said would be needed and
+this would require significant amounts of work. First of all, patches would
+need to be considered within the context of the entire discussion, not by
+themselves. Subsequent series (v1, v2, vN) would need to be grouped together
+and consumed within the same context. Series that resulted in no reviews and
+no commits will need to be given a special consideration, because we have no
+context why they weren't accepted. It's possible that it was great code that
+got missed because the maintainer was overloaded, or if it's useless junk that
+nobody even bothered to deign with a response.
 
-On Thu, Jul 16, 2026 at 12:24:45PM -0400, Sasha Levin wrote:
-> On Thu, Jul 16, 2026 at 05:08:40PM +0100, Mark Brown wrote:
+So, yeah, we have tons of data, but to be useful for training a model, it will
+need to be carefully filtered and weighted.
 
-> > The issue (which a number of projects are facing) is as much one of
-> > volume as anything else, the code generation machines are enabling the
-> > generation and submision of volumes of code where things were previously
-> > constrained by human factors.  It can turn into a bit of a DoS.  I don't
-> > have any particularly bright ideas here but it's definitely a thing.
-
-> Sure, we're seeing quite the increase in patch submissions, but I'm trying to
-> argue that the issue isn't a new one: lack of maintainers, trusted reviewers,
-> and maintainer burnout has been a topic at each kernel summit for as long as I
-> can remember. AI just kicks it up a notch.
-
-> My concern is that if we focus on the AI aspect, we still won't be solving the
-> underlying issue.
-
-My experience is that the AI stuff is qualtatively quite different to
-the general pattern there, the human factors are a big part of it as is
-the fact that unlike other tooling it's not doing anything regular or
-predictable so you can't develop confidence in the tooling in the same
-way you might otherwise.  This all makes the back pressure that helps
-mitigate things less effective.
-
-> I'm hoping we can figure out how to get maintainers great tooling, testing, and
-> community, rather than figuring out how to block a developer who uses LLM.
-> Maybe AI would actually be a great catalyst for that as well?
-
-There's a money question there of course, I note that my own out of
-pocket expenses for non-LLM tooling are non-zero and there's an
-economic concern among the various concerns about the LLM stuff.
-
-I do also think there's a place for a conversation about trying to get
-the people using these tools to do so in a way that's easier to deal
-with, a huge portion of the issues people have with them are to do with
-externatilities that they create.
-
---aJJ62qiVOp1Pxomb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpaO2MACgkQJNaLcl1U
-h9DcXgf/SdEAKAJuw2LNXUMjEbWT03fsbiNeaBZG7oK4d2H1VkSNms+Qnk5UnhVw
-NBoIZTmespc/gOiFaf6HJiU38bmciOSvpCLvH7VFDyOx9Oh2VL6z1a7U0sFFAgW+
-rn4TyDOxciJugyKD6f0c1+BlhY3f4YpOYBfvwWEQC8oC0OavwbVQXiLq/fc1xc34
-HT6KJoawFdj6BdzFiYKQZUpCNUpA/qoEvTu+wu28nsu1+LdKyW8dTYV6jPTraxjz
-2B6rxMZcvcVLW+a8dGWEvaaDDweHUKOj7lhPZZpf7NRpaRwIi90mKyfsdJXMIyAi
-qKyttFLDCBpSR2/oziQHLN+hN8p8JA==
-=VDKN
------END PGP SIGNATURE-----
-
---aJJ62qiVOp1Pxomb--
+-K
