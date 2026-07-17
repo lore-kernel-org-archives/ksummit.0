@@ -1,113 +1,96 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E7B12D1F1
-	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 14:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784C03D413F
+	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 15:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784300097; cv=none; b=Q8lLw3YEo8wBscpzXMgV1RkgXbHHMGBQ2sfxeOaEpSdOc1LyW+ErSgHZdXrHKhvlPUVTmwB7AhiG2f7V4RFP8Z5thLdfgLPWkknU/wODQnXCiyfO6pRTdszD6eyJHxVDhq2VCnVD8HoY/L2K9/Ef0CiW294vyXiNTVndZ3ttN7I=
+	t=1784301361; cv=none; b=tLEGd5PejBKPRym2trSl/m9y7a27S15BKdAH7HM44GI+bJQNcQI8WluUXmHXsoo1DiJCqF1c+tGJBHAOgL3XzoP3DocUDAyPFsoh2RvoBTnMt6xn7E013ZqB7gZal1rmrsAi3WTHrgqsD/a7O9DWNylAXQnJIZI1C88IRCamqXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784300097; c=relaxed/simple;
-	bh=j3fRxI+69BUKJNlJNT0bCe7AXbIsArOaNKg8reeDxDk=;
+	s=arc-20240116; t=1784301361; c=relaxed/simple;
+	bh=PxER4WUJkxpD5VWzkOvyszOun3qv03w/zHqG1+gtuvg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GqhRsh4uLeRzOJhyEtrc0eP9eGd44ksmT7GMkinYFICjjCX3iTjShWGPlp/n23K52TIFztz5sMAJVyrWzfP103JMfhTGRpGpRsSSs+4kKAal0Lt5UycHr0j44ZwUybv1p+YzXlffQDPWNqHYwaNiSP37pBBD51s+DrsxI7nV890=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=ax+8mhJ7; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=kYs4rAsCJQ75TDE5fpQebzU4AblxovtpSIzA8bREGTrEvPULBP3CERTfMRaM8ePvsrNz7+pGSdjKNjI2rOGYAVYeTl67O7GlztFyIWAwcjLDV+s3pnX53wyrmCEhL6QdVHHOVRfleDL6rNfxDBNCfdCvRWmoZFSgEfhv0lBnePQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bSh0Szlp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="ax+8mhJ7"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so23572045e9.1
-        for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 07:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1784300092; x=1784904892; darn=lists.linux.dev;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TtfTiuVfnDMZlquO3S/33Wf8wTOozGYxG+L4nwYmnGE=;
-        b=ax+8mhJ7DePNSL79lH/HDSD+NwN+dKleoht4Kt8cM/TX5cUrnx/sWwvHDGZqawJjlP
-         t8B11xW3KPM/0edKpXyNrZ+RtcvXQZWpxCtmZW0nI1UN73D9RWpTw4H4hlhFFjINWIWp
-         eG8e37ZxRs09PWOuZpKk5RJ6noyfnaYzrJGAa/7y3/9+pW3jeebiUVMPrXjxN8R5V1Zj
-         9NugFj7gQIH5dvqRhCGOrfCwCCkQL7e6/SSt5RMga5OoBfjqUCsUZgLRKhOA7Xp12Mx+
-         AAz9v692aSLLdcQJHgaDrk7VV/hPQh0YhCfD89dmJco+i1dnkJ+DvrIdGC53O3jtmmIT
-         Qxnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784300092; x=1784904892;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TtfTiuVfnDMZlquO3S/33Wf8wTOozGYxG+L4nwYmnGE=;
-        b=F0ufnl+jzPX0DJiKvgANu6lUj9OVInIjk/pswEnYm1tCmQH4FPqj4maiaG+h6LdkJo
-         lOLUYvTPbv5iKjYNz1dJICjmw7LqxJe9WqTOfyQgsAMspmvvgs2GM9Tjk9JuFlZ4MgcH
-         qngmppK1X65o0IDQfcPr0+yXXHNrSC7MZIB6cykbDQ4n0z8Ija8TQiEucP8xWETYdjUy
-         0ERALZ2Kiznl4z64wdmbxrVfYcG+YSeWsZCf1Ht0x2z0qtgZJjJo4a5I0KG7XMU2vT7J
-         YgUYXC/8EeqF0lFtvTiqO2jG5FCHLjPL7+vPjQ3Q2TGBXSVtAUMN+1y7p+F/hMeY0vnt
-         8DNw==
-X-Forwarded-Encrypted: i=1; AHgh+RpdDxeCb0D+XaoIpomcm1N+mIBVtcwPWXp5GoHdBOOoDJY0jfbByA6DJq5JU9ECUkmsZ4ZzRKG8@lists.linux.dev
-X-Gm-Message-State: AOJu0YxY4axmPuXWM7U+NIImqdQh7f5c8wCsWZkANyMIHdB1BRgRDYOE
-	BlRWJ0dgXaox+pX9A0hF3baJ7FcMKcoRQ2JCqM6QkCkvQAMDEvbWI5D3EIYbawS/Q74=
-X-Gm-Gg: AfdE7clYIT7s+9DDXglPrznJpZvxRpHwS6flVrwhILgXneP6jrajsPvxqXsfuaqLfub
-	9VA/0U498ChTxX2oMMLhQG636z+or/MifS+7ZExhCX3SJxQOGeaHKH4Z0xlTJuSYk/l4acT20Kv
-	IS1EB1I19gkbOuvML7wrCs6lmxcIkcUPfazI4Znt3El73UuDsGN8JxmLMuwBO15LJje1VTU+aor
-	bB7wKYXlMuw28eKZEejffErLFshcuxTduFF9a3rqgUG9u1lzkdN9eWdruTLNypT4T3ehY8cTRph
-	kFUKp2XPC2GSRhcFe3+XGp5vFxPcqLmSZ55sJLnbyfmSdQUlnwOBQpn8VwdX0h0eiMC4aJiLQi+
-	NIt8RyNjVuMthQayxLQwXBqSVs56aYk6+V2KGw6ivIuRUQk45pmnzKJ/oL5BOYs+ZgwSUmAL2Wn
-	c=
-X-Received: by 2002:a05:600c:4f92:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-4954a3d0ce2mr34942255e9.6.1784300092385;
-        Fri, 17 Jul 2026 07:54:52 -0700 (PDT)
-Received: from localhost ([2a02:8071:6401:180:d892:bf43:a0b4:83b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49549a47e64sm63988985e9.8.2026.07.17.07.54.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jul 2026 07:54:51 -0700 (PDT)
-Date: Fri, 17 Jul 2026 16:54:47 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Liam R. Howlett" <liam@infradead.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>,
-	ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
- etc
-Message-ID: <20260717145447.GH6843@cmpxchg.org>
-References: <87wluv7yzc.fsf@trenco.lwn.net>
- <alj4mYFMfZvuarfx@laps>
- <87y0fa7pdm.fsf@trenco.lwn.net>
- <sg6yidkiqfwegabxwkrcb2dhlfkqjquwyad75xqd4j7w7o7gtx@eh6czm5aoxuy>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bSh0Szlp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA161F000E9;
+	Fri, 17 Jul 2026 15:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784301360;
+	bh=sg7C8fy86R22frIOLyNdXHj6Yka4Ipv48BD0LuDwq7M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bSh0SzlpZO3oiSG9Xfiqbst1pFjUahsjkUZ1F4/E9g0MqIWpI/rOymyva0XXL7aes
+	 F/gGNhdPmR8KurvdYHViueBt2jUXFHdA+49+zNK4dCM7fJ8Zz2/OiV47gJmwXzuj44
+	 U61cDYgN3uTxJDWV4Z26yWZWABnTWSG7KIL9PAVGKcfk+eyo8niBbqVRq8IhaeDD07
+	 0LZJu5i0riQ0bDAlFuJRUSpaqdfyfEgtFg9nS8D3al1w2o/IwVpETKmjDuG1tDznbd
+	 mlspgWy77SiehaYGZA9KOInK9/3CnZG9MqkI9eZlTDORz9N73gNQ6iBO/IKOXVo9Ek
+	 TTP5H9x1+1QSg==
+Date: Fri, 17 Jul 2026 11:15:58 -0400
+From: Konstantin Ryabitsev <mricon@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
+Message-ID: <20260717-meticulous-gazelle-of-reading-dc5f4a@lemur>
+References: <albMUqack9yMq0rF@laps>
+ <2026071553-tuition-hatchery-4588@gregkh>
+ <alj2AX17zXFMIjZW@laps>
+ <2026071715-electable-swarm-3400@gregkh>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <sg6yidkiqfwegabxwkrcb2dhlfkqjquwyad75xqd4j7w7o7gtx@eh6czm5aoxuy>
+In-Reply-To: <2026071715-electable-swarm-3400@gregkh>
 
-On Thu, Jul 16, 2026 at 04:23:19PM -0400, Liam R. Howlett wrote:
-> So on Greg's note that having an LLM tag is a signal,  I question the
-> SNR now and if the signal is the same indicator across all patches.
+On Fri, Jul 17, 2026 at 06:59:26AM +0200, Greg KH wrote:
+> > > > 1. Does security@ still work? It was built for a handful of carefully written
+> > > > reports, handled start to finish by a small group of volunteers. That process
+> > > > never really scaled before, and it won't scale now. Does it make sense to
+> > > > separate the roles? let AI driven tooling handle intake, filtering, and
+> > > > reproduction, and keep the humans for developing and coordinating fixes for
+> > > > reports that survive triage?
+> > > 
+> > > It was not really "built" for anything other than a place that people
+> > > could report security bugs and get them fixed.  We have changed the way
+> > > it works over the past months, and for right now, things seem _MUCH_
+> > > smoother than ever before.
+> > > 
+> > > Also, we are getting funding "any day now" to have someone work full
+> > > time on this, to be the "point person" for the alias to help when things
+> > > fall through the cracks, as sometimes happens.  We have verbal
+> > > guarantees of at least 6 months funding, and if that goes well, it
+> > > should be extended.
+> > 
+> > It almost sounds like we need a CRM system here rather than a person?
+> 
+> Hah, no, any single-point-of-failure here would not be a good thing.
 
-Yes. The possible range of involvement is massive. The question I
-would find more interesting than a binary flag is who was doing what
-part of the thinking at each step of creating the patch(es).
+I agree, and I'm actually concerned that security@kernel.org is a SPOF as
+well. If someone is sitting on a bad enough 0-day vulnerability, we have to
+assume that they will be able to compromise kernel.org and knock us offline
+(or, more sneakily, control what security@kernel.org receives and doesn't).
 
-You can use agents to draft code, make tests, run experiments, analyze
-data, and review for bugs. The human can apply a high level of
-direction, scrutiny and steering on each of these steps. Or they can
-just not do any of that and still get some kind of result.
+I've played with the idea of several SecureDrop servers that sit behind
+OnionBalance and can receive security reports, but I'm not sure if this is
+going too deep down the over-complicating-it rabbit hole.
 
-Once a workable direction is found, the final result that gets sent to
-the list could be a clean-room implementation written by the human, it
-could be fully written by an agent, or anything in between.
+An easier solution may be:
 
-And finally the human could have reviewed the work end-to-end,
-line-by-line; delegated it all to a review agent; or neither.
+- publish a security.txt that lists multiple addresses that are known to live
+  on disparate mail hosting infrastructure, in addition to security@kernel.org
+  (e.g. Greg KH, James B, Linus T); this way a security report is more assured
+  to be delivered to at least one of them and not gated on kernel.org being up
+  and reliable
+- make sure members of the security team are using their direct delivery
+  addresses instead of kernel.org aliases
+- set up a secure parallel back-channel mechanism to be used when email is
+  being disrupted (e.g. a Signal group)
 
-The process behind a patch with this tag could be anywhere on this
-spectrum. And reviewer interpretation of the tag is just as varied.
+I still think a SecureDrop server may be useful for anonymous security
+reports, but this is a separate consideration.
 
-It poorly communicates what actually occurred. And there is clearly a
-stigma attached to it at this point, with the expected consequences,
-which further distorts the signal. The latter part might go away if
-there was a better protocol to convey the development process.
-
-But I'm not sure it's practical to even try to capture all these
-nuances and precise division of labor questions in commit metadata...
+-K
