@@ -1,41 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784C03D413F
-	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 15:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C43A348C5E
+	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 15:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784301361; cv=none; b=tLEGd5PejBKPRym2trSl/m9y7a27S15BKdAH7HM44GI+bJQNcQI8WluUXmHXsoo1DiJCqF1c+tGJBHAOgL3XzoP3DocUDAyPFsoh2RvoBTnMt6xn7E013ZqB7gZal1rmrsAi3WTHrgqsD/a7O9DWNylAXQnJIZI1C88IRCamqXs=
+	t=1784303592; cv=none; b=n53TNsDQ6KUfXFwFlA3V1PldSEsvMKg4uc3fwN/G9uKP8VyMVeOr2xPOg8+trunnHGCVvbyPbi9lcFf3KmB8ivd9KJg7T+BRc1HV4x37gfSZXEdIwZPtHUwOnocTboWCRW7jzhj1uFP/JOqO95V1dibJqUr0aVQ5YPkAIgfcxY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784301361; c=relaxed/simple;
-	bh=PxER4WUJkxpD5VWzkOvyszOun3qv03w/zHqG1+gtuvg=;
+	s=arc-20240116; t=1784303592; c=relaxed/simple;
+	bh=yYtCW1yR099R+yPO50U2cXPRCKaOw7d6cgmtDNhTH4E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kYs4rAsCJQ75TDE5fpQebzU4AblxovtpSIzA8bREGTrEvPULBP3CERTfMRaM8ePvsrNz7+pGSdjKNjI2rOGYAVYeTl67O7GlztFyIWAwcjLDV+s3pnX53wyrmCEhL6QdVHHOVRfleDL6rNfxDBNCfdCvRWmoZFSgEfhv0lBnePQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bSh0Szlp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kYqWNmSPx/NsYY9H8EEJYAH9uBhEakH85mhTN8M5maCv/fk4PYbO7yprlq76GqTWwrwkWiU/rLqkpPvbdkO+u5LL1jrkOGlg8gxH77Il98pfedTCiWu67kLkuA2TkH9dYfILfULLhMH0eDkUD6GSfGtPtg2DRUrAuD4B/zmfXVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=b8Oa3UfR; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bSh0Szlp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA161F000E9;
-	Fri, 17 Jul 2026 15:15:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784301360;
-	bh=sg7C8fy86R22frIOLyNdXHj6Yka4Ipv48BD0LuDwq7M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bSh0SzlpZO3oiSG9Xfiqbst1pFjUahsjkUZ1F4/E9g0MqIWpI/rOymyva0XXL7aes
-	 F/gGNhdPmR8KurvdYHViueBt2jUXFHdA+49+zNK4dCM7fJ8Zz2/OiV47gJmwXzuj44
-	 U61cDYgN3uTxJDWV4Z26yWZWABnTWSG7KIL9PAVGKcfk+eyo8niBbqVRq8IhaeDD07
-	 0LZJu5i0riQ0bDAlFuJRUSpaqdfyfEgtFg9nS8D3al1w2o/IwVpETKmjDuG1tDznbd
-	 mlspgWy77SiehaYGZA9KOInK9/3CnZG9MqkI9eZlTDORz9N73gNQ6iBO/IKOXVo9Ek
-	 TTP5H9x1+1QSg==
-Date: Fri, 17 Jul 2026 11:15:58 -0400
-From: Konstantin Ryabitsev <mricon@kernel.org>
-To: Greg KH <greg@kroah.com>
-Cc: Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
-Message-ID: <20260717-meticulous-gazelle-of-reading-dc5f4a@lemur>
-References: <albMUqack9yMq0rF@laps>
- <2026071553-tuition-hatchery-4588@gregkh>
- <alj2AX17zXFMIjZW@laps>
- <2026071715-electable-swarm-3400@gregkh>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="b8Oa3UfR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
+	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=0fk5qTGMKuYwOGs1Ab4466bDV+6sTsUUm/kSnHBH0wI=; b=b8Oa3UfRk0qISTikl7nz/p1lse
+	SD9GNQXIrpiNVlirUza/katL8EIbl/LBnJodgUp1bPJoHyq2q4uOK0EMigBMgZ7vInPDmraz71pL/
+	e17gIPBvkxLuEpNv1GyIQLQMkRWcB2ElxFItDnAr+sQSQYpfsCX10Plv9OJJq9ZO/mUPo6R/TQmu9
+	FdEJZjtwcO5qf8hvaVhbnG4/AvgXpA/jMuTNqeSs3lmO8oAS0hGFetO2WUvqgTkXWsCkemMB3JXJz
+	izVANysoLGbF2nLpHWebfS1JYTu9pa/8g3xbHmfEnbuecwObCU8nOOzFl8GNkXg4/RnsE0zRLSvcZ
+	KKhPG0qg==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wkks7-00000002frg-08sQ;
+	Fri, 17 Jul 2026 15:53:07 +0000
+Date: Fri, 17 Jul 2026 11:53:00 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>, 
+	ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
+ etc
+Message-ID: <adnloao5zqp7xkpryijdbrbtqo4n2iucfvxn6rtcd23s3hsvgg@fjlzj3jborxc>
+References: <87wluv7yzc.fsf@trenco.lwn.net>
+ <alj4mYFMfZvuarfx@laps>
+ <87y0fa7pdm.fsf@trenco.lwn.net>
+ <sg6yidkiqfwegabxwkrcb2dhlfkqjquwyad75xqd4j7w7o7gtx@eh6czm5aoxuy>
+ <a6898b221ef656a053352e41cf8fd130ce434d60.camel@HansenPartnership.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -44,53 +51,74 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <2026071715-electable-swarm-3400@gregkh>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a6898b221ef656a053352e41cf8fd130ce434d60.camel@HansenPartnership.com>
 
-On Fri, Jul 17, 2026 at 06:59:26AM +0200, Greg KH wrote:
-> > > > 1. Does security@ still work? It was built for a handful of carefully written
-> > > > reports, handled start to finish by a small group of volunteers. That process
-> > > > never really scaled before, and it won't scale now. Does it make sense to
-> > > > separate the roles? let AI driven tooling handle intake, filtering, and
-> > > > reproduction, and keep the humans for developing and coordinating fixes for
-> > > > reports that survive triage?
+On 26/07/17 07:57AM, James Bottomley wrote:
+> On Thu, 2026-07-16 at 16:23 -0400, Liam R. Howlett wrote:
+> > On 26/07/16 12:36PM, Jonathan Corbet wrote:
+> > > Sasha Levin <sashal@kernel.org> writes:
 > > > 
-> > > It was not really "built" for anything other than a place that people
-> > > could report security bugs and get them fixed.  We have changed the way
-> > > it works over the past months, and for right now, things seem _MUCH_
-> > > smoother than ever before.
+> > > > On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:
+> > > > > The use of LLMs in the development process appears to be a
+> > > > > clear theme for the upcoming summit.  On top of what others
+> > > > > have already suggested, I think we may want to consider these
+> > > > > questions:
+> > > > > 
+> > > > > - Do we want to continue naming specific LLMs in the Assisted-
+> > > > > by tags, or  put something more generic?  I *think* that this
+> > > > > thread:
+> > > > > 
+> > > > >   
+> > > > > https://lore.kernel.org/all/20260701-work-coding-assistants-v1-1-a20a94d1d606@kernel.org/
+> > > > > 
+> > > > >  reached a consensus that "Assisted-by: LLM" was better than
+> > > > > what we require now, but it might be good to ratify that in
+> > > > > this setting.
+> > > > 
+> > > > So originally I've added the full name of the tool and LLM
+> > > > because there was interest in a later audit of the tools to
+> > > > determine how useful (or useless) some of the tools are.
+> > > > 
+> > > > If those folks aren't interested in doing so anymore, then sure -
+> > > > we can drop it.
+> > > > 
+> > > > But... I find it difficult to see the point of having the tag if
+> > > > we do that.
 > > > 
-> > > Also, we are getting funding "any day now" to have someone work full
-> > > time on this, to be the "point person" for the alias to help when things
-> > > fall through the cracks, as sometimes happens.  We have verbal
-> > > guarantees of at least 6 months funding, and if that goes well, it
-> > > should be extended.
+> > > Folks like Greg have, in the recent past, said that it is useful
+> > > even without specific product-name information:
+> > > 
+> > >  
+> > > https://lore.kernel.org/all/2026070227-payroll-eradicate-8f66@gregkh/
+> > > 
 > > 
-> > It almost sounds like we need a CRM system here rather than a person?
+> > There are a few classes of LLM users, but as more and more people are
+> > using LLM, the usefulness of this tag is converging on zero.
 > 
-> Hah, no, any single-point-of-failure here would not be a good thing.
+> It's not just about whether you find it useful, it's also about whether
+> it has utility to the project history.  Remember the purpose of the
+> original signed-off-by tag was to track copyright origin in case of
+> another SCO like allegation.  Given the current US Copyright position
+> on generative AI
+> 
+> https://www.copyright.gov/newsnet/2025/1060.html
+> 
+> Whether AI is used or not affects the copyright status of the patch. 
+> Therefore it is a fairly vital piece of information to preserve, even
+> if the current advice changes over time.
+> 
 
-I agree, and I'm actually concerned that security@kernel.org is a SPOF as
-well. If someone is sitting on a bad enough 0-day vulnerability, we have to
-assume that they will be able to compromise kernel.org and knock us offline
-(or, more sneakily, control what security@kernel.org receives and doesn't).
+I think this supports the fact that the usefulness of the tag is going
+to zero, at least in the current form.. but I'm not a lawyer.
 
-I've played with the idea of several SecureDrop servers that sit behind
-OnionBalance and can receive security reports, but I'm not sure if this is
-going too deep down the over-complicating-it rabbit hole.
+On the mm side of thing, we have sashiko looking at things and getting
+pointed to the reports, so that means all mm code is getting inspected
+by an AI.  Adding a tag specifying that is useless noise, and certainly
+does not affect the copyright according to your link.
 
-An easier solution may be:
+Are you thinking that, at some point a specific AI might be ruled a
+copyright violation and we will need to audit the commits?
 
-- publish a security.txt that lists multiple addresses that are known to live
-  on disparate mail hosting infrastructure, in addition to security@kernel.org
-  (e.g. Greg KH, James B, Linus T); this way a security report is more assured
-  to be delivered to at least one of them and not gated on kernel.org being up
-  and reliable
-- make sure members of the security team are using their direct delivery
-  addresses instead of kernel.org aliases
-- set up a secure parallel back-channel mechanism to be used when email is
-  being disrupted (e.g. a Signal group)
-
-I still think a SecureDrop server may be useful for anonymous security
-reports, but this is a separate consideration.
-
--K
+Thanks,
+Liam
