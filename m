@@ -1,165 +1,143 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D46E3B71DC
-	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 06:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784270616; cv=pass; b=u09xe1bSycCUynQ3TIHnkjBoJkSyoy96LXBvdnHSsOYvwz+yneOL66nIkkHAKrjgJgBXzICoe65mwMzYGuQAy+EizIxTn5Swu6/VnvlyO7koRzhW4enavEdwt+8/aCTEO/90HtzK6JWjKz4bU95Ftmm9zrNlTjv5QbYOAYGhbN4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784270616; c=relaxed/simple;
-	bh=/CNMmliuEqRh8lD2MifBcJxBcWNmcPqksI8qUX2WXBw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C+5ALjJwBpIrgg95SbjRlUaJvfjNqtfFpUuvWg0S8q+cC/Y/PVgZctiWPFQ20beiUsuaQC02nMSNgjGUHNQmveoXGdQMHMh7F4VTnp88HHSZSTiPRL+I+MYd+0wWLuZ4MbBFya1DHeNzquaGVm3LpIGXQEpvKlaT09PYe4vzNgM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s2TejNnK; arc=pass smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA5532F770
+	for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 07:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784272783; cv=none; b=d+QKpyhgsWX+Yx2v2WsztAKHahg5GReEWdh/vFwrJ9Sk0j0qL7k9kCNkmjQHXcUmfC/ZShpelOp5q4M/YdemLcYfM3Qlcq/MctkN0uITS/eT6/eqASH31+4bka26Jj8K2b+ecHHfXEgYBwQ6XOVfD1IRP/dE77GzFJc4sFi10aw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784272783; c=relaxed/simple;
+	bh=YEsxkvb1rvTQvPRu/2xLFIcTNW3J+TnM0/lZdjo1neU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mCoxPsTWuNULRuc1lQi8nr4UrE9/kUgOvqgoKu0h1eUi1Dp7kozaNuTNiHIN3i16AQh8kMbRFMmOZFdTV+gwwV4zO5CbTcQEMiooH7PY53hCy0hpQ7szLjjNfO42FjfYmqyFF6XKhxtgt1f8dcsV+GX9yizXitGfIswosTp/GVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFHkxoyz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s2TejNnK"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92e5d6f35c1so606502185a.0
-        for <ksummit@lists.linux.dev>; Thu, 16 Jul 2026 23:43:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784270598; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qQRwlo43z1YZRDoLLovxc/IqmtL2LYYRPEvj9vAaBlwvXfLv9LcniesuHU9ylvLq9Y
-         9/2UAJhxEvw8eNCg/fP/EQQ7dr05TOpyQ2XI0Do5UzqVshRI175b6kcCzUIFlTnipCdE
-         72Oq1e/3Kkw7h0HyMTpkbdzUhkW/i+q+Is+PGR1QY3i2SuDPDT7p2DSPkT0xO9t16umx
-         YjG3d9jh6VdB/GzZmAu9Ya/nphbBc0OS9D/s7xWocwC5eJEKcBVRCgC/q6hDnZIRqLUF
-         /ppXXtXKOFI/UTtNG9QieKtg6AUrBe9tp8g7U9kuU4JOakqM7XUYBBhokiJZcigj/xvv
-         pWHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/CNMmliuEqRh8lD2MifBcJxBcWNmcPqksI8qUX2WXBw=;
-        fh=g241Il9/K4JvsVKqHYqVBV/vswyQpbJ+6ftM2fpsbPs=;
-        b=EfzfNZaKor39yLoG5dDGmq/WgyPqLhNoFGUoaxPVJUoX4J1+UCIJ59CNbjwi13K7v/
-         jbgfP0Rf3Urfc6UZuVktVfYrkZTsoewWCATCgac545XhjqAf6tAwIFzXzCX+R+S6+KJ8
-         E6q+aksrzt6PoTEqismIMQtXusfHzMrb2z1MzTwk3FYUN09AiOa8rfQCOWMvsLShnw4O
-         JmgSK4t2/QnOAxcfED2jHD2TcOgJFZGBsyeqHI3iJ8ibrNv66W3u9J3TX8TjtA2I5Dgh
-         4RSCswE/Q9JhAQetrzohFg5t92FSzOmerA0CJVfVRnk21Bu/+Zyu4gB/+hlmqD2YAS1s
-         Q5iA==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784270598; x=1784875398; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/CNMmliuEqRh8lD2MifBcJxBcWNmcPqksI8qUX2WXBw=;
-        b=s2TejNnKlmnvAsZqE58LyRM2NJ9+lOCzqZB/uoEEh/saY+fIuH8u5EXKqY73pWd5DH
-         xHu7ZZ7/4gsb072wZWpoLMmta7MBLk4oiiCl1fCEy7zkAd2phWDG0VLV5bQ/vwFt/3fM
-         WxdpbfJgXUno5z6QgJD3DoWTb38YzD/qmXcbdNWqr4VuADZQ6Azo6P1Vce3aSy3BkTL1
-         zXKIn9MynFvA4JCwGgFyFQTZGYl93iPDysh2hNGRJ+nSvIJ/iJow+m7+0e5E/ZZign6J
-         aTGjUgs+hnQvEvwHB8TqT2uoSp4vAGgLn882pqtB+6CowDcCxOyqLXGEwHN606NbVSmx
-         6Fyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784270598; x=1784875398;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/CNMmliuEqRh8lD2MifBcJxBcWNmcPqksI8qUX2WXBw=;
-        b=AfguxsOaCQfQ8MuBJpCkdxKOlMCtP11dp3SqqIpu6yBTxc2YEi0ucjaTECK7HLyKAn
-         YPz4dZW2LF4j4O5UH4idOFDRx7yoKB9mVxRypjhQl7oHbVR8ltilSLpWtnbHzpph3gdp
-         UpKj1q8by11ldKfHLRDknfWyVuhLK7y8HLCb2ljCl0GXvXw1LMUeUjPQTo5d+fz0BBOd
-         vcuvxu0/z2Jvwzvs0qTSuQ7wquXjtsmxcxDFDOkGioAej6d7L4JKc7XIVMCm6qbpVM/W
-         vRxUFYmxTXg+q6A2fCmvgZuryuPMEOKTCyUTaX7v3Wp/gvpfh7wdfWkgf9ESkCvcRrcl
-         VEVw==
-X-Forwarded-Encrypted: i=1; AHgh+RofgKI4ZY9NiIO8hjPn30VIPPWrRbHaMQ1OJr45CpvZOa54PDm4FS+k/n3fJ4h73+bvfs/0ztL3@lists.linux.dev
-X-Gm-Message-State: AOJu0YxVRuuK0WUVlBs3ENq/Q/a4BNDp5//XzdRKRBMs3BnUPQbmHDeK
-	kwVQTd7k5ATNvKWiE/RpplbnF+smIA3oP53NdL+mkm0zSs6sN3l6UXbyfAnkXkbnhR4bN0dQWuV
-	L31S5r5mTpvFpvwyrMsZHOJeALHG3UyiYu+IpKDZIqTuqFyjYuQdKo6Mc
-X-Gm-Gg: AfdE7ckCE5GuMZp6IqWNgLaM3WhYhyxaHVpVivL+BuzYo6R9guxzosx5AC5t5bNXpY1
-	ViTK54xyRSnml3rqee2SoJ6ZvOZ9NVBe3bog8feWiJ6anLQv8CHjS+NK6i6jfRk7WAKRpYREYih
-	jwmjXWTlIaHbcONG7lYo/cQ7mALAc8BRADsniKR5zgLHhim/COHNlC+st5fWdDpd/vqGZ8cG3Uz
-	jDNXZ4USjYnjOFh2aFpexGAIEzLa18/U4rfy1NITrl0dlUKq7ZUTSfa/YmxYxnQyB8OzWq0+ZTe
-	WMlM7k1j/clzuNt/u+oD2JEgu9XzzU/QusD1CFnmcSaIWHra1tIUVCQm87ZqCjfMIrnd6yJahQx
-	Y6oWTIRbar42lzZXGc4y6sR4p
-X-Received: by 2002:a05:620a:1a1b:b0:915:9fba:878b with SMTP id
- af79cd13be357-930b3eea488mr150563985a.9.1784270598036; Thu, 16 Jul 2026
- 23:43:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFHkxoyz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6E81F000E9;
+	Fri, 17 Jul 2026 07:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784272782;
+	bh=rArRGQBrqy9FvKhYlGk3uNbdvmHIkzv48mYGZhZhN+k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AFHkxoyzTcGi5EQVamegO4bG0LqDEV2emC0iH3q6bi0QO04cFfMY2/cNTYH0aSHFi
+	 fWYlLW4VyvS//WuNl4C9dmjPFOXLCULUFzgFEZnGZfZcalpmcWS00JwrceCqt8XXaz
+	 LPj7+Z4p98f7DhxB7K/eHU1IzTQcgjU1GlA868wo49e6M54WYfvbzgvIwz3RL4QWIP
+	 RbpcnRVOVLdnriBp1wjxtEwsNpniBjJUNdb2aIRol75PU7gFm813Ko/HT+uWGSJOYA
+	 A9Cpz/jK9fjpD+atYM1ejen4xkzabogMOXBXzevc/6Qhdge00u2SNQFY5AhDelZL4g
+	 atD3Ntkeeeqkg==
+Date: Fri, 17 Jul 2026 09:19:38 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: "Theodore Tso" <tytso@mit.edu>
+Cc: Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>,
+ ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags,
+ newcomers, etc
+Message-ID: <20260717091938.58e30986@foz.lan>
+In-Reply-To: <almM2epxzBmN0Nb0@mit.edu>
+References: <87wluv7yzc.fsf@trenco.lwn.net>
+	<alj4mYFMfZvuarfx@laps>
+	<87y0fa7pdm.fsf@trenco.lwn.net>
+	<20260716215342.30e44c2f@foz.lan>
+	<allL7jndw6R-3_8S@mit.edu>
+	<20260717025812.2397d792@foz.lan>
+	<almM2epxzBmN0Nb0@mit.edu>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <7ia4qzl45h20.fsf@castle.c.googlers.com> <CANiq72nKeDuMqWWy3ipdhOgCwUVyN5xt_MDXnu9AVbixH50PrQ@mail.gmail.com>
- <7ia4ik6gx7c0.fsf@castle.c.googlers.com>
-In-Reply-To: <7ia4ik6gx7c0.fsf@castle.c.googlers.com>
-From: Ben Copeland <ben.copeland@linaro.org>
-Date: Fri, 17 Jul 2026 07:43:06 +0100
-X-Gm-Features: AUfX_mzmldTnXhizLWLTmHbcUsuqPrSZI13BMiMkAsIVqI5clFjmTYic4uEK6kA
-Message-ID: <CAL0q8a5vO3NsOLrJ0u3nDyY5tnTYQ4V1RXuQ2oq-bMS1pDs58g@mail.gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
- Kernel process
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, ksummit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, 15 Jul 2026 at 22:37, Roman Gushchin <roman.gushchin@linux.dev> wro=
-te:
->
-> Miguel Ojeda <miguel.ojeda.sandonis@gmail.com> writes:
->
-> > On Wed, Jul 15, 2026 at 6:55=E2=80=AFPM Roman Gushchin <roman.gushchin@=
-linux.dev> wrote:
-> >>
-> >> * Review of LTS patches and kernel releases.
-> >
-> > For the backporting case, I think this could help, and there are
-> > certain things we could ask for, i.e. custom prompts.
->
-> +1
->
-> > It may also have less noise, in the sense that the AI has the original
-> > commit in mainline as a baseline, i.e. it is not a completely new
-> > patch of unknown quality.
-> >
-> > I imagine Sasha et al. have experience with this.
-> >
-> >> * How to maintain the long-term stability of Sashiko?
-> >
-> > How hard do you think it would be to get at least one more AI company
-> > to donate some tokens (for their own model)? Could that be a simple
-> > start to begin reducing the single-provider issue?
->
-> It's hard to say. Technically it's fairly trivial to make Sashiko using
-> multiple models for discovery stages 1-7 in parallel, which will almost
-> certainly improve the review quality. In such case models will
-> effectively cooperate to produce better reviews, which is our goal.
->
-> >> * Handling of pre-existing bugs.
-> >
-> > Do you mean the AI would be able to query that database? Or directly
-> > being part of the prompt for that subsystem/file if it is not too big?
->
-> Yes, Sashiko can query the database before reporting pre-existing
-> issues, e.g. if there is an obvious but not urgent pre-existing bug
-> there is no point to report it again and again.
+On Thu, 16 Jul 2026 22:27:54 -0400
+"Theodore Tso" <tytso@mit.edu> wrote:
 
-It might be worth noting that in KernelCI we have [1]; we could
-include Sashiko to publish issues into this database for public
-visibility. Feel free to get in touch, Roman, and we can work together
-to make this happen. Currently, these issues come from our build/test
-system, but Red Hat submits issues from their CKI system, so we can do
-something similar with Sashiko.
+> On Fri, Jul 17, 2026 at 02:58:12AM -0500, Mauro Carvalho Chehab wrote:
+> > 
+> > The main point is: do we really need 671B parameters? Those models
+> > speak a lot of different languages, have medical databases, and a lot
+> > of other random knowledge that are useless for kernel development.  
+> 
+> Fair; but I do think we need to fine-tune it with a lot LKML text so
+> that it has the knowledge that we actually need for kernel development
+> before I'd trust the smaller models.
+> 
+> > I've been playing for a while with qwen 3.6 with 24KB context size,
+> > 36B parameters (3B activated), 4bits kv quantization and it does produce
+> > some decent results. The main limitation is the context size: it is
+> > probably not big enough to test big files (*)  
+> 
+> I've been playing with qwen3-next with 256k context context size, 80B
+> parameters (3B activated), with 8bit quantization, but I haven't been
+> willing to trust it with generating kernel code.  I have experimenting
+> to see how it compares with Gemini 3.1 when creating a python script
+> to send e-mail[1] or creating a bash completion script[2] for my
+> fstests test appliance.
 
-Whilst I am at it, we recently added an MCP to [2] This is still
-experimental, but allows users to spin up an MCP server locally (we
-have plans to get a hosted MCP server up soon) and interact with the
-KernelCI API (issues, failures, etc). I'd love any feedback. This is
-useful for interacting with all the data inside KernelCI and allows
-for you to link it up to your <agent of choice> to drill down builds
-failures/flaky tests etc.
+Most of my tests are also to generate ancillary python scripts too.
+I did some tests using it and using chatgpt and deepseek (using a free
+account). On my tests, qwen3.6 code (36B, 3B activated) had similar 
+quality.
 
-I will also be writing a blog post about it soon.
+As we're aiming on patch review, we don't need a model capable of
+generating kernel code. Instead, we're aiming on one that helps to
+review it. A well trained model using lore may end giving similar
+results.
 
-Ben
+As a quality criteria, I'd say if the simpler model would have maybe
+80%-90% quality when compared with using a frontier model, it sounds
+worth having it, not only for people to run locally but also as a
+continuity plan if/when we end running out of free passes to run it
+on server-grade GPU hardware.
 
-1: https://dashboard.kernelci.org/issues
-2: https://github.com/kernelci/kci-dev/blob/main/docs/mcp.md.
+> [1] https://github.com/tytso/xfstests-bld/commit/dfadb2014da446ecb967de51904ee531f7be8bd5
+> [2] https://github.com/tytso/xfstests-bld/commit/dfadb2014da446ecb967de51904ee531f7be8bd5
+> 
+> However, from Roman tells me, Sashiko is running muliple LLM passes
+> using a frontier model for each commit review.  So what Sashiko does
+> is quite a bit more complicated than a series of prompts such as:
+> 
+>    Create a python program which submits an e-mail message using the
+>    Submission Port (port 587), It should enable encryption using
+>    STARTTLS and it should obtain the username and password from a
+>    config.ini file.  Model the python program using the send-mail.py
+>    in the sandbox directory.  It should support the same command-line
+>    options but instead of sending the e-mail using sendgrid, it should
+>    send the e-mail using the Submission protocol.
+> 
+>    Please add pydoc documentation to send-mail-smtp.py.
+> 
+>    Please enhance the program you just created (send-mail-smtp.py) to
+>    support specifying a path to a certificate file in the
+>    configuration file in case the user doesn't want to use the system
+>    provided top-level trusted certificates.
+> 
+>    Please add support for a configuration file parameter which
+>    specifies whether TLS should be mandatory, optional, or disabled.
+>    Update the pydoc documentation as necessary.
+> 
+>    Please integrate the functionality found in send-mail.py into
+>    send-mail-smtp.py.  Instead of getting the Sendgrid API key from an
+>    environment variable, change it to obtain the Sendgrid API key from
+>    the configuration file.  If the Sendgrid API key is specified, use
+>    sendgrid instead of the SMTP submission protocol.  Update the pydoc
+>    documentation strings.
+> 
+> .... which does work pretty well even on less capable models that I
+> can run locally.
+> 
+> I guess we could try running Sashiko using ollama-mlx on a Macbook
+> with 128GB, and see how it works, but my assumption is that the answer
+> is "not well" --- which is why I really want to look at fine-tuning
+> one of these smaller models first.
 
->
-> Thanks!
->
+I agree with you: without distilling a smaller model, it may not work well. 
+However, frontier models may spend a lot more tokens than small models 
+for the same prompt, due to mult-step reasoning and the huge amount of
+parameters, so we could have some surprise here. Sounds worth trying it.
+
+Thanks,
+Mauro
