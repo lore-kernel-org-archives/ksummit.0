@@ -1,110 +1,119 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6B81DDC1B
-	for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 01:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C4C63CB
+	for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 01:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784337262; cv=none; b=o40JyITaSfgflSPWZIY2tzAzKcUUtggteznT+nrrC79h2Kv8DuCBlnQS6B9HfN8tFcSI5ifYnmobUTGFXmB1aFqJ9EeDM1cnjAceqoeR7eCaP9ltjwEhBuBeEcwa36LIRmHU5g3LRBGiKkm0XDv9RgyJPERGHLbH/RXdvYg5ftw=
+	t=1784337459; cv=none; b=g7KgYArO6rHPzEeH8qnkn60nTOAdLT+8/8f9rxrx4QG/aKidruEfsgddDYi9q7Z7hbjOYarOaEttjN4zrMESBJCSRLIfxje1nT8h3ZvO/idLsTt7Xj7qDGZRm+S+OgDmoICZXCbJY6LZKbhiE1ognX4VDTVxwKU86RFx96/58Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784337262; c=relaxed/simple;
-	bh=uOGFZ69s5FFSUjMgtvF/YaFaGgFqcDgdu+qKbqo6xvA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y3O8fTxrzqctZxvSTc9PUCZkkn8jldkIQPhIiEfYmauI2xiwUHq2cQ4JmyfIepc/CutKt5WqjtwVEotjk2+ViGNnP0wFDK7xdbi7B3pZlmsdEPxpoRb2+qCC5ZmrRtexazQGdelfC94HoypummyqeXBthSpfjFc+5COaGxJK9MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=gSm+qZkP; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1784337459; c=relaxed/simple;
+	bh=0XrNhdOCtJ4AggoCmBxbPl0qLGqCu7pgx9abt8BjUbw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OunvZY+CI6wNqdLAA1xYrYTOGi/NLQxLxho6SgLP/ZL/gjfM9YaZoBcrFqm4SjKNwYcapCJ/LecWhatAtjer6zKrep821/F2LbC1Ay3SR28ZsOjcjalu+J08KZe2UKWQ8Di8WoWugnp2S+u7busaDz72F+ov+YSum4cmHwac4Ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=A/Q/9yzF; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="gSm+qZkP"
-Received: from macsyma.thunk.org ([151.240.45.25])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 66I1DncM011061
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 17 Jul 2026 21:13:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1784337232; bh=/jYyUkwPFUuz4ZKDQdMcGjCRO9UpYRdJzLmgIx763Ts=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=gSm+qZkPpXkS7vD6gYJnKK1ERbLpuVspmSeJYlpWlg22bSiKjWmuRTyLGozCJPZl/
-	 0xqXWdz5S0ixifjvYGy+u0z2PIitXL7Qu8c+oszz1mS5IedIwyAt5GmTDi/5luRJdT
-	 b/JGnBB7LeAUAEIWKTd5/JNZgkBhY01wIRmwcKlQBFSmtIcOloI1Rd8Hx+Wj+S50aq
-	 7TVsLTGXUnlQXaMRVm1ZqMgrKKiiLGpu+Fdp5GpV5guqsJ5Rp5/60dQRKwhjL6X+MV
-	 xNyVXj3pONTtCqwB88+14rCFYZH+CikeQw/xUj9GWUoaXhEVS1gkVXbWFnlD2AlOT+
-	 M+9IQAH5Zz4Ng==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id E63B2A71113; Fri, 17 Jul 2026 21:13:48 -0400 (EDT)
-Date: Fri, 17 Jul 2026 21:13:48 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Cc: Dan Carpenter <error27@gmail.com>, "Liam R. Howlett" <liam@infradead.org>,
-        Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>,
-        ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
- etc
-Message-ID: <alrIyYVSN-kReQQU@mit.edu>
-References: <87wluv7yzc.fsf@trenco.lwn.net>
- <alj4mYFMfZvuarfx@laps>
- <87y0fa7pdm.fsf@trenco.lwn.net>
- <sg6yidkiqfwegabxwkrcb2dhlfkqjquwyad75xqd4j7w7o7gtx@eh6czm5aoxuy>
- <a6898b221ef656a053352e41cf8fd130ce434d60.camel@HansenPartnership.com>
- <adnloao5zqp7xkpryijdbrbtqo4n2iucfvxn6rtcd23s3hsvgg@fjlzj3jborxc>
- <4adc1ace832afefd30e48f0a05b27b58d9fbd604.camel@HansenPartnership.com>
- <alp0A8ThbUr6uRNc@stanley.mountain>
- <48472b6d7c4803c5bf76235e4a8f5f9f69fcd047.camel@HansenPartnership.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="A/Q/9yzF"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c169ae1cb26so360444966b.1
+        for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 18:17:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1784337455; x=1784942255; darn=lists.linux.dev;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AN2XU3MZ3adqq6qJiLWK6lAdAdIRbZrBN3fOglyDAHk=;
+        b=A/Q/9yzFSRIkEZ0nKY5BzTf/ur+Eh/4kU7xVHO36J/UC7o4Nh1Ev3/Ds4A0aJ5EuLe
+         raUyUDAjozAQ0PUxVbaoVdEnfx+HZj63iOH/SKClOOPZi+p0aiDb0NPTtX1BznnZJECv
+         ni+JfMd59yCZZNy/9QxvXQkS2AYYYp6B4sx0Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784337455; x=1784942255;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AN2XU3MZ3adqq6qJiLWK6lAdAdIRbZrBN3fOglyDAHk=;
+        b=P7peh2WjxVQLP+Ry+jwCv1xpssURXmFfnBXyXNZKC712NK1RQfThpm4Pd9lAtoHLPc
+         fhKkf90tKvlDVPf+KfU+mu1F1E44+ascz1hPmr53D8AziSVgUI0ggrL6ef4AXeIXYhHl
+         TCvwCR25ISbp0RqqcrXCN98MT7HONt8/WinaeZ3oPyz+iD1A0PP2cra3zMJX14rg4+GJ
+         YQKqKHP3Td7/N5MrUpGERXOm8d73W44/sGEkBDZEqBjpcBUB2fZZF16ygULd+3H80ti6
+         1vnNUMmmouEvEwxAqow6s2mCna1ounxYGlfjfAN7PUyFYTa3WNmbk8Eg3DdTntlBf/Ey
+         q2lw==
+X-Forwarded-Encrypted: i=1; AHgh+RrCUqpHTci/9EyMUCWYqvdvKN0NNKajRCQjhbEEBf5A0kONjtPc4FnEPqL5Zcmke0XRROuNDtAZ@lists.linux.dev
+X-Gm-Message-State: AOJu0Yxq9jJhw8V3MDTP6r/ot8kpIJdBL3Z7Z2hgGbfbvWbU8cSxIrI4
+	2vaj/vn610vIrTdT6ger8gT4YCZz3fqhXvdp0U6wj1YEzQaMX8MBgSv0SLKOkmF67HKz64K9YmI
+	rbXXNEgE=
+X-Gm-Gg: AfdE7clcvJMQYLPXLtObToQkTVBo1IPgCH0eQFboQiJuJWHhjeOcEgFFFZ91W0Hicgg
+	qviEjrfKLL9ve63prM05U4noMY7JSmJqFeOIoKfBQ8Xj2Kp9gortZDkK1/R5g1uRO1vc7DtvpS/
+	y+RN2fi1qNmyKf+H5xJJF1rGRDlVILQtQ1vIpLJFqFV3p//fte5Iog7QSkvswMRS+cVOoBphSGX
+	6408zsJiBXpAwG51orQOC+TXohHvnFj2Ynn38pr/k7XmHeEzXfWlgS25c5ENvgjg6kusihZsUGe
+	v3ne4paN9dGkrnxV3YSbh8jyDo0jfOQAK6vPb2EFLczDbVcXewOxY83TJisJ4oQKaAY2qRUpTS5
+	RhK2CKqurUTHlnMHaXlRoq1+MV+z41r3tTv2cLVK4Lw74r1/o22WZY0ZFcgmPobS4Oly8SaI8Yt
+	NFK4pduvz3kRbkVcsABCWYqvW5Np6g0kE5F/uWOGPlZSHJ5Kfnjcg=
+X-Received: by 2002:a17:907:7286:b0:c15:e3e7:907f with SMTP id a640c23a62f3a-c169205bad4mr445816566b.3.1784337455264;
+        Fri, 17 Jul 2026 18:17:35 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1724f50b83sm149790866b.45.2026.07.17.18.17.34
+        for <ksummit@lists.linux.dev>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Jul 2026 18:17:34 -0700 (PDT)
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15c42a45adso300806666b.0
+        for <ksummit@lists.linux.dev>; Fri, 17 Jul 2026 18:17:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoomLW7GWK2DD+mpkOgIwox/e0BrXGXTH3j+4yNvnRrBv5JuVH5idaFXxOhVtnEVaZUI3qL99eC@lists.linux.dev
+X-Received: by 2002:a17:907:940d:b0:c16:8eb:d8ac with SMTP id
+ a640c23a62f3a-c16b413789cmr216943166b.23.1784337454523; Fri, 17 Jul 2026
+ 18:17:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <48472b6d7c4803c5bf76235e4a8f5f9f69fcd047.camel@HansenPartnership.com>
+References: <7ia4qzl45h20.fsf@castle.c.googlers.com> <20260715185757.GA191552@nvidia.com>
+ <7ia4pl0oymo0.fsf@castle.c.googlers.com> <CAHk-=wjCcHUr=-Ycsey0khWnn68O6D=ZN-bE+8Sq4NetXpFuPA@mail.gmail.com>
+ <20260718010949.GG1889304@killaraus.ideasonboard.com>
+In-Reply-To: <20260718010949.GG1889304@killaraus.ideasonboard.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 17 Jul 2026 18:17:18 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
+X-Gm-Features: AUfX_mwOM8JhJqmrU-as2V29ax8l7lgIBTjb0h_7x3R73cZnfwiWsuX8Zp-w_Es
+Message-ID: <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
+Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
+ Kernel process
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>, Jason Gunthorpe <jgg@nvidia.com>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Jul 17, 2026 at 02:42:09PM -0500, James Bottomley wrote:
-> They're not really enforced at all.  It's the legal equivalent of a
-> representation, it just means I read the DCO and I represent I conform
-> to what it says.  Externally we have no verification mechanism that the
-> person signing off actually did this ... although if they're regular
-> contributors the trust factor is higher, and if they get caught faking
-> signoffs then the trust factor goes down.
+On Fri, 17 Jul 2026 at 18:09, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> > And then Y doesn't get done, and maybe X doesn't get done _either_,
+> > just because of some unrelated issue was pointed out as part of the
+> > discussion.
+>
+> It has caused and still causes friction, but I wouldn't dismiss it
+> entirely. I have seen multiple maintainers, including myself, ask for
+> yak shaving in ways that worked reasonably well. The key was to judge
+> how much yak shaving is reasonable (and the answer is invariably less
+> than a maintainer would wish for), and not making it mandatory.
 
-This is something that perhaps we should ask legal council.  The DCO
-states (among other things):
+I agree that it sometimes works, and can even work well - a maintainer
+suggestion of "if you did this, that will clean things up" can even be
+a welcome thing - particularly when it is relevant to the original
+series and not just an incidental tangential thing.
 
-(a) The contribution was created in whole or in part by me and I
-    have the right to submit it under the open source license
-    indicated in the file; or
+But we've also had maintainers that tried to get unrelated work done
+by making it a requirement for the subsystem, and pushed it way too
+hard, and it only resulted in problems.
 
-(b) The contribution is based upon previous work that, to the best
-    of my knowledge, is covered under an appropriate open source
-    license and I have the right under that license to submit that
-    work with modifications, whether created in whole or in part
-    by me, under the same open source license (unless I am
-    permitted to submit under a different license), as indicated
-    in the file; or ...
+So it *can* work, but as you say, it requires social skills and the
+ability to judge whether it's appropriate.
 
-Given, however, that we don't know whether it might mean that
-vis-a-vis code which is generated by AI, we might want to ask
-competent legal counsel questions such as:
+And I think that when there is AI review, people are less likely to
+see it as a positive thing when the AI then points out pre-existing
+problems.
 
-1) Should we change the DCO to require disclosure if the code
-was generated by an LLM?
+So if the AI then also gives a solution to the problem, I think people
+will appreciate the process more.
 
-2) If so, what detail is needed?  Does it matter, or potentially
-matter, what model(s) was used to generate the code?
-
-3) Does it matter, or potentially matter, whether the LLM was used to
-generate code out of whole cloth, or to fix existing code?  For
-example, if the LLM inserts a spin_unlock() call, or modifies the
-prexisting code to add a scoped guard to avoid a memory leak, the
-chances that this might have copyright implication might be different
-compared if the LLM is asked to generate a new device driver for some
-graphics card.
-
-4) Does the prompt or series of prompts that were used matter, or
-potentially matter?  If so, do we need to record them in the git
-commit description, much like we sometimes include the coccinelle
-script?
-
-					- Ted
+                  Linus
