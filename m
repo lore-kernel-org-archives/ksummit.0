@@ -1,185 +1,197 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08CF1DC1AB
-	for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 13:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B0F33F59B
+	for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 14:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784381921; cv=none; b=GWEVj5NZZhynkasApDCJ5XJWcg+wIKsM6aPj0FFMtdvJENMtFmHb2PRjorOODR2uopIjuHMqsWwWmn4vNoqtslePqoxnabHab96oJpWyyDnrLInDaZnv6/GX/CuSKpIE8Fn7qUHQCmMnC/wEBDP72xBUiiWr8su2QOdqDbNVNB8=
+	t=1784384046; cv=none; b=TXh6+xmW7PXQW6ZhODHx5VodSOSOKoDw7N+TjSbfs5k0kluO1iWmtxohk1MBvIvtXSgjgHI8QNvItXJtcfZ2tujEbysFyfImOWcXXdMIWbKyBqlewZc1AqEK54n6ctT9iB5PItmzASuExRffJvymr/2I7r9v4M6kCaPouY+eWyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784381921; c=relaxed/simple;
-	bh=GSovra1h8HgSwKxtayXH3L1K+UrrUR3zrObS6IzUChE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Z8GsPZ6cH35mXrGEKNDjMfAlgg2eq0LACpWWQlacfHAdsUm8NLjyOfyS5MtCXGNlGYWrt6ctKOuiM3+Uo3nseUjrBM8PP3NLSOL+UVpirpeEkL/smFnA9N7CXuAj3gf1Z387HYojpWMJN6srAG3fhxdYGJBKFIENUMlNJULVr4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C5HTMVfK; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1784384046; c=relaxed/simple;
+	bh=0N61sJ9tE71BIZkj2uRvR1nHp2G7v3ofdFFgFARMFdw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DFRTCxVmakTLdHPm4wQSuVqdazgdPfbT9yOIW+/D9K4iQrJ2EtoHIwVkRcwCXOTRYGTM8RO/7QGbp70DRc4aY62LlwCdu2c1rbHKn6VTGi+cIUSZc1sbhcJeQp+eaw4Q7C5kF8hJIgPyphJncGrd2fvEBVnIpGGygH5g81krcCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kO+tEGoH; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C5HTMVfK"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-81eef95653fso15452047b3.2
-        for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 06:38:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kO+tEGoH"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dd55ad76cso1923939a91.1
+        for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 07:14:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784381918; x=1784986718; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=I+mjwHi01bweU7t3uEEMu5ScDl+a86SF0pEBlhQXY2M=;
-        b=C5HTMVfKliQfv8xHbt6l/AjziMIXoP23WOusu4KkG7RnnzuvW1RXWbNJ8gtOspmnhT
-         BJhu6t9TsCD/A1oJRqjVEsprCsU0Wq2bpVqFrgIFBiNeicoY4o9Y+VV9otIlFj5Fkex+
-         fWJs/0NGgdi/BxeVhYP8eRcDhA/W5BLZxLfVvDabxYMuwwiOtLdhvOlyUuzlZ/t2iU6U
-         FRE1ZLJBoUHdqERw3J9Px+nuFR60ASGc+fIvd5JYTwizak4w3aNyh0rHcJQvuS3KM9qT
-         o1jFr1pjdoAglnYRCYIQ9Agrlw9t/i5GfJAwONuBNFs0QaPhgXui3Lv6146vWv1ZimCp
-         F9Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784381918; x=1784986718;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1784384044; x=1784988844; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=I+mjwHi01bweU7t3uEEMu5ScDl+a86SF0pEBlhQXY2M=;
-        b=aNIpxZf50T0j8OwZdbOsGMnRso0hfbXCp5fRQmL5hJHun1Xi3mlnGlMsHElMVAxMR8
-         iIF8FUiis+GrFrAhAKaZE2P0eUYs9Kce3EQKfKuqWxdF9Vn63qoLfuiVqcI08d+VBZsN
-         Mha5rWksmDR9iVoqmP4B9nlaJjwX6EDK5wWqzwHf/0lGdfS7a553jmmK05Sc13kOmUzJ
-         giZkuhU2RDszz12oFb45ozYvF0FfMc5sTdLodSj33p7oH6P4SA9lbmSyu7K09svz+L+r
-         H9073cDSvIYJ6HSSSsRqSntNhCB9jCosZQken0LvlV8C87/3kp/wlxPsyzjtotQHY47R
-         8Vxg==
-X-Forwarded-Encrypted: i=1; AHgh+RpJ0Zba1pBjGAZ15HllE57xuNrvp514ilPRszxIyrTYPMgWSpooS5Q0oJqrNEOLyqnkPdTd2NZo@lists.linux.dev
-X-Gm-Message-State: AOJu0YzbVHI+DaJjkwrtqY5LMjgyYngkwtn9ICB5JOeQbmIjLt+3N+Wo
-	KcYOKpuaK3EG+/rBG8KiqWZYEK7uACFzHP+QGl1ex3SYJUM9IV9jnuLV
-X-Gm-Gg: AfdE7ckoFHfX553AN+DB6fbTYXmnIDXdv81Lpyy52oNRvMMT7mmuQatOiLymTEZHOYY
-	ELGSET2K4CFClW+dE1vXxASxzWQnr14+iPeuwV/hiBGTGC5T5KqMVKe5gVvScBxS/t4Uhcb6LIW
-	V5qWS1nRzWyiuPWP0wvF6LnLKPjOE4nK0SB/4EJvKnyDn7ShlLPPZm0vrUFJhyuxFhtA141FtSL
-	SObm4m6XlhPqBDmWWfGubqPRnfvQFPSq8SuwXHfAUId5XeFRRN0IhwgYy0LHYcYzeK+UOPzNsNz
-	q4rEDXJSn2G9GbVfLmfRuN1C7VKJftBylEfYpPrLEJRTaZ3lJxVA6OlQ30xoXDX99FBpc2jaIbX
-	2sLQcr7QtAP3Tstnmrmj5Gcxag5hL+eVlYB2f21W5bAhpcfybOE36w9rXlg+q3PJfgTRMWZhz3N
-	AF2Nb7P8yCjn4yAGgC2rTvfuqVle23
-X-Received: by 2002:a05:690c:260d:b0:81e:45a6:bd5a with SMTP id 00721157ae682-81ef21743e5mr22155127b3.0.1784381918095;
-        Sat, 18 Jul 2026 06:38:38 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2804:2bf0:60e7:ae00:680c:818d:aabc:dba])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81ef40534dcsm30613097b3.16.2026.07.18.06.38.36
+        bh=5UUZqzHirjY+cOaw1QzPmr8wyQRrl0V7JvudVt2SiKk=;
+        b=kO+tEGoHFLzgvi5/ZnFXbLDNmK+gQ9t+KiGUbsy7QYbSgDIEZ5p+WWWpfthgVrukUc
+         29Sb9b4+n/FQARQdy4WSfv4AbkTnkclLZGX+gL6kgvBCPw+boLLsGgfS0ZdgERhp3SYA
+         89QCakPmHYjRK1PDpPsjOwdeXkGn/nEEq8WYMm6yJsnOrqr58pxD+QJVBtgYo1C8xQaX
+         tTSfQ2AAJidxAPu0Z7yxwFuay6WfbEzGEX0Xqrxq3thbgBp+unWhJbBHgiG7ftkd8x8J
+         H6BKAIxogR7NowXyH0sXO5u6Duw4+JYmCv4k7e8tgjfAmYznn3SudFkK41ucVj6axqUC
+         C0qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784384044; x=1784988844;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5UUZqzHirjY+cOaw1QzPmr8wyQRrl0V7JvudVt2SiKk=;
+        b=BLM+1T+hwzkTi2S4aSKIKqIZa8L+o6RuJp1TDCxC5w6jAKJlmqIaGpdpbT2Y8+F1Rc
+         JNczqWl42TEMNqoYB6HYinn0snZNDC1U5yzLlY12K/PSj59w4UywGD5MK6jEqRXOyV3k
+         JCictUH1vUWao7GVeFbznFevHy56mIYpeLzPftYZj5d6XNvUDS/Mc7FEGjiH6zjaMTOM
+         akkm3hmtTZUsTYe9/nnyxVnavxTnv2/xWciSfwsDsKlRGnPOHpIwg8+eifrUTUrjBZy8
+         ZnzfM/5VtzboTfVwlgW8h/AiTjUiC1Ta/7KpD3QX+pnI2eCPTgaeiUqn9GjOpG1l8fps
+         ngCQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7Lp1R9Q3SQFdkAeySgXgU+ut9TrjVKsAq2cwIbN/bMhS27h5sA51zsu02VfAqSIpOqAdNiskC@lists.linux.dev
+X-Gm-Message-State: AOJu0YwJlBIloCAb1lUvJu/gR7sePI9mOHRqbJ++AxOoxYcmebGW8fu0
+	lnlwawCJwY6/YLkdQZXesQ/ZJtX9Oq0cjCtgV/2YCH1uhUkPeORZa/3DG0M6Zg==
+X-Gm-Gg: AfdE7cnzLdMeBG6n2MeNZpfhYx1Xzfzch0b8Jh6PWGo0KOdraGSflDs8FPxlhtuiK7g
+	wvO4/XMVqmCXX8AsMjEOe6PpfMwfVSUIyGRIyZDb5/D/8kYcvX7BplCTEsDK2DCQhPtpYjWCtuQ
+	Zf+PGfPZMAwkViNEWhTWkvqpXJ5XTkUNIfUUPQBq6dEX4zGtDVBT+pEHFwjfbw7CwicbvQD/DeY
+	Jm/6hYxtzu2dWVvee3I8HjtvVfL7+crVtVInhnSjfcXLG1q17tRspkhNN59d4kk/bkU1lI0WWZZ
+	qCdxPscr2TnNHJXJKADqyJA5UFjCmzJJCl53VSfUnk5OhsK288vD7SxPLtrfTg5bbOKjzHCghKD
+	ZiSJyyETFRypvfH8pFYB62VfsEiGpXvS4dDdlFvAFuzwU/iOBykG/UR4xx+0mR9iE+cDTUorEth
+	PY4fdsvCo+288znn1UsWBW1L9IujjrWHv6pvK57CX8kDjBWYAvfgFLRVHHe/E5eQ==
+X-Received: by 2002:a17:90b:5291:b0:385:39ac:fe4b with SMTP id 98e67ed59e1d1-38e3d26bc3dmr12805192a91.17.1784384043992;
+        Sat, 18 Jul 2026 07:14:03 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429f9d439sm22204452eec.5.2026.07.18.07.14.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 18 Jul 2026 06:38:37 -0700 (PDT)
-Date: Sat, 18 Jul 2026 10:38:19 -0300
-From: Arnaldo Melo <arnaldo.melo@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-CC: Roman Gushchin <roman.gushchin@linux.dev>, Jason Gunthorpe <jgg@nvidia.com>,
- ksummit@lists.linux.dev
-Subject: =?US-ASCII?Q?Re=3A_=5BMAINTAINERS_SUMMIT=5D_The_place_of_AI?=
- =?US-ASCII?Q?_code_review_in_the_Linux_Kernel_process?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
-References: <7ia4qzl45h20.fsf@castle.c.googlers.com> <20260715185757.GA191552@nvidia.com> <7ia4pl0oymo0.fsf@castle.c.googlers.com> <CAHk-=wjCcHUr=-Ycsey0khWnn68O6D=ZN-bE+8Sq4NetXpFuPA@mail.gmail.com> <20260718010949.GG1889304@killaraus.ideasonboard.com> <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
-Message-ID: <EE6BEE9D-91DB-4593-86D0-79A91EB780EA@gmail.com>
+        Sat, 18 Jul 2026 07:14:03 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <efdce5c5-13a1-4dec-9823-bb2a37084538@roeck-us.net>
+Date: Sat, 18 Jul 2026 07:14:02 -0700
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
+ Kernel process
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+ Jason Gunthorpe <jgg@nvidia.com>, ksummit@lists.linux.dev
+References: <7ia4qzl45h20.fsf@castle.c.googlers.com>
+ <20260715185757.GA191552@nvidia.com> <7ia4pl0oymo0.fsf@castle.c.googlers.com>
+ <CAHk-=wjCcHUr=-Ycsey0khWnn68O6D=ZN-bE+8Sq4NetXpFuPA@mail.gmail.com>
+ <20260718010949.GG1889304@killaraus.ideasonboard.com>
+ <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-
-On July 17, 2026 10:17:18 PM GMT-03:00, Linus Torvalds <torvalds@linux-fou=
-ndation=2Eorg> wrote:
->On Fri, 17 Jul 2026 at 18:09, Laurent Pinchart
-><laurent=2Epinchart@ideasonboard=2Ecom> wrote:
+On 7/17/26 18:17, Linus Torvalds wrote:
+> On Fri, 17 Jul 2026 at 18:09, Laurent Pinchart
+> <laurent.pinchart@ideasonboard.com> wrote:
 >>
->> > And then Y doesn't get done, and maybe X doesn't get done _either_,
->> > just because of some unrelated issue was pointed out as part of the
->> > discussion=2E
+>>> And then Y doesn't get done, and maybe X doesn't get done _either_,
+>>> just because of some unrelated issue was pointed out as part of the
+>>> discussion.
 >>
 >> It has caused and still causes friction, but I wouldn't dismiss it
->> entirely=2E I have seen multiple maintainers, including myself, ask for
->> yak shaving in ways that worked reasonably well=2E The key was to judge
+>> entirely. I have seen multiple maintainers, including myself, ask for
+>> yak shaving in ways that worked reasonably well. The key was to judge
 >> how much yak shaving is reasonable (and the answer is invariably less
->> than a maintainer would wish for), and not making it mandatory=2E
->
->I agree that it sometimes works, and can even work well - a maintainer
->suggestion of "if you did this, that will clean things up" can even be
->a welcome thing - particularly when it is relevant to the original
->series and not just an incidental tangential thing=2E
->
->But we've also had maintainers that tried to get unrelated work done
->by making it a requirement for the subsystem, and pushed it way too
->hard, and it only resulted in problems=2E
+>> than a maintainer would wish for), and not making it mandatory.
+> 
+> I agree that it sometimes works, and can even work well - a maintainer
+> suggestion of "if you did this, that will clean things up" can even be
+> a welcome thing - particularly when it is relevant to the original
+> series and not just an incidental tangential thing.
+> 
+> But we've also had maintainers that tried to get unrelated work done
+> by making it a requirement for the subsystem, and pushed it way too
+> hard, and it only resulted in problems.
+> 
+> So it *can* work, but as you say, it requires social skills and the
+> ability to judge whether it's appropriate.
+> 
+> And I think that when there is AI review, people are less likely to
+> see it as a positive thing when the AI then points out pre-existing
+> problems.
+> 
 
-Agreed
+I agree, and I have seen that pattern.
 
->So it *can* work, but as you say, it requires social skills and the
->ability to judge whether it's appropriate=2E
->
->And I think that when there is AI review, people are less likely to
->see it as a positive thing when the AI then points out pre-existing
->problems=2E
+I do not expect patch authors to fix pre-existing issues in my
+scope of responsibility, though I appreciate it if they do it.
+I actually asked Roman if it would be possible to add a per-subsystem
+prompt to Sashiko's reply. That would let me inform authors that
+I do not mandate fixing such issues.
 
-At first I disliked these seemingly never ending reporting of preexisting =
-issues, but by now I love it, I just ask Claude to collect those in TODO fi=
-les by topic, discarding duplicate reports or improving the description of =
-the problem if the new report has more details or suggestions of how to fix=
- it=2E=20
+Maybe that could be extended to a per-subsystem flag such as "report
+pre-existing issues in your reply" to let maintainers decide
+if they want Sashiko's reply to include them or not. For my part,
+I rather have them included and deal with the possibly negative
+reaction than not reporting them in the first place, for several
+reasons:
 
-It would be waste if I didn't track that free work Sashiko did for me, I c=
-an't address them all straight away, but saving them for later consideratio=
-n is what seems sensible to do=2E
+- Most patch authors do care about the status of the driver(s) they are
+   working on, and are absolutely interested in fixing pre-existing
+   issues.
 
-When I'm bored I go on and work with Claude, or sometimes even alone, like=
- in the old days, fixing what I think is more pressing=2E ;-)
+- As a maintainer, I _absolutely_ want to know about pre-existing
+   issues, even if they are not (or not immediately) getting fixed.
+   In my scope of responsibility, almost all of them are real,
+   embarrassing as it may be. If I don't know about them they are never
+   going to get fixed.
 
-acme@number:~/git/perf-tools-next$ ls -la tools/perf/TODO=2E*
--rw-r--r--=2E 1 acme acme   3647 May 24 00:35 tools/perf/TODO=2Earm64-test=
--gaps
--rw-r--r--=2E 1 acme acme   5151 Jun 16 15:55 tools/perf/TODO=2Ecleanup
--rw-r--r--=2E 1 acme acme   2113 May 23 23:13 tools/perf/TODO=2Edata-type-=
-profiling-perf
--rw-r--r--=2E 1 acme acme   1386 Jun 13 15:06 tools/perf/TODO=2Eflaky-perf=
--tests
--rw-r--r--=2E 1 acme acme 106401 Jun 18 17:08 tools/perf/TODO=2Ehardening
-acme@number:~/git/perf-tools-next$
+- Recently it happens a lot that I get patches fixing some minor
+   issue in a 20+ years old driver (such as replacing strncpy()).
+   That often results in Sashiko reporting several _real_ problems
+   in the affected drivers. I can (and do) use that reply to ask
+   patch authors to fix real problems instead of or in addition to
+   cosmetic ones.
 
->So if the AI then also gives a solution to the problem, I think people
->will appreciate the process more=2E
+Guenter
 
-That would be even better and it's what Chris Mason's kres does:
-
-https://github=2Ecom/masoncl/kres
-
-Kernel code RESearch agent =E2=80=94 an LLM-driven multi-agent REPL for re=
-viewing, auditing, and finding bugs in C source trees=2E The Linux kernel i=
-s the primary target; any large C codebase with source-level tooling works =
-too=2E
-
------
-
-More specifically:
-
-https://github=2Ecom/masoncl/kres/blob/main/docs/generating-fixes=2Emd
-
-The document is long, this part should entice reading more:=20
-
--------
-Research Before Editing=20
-
-The first phase is not patch generation=2E It is an audit=2E
-
-Research reads the finding/prose, current source, relevant callers, and en=
-ough local history to decide whether the report is actionable=2E The result=
- is structured, not inferred from prose:
-
-- confirmed: the bug and fix contract are proven;
-- invalid: source or commit evidence disproves the bug;
-- unconfirmed: evidence is insufficient to patch=2E
-
-Only=C2=A0confirmed=C2=A0reaches patch writing=2E=C2=A0invalid=C2=A0and=C2=
-=A0unconfirmed=C2=A0stop before edits=2E For finding-directory runs, kres w=
-rites status artifacts such as=C2=A0invalidation=2Emd=C2=A0or=C2=A0partial-=
-invalidation=2Emd=C2=A0when appropriate=2E
-
-Research is also responsible for deciding whether the finding is one commi=
-t or a series=2E
--------
-
-- Arnaldo 
