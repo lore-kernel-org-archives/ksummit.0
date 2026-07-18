@@ -1,172 +1,118 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC943191D3
-	for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 09:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487C0335BA
+	for <ksummit@lists.linux.dev>; Sat, 18 Jul 2026 12:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784366797; cv=none; b=tgFOOmu6OehenirIi2fC3ZCH34oRMQ5A+kqj2G7BO51I03knvIuCAv/qdkO6dMaji71t28aHCRSWH+t4eqzAys57TKI+yH2CU2c469QcsGX46viqcrakj3urbJQaYEBv54ZY9sq/tt6jrfQipFvtz1kzdDQyXsOcTNo5WTMn56w=
+	t=1784379304; cv=none; b=VUmzizoJnyLdjUcyebVpQiy2Lm5F4es9uNuXMERkXkJgLgm1oqUIpCDBikum8I5txGWzMIxBRkG3aZQ6NGY2mPzBYeAQRWq/ATwYpBeEoOUu5EEYlxUK8qdEnIurqMWjCQhfjxhj4d72zuuT28AD/91ZdfclbMVMWsdV7hREwL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784366797; c=relaxed/simple;
-	bh=wf32g9/tCJ7ggfQCAYAAgGBHn1VVVvG6A5G5nwSVyuM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LEMyqSCVmaeDw6pd9KGZY85mbsWOTLBEXhKdqibXaT8LTNZ4O2yzlFzETkZpZfPgPiQz7Zx/B7khOwMZlgOWBytFMtO9oG+HRFURpRGT4GUl1RbaeR/yXk8ssURiTjxqPifiaNaAxhJHz4A6SAy+yeRmKDjuufrBDi1pW8+jUL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q8cgmEFk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gnr/d4WG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=q8cgmEFk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gnr/d4WG; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1784379304; c=relaxed/simple;
+	bh=x2/RzC7jn2popOrjkjHhQFKB5uyQSQhr5WBjTIhJRpU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AWKUEwXVT4+TblN6HB2Skhkf1FyuQ+4IAu+mJN0BxJgSWksIxgtSByoT9ZUhljqO3ZIzZSiWhJN8aJRIzblmu7el1OSaJNLyRntPai9nbJvdp6gJxKP2kX/Tq94SI3E9jU3n/+qeY9cpg8zRej0t0W3HCMHsfxq7G47qiepzUiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFZYX2vN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q8cgmEFk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gnr/d4WG";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q8cgmEFk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gnr/d4WG"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4E3AE79383;
-	Sat, 18 Jul 2026 09:26:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784366788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F2JCxJgva8Bi5agn7vTmOdJkdBP3e9pI+Ki5kWyZm/c=;
-	b=q8cgmEFkjElZ+qTxoF9LdtmTYSQQ5MKT157sqfv7cHXQC+qbpKjZdPM0g/W+R9DCozELqf
-	A4HVmN+mjfkaTKtfs4FMCGILlN82MRIoqZ+t/Kx8H/Jxd+tk0oxCS0fAgwhVW8kjv1XLmr
-	ZBfkuDpfqYf7VlsfpKWfXP4s3WTCbPI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784366788;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F2JCxJgva8Bi5agn7vTmOdJkdBP3e9pI+Ki5kWyZm/c=;
-	b=gnr/d4WGgoM0v0NCshfnI8kPL0jfAjbTYv23cgJeaRfYhXeBKn2LXdVoqP+UZvGHsUX4Tw
-	xeqVh4ACKOlqxJCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=q8cgmEFk;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="gnr/d4WG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784366788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F2JCxJgva8Bi5agn7vTmOdJkdBP3e9pI+Ki5kWyZm/c=;
-	b=q8cgmEFkjElZ+qTxoF9LdtmTYSQQ5MKT157sqfv7cHXQC+qbpKjZdPM0g/W+R9DCozELqf
-	A4HVmN+mjfkaTKtfs4FMCGILlN82MRIoqZ+t/Kx8H/Jxd+tk0oxCS0fAgwhVW8kjv1XLmr
-	ZBfkuDpfqYf7VlsfpKWfXP4s3WTCbPI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784366788;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F2JCxJgva8Bi5agn7vTmOdJkdBP3e9pI+Ki5kWyZm/c=;
-	b=gnr/d4WGgoM0v0NCshfnI8kPL0jfAjbTYv23cgJeaRfYhXeBKn2LXdVoqP+UZvGHsUX4Tw
-	xeqVh4ACKOlqxJCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 223BB779AA;
-	Sat, 18 Jul 2026 09:26:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gMuABsRGW2p6RQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 18 Jul 2026 09:26:28 +0000
-Date: Sat, 18 Jul 2026 11:26:27 +0200
-Message-ID: <87o6g4sl6k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: "Theodore Tso" <tytso@mit.edu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Sasha Levin <sashal@kernel.org>,
-	ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers, etc
-In-Reply-To: <20260717025812.2397d792@foz.lan>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFZYX2vN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 880491F000E9;
+	Sat, 18 Jul 2026 12:55:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784379302;
+	bh=IL7k6NdODbmLmuE1ejLlqj5W22ZXi5Xdh40mrvknoRU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FFZYX2vNiX8kzwGdCCONoJUgWBRQHtGUm/tdBMO82gzxo3L2WtmpbrA4WbKixGeVl
+	 IIz3W9cedkxeecWxvLnyIUexLeJt02T+WEE6TsG+weYT3W86V/y6fsaQwfWhMh6iiA
+	 ZM6DoIXrzfksLXlZXWvUTQXs4CRLf6Ayk2S9KNI5P1JsDj17E1yh8sv7imJHGLlDwj
+	 hw66bgwcj+SvaCoMOZZIeyGR4WseH8maEL4YJNSqaOf3s4YY8P6kd0XQGyeLwORY6a
+	 +F0DJuc5QCyQ3OV9Jigf0W0vg/Ibsw8+wz2hCCQXtVSgzDFoLM2PLfxFQNbbulp+8U
+	 3Az0DGIywZvxg==
+Date: Sat, 18 Jul 2026 14:54:58 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: "Theodore Tso" <tytso@mit.edu>
+Cc: Konstantin Ryabitsev <mricon@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags,
+ newcomers, etc
+Message-ID: <20260718145458.09710e0f@foz.lan>
+In-Reply-To: <alp-zVPGXg0Hub5e@mit.edu>
 References: <87wluv7yzc.fsf@trenco.lwn.net>
 	<alj4mYFMfZvuarfx@laps>
 	<87y0fa7pdm.fsf@trenco.lwn.net>
 	<20260716215342.30e44c2f@foz.lan>
 	<allL7jndw6R-3_8S@mit.edu>
-	<20260717025812.2397d792@foz.lan>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	<20260717-hissing-successful-rabbit-fecc0c@lemur>
+	<alp-zVPGXg0Hub5e@mit.edu>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[huawei];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4E3AE79383
-X-Spam-Score: -2.01
+Content-Transfer-Encoding: 7bit
 
-On Fri, 17 Jul 2026 02:58:12 +0200,
-Mauro Carvalho Chehab wrote:
+On Fri, 17 Jul 2026 16:21:19 -0400
+"Theodore Tso" <tytso@mit.edu> wrote:
+
+> On Fri, Jul 17, 2026 at 09:55:02AM -0500, Konstantin Ryabitsev wrote:
+> > I'd go so far as to say that we DON'T want to feed unfiltered LKML archives
+> > into the model -- we probably want to lean on the work done by the cregit
+> > folks to identify patch sets that were actually accepted and then work
+> > backwards, creating a subset of LKML that resulted in accepted contributions.  
 > 
-> > So it's one say to say, we should figure out how to try to run Sashiko
-> > on a local LLM, using open-weight models.  But it's going to be a lot
-> > easier to propose such a thing than to actually do it.
+> I agree that we can do better by tagging various e-mails from the LKML
+> archives as "this commit was rejected" or "the patch or e-mail was
+> ignored because it was obviously AI SLOP" or "this is a review by
+> someone who is known to be a bad reviewer such that maintiners have
+> stock e-mails explaining to new contributors that it's OK to ignore
+> reviews from that reviewer".
 > 
-> The main point is: do we really need 671B parameters? Those models
-> speak a lot of different languages, have medical databases, and a lot
-> of other random knowledge that are useless for kernel development.
+> > (Not that any other AI companies are bothered with this detail, as they are
+> > scraping everything as fast as they can.)  
 > 
-> I've been playing for a while with qwen 3.6 with 24KB context size,
-> 36B parameters (3B activated), 4bits kv quantization and it does produce
-> some decent results. The main limitation is the context size: it is
-> probably not big enough to test big files (*)
+> Yeah, precisely.
 > 
-> (*) my GPU has 16GB and it is not dedicated to LLM - still, it does
->     present results on a reasonable time (a couple of minutes) and
->     with decent precision.
+> The frontier models are trained by grabbing everything, and that's
+> what the kernel review prompts use.  If we use one of the smaller
+> models that can fit in smaller machines, those smaller models won't
+> have as much of the "knowledge" that was gained by the training that
+> was done by scraping everything, since the smaller models were created
+> by distilling the larger models.  Detailed knowledge about Linux kenel
+> would be diminished along with the distillation process --- along with
+> all other bits of knowledge, including internal combustion engines,
+> how to create meth, etc.  So we could add it back via the fine tuning
+> process.  More information can be found here[1].
+> 
+> [1] https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/datasets-guide
+> 
+> If we do this, it's probably not the patches which are the most
+> interesting, it would be the review comments, since that would inform
+> the model about what maintainers worry about when they are reviewing
+> code.
+> 
+> Note that there are multiple kinds of fine-tuning.  One approach just
+> simply sends unstructured text in small chunks.  There are more
+> powerful ways which require a lot more structuring where we give it
+> instruction and answer pairs[2].
+> 
+> [2] https://wandb.ai/capecape/alpaca_ft/reports/How-to-Fine-Tune-an-LLM-Part-1-Preparing-a-Dataset-for-Instruction-Tuning--Vmlldzo1NTcxNzE2
+> 
+> So there are many different ways that we could feed data when we do
+> the fine tuning, and I think we'd need to experiment a bit to see what
+> works.
 
-I've been testing the kernel commit reviews with 16GB VRAM GPU, too.
-It's an agent program based on Chris Mason's review prompts, and
-targeted mainly for the verifications of our backport patches.  The
-main models I tried were Qwen-3.6 35B, Gemma-4 26B and GPT-OSS 20B
-(all 4-bit quantized).  And, my conclusion was that even such small
-models can catch real bugs.
+As the models it current using are just picking everything, if the
+distilled model is fine-tuned with unstructured text, I would expect
+a similar result to what Sashiko currently produces.
 
-Yes, there are definitely many false-positives, and they don't always
-follow the recent changes.  Also they cover much less changes than
-Sashiko.  So, the results must be read with lots of grains of salt :)
+Sure if someone or some code could manually weight multiple patch
+series version with their merge status and reviews, the trained
+model will probably work better.
 
-The code review is different from the code generation, and the agent
-divides the tasks so that the model can concentrate on each small
-single task.  With that, small models can achieve in some level, too.
+As models are usually trained multiple times with the same database,
+perhaps we can start with unfiltered lore data.
 
 
-FWIW, the agent code is found at
-  https://github.com/tiwai/kernel-review-agent.git
-
-with HTML renderer and console viewer programs
-  https://github.com/tiwai/review-table-gen.git
-  https://github.com/tiwai/kreview-ui-rs.git
-
-
-Takashi
+Thanks,
+Mauro
