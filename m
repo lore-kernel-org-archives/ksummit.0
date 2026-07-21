@@ -1,129 +1,113 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1694B3B6BF4
-	for <ksummit@lists.linux.dev>; Tue, 21 Jul 2026 23:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD62643B4A2
+	for <ksummit@lists.linux.dev>; Tue, 21 Jul 2026 23:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784675745; cv=none; b=JGP01gGcSmldWuAE6ycE2acmz8RDJhTLzNiPSxpE0z8QUCGWkjTYxX0ajWpvDBt+I48zJP8WUWWXZHrJlSo0mhjzLmWvk4/BMUBvUuriOBgkLMiIzB3bwXQ4O69mtsMhcQY7ZV/mdE7neD0KMlhrxiUEwcJe3n9fG3VHdPdTl5Q=
+	t=1784676301; cv=none; b=LvDOyCbzeyXYaj3g1H/PdQw4gMs9iNNIxhmksHAV0usOx8DBdWAVbCbYGfiyhaM1qJWNFKaiUwFEKgBCYtli672ltUYjm7HuADJ1trul3/QaOOvXAKCYH1txolat0h3i5xJtHKCmh2q1SFGtJFQxqecFjhwsm9XHFKVGb9oez24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784675745; c=relaxed/simple;
-	bh=62FeqDMKz96xIELdXHsjvQUJgli63PEn1Ozc0gxejKQ=;
+	s=arc-20240116; t=1784676301; c=relaxed/simple;
+	bh=bM7eFoClRoQoAnotAEe8J8MxmRukvDcJafgIuYOZ3i8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Grb7V+dY5/ocIRQH5JdvMxYR6FwLsDopK8VOBPG6PHDau9XvQFkpH/ANxNXqkc2442FbZhED/+9Xr/q4yuFEbEHaVYjf5wGBLWRi/57ckfQcwXFy7zhJWQet8Np186cBnDlycOHVD2OBi9z2Tx3djNO8IVj5vewz55GUzD5lv/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SQguYZFz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=TK64rO5HiBJ190G5bdhKdzvV1cyJns5/GqXxxieHcgHjOp9T0s5myEcsA6H5l8rwKug3IrriX0U6nDV/Xyg4BPmWKHc0g5XVDm136OMazwiNJ2QeSxIrYgGLuHhzAfwf6XRCEoAZONKaovDSZCtLxJmuEFTkB44a7Plh6RlnptE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=m2qa6aaV; arc=none smtp.client-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SQguYZFz"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 64D1ADF3;
-	Wed, 22 Jul 2026 01:14:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784675682;
-	bh=62FeqDMKz96xIELdXHsjvQUJgli63PEn1Ozc0gxejKQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SQguYZFzMDMVaYv3DW8OeH2xuynzoLeh3u5mmzAB/4OG8vQl0A36s606D9iAQ2LC9
-	 wnOrib/Jx9CFw8n6OV+Kic/Yyqa0pN3NuZvoB1ADl3oivfe/rpR6vp/TWlodnWtTl0
-	 Qyp2z9QBHYSgzJQZzK+eBJchw+AW2+8JG7vtC8zM=
-Date: Wed, 22 Jul 2026 02:15:40 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	ksummit@lists.linux.dev
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="m2qa6aaV"
+X-KPN-MessageId: 5dc5606c-855b-11f1-8f54-005056992ed3
+Received: from smtp.kpnmail.nl (unknown [10.31.155.6])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 5dc5606c-855b-11f1-8f54-005056992ed3;
+	Wed, 22 Jul 2026 01:24:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:message-id:subject:to:from:date;
+	bh=91AArmSi6/ZN6uoEJjrJZY9ts+BWsR+FALWAS0ZnItI=;
+	b=m2qa6aaVeZGLBvJKuRUnn3jjD2de4NR0eaWWqj+CvoMCUEKtw3y4oBB2wFunDMZ9gV/kDq1Fn4UJu
+	 3IOIEiKQgLRTrOgA/AJxXwfNmBp0Dbx/RXLTnzxXmTrtHhPE+QNvjlbjObIf/lxPma+aZtswvF1bNn
+	 +3oyCK760GRF3zvGWKIki+1+aPeiFftllgcgaeIhcqJ661aL0qCCscwOyypZKA5qMZ1+J5wt/c2pJT
+	 +GIwwA5g1JJUPWmJwaicSgXNOVLeAXsujLiouq63ecbxZl+SKR4DwgQN/4HP9LyUoGzSb02MFRlQx0
+	 8dWbPhDFJSL7nPTn6DBv6tdVuXSNgng==
+X-KPN-MID: 33|THmluRkyclCt3b6FbyYoBWmpm/3Dgo08t+b/Wcu3eApnMcvfdV2eC5hBfkrBxaZ
+ Do510bJQrccDH+42m1QejzPZ7kNEhO4QCp+CEWyHrq74=
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|ESckbk6x/mwDSX/E31ynRuCM4Yl3+eB4urPzhbGMAIeDAUhZhtd/XZtl2EohrQh
+ c/2KsgNj3QXrs4WJoUqf1cg==
+Received: from localhost (unknown [178.226.150.234])
+	by smtp.xs4all.nl (Halon) with ESMTPSA
+	id 5d5fcedf-855b-11f1-a787-00505699772e;
+	Wed, 22 Jul 2026 01:24:48 +0200 (CEST)
+Date: Wed, 22 Jul 2026 01:24:48 +0200
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
  etc
-Message-ID: <20260721231540.GJ536385@killaraus.ideasonboard.com>
+Message-ID: <al_-mbbw8r4otafe@lt-jori.localdomain>
 References: <87wluv7yzc.fsf@trenco.lwn.net>
- <alj4mYFMfZvuarfx@laps>
- <daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk>
- <alkFzdJobnnMjJ4v@laps>
- <20260716203810.GF1735001@killaraus.ideasonboard.com>
- <alo3tBAc_tBNgtg0@laps>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alo3tBAc_tBNgtg0@laps>
+In-Reply-To: <87wluv7yzc.fsf@trenco.lwn.net>
 
-Hi Sasha,
-
-On Fri, Jul 17, 2026 at 10:09:56AM -0400, Sasha Levin wrote:
-> On Thu, Jul 16, 2026 at 11:38:10PM +0300, Laurent Pinchart wrote:
-> > On Thu, Jul 16, 2026 at 12:24:45PM -0400, Sasha Levin wrote:
-> >> On Thu, Jul 16, 2026 at 05:08:40PM +0100, Mark Brown wrote:
-> >> >On Thu, Jul 16, 2026 at 11:28:25AM -0400, Sasha Levin wrote:
-> >> >> On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:
-> >> >
-> >> >> > - There are many first-time contributors coming in with LLM-generated
-> >> >> >  patches.  At times, I could swear that every one of them is focused on
-> >> >
-> >> >> >  Our maintainers are not scaling to handle this new flood, and I fear we
-> >> >> >  are going to see some unfortunate things merged.  One LLM-driven newcomer
-> >> >> >  recently nearly succeeded in establishing himself as the maintainer of
-> >> >> >  lib/.  How do we hold the line against this stuff while remaining open to
-> >> >> >  new developers?
-> >> >
-> >> >> Shouldn't it be a merits question rather than a tools question?
-> >> >
-> >> >> If the commits are correct, does it matter if they were written with an LLM? we
-> >> >> can insist more on supplying tests and demonstrating correctness, something we
-> >> >> seem to be doing quite rarely right now.
-> >> >
-> >> > The issue (which a number of projects are facing) is as much one of
-> >> > volume as anything else, the code generation machines are enabling the
-> >> > generation and submision of volumes of code where things were previously
-> >> > constrained by human factors.  It can turn into a bit of a DoS.  I don't
-> >> > have any particularly bright ideas here but it's definitely a thing.
-> >>
-> >> Sure, we're seeing quite the increase in patch submissions, but I'm trying to
-> >> argue that the issue isn't a new one: lack of maintainers, trusted reviewers,
-> >> and maintainer burnout has been a topic at each kernel summit for as long as I
-> >> can remember. AI just kicks it up a notch.
-> >>
-> >> My concern is that if we focus on the AI aspect, we still won't be solving the
-> >> underlying issue.
-> >>
-> >> I'm hoping we can figure out how to get maintainers great tooling, testing, and
-> >> community, rather than figuring out how to block a developer who uses LLM.
-> >> Maybe AI would actually be a great catalyst for that as well?
-> >
-> > Didn't you argue in another part of this thread that we're in no danger
-> > of being depending on AI for our processes ? I see a contradiction here.
+On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:
+> The use of LLMs in the development process appears to be a clear theme for
+> the upcoming summit.  On top of what others have already suggested, I think
+> we may want to consider these questions:
 > 
-> Hey Laurent,
+> - Do we want to continue naming specific LLMs in the Assisted-by tags, or
+>   put something more generic?  I *think* that this thread:
 > 
-> Not sure I follow here.
-
-I may have misunderstood you. I thought you meant developing LLM-based
-tools, but re-reading your comment I think you may have meant using
-generative AI to develop tools.
-
-> My thinking was that trying to improve our processes and tooling has been a
-> topic for the past decade or two. One of the times we discussed it was the 2019
-> maintainer's summit (https://lwn.net/Articles/799134/) where we decided to
-> create the workflows@ mailing list to share our tooling and workflows. Not much
-> of that has been happening :)
+>     https://lore.kernel.org/all/20260701-work-coding-assistants-v1-1-a20a94d1d606@kernel.org/
 > 
-> In the past year or two I was able to rewrite most of my ugly scripts, automate
-> so many of the processes I used to do manually, and just improve so many
-> quality of life items thanks to AI. Look even at the CVE process that was
-> created last year: so much of the infrastructure used to drive it was created
-> with AI.
+>   reached a consensus that "Assisted-by: LLM" was better than what we
+>   require now, but it might be good to ratify that in this setting.
 > 
-> Now, if AI suddenly goes away tomorrow it'll suck for me, but I'll just go back
-> to writing my tools manually like I did before. I don't think that I somehow
-> became "dependant" on it.
+> - There is a lot of LLM-generated code that lacks an Assisted-by
+>   disclosure.  Often, that seems to be the result of ignorance of the
+>   rules; those contributors will start adding the tags when informed of the
+>   requirement.  But others just lie about it.  A rule that is widely
+>   ignored does not help anybody.  Can we come up with a way to get better
+>   compliance, or should we just drop the tag entirely?
+> 
+> - There are many first-time contributors coming in with LLM-generated
+>   patches.  At times, I could swear that every one of them is focused on
+>   documentation typos, but the truth of the matter is that they are
+>   reaching into subsystems all over the kernel.  We have some brand-new
+>   contributors making significant changes to dozens of subsystems.  An
+>   experienced developer would be hard-put to truly understand what those
+>   changes are doing; a newcomer is unlikely to have that understanding,
+>   and is unlikely to be around to fix eventual problems.
+> 
+>   Our maintainers are not scaling to handle this new flood, and I fear we
+>   are going to see some unfortunate things merged.  One LLM-driven newcomer
+>   recently nearly succeeded in establishing himself as the maintainer of
+>   lib/.  How do we hold the line against this stuff while remaining open to
+>   new developers?
+> 
+> - Our process is becoming increasingly dependent on proprietary tools.  We
+>   have done that before and, in 2005, it went pretty badly for us - and
+>   could have been worse.  How do we prepare for the inevitable rugpull?  I
+>   raised this last year, and it was largely brushed off, but I still think
+>   it's something we should be concerned about.
+> 
+> That's probably enough :)
+> 
+> jon
 
-My concerns is largely about using generative AI to automate daily
-tasks. Increase such usage will cause a dependence, and the withdrawal
-will hurt the more usage grows.
+Hi Jonathan,
 
--- 
-Regards,
+Paul McKenney made me aware that this list is in fact public, so I
+wasn't aware of this discussion. I thought only the commitee members had
+access to that email; maybe that is something that should be more clear
+in the announcement. Ah well... it was proposed in good faith :)
 
-Laurent Pinchart
+Best,
+Jori.
