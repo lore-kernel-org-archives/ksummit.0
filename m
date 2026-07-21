@@ -1,52 +1,56 @@
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD62643B4A2
-	for <ksummit@lists.linux.dev>; Tue, 21 Jul 2026 23:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFD5472553
+	for <ksummit@lists.linux.dev>; Tue, 21 Jul 2026 23:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784676301; cv=none; b=LvDOyCbzeyXYaj3g1H/PdQw4gMs9iNNIxhmksHAV0usOx8DBdWAVbCbYGfiyhaM1qJWNFKaiUwFEKgBCYtli672ltUYjm7HuADJ1trul3/QaOOvXAKCYH1txolat0h3i5xJtHKCmh2q1SFGtJFQxqecFjhwsm9XHFKVGb9oez24=
+	t=1784678302; cv=none; b=p+KpF1Nqj6dSVl9n4nZ1gtajdcKptjiuaO9xCmvqVA36+E1wZG4k+9JyGM0cSyBa89jN1+k+JLueZg5ntiXnVHRF7erDgZZA2OT2e3YVG6lf3puS6gzmXl5APKlIgV91n0Jj0J376xe0F16Lz7cYrNENSFbnFfo4GccJQ8eviXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784676301; c=relaxed/simple;
-	bh=bM7eFoClRoQoAnotAEe8J8MxmRukvDcJafgIuYOZ3i8=;
+	s=arc-20240116; t=1784678302; c=relaxed/simple;
+	bh=+IoXB7ULmMc2e+XqYWAD+8u/jKwEN4uP+NQrYEuJc5g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TK64rO5HiBJ190G5bdhKdzvV1cyJns5/GqXxxieHcgHjOp9T0s5myEcsA6H5l8rwKug3IrriX0U6nDV/Xyg4BPmWKHc0g5XVDm136OMazwiNJ2QeSxIrYgGLuHhzAfwf6XRCEoAZONKaovDSZCtLxJmuEFTkB44a7Plh6RlnptE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=m2qa6aaV; arc=none smtp.client-ip=195.121.94.183
+	 Content-Type:Content-Disposition:In-Reply-To; b=lVMOsOW4aXB2EoBLoz5QhnchD3Ykvg8q5YFt59FizVzSnVkRKUhKkDc+YThntPCHG60rfN0YRI4fl2r52q9AcI7cCoztiMeUANdySBRlGFi9DT+A/w/ez6RyIyWSAvYXyEBOtFWtkDhRxmkQcKAVVQ0TczHVjpsLnInFKRNXEdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=QS6hIin9; arc=none smtp.client-ip=195.121.94.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="m2qa6aaV"
-X-KPN-MessageId: 5dc5606c-855b-11f1-8f54-005056992ed3
-Received: from smtp.kpnmail.nl (unknown [10.31.155.6])
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="QS6hIin9"
+X-KPN-MessageId: 068436a3-8560-11f1-83b3-005056ab378f
+Received: from smtp.kpnmail.nl (unknown [10.31.155.40])
 	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-	id 5dc5606c-855b-11f1-8f54-005056992ed3;
-	Wed, 22 Jul 2026 01:24:48 +0200 (CEST)
+	id 068436a3-8560-11f1-83b3-005056ab378f;
+	Wed, 22 Jul 2026 01:58:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xs4all.nl; s=xs4all01;
 	h=content-type:mime-version:message-id:subject:to:from:date;
-	bh=91AArmSi6/ZN6uoEJjrJZY9ts+BWsR+FALWAS0ZnItI=;
-	b=m2qa6aaVeZGLBvJKuRUnn3jjD2de4NR0eaWWqj+CvoMCUEKtw3y4oBB2wFunDMZ9gV/kDq1Fn4UJu
-	 3IOIEiKQgLRTrOgA/AJxXwfNmBp0Dbx/RXLTnzxXmTrtHhPE+QNvjlbjObIf/lxPma+aZtswvF1bNn
-	 +3oyCK760GRF3zvGWKIki+1+aPeiFftllgcgaeIhcqJ661aL0qCCscwOyypZKA5qMZ1+J5wt/c2pJT
-	 +GIwwA5g1JJUPWmJwaicSgXNOVLeAXsujLiouq63ecbxZl+SKR4DwgQN/4HP9LyUoGzSb02MFRlQx0
-	 8dWbPhDFJSL7nPTn6DBv6tdVuXSNgng==
-X-KPN-MID: 33|THmluRkyclCt3b6FbyYoBWmpm/3Dgo08t+b/Wcu3eApnMcvfdV2eC5hBfkrBxaZ
- Do510bJQrccDH+42m1QejzPZ7kNEhO4QCp+CEWyHrq74=
+	bh=PFSZWUPJ2ZB4ykNdIeHJQaNKGjAsPF8HBbmf2DJzp3M=;
+	b=QS6hIin9gdVytJbSTA+jftU3XzxuZVz10eMn9Hgp9Cm83ZUle/fIfYSClLHuijfZoelWf4LQ2Ml39
+	 s/0+8izTVW/KCPFOegDR0WQHWCZR7/MGfeAT4seX4nCKCt9+eP7yNzPDEC9HDD6qCXyomwBsOm6s6h
+	 C2azU5ssYgBPZ7WhSoYW1ybAYuwiriCfNZ0fPfXFAkCrgjTjoZSifdDpbhww9m2zry9NhggtXSmfyr
+	 7dHrTxez1dKESGqmaWys4QYCms4ETlLTYKv0x5iw+8m1DEor1lNGod3F1xyVq8RjwriUmPxM2ZimWz
+	 IzDZMx3WzeccBg+r0y0ZsLoMk1sF1kg==
+X-KPN-MID: 33|0Scc7IcFDctCcua861RKjmbydQmDHzN6TodLoRXaPi9ia/Q5UfI1dxmLHCQXs8m
+ 4aPIaq9NYktwOIRdf4MMSzA==
 X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|ESckbk6x/mwDSX/E31ynRuCM4Yl3+eB4urPzhbGMAIeDAUhZhtd/XZtl2EohrQh
- c/2KsgNj3QXrs4WJoUqf1cg==
+X-CMASSUN: 33|hVlYALDCJp12O6tdo6y5k8uSlWFDbWX4QR7CF4EmBcMJFjebZawQ9nsp7In0GHk
+ nWreseyul5w8xUQDl0JfqSw==
 Received: from localhost (unknown [178.226.150.234])
 	by smtp.xs4all.nl (Halon) with ESMTPSA
-	id 5d5fcedf-855b-11f1-a787-00505699772e;
-	Wed, 22 Jul 2026 01:24:48 +0200 (CEST)
-Date: Wed, 22 Jul 2026 01:24:48 +0200
+	id 066644f5-8560-11f1-86b1-005056ab7584;
+	Wed, 22 Jul 2026 01:58:09 +0200 (CEST)
+Date: Wed, 22 Jul 2026 01:58:05 +0200
 From: Jori Koolstra <jkoolstra@xs4all.nl>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: ksummit@lists.linux.dev
+To: Sasha Levin <sashal@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
  etc
-Message-ID: <al_-mbbw8r4otafe@lt-jori.localdomain>
+Message-ID: <amAEIpVXxJbVgT2Z@lt-jori.localdomain>
 References: <87wluv7yzc.fsf@trenco.lwn.net>
+ <alj4mYFMfZvuarfx@laps>
+ <daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk>
+ <alkFzdJobnnMjJ4v@laps>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -55,59 +59,61 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87wluv7yzc.fsf@trenco.lwn.net>
+In-Reply-To: <alkFzdJobnnMjJ4v@laps>
 
-On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:
-> The use of LLMs in the development process appears to be a clear theme for
-> the upcoming summit.  On top of what others have already suggested, I think
-> we may want to consider these questions:
+On Thu, Jul 16, 2026 at 12:24:45PM -0400, Sasha Levin wrote:
+> On Thu, Jul 16, 2026 at 05:08:40PM +0100, Mark Brown wrote:
+> > On Thu, Jul 16, 2026 at 11:28:25AM -0400, Sasha Levin wrote:
+> > > On Thu, Jul 16, 2026 at 09:09:27AM -0600, Jonathan Corbet wrote:
+> > 
+> > > > - There are many first-time contributors coming in with LLM-generated
+> > > >  patches.  At times, I could swear that every one of them is focused on
+> > 
+> > > >  Our maintainers are not scaling to handle this new flood, and I fear we
+> > > >  are going to see some unfortunate things merged.  One LLM-driven newcomer
+> > > >  recently nearly succeeded in establishing himself as the maintainer of
+> > > >  lib/.  How do we hold the line against this stuff while remaining open to
+> > > >  new developers?
+> > 
+> > > Shouldn't it be a merits question rather than a tools question?
+> > 
+> > > If the commits are correct, does it matter if they were written with an LLM? we
+> > > can insist more on supplying tests and demonstrating correctness, something we
+> > > seem to be doing quite rarely right now.
+> > 
+> > The issue (which a number of projects are facing) is as much one of
+> > volume as anything else, the code generation machines are enabling the
+> > generation and submision of volumes of code where things were previously
+> > constrained by human factors.  It can turn into a bit of a DoS.  I don't
+> > have any particularly bright ideas here but it's definitely a thing.
 > 
-> - Do we want to continue naming specific LLMs in the Assisted-by tags, or
->   put something more generic?  I *think* that this thread:
+> Sure, we're seeing quite the increase in patch submissions, but I'm trying to
+> argue that the issue isn't a new one: lack of maintainers, trusted reviewers,
+> and maintainer burnout has been a topic at each kernel summit for as long as I
+> can remember. AI just kicks it up a notch.
 > 
->     https://lore.kernel.org/all/20260701-work-coding-assistants-v1-1-a20a94d1d606@kernel.org/
+> My concern is that if we focus on the AI aspect, we still won't be solving the
+> underlying issue.
 > 
->   reached a consensus that "Assisted-by: LLM" was better than what we
->   require now, but it might be good to ratify that in this setting.
-> 
-> - There is a lot of LLM-generated code that lacks an Assisted-by
->   disclosure.  Often, that seems to be the result of ignorance of the
->   rules; those contributors will start adding the tags when informed of the
->   requirement.  But others just lie about it.  A rule that is widely
->   ignored does not help anybody.  Can we come up with a way to get better
->   compliance, or should we just drop the tag entirely?
-> 
-> - There are many first-time contributors coming in with LLM-generated
->   patches.  At times, I could swear that every one of them is focused on
->   documentation typos, but the truth of the matter is that they are
->   reaching into subsystems all over the kernel.  We have some brand-new
->   contributors making significant changes to dozens of subsystems.  An
->   experienced developer would be hard-put to truly understand what those
->   changes are doing; a newcomer is unlikely to have that understanding,
->   and is unlikely to be around to fix eventual problems.
-> 
->   Our maintainers are not scaling to handle this new flood, and I fear we
->   are going to see some unfortunate things merged.  One LLM-driven newcomer
->   recently nearly succeeded in establishing himself as the maintainer of
->   lib/.  How do we hold the line against this stuff while remaining open to
->   new developers?
-> 
-> - Our process is becoming increasingly dependent on proprietary tools.  We
->   have done that before and, in 2005, it went pretty badly for us - and
->   could have been worse.  How do we prepare for the inevitable rugpull?  I
->   raised this last year, and it was largely brushed off, but I still think
->   it's something we should be concerned about.
-> 
-> That's probably enough :)
-> 
-> jon
+> I'm hoping we can figure out how to get maintainers great tooling, testing, and
+> community, rather than figuring out how to block a developer who uses LLM.
+> Maybe AI would actually be a great catalyst for that as well?
 
-Hi Jonathan,
+Can't we just deprioritize invasive contributions to core subsystems by
+unknown people? If there is no man in the middle, learning to navigate
+the code to do anything even remotely significant takes A LOT of time. I
+can know, as I have been doing that recently with the VFS, and I still
+know only a few pieces.
 
-Paul McKenney made me aware that this list is in fact public, so I
-wasn't aware of this discussion. I thought only the commitee members had
-access to that email; maybe that is something that should be more clear
-in the announcement. Ah well... it was proposed in good faith :)
+I must have spent several hundreds of hours in the past year. What is
+the chance someone spends this amount of time as a hobbyist, but then
+does not engage with the community in any other way (discussion,
+conferences, etc.)?
 
-Best,
-Jori.
+Of course there are Yitang Zhang's in the world (although he was still
+not totally unknown), but this is vanishingly rare.
+
+> 
+> -- 
+> Thanks,
+> Sasha
