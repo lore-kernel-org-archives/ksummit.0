@@ -1,120 +1,128 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B635D41D133
-	for <ksummit@lists.linux.dev>; Wed, 22 Jul 2026 19:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D060C43933E;
+	Wed, 22 Jul 2026 20:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784747781; cv=none; b=N1yKoNbGWY5YAswUrELdK/jrHdtTDRys4KV+Pz7xW9mYTzIIm8QMvlw+0T05rbB3oR+1+k01lXjxDe8CoB2n2bNhSOKDErsIzw0M7Euo++lncZGtOkVkgAywfdCkDJOHLEy8h+Nx7iuj3UbEmgWhvKd/PrFbXise2uI3gfKSdik=
+	t=1784751951; cv=none; b=jKmO090X6UBfUQK2C0iCsbrp9f6VjC0gy5ombEPfT0NoPDmhlmEvThU+Y4LPXh2tMMzwdrPR6AlMwGsDQuk5Tjk4+/76ekKcTZ1HSSDmrILAlfa0R8hO1GvJoe0/pizRRg5DZtuGIaarmUPo598ONYBMVMpff+VkhCgRpKvQ+XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784747781; c=relaxed/simple;
-	bh=pid0NEjo4xfpAUbKJTdUf+xnP6io4XuQpfwepmDy6kQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HcBg/5s3afyPW5Xb5s6VbhTBad+4+D9nwirvM0mQJu6SZzpzau+2IvnlQ50KRsLR8z/BpzHUofmxp4RHUceO/z0WnbFi2LnvDVZbFzspfA+N2CyMKGlTuNu2RB2KOWznJ0imG4lnw/uwtg99RNUhkQ9T9d430Nz/ZL3FZX7aGeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=QDiUZsSe; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1784751951; c=relaxed/simple;
+	bh=79urgaqBei75EenLhvUZ0F2DLG/0QKpQ9L58tzCfTfw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ttA/HCFHk7Zhh4ec4cQYRTjvdPvHxZIWjhGvHYyyDH2p+gb/088DKk9EYznIpXkD42bWJMqoZWsYUoCYVX4SxxWg0OOI67eCU++C/A0tf3Q+Ttk8Rf7kT7kNB5gzQcqrkyG7FQVAFOXWFbecQxvAHJznRHa8yncb5YacfAPaXtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OdoQby1y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QDiUZsSe"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c15cd3fd760so1459033566b.2
-        for <ksummit@lists.linux.dev>; Wed, 22 Jul 2026 12:16:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1784747775; x=1785352575; darn=lists.linux.dev;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=buxSIBrj5vdtsCb2tQ4iEJYikdMw74iJ/7x2Dj3lhyQ=;
-        b=QDiUZsSeUpeR8D5BvCcA9wx/9vyX4AmFy5FkMozY/XnjrmvfxUFnj5thV2cIzGpIzF
-         KXwd7cStXpnnl9fM2Dnh4rkvASogZKAWgz+QTDYvCJNrLAbywbDCdhI+t7efA4Te2ED9
-         y/t9EtQlRtsJhL9nNNj247xsauDkdRf6ri4ng=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784747775; x=1785352575;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=buxSIBrj5vdtsCb2tQ4iEJYikdMw74iJ/7x2Dj3lhyQ=;
-        b=oAIuzLtNJqk24qJCmq4eLMAB33aE1GJMsHAoiDppKUlM6mQFAVWWjJDo9fP823rGa9
-         4WC+urpK2FNWBcTKVOlxLz84id90iStoSL8QhC2nOqfrL1CYgeThQlfCwDoCxaHfJd85
-         mUwho5kvLP6aufSXqiOw3pi5FN7xWeORHrdWZAqvNUd5deAgA1IGehjqUqJZxyYvxwXY
-         3Y4qJRKtvAqsrH4xsJISIwNEhpeeL9Pmxi5DR1TRUGmcsg7J7LA/kU2kHv95NxXNE3nq
-         a8++aqbnErFHRRTL38MQqkUMxNYiOZajjjTWVXYQI/72YLibuupaxun0rSQoLBxGjXcu
-         FmIw==
-X-Forwarded-Encrypted: i=1; AHgh+RoaaOYBWK9BlDZCHNSLRVnFDipNW7+HBBMSJy85kzsBY5ovxrWCbbyFV/hAE6ukxdhMkGXIjimj@lists.linux.dev
-X-Gm-Message-State: AOJu0YzgisRUUEAJO6D+TM9AaEIDk7Sy7aqMKQ6evhD/lczN2fG85qku
-	Bt363FEa94N6d63O8YX7sli5bdp5i62NHWlHLhw5AQq6gv9cNqOfc+etq40IlybWadBFyvaRarI
-	8vNynPRI=
-X-Gm-Gg: AR+sD10JyeUORrt9sCNt0XV5HVHdC4efgu5k9dZ83W2MwC56+bJdrHC78/3HH2DM1Bs
-	gZRT1ktVfCTHgtQ666b5xzZ9tiN107zN5fJVmDmRX/qzurriT1ExsQbnGEto2e6B3tw63W3MtRd
-	/thkDvDU1qe2chewndLOBEolPhVlvuZlo6qtVO4K2cvhcPIDNPx3iKJGVnmwN0I5tJdzxJLJG1x
-	FFCNmI8Tcd7TFcIuYFa2BgWnM/Z+4fCCPMb9Sbw27l78gHY6Wob9GpC7vHNely9epf+TZNrfATQ
-	MMYUjYjAPCSNWxtYShwuMnnaf7pnkaZqKi3wxM2lp2wZr37+PHt5bAUhSmIJys+7OwRRxsSJloP
-	Gz6bYOA1ZodZlxaeaGwi5sIqmqN4x+Zq8mCWse/lbHyRoYGKle1YtOzl1iglsjL5ItalOiypI+n
-	Ha1WBwfEm3rN4Kl1WE55PmpJXz4gwL+4HMP6x8pLS//oL6GTZllio=
-X-Received: by 2002:a17:907:b045:20b0:c12:12b7:84de with SMTP id a640c23a62f3a-c1c5091a44bmr4924966b.17.1784747775259;
-        Wed, 22 Jul 2026 12:16:15 -0700 (PDT)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32a7ad1esm142140966b.3.2026.07.22.12.16.14
-        for <ksummit@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 12:16:14 -0700 (PDT)
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15d111ca99so1369226966b.0
-        for <ksummit@lists.linux.dev>; Wed, 22 Jul 2026 12:16:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqU8jAKq5Opc/qFCj0yZt3NiLO9Z/XJ4L47+BnDhJCvev1B8LUzNRmKeUH3RNE8LiJtg2zEDER+@lists.linux.dev
-X-Received: by 2002:a17:907:e1c5:20b0:c11:ff2c:4f33 with SMTP id
- a640c23a62f3a-c1c50bf2302mr3607466b.45.1784747774114; Wed, 22 Jul 2026
- 12:16:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OdoQby1y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11DE1F000E9;
+	Wed, 22 Jul 2026 20:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784751949;
+	bh=4nEAXoFntF8VgCkl8w1GI6aqAiYf84Td6tNogyTbW74=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OdoQby1ymbwJnETnnxXBvIK0j3kWjZa7oaf/tjXlIV+NDaKgEThIu5HbLDolciZ7Q
+	 VfokpebCZeoXQAzl/4eaumJ9vgY0OLsMXmJRHkhTGGMRIvwIUFYooXt6LG7Y8ZgYdW
+	 RFH0SG/d4dhbY9iQmlsJbBsh/bU9Tp7zNYOg1umeGLXibaqyYPuS/NgOIjeRzHAEfM
+	 y647xCGucXXHkekFpWkS3Fvy2cIHcolHYOc3yfdk7gptrXpCbEkfkytIV9+e5J9CRY
+	 QmJ5BP9oQVF5PVBbXPfUFtub/B1MjEDdI0p7b0Qxlx4FvbMatyfDGIlbliKHl+11Wa
+	 U/mQ+WKGVKU0A==
+Date: Wed, 22 Jul 2026 22:25:44 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, Greg KH 
+ <gregkh@linuxfoundation.org>, sashiko-reviews@lists.linux.dev, Chris Mason
+  <clm@fb.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ linux-scsi@vger.kernel.org, ksummit@lists.linux.dev
+Subject: Re: How to fix problems with the sashiko review model
+Message-ID: <20260722222544.06a1dd1a@foz.lan>
+In-Reply-To: <a05e2ddea75895afdff63425d2fd47f90bdf65c8.camel@HansenPartnership.com>
+References: <20260722041257.1557-1-pengpeng@iscas.ac.cn>
+	<20260722042744.5C1B01F000E9@smtp.kernel.org>
+	<dcadf40a07a616de931c484bbe68f4b3f1f83b80.camel@HansenPartnership.com>
+	<2026072224-moisture-gonad-409f@gregkh>
+	<e8f7c3614c15a86b335576074fec1768d95f3df4.camel@HansenPartnership.com>
+	<e30c8cebe5d0a6cfada18c633be0125774ef0c7f.camel@sipsolutions.net>
+	<5a2ce0b0eab27354d62450018f9843be83c72697.camel@HansenPartnership.com>
+	<20260722170901.30bdae6a@localhost>
+	<a05e2ddea75895afdff63425d2fd47f90bdf65c8.camel@HansenPartnership.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <87wluv7yzc.fsf@trenco.lwn.net> <alj4mYFMfZvuarfx@laps>
- <daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk> <alkFzdJobnnMjJ4v@laps>
- <amAEIpVXxJbVgT2Z@lt-jori.localdomain> <CAHk-=wgbGarE7Ozw4VG6oUKDj9pk-8DRoDiX00bo1MwEMm9UWQ@mail.gmail.com>
- <20260722-uncovered-clam-of-bloom-03ebed@meerkat>
-In-Reply-To: <20260722-uncovered-clam-of-bloom-03ebed@meerkat>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 22 Jul 2026 12:15:55 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiNRpRj_pTuoxT3POuRW3F2qg-rM_yafh5oc20LmZF2JQ@mail.gmail.com>
-X-Gm-Features: AUfX_myYaoCXZGI8lZmvWiBBuJdZO_OK5scyHdgeqOf4nuwyiVeGFYrd_dgFVTw
-Message-ID: <CAHk-=wiNRpRj_pTuoxT3POuRW3F2qg-rM_yafh5oc20LmZF2JQ@mail.gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers, etc
-To: Konstantin Ryabitsev <mricon@kernel.org>
-Cc: Jori Koolstra <jkoolstra@xs4all.nl>, Sasha Levin <sashal@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Jonathan Corbet <corbet@lwn.net>, ksummit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 22 Jul 2026 at 10:48, Konstantin Ryabitsev <mricon@kernel.org> wrote:
->
-> At the danger of introducing some kind of "karma system," how do we want to
-> build this trust?
+On Wed, 22 Jul 2026 11:24:38 -0400
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-I really don't believe in automated trust systems. They'll just get
-gamed, and once trust is automated, it's not trust any more, it's
-something else. That's not the kind of trust I'm talking about.
+> On Wed, 2026-07-22 at 17:09 +0200, Mauro Carvalho Chehab wrote:
+> > On Wed, 22 Jul 2026 10:17:40 -0400
+> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> >  =20
+> > > On Wed, 2026-07-22 at 16:00 +0200, Johannes Berg wrote: =20
+> > > > On Wed, 2026-07-22 at 09:42 -0400, James Bottomley wrote:=C2=A0  =20
+> > > > >=20
+> > > > > Well, I noted that in my reply above.=C2=A0 The way I was thinking
+> > > > > of implementing it was to add a general instruction file for
+> > > > > drivers which would make hardware trusted for pretty much
+> > > > > everything and then instruct the AI to consult driver specific
+> > > > > files for overrides to this so we could add the additional
+> > > > > threat checks to usb.md and virt.md=C2=A0  =20
+> > > >=20
+> > > > I guess it's a question which way around it should be - but I'll
+> > > > note that generally for wifi customers tend to not trust the
+> > > > "hardware" because it's mostly firmware, is generally buggy and
+> > > > can be attacked over the air too...
+> > > >=20
+> > > > Personally (with that background) I'd tend to lean towards saying
+> > > > the high-performance stuff that does want/need to trust the
+> > > > device should opt out, it's harder to get that wrong. If we
+> > > > generally opt out as you describe and then forgot to include
+> > > > something, we might have issues.=C2=A0  =20
+> > >=20
+> > > So this is just an efficiency thing.=C2=A0 There are 144 driver
+> > > subsystems, so if most of the want to trust the hardware it makes
+> > > more sense to have this as default but overriden by subsystems.=C2=A0
+> > > However, if most of the 144 don't trust their hardware then
+> > > absolutely, I agree, it should be per-subsystem opt in.=C2=A0 Part of
+> > > the reason for the post was to gauge this ... and so far I count
+> > > three opt outs. =20
+> >=20
+> > I don't trust hardware/firmware. They can be buggy.  =20
+>=20
+> Wait, buggy is different; we have potentially buggy in SCSI as well
+> (rather a lot of it, in fact).  However, we don't fix theoretical
+> hardware bugs, we require users to specify a device (which they could
+> add to the code as comments to keep sashiko quiet).
 
-The kind of trust I'm talking about is purely personal: I trust
-submaintainers (or, in the rare cases these days where I apply patches
-directly, I trust some patch because I looked at it myself).
+That depends on the type of theoretical bug: for instance, if a value
+is used to calculate an offset into an array, it makes sense to have
+a check to avoid accessing data outside the array size. Also, if
+a value is used as a denominator, it makes sense to check if the value
+is not zero.
 
-Now, that's different from the notion of attesting your identity and
-showing that you are who you are: we obviously have systems for that,
-with git signatures and kernel.org ssh keys etc.
+We do have such kind of checks on most media drivers - and there
+ended helping to avoid OOPSes due to problematic hardware. That's
+specially true on peripheral hardware like USB devices: they tend
+to have a lot of such bugs, up to the point that we can't really
+trust the device.
 
-So I guess "trust" is a bit of an ambiguous word. You do need
-infrastructure to build that trust up. Tools to show that kind of
-identity attestation and "this person has been around and has been
-trusted by others" is obviously a *step* in turning into that personal
-trust.
+So, I'd say that, instead of a global prompt saying to trust hardware,
+the best is to do it only on places where people are absolutely sure
+that the hardware is trusty enough.
 
-Greg has been involved in that "decentralized trust" project that at
-least tries to do some of that infrastructure.
+> The general tenor of my driver/ prompt would be that hardware may never
+> be assumed to be malicious but could be buggy.  In the event that the
+> fix is for buggy hardware, the submitter must state which hardware is
+> buggy and confirm they've tested the fix on the actual hardware.
 
-So projects like that exist, but that's not ultimately the particular
-kind of "trust" that I was talking about.  I don't think anybody
-should blindly trust any technical infrastructure, even if it can be a
-_part_ of why you then trust somebody (the same way you shouldn't
-blindly trust AI).
+In practice, on most cases, it is hard to distinguish buggy from
+malicious. IMO, it is better to prevent cases that could be=20
+too dangerous, even if aren't there any confirmation that the
+issue happened on an actual hardware.
 
-              Linus
+Thanks,
+Mauro
