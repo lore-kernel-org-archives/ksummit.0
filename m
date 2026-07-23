@@ -1,89 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E463DFC8F
-	for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 07:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602CE4DA539
+	for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 13:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784790815; cv=none; b=rDNg/onrOEzBY7t51IvS7fx2ov28CbKrSEHXxQbs5z87fvZ2wlxvQdLxLdhJ99wSTLUc5IitfPrWTfSH9qcoUnD/zJ8jegKLHCZFDo9RJzknCdNrqtBNFlhLWNA8M7HrBZyqTaNOLoPD0cxO/Yt+3LnPcMGL/gOu/HUUW91OyGw=
+	t=1784812227; cv=none; b=kJoq/BYSp23Z6VZ7+3Mzu4YBD72B9Mv+39bKGJcSfVjTlZKzW+8n9DcjcM8grOLqcrBSkQMON4u8oFq7VjrJxOyo0gXe+bk0aZCXGUELtNwmhGn1DLs7/aEUbT5JNirY+YyxRXf9K6+MvEkBrYcT1yAX/YIjttOBhGxyVxkHLkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784790815; c=relaxed/simple;
-	bh=RuWfkEE8N9tqqvw+I/epYiDfem7EcFhnfKYuAq8p7H0=;
+	s=arc-20240116; t=1784812227; c=relaxed/simple;
+	bh=eM46mPOyGwcqyuG+aC5iskCVmawG8PKP3NEo19AqT88=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TZ4aC1nboUWtHLRaReS5R/09xVCQJ0RvIWXzKX4ES/mtiyjTtQ3M+sTt045VGed9hnK3WehyQefo6bncgWQYHYFczvATR0x9fBBM54Hfd5byc9ydIM1644ZxT2rdVLJ4i/Sq5powlaAQts6TyG8AahhC3PiR6ospE426X2iwRF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T6EJUVbK; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T6EJUVbK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A641F000E9;
-	Thu, 23 Jul 2026 07:13:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784790814;
-	bh=RuWfkEE8N9tqqvw+I/epYiDfem7EcFhnfKYuAq8p7H0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T6EJUVbKGqvrbwi1Ylvfd55gPVV9KtDeBQI9zruF6z2Zvj7t3ZTcUStCmxjQ17Khk
-	 usLd3DArXZYmF2lSWvAOtyZcbNPs9TtXrjdAL2hGuxnH4t6eZayJk00nXX9otTXCBL
-	 xmV7N+/zR4fVGeaC4Cyd8h/1vMB+XFX0lw92c5YQFkBCiQVbZ9/UMSfxOgJzuYJm2H
-	 d6ODLUMIi1b9c4XNAqyLchlR+BysRj0G9D+ea0tVpCyVMtB6pe896T3q80A65Fx7U5
-	 p5AdTPQSneeSqDWIW7+bYymLdvHX/gTXPvWw9HsngrNQ5upca8KNK24B1IQ9qOrtb5
-	 LmPF7MWAstG3g==
-Date: Thu, 23 Jul 2026 09:13:30 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
- Kernel process
-Message-ID: <20260723091324.18f434fc@foz.lan>
-In-Reply-To: <78346752-E2AC-4ACB-929D-70A45794474C@linux.dev>
-References: <9e10dc4f-5d5c-4c20-831c-9137e719b337@kernel.org>
-	<78346752-E2AC-4ACB-929D-70A45794474C@linux.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	 MIME-Version:Content-Type; b=oEoFDy+wCDTTYnmCNwyOUzSBW42QW7iAzQxIL5Sh4SBPfDTLFjYnymZcq7CUCXxvC8y8ATw6vtAhAaD8P0my49MJSxNPl4zg0MP7ODMe9pd6IlddDBNnSFbJ3GUQYu+6HBjxOVDkHuGg+QTAnF1rxM2qIV8VVwBSLtjEsGzcz3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 8F11F1404A1;
+	Thu, 23 Jul 2026 13:10:16 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 8D6962E;
+	Thu, 23 Jul 2026 13:10:14 +0000 (UTC)
+Date: Thu, 23 Jul 2026 09:10:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Konstantin Ryabitsev <mricon@kernel.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Jori Koolstra <jkoolstra@xs4all.nl>, Sasha
+ Levin <sashal@kernel.org>, Mark Brown <broonie@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags,
+ newcomers, etc
+Message-ID: <20260723091036.03c2cac2@gandalf.local.home>
+In-Reply-To: <35426E86-9663-48D7-8899-B82D62D04A84@kernel.org>
+References: <87wluv7yzc.fsf@trenco.lwn.net>
+	<alj4mYFMfZvuarfx@laps>
+	<daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk>
+	<alkFzdJobnnMjJ4v@laps>
+	<amAEIpVXxJbVgT2Z@lt-jori.localdomain>
+	<CAHk-=wgbGarE7Ozw4VG6oUKDj9pk-8DRoDiX00bo1MwEMm9UWQ@mail.gmail.com>
+	<20260722-uncovered-clam-of-bloom-03ebed@meerkat>
+	<35426E86-9663-48D7-8899-B82D62D04A84@kernel.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: xeahxy4g4nm4g9hw1ejt8oikbsg5f5ps
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 8D6962E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18QVs9tqFt2CN4JpaQvGRM20rQwfnHA8ss=
+X-HE-Tag: 1784812214-119849
+X-HE-Meta: U2FsdGVkX19pgycE0xXB1ua267MuOQgyF8+6ZIs+w+zpFjopuV6LI39gC0/G9NcLR1kYgpmTe9gnvM5ccvCVYW+Il0SZ0FyOmOGmZeLUgXl7HlNY6GRx7umZX3fsy680XXOlINApY7x5X9/GaZarqH2yCbr/bpQO80478sxWnNG8+6+heicBOfnkPtQl6PcdtrN9CdpWYziFQtngjY9xub2WLF4jgMRFM/UBmZQYAH4vv9euf1VQ1COAGgs35tGPr7VFI4px31p9tYEWdD1uG6xXKzroPbabC5qcPN4nwjEdlulXtRXpii/cHblj5d38FeDdfwA8VTVhySLF2AlX2V9I1vPR1aGg
 
-On Fri, 17 Jul 2026 14:14:49 -0700
-Roman Gushchin <roman.gushchin@linux.dev> wrote:
+On Wed, 22 Jul 2026 17:26:30 -0700
+Kees Cook <kees@kernel.org> wrote:
 
-> > On Jul 17, 2026, at 2:05=E2=80=AFPM, Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
-> >=20
-> > =EF=BB=BFOn 15/07/2026 18:55, Roman Gushchin wrote: =20
-> >> * Prompt development and testing.
-> >> Currently, prompts are maintained in two GitHub repositories and are
-> >> changed manually or with the help of AI coding agents. However, there =
-is
-> >> no established practice for testing them, especially across various LLM
-> >> models. At the last LSFMMBPF conference, there was a discussion about
-> >> moving them into the kernel tree. I see some pros and cons to this
-> >> approach, but the ownership and testing models are not entirely clear.=
- =20
-> >=20
-> > Prompts in a meaning how to parse kernel, work with it or produce
-> > reports: yeah, sure.
-> >=20
-> > Prompts teaching kernel code: I don't think so. I find it really
-> > incorrect approach to create a dedicated and duplicated basic knowledge
-> > for LLMs, instead of focusing on knowledge for developers. I understand
-> > that LLM has to be taught basics of C [1], but we should not duplicate
-> > kernel coding style or kernel rules into LLM-only instructions. Instead=
-: =20
->=20
-> I agree.
-> I also experiment with Sashiko auto-creating prompts based on human
-> feedback in emails and initial results look promising. So maybe we don=E2=
-=80=99t
-> even need to write too much manually for LLMs.
+> On July 22, 2026 10:48:40 AM PDT, Konstantin Ryabitsev <mricon@kernel.org> wrote:
+> >On Tue, Jul 21, 2026 at 05:57:38PM -0700, Linus Torvalds wrote:  
+> >> Or it can happen by looking at the patch itself, and trusting the
+> >> contribution that way (and then the submitter grows his or her trust
+> >> over time that way..
+> >> 
+> >> But basically, without trusting a submission some way, the submission
+> >> shouldn't be accepted.  
+> >
+> >At the danger of introducing some kind of "karma system," how do we want to
+> >build this trust? We already do end-to-end attestation, but a) not everyone
+> >makes use of it, and b) it still hinges on name recognition.
+> >
+> >Do we want to dip our toes into some kind of "how many times have I accepted
+> >patches from this person" automatic accounting system?  
+> 
+> This kind of reminds of Debian's maintainer "recency" reporting. "This
+> person sent email to this or that list, committed over there, etc" as an
+> easy to see a per-person overview/dashboard of activity. Maybe something
+> like this for contributors would be good? It'd kind of be an extension of
+> the existing tools LWN (and Greg?) use for attribution.
 
-Sounds interesting, but IMO before activating such prompts, the best would
-be if, before applying the change, it would request the subsystem maintaine=
-r's=20
-approval, presenting him with the review diff without and after the new pro=
-mpt.
+Couldn't this be easily gamed by something like what happened to xz?
 
-Thanks,
-Mauro
+Perhaps a dashboard is helpful, but I think it still comes down to having
+some kind of personal connection.
+
+-- Steve
+
