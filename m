@@ -1,128 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D060C43933E;
-	Wed, 22 Jul 2026 20:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B72C11CA
+	for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 01:23:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784751951; cv=none; b=jKmO090X6UBfUQK2C0iCsbrp9f6VjC0gy5ombEPfT0NoPDmhlmEvThU+Y4LPXh2tMMzwdrPR6AlMwGsDQuk5Tjk4+/76ekKcTZ1HSSDmrILAlfa0R8hO1GvJoe0/pizRRg5DZtuGIaarmUPo598ONYBMVMpff+VkhCgRpKvQ+XI=
+	t=1784769794; cv=none; b=nff0TK1E3Jp/JaKS0JqMI+ElhpqP98skED+P93sIb2X4TInwbCZAX9N1PL6XyuD72993o+yTmOnycwN105T6M8a0Mt56KSkjpTgFOKWstNEYQQrg5Xh16Tiuu06PisXGpGpAjiNNc5UGTLBqcopTVHOMUmEKO2AY8z6ZwVLryOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784751951; c=relaxed/simple;
-	bh=79urgaqBei75EenLhvUZ0F2DLG/0QKpQ9L58tzCfTfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ttA/HCFHk7Zhh4ec4cQYRTjvdPvHxZIWjhGvHYyyDH2p+gb/088DKk9EYznIpXkD42bWJMqoZWsYUoCYVX4SxxWg0OOI67eCU++C/A0tf3Q+Ttk8Rf7kT7kNB5gzQcqrkyG7FQVAFOXWFbecQxvAHJznRHa8yncb5YacfAPaXtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OdoQby1y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784769794; c=relaxed/simple;
+	bh=sxo1LWyKp1SQeLELfRfWS8gInJBhzMmi/83h8o7tcpI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=NI0lCaEIxG8UY7c7oL+VwVa13ZCPzr5cV4ps9wugZTHxVEyevc3waCOJfIu//myINOpgwZJP8BZXNcNd778B8jamzS+yDYthWA8LOGVCg9wK56YsLMbqeOE0aM6kv605oyYwtyWKndhGj3gK/K5vOFDrQyDLGuk4jOqn7omRDZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzyQxnve; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OdoQby1y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11DE1F000E9;
-	Wed, 22 Jul 2026 20:25:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzyQxnve"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143201F000E9;
+	Thu, 23 Jul 2026 01:23:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784751949;
-	bh=4nEAXoFntF8VgCkl8w1GI6aqAiYf84Td6tNogyTbW74=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OdoQby1ymbwJnETnnxXBvIK0j3kWjZa7oaf/tjXlIV+NDaKgEThIu5HbLDolciZ7Q
-	 VfokpebCZeoXQAzl/4eaumJ9vgY0OLsMXmJRHkhTGGMRIvwIUFYooXt6LG7Y8ZgYdW
-	 RFH0SG/d4dhbY9iQmlsJbBsh/bU9Tp7zNYOg1umeGLXibaqyYPuS/NgOIjeRzHAEfM
-	 y647xCGucXXHkekFpWkS3Fvy2cIHcolHYOc3yfdk7gptrXpCbEkfkytIV9+e5J9CRY
-	 QmJ5BP9oQVF5PVBbXPfUFtub/B1MjEDdI0p7b0Qxlx4FvbMatyfDGIlbliKHl+11Wa
-	 U/mQ+WKGVKU0A==
-Date: Wed, 22 Jul 2026 22:25:44 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Greg KH 
- <gregkh@linuxfoundation.org>, sashiko-reviews@lists.linux.dev, Chris Mason
-  <clm@fb.com>, Roman Gushchin <roman.gushchin@linux.dev>,
- linux-scsi@vger.kernel.org, ksummit@lists.linux.dev
-Subject: Re: How to fix problems with the sashiko review model
-Message-ID: <20260722222544.06a1dd1a@foz.lan>
-In-Reply-To: <a05e2ddea75895afdff63425d2fd47f90bdf65c8.camel@HansenPartnership.com>
-References: <20260722041257.1557-1-pengpeng@iscas.ac.cn>
-	<20260722042744.5C1B01F000E9@smtp.kernel.org>
-	<dcadf40a07a616de931c484bbe68f4b3f1f83b80.camel@HansenPartnership.com>
-	<2026072224-moisture-gonad-409f@gregkh>
-	<e8f7c3614c15a86b335576074fec1768d95f3df4.camel@HansenPartnership.com>
-	<e30c8cebe5d0a6cfada18c633be0125774ef0c7f.camel@sipsolutions.net>
-	<5a2ce0b0eab27354d62450018f9843be83c72697.camel@HansenPartnership.com>
-	<20260722170901.30bdae6a@localhost>
-	<a05e2ddea75895afdff63425d2fd47f90bdf65c8.camel@HansenPartnership.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=k20260515; t=1784769793;
+	bh=sxo1LWyKp1SQeLELfRfWS8gInJBhzMmi/83h8o7tcpI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References;
+	b=hzyQxnvePw/NgAba3f/18ZPEzWjgXZR+wOkuT03r5M1xC9kP+8o0OUbB/VnUaHTSr
+	 3vF4qsTw++w5tWDhetTLwLCsS1+g4eoDEH59viDkBh/alCJbNSlSRsyjO6JwGF40g1
+	 1BBiktC9jInUICKyU2EYtHsI4OMXwoNjWXJo4oAAZ56gNupdKxql0NIqdEqqzwlRkV
+	 SvW1C7x+gjaN/ZN2GpVgh94bFZ4K4xCIm/db43iLtNW9clHOfqx7+ZWHwpNgRYHUCP
+	 mof6YJ09TAjSv1e2A80dFrE1I6+w+s5Oo5Q+Kl4MqKpawm/XC/3UGtjCg5XDzZk/az
+	 WXTnaR9L2R47g==
+Date: Wed, 22 Jul 2026 17:26:30 -0700
+From: Kees Cook <kees@kernel.org>
+To: Konstantin Ryabitsev <mricon@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+CC: Jori Koolstra <jkoolstra@xs4all.nl>, Sasha Levin <sashal@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ ksummit@lists.linux.dev
+Subject: =?US-ASCII?Q?Re=3A_=5BMAINTAINERS_SUMMIT=5D_Other_LLM-r?=
+ =?US-ASCII?Q?elated_topics_-_tags=2C_newcomers=2C_etc?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260722-uncovered-clam-of-bloom-03ebed@meerkat>
+References: <87wluv7yzc.fsf@trenco.lwn.net> <alj4mYFMfZvuarfx@laps> <daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk> <alkFzdJobnnMjJ4v@laps> <amAEIpVXxJbVgT2Z@lt-jori.localdomain> <CAHk-=wgbGarE7Ozw4VG6oUKDj9pk-8DRoDiX00bo1MwEMm9UWQ@mail.gmail.com> <20260722-uncovered-clam-of-bloom-03ebed@meerkat>
+Message-ID: <35426E86-9663-48D7-8899-B82D62D04A84@kernel.org>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 22 Jul 2026 11:24:38 -0400
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-> On Wed, 2026-07-22 at 17:09 +0200, Mauro Carvalho Chehab wrote:
-> > On Wed, 22 Jul 2026 10:17:40 -0400
-> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> >  =20
-> > > On Wed, 2026-07-22 at 16:00 +0200, Johannes Berg wrote: =20
-> > > > On Wed, 2026-07-22 at 09:42 -0400, James Bottomley wrote:=C2=A0  =20
-> > > > >=20
-> > > > > Well, I noted that in my reply above.=C2=A0 The way I was thinking
-> > > > > of implementing it was to add a general instruction file for
-> > > > > drivers which would make hardware trusted for pretty much
-> > > > > everything and then instruct the AI to consult driver specific
-> > > > > files for overrides to this so we could add the additional
-> > > > > threat checks to usb.md and virt.md=C2=A0  =20
-> > > >=20
-> > > > I guess it's a question which way around it should be - but I'll
-> > > > note that generally for wifi customers tend to not trust the
-> > > > "hardware" because it's mostly firmware, is generally buggy and
-> > > > can be attacked over the air too...
-> > > >=20
-> > > > Personally (with that background) I'd tend to lean towards saying
-> > > > the high-performance stuff that does want/need to trust the
-> > > > device should opt out, it's harder to get that wrong. If we
-> > > > generally opt out as you describe and then forgot to include
-> > > > something, we might have issues.=C2=A0  =20
-> > >=20
-> > > So this is just an efficiency thing.=C2=A0 There are 144 driver
-> > > subsystems, so if most of the want to trust the hardware it makes
-> > > more sense to have this as default but overriden by subsystems.=C2=A0
-> > > However, if most of the 144 don't trust their hardware then
-> > > absolutely, I agree, it should be per-subsystem opt in.=C2=A0 Part of
-> > > the reason for the post was to gauge this ... and so far I count
-> > > three opt outs. =20
-> >=20
-> > I don't trust hardware/firmware. They can be buggy.  =20
->=20
-> Wait, buggy is different; we have potentially buggy in SCSI as well
-> (rather a lot of it, in fact).  However, we don't fix theoretical
-> hardware bugs, we require users to specify a device (which they could
-> add to the code as comments to keep sashiko quiet).
 
-That depends on the type of theoretical bug: for instance, if a value
-is used to calculate an offset into an array, it makes sense to have
-a check to avoid accessing data outside the array size. Also, if
-a value is used as a denominator, it makes sense to check if the value
-is not zero.
+On July 22, 2026 10:48:40 AM PDT, Konstantin Ryabitsev <mricon@kernel=2Eor=
+g> wrote:
+>On Tue, Jul 21, 2026 at 05:57:38PM -0700, Linus Torvalds wrote:
+>> Or it can happen by looking at the patch itself, and trusting the
+>> contribution that way (and then the submitter grows his or her trust
+>> over time that way=2E=2E
+>>=20
+>> But basically, without trusting a submission some way, the submission
+>> shouldn't be accepted=2E
+>
+>At the danger of introducing some kind of "karma system," how do we want =
+to
+>build this trust? We already do end-to-end attestation, but a) not everyo=
+ne
+>makes use of it, and b) it still hinges on name recognition=2E
+>
+>Do we want to dip our toes into some kind of "how many times have I accep=
+ted
+>patches from this person" automatic accounting system?
 
-We do have such kind of checks on most media drivers - and there
-ended helping to avoid OOPSes due to problematic hardware. That's
-specially true on peripheral hardware like USB devices: they tend
-to have a lot of such bugs, up to the point that we can't really
-trust the device.
+This kind of reminds of Debian's maintainer "recency" reporting=2E "This p=
+erson sent email to this or that list, committed over there, etc" as an eas=
+y to see a per-person overview/dashboard of activity=2E Maybe something lik=
+e this for contributors would be good? It'd kind of be an extension of the =
+existing tools LWN (and Greg?) use for attribution=2E
 
-So, I'd say that, instead of a global prompt saying to trust hardware,
-the best is to do it only on places where people are absolutely sure
-that the hardware is trusty enough.
+-Kees
 
-> The general tenor of my driver/ prompt would be that hardware may never
-> be assumed to be malicious but could be buggy.  In the event that the
-> fix is for buggy hardware, the submitter must state which hardware is
-> buggy and confirm they've tested the fix on the actual hardware.
-
-In practice, on most cases, it is hard to distinguish buggy from
-malicious. IMO, it is better to prevent cases that could be=20
-too dangerous, even if aren't there any confirmation that the
-issue happened on an actual hardware.
-
-Thanks,
-Mauro
+--=20
+Kees Cook
