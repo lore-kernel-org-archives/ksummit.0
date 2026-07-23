@@ -1,108 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27859337105
-	for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 14:15:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1486433E82
+	for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 14:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784816118; cv=none; b=G1Ci5QPntOVKfdjesttRp96XTc9Ayd+NWFhVUWZyDJ9+9V+y2WBdnUpP04+Qeb1QVaQbb3pj1hcpe2FWOr+XLabTxGxkOP++8vLdTkQ+D8wdlcroy7cY+sdTEuFGqoP7TEbSb4UdvfQolU9f+vSZK2SI1K8czR+k78aXFCm8T8E=
+	t=1784817052; cv=none; b=GcpOBxSPFmqvxEpa9oAP8P74CvAQciflLKOn9AQ8R7IksGmwSoBUtMN9BB3I1pZm8Qw87VR0p5NqhrZ+qW4/ynYlFk4pLHrj7YoQq9yu73t6nhMDIetYfYQyfuRyWvYm5q6iF9PsyETVF7JolRi/cp1zsiB16tgD5Q2MI94Mclw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784816118; c=relaxed/simple;
-	bh=bW0pKNrG17LK8ue+JEgOSlf+dKrbanbOywnshdlfbGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ljs8ApIjlio5kCaTHiB3mVEeeHJ7U6nzzUFQev8BOLo/dfFhgw5orxrCbNwsX+eDeJyYWB/Du7k8Zbb8xtYHT3F9l1MI3bFuLshHJCj636LEFgX0cn0+1neDpP2DMIa3rEa04tBccYKe1+1/yYZa2AC21Ik09DbZVtHb7b8d908=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSdR6hlu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784817052; c=relaxed/simple;
+	bh=/Hqp/NqqRMwC4PKzzOIPOZFMKfBiqNckhs2JQzuaLwQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=gDnsAyF5LG0gONXGS7g3pj6VHTAImQ8Ta2v9dDHjbkjum3bNFLNdAakMAkOUtFIXxYbIbweTTW8vykWPBq7b4j1Vn2HHm3jmxalXQiqiDOS3pVKv3ZAD7bv2ePscddnMhh6ymdsJZaR7IkV6pUiDon+8f3uDv//LkKWIeUAqsEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=IQRK/sqf; arc=none smtp.client-ip=195.121.94.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSdR6hlu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0251F000E9;
-	Thu, 23 Jul 2026 14:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784816113;
-	bh=OWKsnexHiJ9/Lo7pka+a4sYmQrUcuy/hT6ZP9RGMrns=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lSdR6hlub5MyYT8TcEjjBkA+3z5Wang2/BXIH+d1EX+QNmFy08Z8lVPjhcjIoD9/3
-	 r0d1+PgY+kPJgqRJsS49tsVJzpyPUEFFGUN0iWjl1SHRFy0ppWW9n9B3WpK6+BQf/o
-	 YYMdltCpzGc/Uv1J/pXigbKDiHiRMDLm8FS2b95n1E71axX3k3a3WCXl25bLt3j9lk
-	 nxEBMOc2y/hczenF71Zlg8eL9RFqZElhHw7kSHTiFtfGEtQcKgVaCaOYDCZnSziWAk
-	 qzGXwws7jvMw878AaLLIqLzbzA4yQzweF5u6YO1ZAiALQRXPOfmVRrujAVrwiGvMF3
-	 /uCZsLVVhX03w==
-Date: Thu, 23 Jul 2026 15:15:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Trond Myklebust <trondmy@hammerspace.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Sasha Levin <sashal@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
- etc
-Message-ID: <06c8d81f-765b-4a0a-8c32-f229165204c6@sirena.org.uk>
-References: <87wluv7yzc.fsf@trenco.lwn.net>
- <alj4mYFMfZvuarfx@laps>
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="IQRK/sqf"
+X-KPN-MessageId: 14b3114d-86a3-11f1-8f54-005056992ed3
+Received: from mta.kpnmail.nl (unknown [10.31.161.190])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id 14b3114d-86a3-11f1-8f54-005056992ed3;
+	Thu, 23 Jul 2026 16:30:41 +0200 (CEST)
+Received: from mtaoutbound.kpnmail.nl (unknown [10.128.135.190])
+	by mta.kpnmail.nl (Halon) with ESMTP
+	id 14b21036-86a3-11f1-b312-0050569977a2;
+	Thu, 23 Jul 2026 16:30:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=content-type:mime-version:subject:message-id:to:from:date;
+	bh=ch/p2ObCgGW33W+zR+tzGHWAmCLGwLt640QAadpOQII=;
+	b=IQRK/sqf6t9Q9IiRhGZK53eiF4IDKpfnauBw/YaM7w364I+2JDPhTMo/QFcurXwAqQnBSQaywc+yf
+	 2E1MTR1aNkkOiwzdbUyVnb1yry/BkId6978Pi/29wkzjVyyo8IMoRUenYliXiELv9MD8FHpPBY0ak0
+	 a/dx4stjkBKOo6IR/pUSadoFR28zE0c+tWRrqJDKeU1jZf0AKzOtiQaUjgOFGeUKRHbOFZpOHyWPso
+	 Ufh2SqBtZyr0QpGs1id4Iil+Kg1HlcnL4L3feY4SpKBnxUQcYkPNheLwdSiPeNWQx/uM+nbKGVqhHO
+	 QwE2gWCM3HUfEd6hpg/eY/M/bX9LQpw==
+X-KPN-MID: 33|u5BSxb4mXvWhve+k0sdIxMI6nlNoLWeVFG+tNLymMS7sVZxVClJr/hgU4wr+Szs
+ HeIkvto/DVTeHf+YGnoc1m2M1icV1I/Nqy83mE1u5AAc=
+X-CMASSUN: 33|Wo3So6+xRPqu3CpLfour8fXCBytLDHoSISVlDKGlonHfk/2YoP249X1Ndtz3qU6
+ qCPuoCM7JbO+eYXnxPqHW1w==
+X-KPN-VerifiedSender: Yes
+Received: from cpxoxapps-mh08 (cpxoxapps-mh08.personalcloud.so.kpn.org [10.128.135.214])
+	by mtaoutbound.kpnmail.nl (Halon) with ESMTPSA
+	id 14a7d8bd-86a3-11f1-916a-005056995d6c;
+	Thu, 23 Jul 2026 16:30:40 +0200 (CEST)
+Date: Thu, 23 Jul 2026 16:30:40 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Sasha Levin <sashal@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, ksummit@lists.linux.dev
+Message-ID: <329279638.294603.1784817040949@kpc.webmail.kpnmail.nl>
+In-Reply-To: <CAHk-=wgbGarE7Ozw4VG6oUKDj9pk-8DRoDiX00bo1MwEMm9UWQ@mail.gmail.com>
+References: <87wluv7yzc.fsf@trenco.lwn.net> <alj4mYFMfZvuarfx@laps>
  <daea687e-46ef-4e00-9188-d14a663f1428@sirena.org.uk>
- <alkFzdJobnnMjJ4v@laps>
- <amAEIpVXxJbVgT2Z@lt-jori.localdomain>
+ <alkFzdJobnnMjJ4v@laps> <amAEIpVXxJbVgT2Z@lt-jori.localdomain>
  <CAHk-=wgbGarE7Ozw4VG6oUKDj9pk-8DRoDiX00bo1MwEMm9UWQ@mail.gmail.com>
- <d9d0249b0932a6b219e1406312de30287ff5b640.camel@hammerspace.com>
+Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags,
+ newcomers, etc
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M//rVEmCGvuCPPZK"
-Content-Disposition: inline
-In-Reply-To: <d9d0249b0932a6b219e1406312de30287ff5b640.camel@hammerspace.com>
-X-Cookie: (null cookie
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
 
 
---M//rVEmCGvuCPPZK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> Op 22-07-2026 02:57 CEST schreef Linus Torvalds <torvalds@linux-foundation.org>:
+> 
+>  
+> On Tue, 21 Jul 2026 at 17:18, Jori Koolstra <jkoolstra@xs4all.nl> wrote:
+> >
+> > Can't we just deprioritize invasive contributions to core subsystems by
+> > unknown people?
+> 
+> I think that's something that should be happening pretty much by
+> default, and has nothing to do with AI except in the sense that AI can
+> make it easier for random unknown people to generate likely-looking
+> large and invasive patches.
+> 
 
-On Wed, Jul 22, 2026 at 10:20:55AM -0400, Trond Myklebust wrote:
-> On Tue, 2026-07-21 at 17:57 -0700, Linus Torvalds wrote:
+Yes, but this is precisely the issue right :)
 
-> > And the corollary to that basic issue of trust is that invasive
-> > contributions from unknown people should be much less likely to be
-> > accepted.
+> Basically, I think a big issue in open source - in fact in my opinion
+> *the* biggest issue - is the basic notion of "trust" in contributions.
+> 
+> And that trust can happen either due to knowing the people involved
+> and trusting them - regardless of whether they then might use AI
+> tools.
+> 
+> Or it can happen by looking at the patch itself, and trusting the
+> contribution that way (and then the submitter grows his or her trust
+> over time that way..
+> 
 
-> > (Here I define "invasive contribution" as something that is hard to
-> > verify as a patch - there can be large and invasive patches that are
-> > easy to verify with tooling, so it's not necessarily about the size
-> > per se).
+Even regardless of correctness, which is of course the main concern for
+kernel development, trust is also involved in spending time on a review.
+For this reason, in the kernel mentorship program, we are not accepting
+of AI contributions regardless of correctness. The mentors spend time to
+review code and engage with first-time submitters, not because the small
+bug fixes or deprecated API removals are very important, but because we
+invest in these people so that some of them will hopefully learn and be
+encouraged to eventually become contributors or maintainers. So we have
+to trust that someone does not automate this in order to just get their
+name in the kernel.
 
-> In my experience, "large and invasive" hasn't been the biggest problem.
-> It's rather the fact that the people submitting have no understanding
-> of the subsystems they are patching, and so they (and the AI) overstate
-> the claims of importance. Suddenly, I'm seeing a slew of "security
-> vulnerabilities" that are Cced to the stable kernel channel, and
-> sometimes the security channels, and therefore scream "Drop everything
-> you're doing and look at me now!".
+So trust and AI are mixed-up in this way too.
 
-> IOW: the problem is intrusiveness onto the maintainer's schedule, which
-> also eventually leads to fatigue. Particularly so, when none of those
-> claims actually stand up to scrutiny. The patch itself may be nominally
-> correct, but it's never a "drop everything you're doing" issue.
+> But basically, without trusting a submission some way, the submission
+> shouldn't be accepted.
+> 
+> And the corollary to that basic issue of trust is that invasive
+> contributions from unknown people should be much less likely to be
+> accepted.
+> 
+> (Here I define "invasive contribution" as something that is hard to
+> verify as a patch - there can be large and invasive patches that are
+> easy to verify with tooling, so it's not necessarily about the size
+> per se).
+> 
+> Now, I think the other side of AI - and this is where Sashiko comes in
+> - is that it basically does end up being a tool that can then increase
+> the trust in the patch.
+> 
+> So AI giveth, and AI taketh away. But the basic issue shouldn't be AI
+> per se, it should be that notion of "trust".
+> 
+> And yes, some maintainers will then trust tools like Sashiko more than others.
+> 
+> And that's perfectly fine.
+> 
+>             Linus
 
-Or just simple volume of non-repetitive but generally perfectly valid
-changes.  It's not even that things are invasive, it's just that there's
-a lot of them and you don't get the benefit of pattern matching that
-tends to happen with determinalistic tooling.
+It might be worthwhile to discuss how LLMs affect trust and the various ways
+maintainers/contributors/reviewers are dealing with this. Not to formalize it,
+which I agree is likely to lead to poor results, but as an empirical reference
+points.
 
---M//rVEmCGvuCPPZK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpiIewACgkQJNaLcl1U
-h9DJ5gf/c+8AwIEhYYuQ7o0jdMzhwzM4HG7MKUudpNLRGVa7iDk9x13BPkZ8s6ub
-+DLC03VmkcyrUgrfIOobnA2h/lsN0oxgG//ujVsbXT0AcNMDBDzLHVO78BhJnsbJ
-Hpu9JD9d8yFj87Bpm3EsZ51mDR8tGIe9AXFbBIxmCeTyJSDVR70B7Cmz7Oe9gAei
-+1uhaIeoCFOwcWcMcfTE+RePexxquQmT4jKb4sCudlgeJEWmjvX9K2nEEKXP7B5E
-V3bfKXsC+VUhZ5YDuqqKCeYlXUaLKifMxRLJGEtduscoDKXVTYbDbNDbsFCofYNJ
-KnCquEYLTr03zfOM2csLeau0TZHzug==
-=R7d8
------END PGP SIGNATURE-----
-
---M//rVEmCGvuCPPZK--
+Best,
+Jori.
