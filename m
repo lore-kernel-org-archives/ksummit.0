@@ -1,158 +1,182 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B4DE56A
-	for <ksummit@lists.linux.dev>; Fri, 24 Jul 2026 00:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784851715; cv=pass; b=kRBXY1TuEXtlr1c6JwPimsb9vQ2l77BFCDX2qmbrdY4hyXAoG1hPDmQCKmEcDFGZd+EbNncTDiZhNpD5EbM0ELnKAo6eJORmP7uBMjNSggp0LUeK88nPr1mQoE2o78h23bm3N2d0DK0C7OLc3y4uIV11uUQE6IPe4RtpyOvMbQg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784851715; c=relaxed/simple;
-	bh=4xwyWX+3REp/8eJWCNMV/21E59GthgZnKROxD0CNaL4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VkeFPJFfTUQlitDh8kQrQ6fbT1M2CSkSMgU4F3Xc0iYums4J/tA7DgSYvNBU4+3mWMHK6Q+0BaOJnAcc2kRbPDbYSjJjqbiiHZYAHoMtCprH980xLVC0hqWKp+2QGKszex9B7uAghzRjxd9XWO6DBjWn0IZSQ/N32aDD+3L7qOY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ep1dHivX; arc=pass smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9542FD694
+	for <ksummit@lists.linux.dev>; Fri, 24 Jul 2026 03:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784864187; cv=none; b=MNpkDq7MKqQhe1x1GNItC/IG9pfhnkR+rQwYDZBcq5aR2ExvCZBmHime3/Ct8SzQJLFvR6VzHK2Lba6JxNCGMxj3UOWXvPUQKvZBpbrGRtwD77T0JiyNYtoUx87ELdh7jUUOuBL2PKO1It2qnztJzw3ARisXpfQ24VyDq/4mbKI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784864187; c=relaxed/simple;
+	bh=bSjLcpNremGIdBQr0fSh9FF+Njr1OCM/QA/YtiJA1OA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K/ONsLieVzkHT9d9CmW/g4G60SNiW9WXbVH485Iz0oFrjeBKxdjSObLYCj+ZFTivkvNAHd2yiowfa+BDwhrso0+3lf2VH8ZkNHyWgYaH2xZ7uID5dxpAr0fa0WvrTKKIuU9m1I7ymDj2SBY2BinbAy42JjMni+qWUfGNvlcEj9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERhXKxby; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ep1dHivX"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c7ce122c7so10561751fa.2
-        for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 17:08:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784851712; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bwONefl18xB/vVkLcKc29TjRUgOQO555hTdSP/CfARcGMMkys9GnAlCwdioiCvv0UN
-         Vlp6JSFQutCDmnAiYeAwUskVcxrBKczXXtn8+60NXItsobmuJr3DC2kHBJFnJLLZ75SC
-         p012pvEteP82aoimvU5IEl4mBS3nWth6/YpNn6CTqWsyuvutmOYFs2CW3OPKz8Piy5hT
-         RoWttdQdQy+QODLxoZSeQ32GHZawutPH3zrFJ+cUPz9lgtBTs+wiUqCS7t4BFmX1aWZQ
-         +MqSPSE5mmPzMpiXD3AS/vbJE1eF5fdqTQA3zLq3uT+DnRQfZqYAE2s/RQvCdN3bt1Hn
-         J4RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w58kDa27SXqo5HKGglffjRMKnIv1n38WwRQaEN5Ck+A=;
-        fh=teAPuXD4m624Q/1+5zww17Lh6GN2dddt2pShj7xYCCw=;
-        b=Qyiq1SEsiaZC5WpfSpiKbQIvcp78vLdqhP6jdcn6g9/WbNtcSoBuSZxw9O9/QUKVVj
-         +Jx0MeNzdkZf9+H+JeInrodSQV+g8b6Sr/bwjwH2exFukj/T1kYLo/l/ew6IApMji92Y
-         B7H7iQiYiMSZ2+QhY45JWKXVwxo0isgU5zfbeYQr/jjN9oteqO9evG82waj9FN+VINLq
-         OTDYkUtrrF9cCAY/wSzvsJbAgh3lVYvNoXffOLc4GJRA2nvBCam5gDEYzlZIpwzHmJur
-         pFIJ3eSu9brZJvae5n8WgcC/lPhgWLErQE1oQ05NZJzbkH7AggdSQnq5EZWI9caXa0W9
-         X4Sg==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERhXKxby"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ca80d708489so803733a12.1
+        for <ksummit@lists.linux.dev>; Thu, 23 Jul 2026 20:36:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784851712; x=1785456512; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w58kDa27SXqo5HKGglffjRMKnIv1n38WwRQaEN5Ck+A=;
-        b=ep1dHivXQbrECFaQq2VXFZhu5olnjgFeUVKMmGAaPOsrnJqujBqJ/Zm/THRobq8NyO
-         dUnlU3VbdFhnFD8rlXCnMqkAdT0lbztLHTMHq1NrayUnxQySCXJM/qdCWceqQS0m5Ozz
-         SdD8VP9kpJTuSI+Zq9oxAJ9LPr9E4KtDFQvDVt/rAp9DkuQyAiQ7fn424DfHIu69n7jf
-         cCeE+6y9V4EMcPVAkUpg/mnD/f4mhBz7BGo1JwnaS3hNxtych+Ci4RfRg0w5HDBKEskz
-         FHSu1YM9VnhLzTbkZj5i/TvjbCxsSMPCS4bJKalqLK9AqEVV+dxtqd0h++R19i1hMXaf
-         dgcg==
+        d=gmail.com; s=20251104; t=1784864185; x=1785468985; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GVgVn37qOtmmZHw08/QYXC7lRjPxy84xNnSBJFBYX5g=;
+        b=ERhXKxby4gj9SjhbSz8Ln95Dp4d2HogMrx6TdFeobDUHgqD8DQPR95L1+QwNPMFMvF
+         BmjsaP8/HDZ7PU7XYmgu6wH6yNCfdd4481GCYzBx8AKuRqAcWlxKres1KrOeEcjdzdqX
+         ISfxM+XUPu0841P63mv57B7gE3qh+VfDpZWIJg6TFp6g4zUzE02xvRBfrCQx/ITTooTC
+         fgP/kav7EM4AaDCtfJG5xkweLF6ipQLgPB+jXH2O6fRrzG/150HeU0TvHkXx0Ovl5pkM
+         dj/tp80qwmvb4CYgLD9VZqXFEEBKv8sv4Cs3UC97eA0keBwmdCJbkR+oPYqe8YJYr8y+
+         hanw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784851712; x=1785456512;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w58kDa27SXqo5HKGglffjRMKnIv1n38WwRQaEN5Ck+A=;
-        b=b4X2J5UPXX1TJLhA+Of1y4YxaK5zhqP7LOjRnbL68V1Bh9IAzZ0NWtAiVC/GhteyWC
-         f+oxGwwH8EhMr0H9hAJNaRS6TjFen1sa7zBQPSz8xO79yKBgXnxcIAWpDXwKlau3QE8Y
-         MraVQck70ms/ULz1+SVj7bjdMR2sL9avV7FPDwthNY3jqsn8AXfcNxi140vr/0pUg67b
-         BwSVIFHsV8uerwhDiESdNv+EMGduCysPnkwf2ilGKmRjkyZhSmQrGGRvZBarkeqWlWJk
-         fTx3RtePA+BpLgLVSSQrhK9jYb1L96zckLKCHTFQkAbPAygOvJjxgeT361xpqhGvPBUr
-         CEZA==
-X-Forwarded-Encrypted: i=1; AHgh+RqyN58c7kBoE9gPFsYByr6alUsxoRyAWpuEu1QkYxVwoJrEr/Y6m2Gedn1PRJIySSdIEFx+DVxD@lists.linux.dev
-X-Gm-Message-State: AOJu0YwP7Y+k+Beww0L/OGByqssoS3QmPyrrGLIOkD855aaXDF+5Bt4Q
-	GbbbvSOFyaa9EefkZ8LFXbUPKyOUSbsVujaXxEJjhSlYaGWAndLqaq5IzjPuTChMWNT1EKDIETx
-	cWQ42uQj1uJXetvi/Fh5qVTYXd49yrs0=
-X-Gm-Gg: AR+sD10bltlN4PL1mcm0JIJJjg+A0Q/zgpHdgYHsSOQ7yfts5C/3gFZjUAujHNuzYyK
-	oRys9Vm3iDYZ+L9BXCi9Sh8Pk1szPHGWroQw6IwSLB+fu3jx1su+SmFFUjVp82i3my/2SRbsyoj
-	xlVUzT+c7cLOYyK79Ra3/13fBC/vH4a2uHimW2CzL30evn7JYrUP4QaDpeA4KtWqtYb7DDfAwqc
-	nd/0h69pbz/WVi1FgFZJUJCs34za2yYzTgJ44oZdiJ98IoNRIBxQEdgxpizk5iA7pEEka8kiLNw
-	hc5/Sb07iAB3+tk=
-X-Received: by 2002:a2e:bcc5:0:b0:39c:6e84:99c0 with SMTP id
- 38308e7fff4ca-39f07ee193fmr10804041fa.21.1784851711956; Thu, 23 Jul 2026
- 17:08:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784864185; x=1785468985;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GVgVn37qOtmmZHw08/QYXC7lRjPxy84xNnSBJFBYX5g=;
+        b=eONhDYiynqEjJ+a0XGAHJzXZsr1APFi3xuDkMA6ZVfzyYnD0aLAlSmI+RmEaeFna2n
+         B3a7Ykh/2y1G41RS0jw3BPwTvHp661vP6hna3J/C6cLMjzmvtU//tEPwH88NN6g8amZ0
+         bi649zz4hLItfrxZBYxpKMpA995nbfiW3nxzLDGHj5c7/7leKurf30ag08oRKOjRNN9p
+         gkqxIsu4Y8Eb7+pmaSMq0XcluHq3KpYT+RJE2f3fkI5mAiiPALFqOp/RPz2hLarNzzZ6
+         SuDheoDNvh7vwyLFGpd0+lW1wUR5d9VBejBy0dsulJiIdWZ8fYT1ULWliwUQr/popdGy
+         IOfg==
+X-Gm-Message-State: AOJu0YyyPVq/alPsi1x4v4XPQjmjtrlaWumHk/1f+KAix5i2oU/OuWzN
+	Vs6T8PMVc7ABh0Vv0phG5wyGI0n03MRF2yPgZhuMZEaqsjcpMM6F9czUgrdsbg==
+X-Gm-Gg: AR+sD135IJMQp9KQA7ufi1OuPyFCJ5eFq9Clm0DSzq/PwB9weDLCXxvahpsbSwuSz+8
+	uTYapvgrhc1pYYxqOb3s35uACDRcNVd3J4EnBVUfYKXK7z4oM7OuwN8hHy2aLI7DPaJ68QvAMxe
+	MiMPnJIKyHR7z52HkAi91UbuM26AplMpi4sFHtNnjxQtRYFxbMHrAjYbJ5ODC41b0c1oyulw9mD
+	AE9wHMl+VSRoLozmwYPZO5BaIb9yYDl1n1QoX7tzdey20WbqDC+87BwtOTpUWUOtSXCi4FWV1C/
+	xWVcnMLioGqI6J6A836pEjvSLHu1uT29NNKPYPvLLt3xabKaFef3mHPdx9M3HyQ79EB6wH9g1eJ
+	76FrIeGggWvE1y4OBte/VVzS/JPHPzXhfzOiU8IJLPJXaGgwReWTWM+pyeOMPhBNftY7kqZF8qu
+	mj/ZtxJiZcvLEn0nSx6hI38kY0IgHBpk/JEXGicOXLkIwTmTsoyUYQehSk42JAap/THPK94HO+e
+	zBwmusplxhMFadN3YwfzwPTYHrlLHWQzVLZRpm9o2QyFfbWbFE=
+X-Received: by 2002:a05:6a21:4d8b:b0:3c3:a195:518c with SMTP id adf61e73a8af0-3c44caf0453mr5766787637.21.1784864184873;
+        Thu, 23 Jul 2026 20:36:24 -0700 (PDT)
+Received: from WOSSA.na.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d130f42bbsm22727747c88.14.2026.07.23.20.36.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 20:36:24 -0700 (PDT)
+From: Rajat Gupta <rjtgupta09@gmail.com>
+To: ksummit@lists.linux.dev
+Cc: Rajat Gupta <rjtgupta09@gmail.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Matt Martineau <martineau@kernel.org>
+Subject: [MAINTAINERS SUMMIT] Deterministic verification gates for security submissions
+Date: Thu, 23 Jul 2026 20:35:28 -0700
+Message-ID: <20260724033528.704-1-rjtgupta09@gmail.com>
+X-Mailer: git-send-email 2.51.2.windows.1
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <7ia4qzl45h20.fsf@castle.c.googlers.com> <20260715185757.GA191552@nvidia.com>
- <7ia4pl0oymo0.fsf@castle.c.googlers.com> <CAHk-=wjCcHUr=-Ycsey0khWnn68O6D=ZN-bE+8Sq4NetXpFuPA@mail.gmail.com>
- <20260718010949.GG1889304@killaraus.ideasonboard.com> <CAHk-=wgJZr6n5RAOOWdMcjzQZL3u0fE5qew=o-qSvbey-ui3WA@mail.gmail.com>
- <efdce5c5-13a1-4dec-9823-bb2a37084538@roeck-us.net> <20260723084954.42e6a6e4@foz.lan>
- <65fe52a8-d6e1-4c5d-ac74-6c731874db15@roeck-us.net> <4d27a17a-ddd9-49c0-8d6c-e044b28ffa0a@sirena.org.uk>
- <41cffdd7-af79-444a-a086-7861437c96a1@roeck-us.net>
-In-Reply-To: <41cffdd7-af79-444a-a086-7861437c96a1@roeck-us.net>
-From: Tomasz Figa <tomasz.figa@gmail.com>
-Date: Fri, 24 Jul 2026 09:08:14 +0900
-X-Gm-Features: AUfX_mz4yOT3jZRA35AMAPke7V4C2ycmIgWlh6LtLjvdYSwZ3CO7HRWIKsg-6pE
-Message-ID: <CA+Ln22E2BbKoYHNKbeOeWZuNvH4r3dx5Of_cLg2Mf+xm+xLszA@mail.gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] The place of AI code review in the Linux
- Kernel process
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Mark Brown <broonie@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Jason Gunthorpe <jgg@nvidia.com>, ksummit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-2026=E5=B9=B47=E6=9C=8824=E6=97=A5(=E9=87=91) 2:46 Guenter Roeck <linux@roe=
-ck-us.net>:
->
-> On 7/23/26 07:59, Mark Brown wrote:
-> > On Thu, Jul 23, 2026 at 07:34:58AM -0700, Guenter Roeck wrote:
-> >
-> >> Last night I got a patch submission of a ~350 LOC driver. Sashiko repo=
-rted
-> >> 9 issues with it. No, it is not ok for the author to ignore Sashiko's =
-feedback,
-> >> and I am not even going to look at the code myself until the reported =
-issues
-> >> are either fixed or the author explains why they don't apply.
-> >
-> >> It is fine (I would say acceptable) to ignore _pre-existing_ issues re=
-ported
-> >> by Sashiko, but I do expect patch authors to address new issues, or to=
- explain
-> >> why they are false positives or don't apply.
-> >
-> >> If you want to give patch authors the option to ignore Sashiko's feedb=
-ack
-> >> entirely, fine with me, but please do it on a per-subsystem basis.
-> >
-> > OTOH I had a submitter send 15 versions of what should have been a
-> > relatively simple quirk over the weekend iterating with Sashiko, then
-> > the initial human review was "this seems like the wrong approach".  It
-> > feels like there's some happy medium here.
->
-> That is a different problem, though. Yes, I sometimes do get several
-> patch revisions in a single day. Sashiko tries to address that by
-> optionally delaying its response for a per-subsystem configurable period
-> of time, but that doesn't solve the real problem (which is that patch
-> authors sometimes send new revisions too quickly).
->
-> Either case, I think your example is rare enough that I'd rather deal
-> with the 15 revisions and not have to re-identify all the problems
-> that Sashiko _did_ find.
+Hi all,
 
-One thing that I find tedious when reviewing further revisions of a
-patch (series), and that would be exacerbated by having even more
-revisions, is ensuring that all the comments from the previous
-revision(s) have been addressed. Is this something that Sashiko, or
-some other review tools (possibly non-AI) could help with?
+This builds on Sasha's "Scaling our security process" thread, specifically
+point 5: "Can we tell AI assisted quality work from slop without burning out
+the people doing triage?" I'd like to propose a concrete answer to that
+question.
 
-(For a comparison, the Android/Chromium Gerrit, which is somehow so
-hated by the kernel developers outside of Google, allows me to easily
-see the difference between any given revisions, lined up with comments
-from those revisions, making it really easy to confirm the necessary
-changes are there.)
+We discussed this at the netdevconf 0x1A "New Age Tooling" BoF two weeks ago
+(chaired by Jamal Hadi Salim). The maintainers in the room were in consensus
+that detecting AI involvement is impossible and the wrong goal - what matters
+is whether the submission comes with verifiable evidence. The framework I
+presented received broad agreement as a practical path forward.
 
-Best,
-Tomasz
+## The Problem
+
+Security submission volume has grown significantly, and the signal-to-noise
+ratio has collapsed. Most submissions arrive as prose-only reports:
+plausible-sounding RCA, a patch, but no reproducer and no proof the patch was
+ever tested. Reviewing these from scratch takes 30-60 minutes each and often
+ends with "can't reproduce, closing."
+
+Greg noted in Sasha's thread that LLM-based intake filtering "just doesn't
+work" - I agree completely. The answer isn't AI judging AI. The answer is
+requiring deterministic, mechanically verifiable evidence from the submitter.
+The verification involves no AI.
+
+## Proposed Solution: 4 Verification Gates
+
+Rather than judge prose quality or detect tooling, prioritize submissions by
+evidence:
+
+  Gate 1 - Trigger + Impact
+    Does a reproducer crash the kernel under a sanitizer?
+    Higher impact evidence (controlled corruption, privilege escalation)
+    gets higher priority.
+    Automatable: YES (build kernel, boot QEMU, run trigger, check output)
+
+  Gate 2 - Root Cause Evidence
+    Is there mechanically verifiable evidence (KASAN trace, bpftrace output,
+    differential test) showing WHY the bug occurs - not just WHERE it crashes?
+    Automatable: PARTIALLY (sanitizer output is automatic; understanding
+    causality still needs human judgment)
+
+  Gate 3 - Patch Verification
+    Does the trigger crash before the patch and pass after?
+    Automatable: YES (two kernel builds, one trigger, compare output)
+
+  Gate 4 - Regression
+    Do subsystem selftests pass with the patch applied?
+    Automatable: YES (same QEMU environment, run selftests)
+
+Submissions are prioritized by evidence depth. All 4 gates pass -> top of the
+queue. Missing a trigger -> bottom of the queue. Not rejected - deprioritized.
+
+## How This Helps
+
+For reviewers: A submission that passes all 4 gates will take less time to
+review. The evidence is pre-verified - the reviewer confirms it, not
+investigates from scratch. Unverified submissions (prose + patch, no trigger)
+still take 30-60 minutes. The gates surface the verified work first.
+
+For submitters: Clear requirements. If you show up with a trigger + RCA trace
++ before/after proof + selftests, your submission gets priority regardless of
+whether AI helped you find it. The incentive shifts from "write convincing
+prose" to "produce evidence." In effect, we would be encouraging people to
+use AI to produce concrete, verifiable evidence.
+
+For the process: 3 of 4 gates are fully automatable. This can run as CI
+infrastructure that assigns priority scores to incoming submissions before a
+human ever looks at them.
+
+## Honest Limitations
+
+This cannot distinguish a symptom-fix from a root-cause-fix. A NULL check that
+silences a crash will pass gates 1, 3, and 4. Only gate 2 (root cause
+evidence) helps the reviewer spot this, and that still requires human
+judgment.
+
+What it does eliminate is AI slop: submissions where the bug doesn't exist,
+the RCA describes an impossible code path, and the patch was never tested.
+That covers the majority of current noise.
+
+## Potential Discussion Points at the Summit
+
+1. Should a working trigger become the minimum bar for security-tagged
+   submissions? Or remain advisory with prioritization?
+2. Where should this CI infrastructure live - kernel.org, per-subsystem, or a
+   separate service?
+3. How do we handle legitimate bugs found by code inspection that are hard to
+   trigger? (Hardware-dependent, narrow races, error-path-only.) Proposal:
+   lower priority, not rejection.
+
+## Background
+
+I work on AI assisted offensive security research. I have found and
+responsibly disclosed multiple privilege escalation vulnerabilities in the
+Linux kernel with full evidence chains (trigger + root cause + patch + working
+root exploit). I use AI-assisted tooling in my research workflow with
+deterministic verification at every stage. I presented this framework at
+netdevconf 0x1A in Rome and received positive feedback from networking
+maintainers.
+
+Slides from the netdevconf 0x1A BoF, for reference:
+https://github.com/rjt-gupta/conferences-slides/blob/main/netdevconf-0x1A/slides.pptx
+
+Best regards,
+Rajat Gupta
