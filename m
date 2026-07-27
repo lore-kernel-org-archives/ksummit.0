@@ -1,77 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59C038AC87
-	for <ksummit@lists.linux.dev>; Mon, 27 Jul 2026 15:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079EF429CD6
+	for <ksummit@lists.linux.dev>; Mon, 27 Jul 2026 17:09:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785167424; cv=none; b=KkhT+ruZpVxQ/GmSG7bXdWFK0a10KaaxHONvKoOT6yBINASdIwk0UWdibm7xWPshyIg/vejCJ+Pd/DLS3RQDvfNW4FSL/kcoBg7vTvc00LryD8MHz7gBx4vFesZN9gHPy5+fEZga680cRIHRE0BLdr8Xmm6uiOtwngB3YGERsSQ=
+	t=1785172151; cv=none; b=M6Wv0pYUwlxUUA2O/RHcocAHo/SpzHbms5i5dBeBUJSwidCVV8SPlFvkEVPfpsgNSVKoHPbtvdb1wRCpgzPkojAMeKo3NDhsyP0ovaiB+Q047QSSvduSqHAeQIWZTEvF+7SosXYSFyuKXtIPUud8yBP9xawhrAXzi91hDgoANBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785167424; c=relaxed/simple;
-	bh=gDYn+oj0LLCCNh0OEaWqwH5n4PPB4x79a/qWtHloMXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YDeBK/m69eQyt6eDXopUD4kLejWlxkLTA881frmbaCYIysRox7ctS0dVqCO9TZC2JvbL6GLMF/qn1WOb1Fxm5pcEia+w/uPl91qLBH58JPqKFi26I60pVUW3qoKviq33377lXH6/XuqU4kQEB0D0jPM9XTzPJCoMFZ6xkXFVAXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8HQc7VE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785172151; c=relaxed/simple;
+	bh=EJcY7NgHNTB41p0NYy04950mL2ID5Oxew8P1hhqHiMQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DoKXBnZlITfLwWkvys4lKzPcEhK4P50JA7imixOWt64bm5oXpQImJWBVDtVW7abpoFz7kjEs+PkhDr3NYm0oIelMTxKdABc8qcBavd9GSJ5GaW4YsvMe12wlPtPwm8v+ecmUntHt4+Vcm3IKsas9rG4vLz1gyfJuorE3z2nFmZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GL/cMVNA; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8HQc7VE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5081F000E9;
-	Mon, 27 Jul 2026 15:50:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785167423;
-	bh=xo3KKAiReEEtfwVVolxM00CrFmKxICmRP14cJAOJEJM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E8HQc7VEphnwLyAYiYwuM74OqQ/X6GUBH42xDQo3P1YyxnLe3BLvUDYMt+FrEB+uH
-	 s8gVWA8ybmNhlrMO9thWQFT2qH2VlJomhEpowT/rk47qc5AstWkfyg7Ejywxl8n4DT
-	 bu3ZwlTgQ9TFHB2UQtkRGlshTKDhs+4eexxpNMyx/oMpOr18Zzr52Jly2/as9Enzsz
-	 8+IqB6XUj3k9T12sm3Y0wVBxBJeZ3A4X+2VGx0kPLLJKYo6i/JKQOePaIw1THpAfiC
-	 mjYvd/FTpoElxlfEbt6C75rggADsrZBCvh3oz3f9lLgOFCNw2rD+k4VC8g4ngeTh0d
-	 9ohqC0mAGJ08A==
-Date: Mon, 27 Jul 2026 11:50:21 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>
-Cc: ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
-Message-ID: <amd-PfGXV934cXyk@laps>
-References: <albMUqack9yMq0rF@laps>
- <241384q7-s5n1-0267-64ps-13r514r4o123@xreary.bet>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GL/cMVNA"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69f7130b47dso5123633a12.3
+        for <ksummit@lists.linux.dev>; Mon, 27 Jul 2026 10:09:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1785172147; x=1785776947; darn=lists.linux.dev;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L14irmk5nV2LReZgBmtuk742bjDVPIwxfXl+Gs8/dt0=;
+        b=GL/cMVNAbPNYrjJvsO1PdgtD9JyRcCJbVT4TLpi6AVCu+EmFTEVt7xbT3vtetAIAWo
+         dcAePfKwSfQ4sIa3o7yzvKEXSwZNd/PIbZMsl3TxHTUXByEsZZpZmIVC+Ix86koeGd+j
+         Vamj1unEgRkSdMJUpBoPu0oJv6zDBx6roFNXw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785172147; x=1785776947;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=L14irmk5nV2LReZgBmtuk742bjDVPIwxfXl+Gs8/dt0=;
+        b=akbMU8+UNgl7tO9wWVASMubcT23O3iWFjHfeYZpSLxaPUV96b3ZcBd0bHpuirZLN4U
+         Ejk65fPuaFD44SRAKaUdkCdO6+x9AH4BpGI9ldIMjNmxkvKFlBp+0lc4n+2nsQmq3cfE
+         OmmU1JNvWR9ciaRp3YzUzmKLkmBUCrHuyOMiBJLK+IvxwqHlzl2r+fIEjCIYFbV51hI3
+         6n7OpmlMrWvAyfIoieS5pcaHb6UhrgqbD0XvUso/N0jszzEQeZc29GCrBC5ZnP/mJki4
+         fTAMCRwHWMVlFWDbJlrByi4xPYBRjdlDNKoco/9AnAjGv4aZlGf7lW4F8r4HE9ImLJpf
+         T73w==
+X-Forwarded-Encrypted: i=1; AHgh+RohaOGfq6P9zod7o9MV2siupShiUvVQnmChkCkblR0pFWe69xhqkQR3F2qOWEzKj1GM4xAqHx/Z@lists.linux.dev
+X-Gm-Message-State: AOJu0YwvfGZnHeB40xry9xOqn6cKUilVp5hLmYjTrduSUqFBNKGLIFQe
+	R8MXT5Pv/l3GpEZR08lku9O8yvgL6CSO7qrlKa68HhTUAgOzFiMWYf6Iklz+J1iwyKkUESq0IaR
+	FDHBeTmw=
+X-Gm-Gg: AR+sD130stpW0tmtMYZCUL+Z48MAvViTXaX5+/dkG3jFqwWopod+ElEav9qFiPMRUQe
+	lgQs7PMVD5+ElwO77rFhHY5qY2fqSZ/XoUNcRxzEyfoZRz7SQDq7L6GxxrpNW7nAlJnY20PPQJY
+	dlHEPBQlgNBH/vN4FIc8yAWBAQetjcfZRI/RQDSQUitmXm/dgPtj3ylMfJviPwSt18YdRW93bwu
+	3cojukIIkxy8w2uXMeL8aqevCpgKlhsLsyGHR5kXityy1yVVxUIIs9L+zj/ZsYLEp8qBZ1CM2b2
+	Flj3+XtPFTsRSDJbWlvBPnxUI4E/o84wpNLhzYi1FMAy18lLJqRg5KcEUSNaofyoh7rHs9TZvGY
+	SHUTbLNq3Etolu9Sk3vlcevc0tqhc4IAuMbkXrfrf2TFz4TLpKf3h/qjTCNXM31+oKP47zVdTby
+	ObR+qkmhGM0j1q+EgV1FGbCHt0QTn3ARB4wyeveIPuDPL6W/jV+AQoWE8nWLvDRA==
+X-Received: by 2002:a17:907:724d:b0:c12:36ff:6eb2 with SMTP id a640c23a62f3a-c1f1f3c875amr416866166b.51.1785172146930;
+        Mon, 27 Jul 2026 10:09:06 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32c90b4dsm667249966b.35.2026.07.27.10.09.05
+        for <ksummit@lists.linux.dev>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 10:09:05 -0700 (PDT)
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15e592da74so326116966b.1
+        for <ksummit@lists.linux.dev>; Mon, 27 Jul 2026 10:09:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqRlGk4WlWOLXnly/CE7QKz7l3xzA5nwgNgPHJjRo1LWAoEt2fVcIjCWeTrmBe2Bcc/0faLq+oN@lists.linux.dev
+X-Received: by 2002:a17:907:6b06:b0:c16:386e:6b14 with SMTP id
+ a640c23a62f3a-c1f1f433379mr414268766b.57.1785172145417; Mon, 27 Jul 2026
+ 10:09:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
+References: <albMUqack9yMq0rF@laps> <241384q7-s5n1-0267-64ps-13r514r4o123@xreary.bet>
 In-Reply-To: <241384q7-s5n1-0267-64ps-13r514r4o123@xreary.bet>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 27 Jul 2026 10:08:48 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgy3T=jxMy0kv0T1+6M0ahVbmWcXOwWOZU5efo=9U_XMg@mail.gmail.com>
+X-Gm-Features: AUfX_mx-9El7Rhb-S20NNp_tl0l1OQe5fcnE_MmpISWW9hz6nPv9NlzktekzrMQ
+Message-ID: <CAHk-=wgy3T=jxMy0kv0T1+6M0ahVbmWcXOwWOZU5efo=9U_XMg@mail.gmail.com>
+Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jul 27, 2026 at 04:24:39PM +0200, Jiri Kosina wrote:
->On Tue, 14 Jul 2026, Sasha Levin wrote:
+On Mon, 27 Jul 2026 at 07:37, Jiri Kosina <jikos@kernel.org> wrote:
 >
->> 3. Do we want some sort of a shared distro security backport list? Every
->>    major distro pays people to backport security fixes, and they all do
->>    the same work in parallel behind separate walls. A list where
->>    upstream and distro security teams write and review backports
->>    together, would pool that effort and land fixes where users are.
->>    Sure, it allows for more leaks, but we end up causing these leaks
->>    ourselves when we release a fix without working backports.
->
->Well, linux-distros@ is still there, and is used to coordinate security
->fixes in exactly this way consistently for vast majority of all the
->relevant projects, pretty much except for the kernel. With my distro hat
->on, I'd add "unfortunately".
+> Well, linux-distros@ is still there, and is used to coordinate security
+> fixes in exactly this way consistently for vast majority of all the
+> relevant projects, pretty much except for the kernel. With my distro hat
+> on, I'd add "unfortunately".
 
-Just to clarify: I don't propose the new security backport list to be
-closed/secret. We have hundreds of known security issues that our users kernels
-are vulnerable to, either because there's no backport, the fix fell through the
-cracks, etc.
+I refuse to have anything to do with linux-distros.
 
-This is my beef with the security@k.o list too: we seem to be overindexing on
-some issues, while we just ignore hundreds of other issues that make our users
-vulnerable.
+They have a hard mandatory disclosure policy, which I think is
+completely unacceptable. It means that if you send actual exploits to
+the channel those exploits will be made public too. There is
+absolutely no value in that, and it seems completely crazy to me.
 
-I really don't understand why we bother with this whole dance around
-embargoed issues.
+Yet exploit code - or at least a PoC - are hugely useful to
+developers. So you do want to have people who figure out some security
+issue - or any other bug, for that matter - to include such code, but
+that does not mean that it should be made public.
 
--- 
-Thanks,
-Sasha
+The *fix* obviously should be public, and the commit message needs to
+explain the bug. And the threat of mandatory disclosure for any
+unfixed bug is a good way to keep people honest. But disclosing
+exploits after-the-fact as if everybody will have immediately
+upgraded? Asinine.
+
+"Linux-distros - just say no"
+
+                Linus
