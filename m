@@ -1,94 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3170C40862A
-	for <ksummit@lists.linux.dev>; Mon, 27 Jul 2026 17:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65ACA322768
+	for <ksummit@lists.linux.dev>; Mon, 27 Jul 2026 18:38:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785174970; cv=none; b=i8/ROpRQ517H1S86R6tqSwvmOcZZ453xOvDjfihRG4sLPTzQ/2KInxaSHsl5rWFhQ8g2l0XqAYa6x6AH/0ZIWOWKBBd8W5vVWAHkeesN2pClH3s+yDzO78PdJ/Prk7GNOdGYdIprxKsymME/DFMGtb7kgmy4Exi0gua2ShtWqCs=
+	t=1785177496; cv=none; b=I1nDBPRIoiWdymsCCIAKTsscuxnQDRVYzJ3GfA952w+Edkji99SVaKMvma9ooRVx5g4otWtCgEoUlXp0msNJISjwWzVzGVDgXnFyy1vQ0FbUctq4THuvOJF+YzbtSTJKhrzezEIP+zhr/kqh61GoRbuW5A4iaSyAeq33QtHiHYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785174970; c=relaxed/simple;
-	bh=8YJzon6s428W2h1+9oXuBd9WMq/mM3ouuc46aEBSjhc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=koPymYqxexkJ2hePBAMaVvJU7N2dgw3vXGLmV3inlBs9H3Lo4HQdH/yKmvQ9P26KnccKMoip9BZI4tRYDQSSjwZb0biyRrGl79d210lsmvmLrsBr8ZIvEOLWO4lLKKhhZ4X7dCOGIEPAkGraprH+1vQxGKa5ynwSO1Lb9Bg7Zh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d03TVYZd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785177496; c=relaxed/simple;
+	bh=PdZllb6ssTIv3SNYvzJGSUIncFVQyLT+B//sJQo8PlU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tVFHAW6bj7cT7XCrIhtntxs/FWueUcST9Zy/Kx6+SLejXWcOsYTrWo0JOelvwAurdslJDvHn0doWdb4gzxx2SnE2aKRM7KOq2C1P6tdmz/yxStDpWFBsEzqlwMpIrIFDFhapDkNf/kU8p94bT1Rv0rb4bHSXo+apH9EgKS35K90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SemluGRR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d03TVYZd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53E871F000E9;
-	Mon, 27 Jul 2026 17:56:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SemluGRR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1EE1F000E9;
+	Mon, 27 Jul 2026 18:38:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785174962;
-	bh=ebppLtrSCTxBSpnIq9Ie8n1wiPkLtG2Gf0p9BzyME8w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=d03TVYZdplri5m71FyE1iaO4m0MIt8tk6W+kv6nAKUvWlhb6jjbT4GemI/sjtHttX
-	 EiyZk/1QLTxQ7UuXCKVxYJ2J2y1zm0Py24scg/FhAzPm3znvCdF5LB6/5FeuolzTM1
-	 dvRaxhrUNQbPmQRHVTNLVFclOFyS9+xPTVDhbHX/4G3km4081UFBwXmac5IgZTRUMa
-	 lnPBx+EhZkM4LjoYvg96eAQCns24JYt6mBLAFN+SYl1b8PsryJo7/zel/+258ygFo/
-	 rkdjNGLzYoPPGOfZC7xMK9ekCvhs0pZ2Xilp6TZJIPHhaawNxhgT0dNPQh1GElugWq
-	 dPGgcgPypfRlA==
-Date: Mon, 27 Jul 2026 19:56:00 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
+	s=k20260515; t=1785177495;
+	bh=2L7ta0XwEjtUh+QhjYdkiujXxQzy2Zgj/fuK5g3++k0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SemluGRR2I1KeYresdQHtSDeVjJBjcUA9v6SyjM8yYvTvguRJVbpNTFlXMBN6XSUm
+	 g7se6ebdM2hCj1piZ6ptGkFOqzzc0nvI47y4OcfeGlTIyPAbbAQbKqPRmsoE62/UKY
+	 UbZTIue7XkYNWWfT3jZ6VdTQTUuL3pgABHLlkDEuCpBeLVix92/OXapLGEIRg+d8jz
+	 KROxxVH5FKZ+rVVPXNr22J8pIHYF17SoZNiYvh0l1q2nAMwauiLVIYnkgh5zW8/ojM
+	 7H+uKCOO8GtV9C5XPUEoRtTO7EI28db9Jv6QJBrYIpDAwdGQsppEuB3ry/3p8lfE1i
+	 cfX8YRN/Ewi/A==
+Date: Mon, 27 Jul 2026 14:38:13 -0400
+From: Sasha Levin <sashal@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-cc: Sasha Levin <sashal@kernel.org>, ksummit@lists.linux.dev
+Cc: Jiri Kosina <jikos@kernel.org>, ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Scaling our security process
-In-Reply-To: <CAHk-=wgy3T=jxMy0kv0T1+6M0ahVbmWcXOwWOZU5efo=9U_XMg@mail.gmail.com>
-Message-ID: <n541ns52-1n7r-q240-1so5-qn79o55o9332@xreary.bet>
-References: <albMUqack9yMq0rF@laps> <241384q7-s5n1-0267-64ps-13r514r4o123@xreary.bet> <CAHk-=wgy3T=jxMy0kv0T1+6M0ahVbmWcXOwWOZU5efo=9U_XMg@mail.gmail.com>
+Message-ID: <amellfuGPXzj_LeL@laps>
+References: <albMUqack9yMq0rF@laps>
+ <241384q7-s5n1-0267-64ps-13r514r4o123@xreary.bet>
+ <CAHk-=wgy3T=jxMy0kv0T1+6M0ahVbmWcXOwWOZU5efo=9U_XMg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgy3T=jxMy0kv0T1+6M0ahVbmWcXOwWOZU5efo=9U_XMg@mail.gmail.com>
 
-On Mon, 27 Jul 2026, Linus Torvalds wrote:
+On Mon, Jul 27, 2026 at 10:08:48AM -0700, Linus Torvalds wrote:
+>On Mon, 27 Jul 2026 at 07:37, Jiri Kosina <jikos@kernel.org> wrote:
+>>
+>> Well, linux-distros@ is still there, and is used to coordinate security
+>> fixes in exactly this way consistently for vast majority of all the
+>> relevant projects, pretty much except for the kernel. With my distro hat
+>> on, I'd add "unfortunately".
+>
+>I refuse to have anything to do with linux-distros.
+>
+>They have a hard mandatory disclosure policy, which I think is
+>completely unacceptable. It means that if you send actual exploits to
+>the channel those exploits will be made public too. There is
+>absolutely no value in that, and it seems completely crazy to me.
+>
+>Yet exploit code - or at least a PoC - are hugely useful to
+>developers. So you do want to have people who figure out some security
+>issue - or any other bug, for that matter - to include such code, but
+>that does not mean that it should be made public.
 
-> I refuse to have anything to do with linux-distros.
-> 
-> They have a hard mandatory disclosure policy which I think is completely 
-> unacceptable. It means that if you send actual exploits to the channel 
-> those exploits will be made public too. There is absolutely no value in 
-> that, and it seems completely crazy to me.
-> 
-> Yet exploit code - or at least a PoC - are hugely useful to
-> developers. So you do want to have people who figure out some security
-> issue - or any other bug, for that matter - to include such code, but
-> that does not mean that it should be made public.
+Does this asymmetry in effort between the fix and the reproducer/exploit code
+really exists these days? Point your favorite LLM at a commit that fixes an
+issue and ask it to reproduce the problem. You'll likely end up with working
+exploit code fairly quickly.
 
-I totally agree with you on this, but it's not the case with 
-linux-distros@ any more. Let me quote Alexander from 2023 [1] specifically 
-on this:
+>The *fix* obviously should be public, and the commit message needs to
+>explain the bug. And the threat of mandatory disclosure for any
+>unfixed bug is a good way to keep people honest. But disclosing
+>exploits after-the-fact as if everybody will have immediately
+>upgraded? Asinine.
 
-=====
-I've just relaxed the policy on posting exploits.  It used to say:
+... which is why I think that our current security process, and security@k.o,
+effectively does something similar to linux-distros@:
 
-"If you shared exploit(s) that are not an essential part of the issue
-description, then at your option you may slightly delay posting them to
-oss-security but you must post the exploits to oss-security within at
-most 7 days of making the mandatory posting above."
+1. We end up bringing more attention to a particular issue once the fix is merged.
+2. We make the issue public before users had a chance to upgrade.
+3. Any "script kiddie" is then able to generate a working exploit from the
+commit that fixes the issue.
 
-Now it says:
-
-"If you shared exploit(s) that are not an essential part of the issue
-description, then at your option you may delay or withhold posting them
-to oss-security, and you're encouraged to post the exploits to
-oss-security in 1 to 30 days of making the mandatory posting above. The
-delay may reasonably match your estimate for independent development of
-such exploits."
-
-So it's no longer a requirement ("or withhold" is now an option), and
-the recommended delay is now 1 to 30 days (which covers the real-world
-range from the old Exim bug to the recent Linux StackRot bug).  I also
-added a sentence suggesting how to choose the delay.
-=====
-
-So it's encouraged (which is still of course questionable), but it's no 
-longer mandatory and it's up to the reporter's discretion.
-
-[1] https://www.openwall.com/lists/oss-security/2023/09/08/4
+Even without security@k.o, things like the syzkaller dashboard and the
+vulns.git CVE repo are effectively a massive public library of vulnerabilities.
 
 -- 
-Jiri Kosina
-SUSE Labs
-
+Thanks,
+Sasha
