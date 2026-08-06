@@ -1,128 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A805420471
-	for <ksummit@lists.linux.dev>; Thu,  6 Aug 2026 09:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F4042A14C
+	for <ksummit@lists.linux.dev>; Thu,  6 Aug 2026 10:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786008253; cv=none; b=RRal7+uGiS34rxzed59wsX1VMqDbsb5ff/h1Ca8WbWJ1EuvD9Z/ufSmogc3Bv088gwWzhFB3CC54f+Nm6FmIOc5Sp7puvo0xu66XdhOWmW8HzTcGCRWW2990ObIBIdbtyp7TverIIMrXs+oZBmAXxpbqTMok7SglPTvOmGqq17M=
+	t=1786011043; cv=none; b=bEUnvFO5E0jnWPSNHJlVGVDIIC3mZMU55kNkBHOJG8yMREeurPkTn362pJrR2vT5T68cGy0znbJkiUA/M++qjgba0RlDjj3zpz0hAlSRbc0jQtNv9NmbTkrO/clCkb9iPJ2zeeXGf/9mbQcZUigCw6hX779YCf13Gzicibc9org=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786008253; c=relaxed/simple;
-	bh=dgMmDO2ZwmJRhWyo6AG5RVZ8SkeAQvDhUbSfXvi+IOs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
-	 In-Reply-To:Content-Type; b=MiAiXVa9H6XHFHNxsmuNSh8KI6Lk/a6e4neapvdsZWDvqFE5GrhFcdfB6x6NVbiYxpwIWvrjl3HPn336DPcBAApc4RXnAG5mYECfzT+X0W7LfDJC8L13bM4Rcb1FVsSMX1ICEiNFwVHQddhVyYLPB4tD7356mTl4VYhPd9Lj6Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5Tt8j1Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786011043; c=relaxed/simple;
+	bh=0QNLiOLwUGUekMD0SUSLN9sivqZszTqquIu4C7wqb4o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xd7HSDy/+U3KG2Q1is6HWToyikHPIcMUzHAB+1BZOAgWbwBn4k4lI3nu0Kba4DSkJgGULr8JFSUEixUNRnAMCvqqhxw8TBtvT3/J4pRECOYWtUfUsUxWlvSUqVJpXTGm0/q/EUP793npLMRI+sB0J1pgDOskvzHZNjoscDql7EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rneNr1ua; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5Tt8j1Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1A71F000E9;
-	Thu,  6 Aug 2026 09:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786008252;
-	bh=miZtjVf3dFi26ULpYlpLCCvps+g/ZxukJlcuQDvbGfI=;
-	h=Date:Subject:To:References:From:Cc:In-Reply-To;
-	b=C5Tt8j1QbiZwJN6jqUHyZHb1WPSv6lQAoqOF+GpR+q1iPXovRy8uSUI2NhvP03Ldc
-	 6LXq6ZezxmZmXPXkcqcAgmPVXzzOPTpkU2Nq5cW+mvC5XUDlPG/7HNYnhSmQC9z7Fu
-	 TwXgU4I+YiqI3LEAVdZx4kR7J+T+iwINOHGe2mQJOJLBxl8eo8RmVaDy+Nm5qmIaaV
-	 ckb2uTJrB07/vEWEqWuwu98Ecf7nCGxXQHVRPrJnYsRnCdlHL87kTkdER7boxhOm6w
-	 0apwp/aL+Es0ukpFdxH2A0PV2SBS8lZ0llW1Q4jxgDjTfdK+OY+XQfAP/xW+nr6By5
-	 RQNJYh3HH+NBg==
-Message-ID: <cf1691f4-9fe9-4635-b758-eb3f3914ff62@kernel.org>
-Date: Thu, 6 Aug 2026 11:24:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rneNr1ua"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so1848081f8f.1
+        for <ksummit@lists.linux.dev>; Thu, 06 Aug 2026 03:10:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786011039; x=1786615839; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ES1yK84skmjl8KJNtdJQx+xETtgAUXD9mz8zVSrfwaY=;
+        b=rneNr1uakk8/ZGkDwB3espZV6G0lX2XufYPKmm44Q7522UB5x8XiLiG2pnYOeM/0zG
+         xbeR6EYYErfyC0O0lwNfMobiKw2E4v52NDWQgDENO/eyRIY1LKgnSk40r1wjkmMcckiz
+         2HFCLW8wI+tIJT1HwYNlYU/pgS2w0wO3XcbufQNOcbF4cbaXkq9ECVRETomK6zcIzHhr
+         rI4VMwga4U+kcWR8kv8e8uKa0rnaYL9HMvCis11wYm0Mf9dZwPNbKjGAPFw2QBVlU2SO
+         N1HWtOKcCKrHJEc5Pk5RdqxsegRIWJGX70+fMUZPzXhkkCKg+IKnFodqnq2mvKUO06Ef
+         4TiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786011039; x=1786615839;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ES1yK84skmjl8KJNtdJQx+xETtgAUXD9mz8zVSrfwaY=;
+        b=IL5zy/KUYMTxnYBa2toiEvEi2SUW2ehIb80Oz81bB2Szem/SmbZ6tuD6wthdE+a1nQ
+         2JNeW32iyA7cinBieZdHImO9beVihpXAB59B0r+aX0CNQc3Lg98U6CjisdbWOSgpMRsl
+         uE9d2v9JNTsQ8j3/eEmui7EDcJ1JobR77v3oMHeiy4yyHsPazl6kLC3BHmBA26D+2Ip1
+         PQJQTy1jZa5daM5fY3In2ePrG7lJkYgXE9xXaKNi1kbYm++SN4sxmO3EbIVG/gZpz4lp
+         WxTEBrpMIYbF5Gob+4I2E1Fbe8URh/tZTYTtOX7sj9SAD8hqv0/7wj2MftqlAK9TBltX
+         xr3A==
+X-Gm-Message-State: AOJu0YyTCFWHvgi8qCUSi9zFjL54sCYyO+rknxZhR+Ad8va+6jE3ctkY
+	iFPSiXULrPlN26v8Bt53ej9qJcBwJjAtwYu2npTxQjOl+iz5yGqfoslv
+X-Gm-Gg: AR+sD10CQYNOw1FKJaQSAJkArN1T5U/QqRNkY5r6z7Q7U504ki/EL2Sekyr3f/Z6ot5
+	xF4h3xwJddmrjQkxW65GNtu21OwOewlkGzulmbWJQe94Ga5fgDVxDZsnDSzjtH9KeQUxkWzwD8Z
+	mZ7qDi59zb0xKztrDE5WV+QkupFkdo8rZBeuR4x85Kn5Pp9ZYZEsUUUAzbi6X/0J/P+qivaQaGF
+	8CKAY+udWpMgzDmNP6Hqex1BMPnoYAEAHF4yKsQT00+YaScX90DLMNvMlBZplSYZ5miiOjMRtJ5
+	PJOPgqIWW7BLq3h+0euJX5l3PRBcVfXoFWLpc1TAmoiKuCYuo0wmSa2xPf76w2EkCBU4cGbz+9v
+	H+iNnAYabgqOMYZY4u/Oq1sWCaJVNvJvpp9sdRAIKVrMFQ5o+LVT9bhx1Zm3WJkqvum2nNapAtZ
+	zEV7K2/MDTxNhvkV4NWZa4Xdl+1Znucoswq7Vr2NsMoSPOhLK82rZn6Ft6SVtm/YuGlSk=
+X-Received: by 2002:a05:6000:2994:10b0:473:6e8d:7f3 with SMTP id ffacd0b85a97d-47ffd204192mr216286f8f.1.1786011039488;
+        Thu, 06 Aug 2026 03:10:39 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b32487sm4761063f8f.34.2026.08.06.03.10.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 03:10:38 -0700 (PDT)
+Date: Thu, 6 Aug 2026 13:10:34 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
+Message-ID: <anRdmjsn4_2aavcx@stanley.mountain>
+References: <87y0ekm9nw.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
-Content-Language: fr
-To: Jonathan Corbet <corbet@lwn.net>
-References: <87y0ekm9nw.fsf@trenco.lwn.net>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-Cc: ksummit@lists.linux.dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <87y0ekm9nw.fsf@trenco.lwn.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Jon,
+A lot of first time developers start in driver/staging where I review
+patches.  I had to re-edit my "How to Send a v2" instructions to
+really emphasize not to resend a patch series that same day.  Otherwise
+it feels like you are pair programming instead of a reviewer.
 
-On 06/08/2026 01:26, Jonathan Corbet wrote:
-> Do we need some sort of more organized onboarding structure and, if so,
-> are we able to create and sustain it?
+https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
 
-Good idea to find solutions to reduce the training load on maintainers!
-
-> At a minimum, one could imagine a bot that notices a patch posted by
-> somebody who has not been seen before and responds with a "Welcome!
-> Here's how we do things here" email.
-
-FYI, that's what the Netdev maintainers are already doing to cope with
-the high load:
-
-https://github.com/linux-netdev/nipa/blob/main/ml-agent/form-letters/welcome
-
-This part should be re-usable to work on other trees, monitoring other
-mailing lists (public-inboxes to be precise). But I guess it would be
-easier to have something global, instead of asking each subtree
-maintainer to set all that up.
-
-> In a better-funded world, we could
-
-So many things we could do in this world :)
-
-(BTW, that's a shame there is no "kernel foundation" within the Linux
-Foundation, where the TAB could quickly allocate budgets to improve
-various things, helping maintainers in different areas like tooling, CI,
-funding, local AI, documentation, regression, etc. But that's another
-subject :) )
-
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+regards,
+dan carpenter
 
