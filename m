@@ -1,87 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826FE3D88E7
-	for <ksummit@lists.linux.dev>; Thu,  6 Aug 2026 21:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77974B04BD
+	for <ksummit@lists.linux.dev>; Thu,  6 Aug 2026 23:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786050878; cv=none; b=IaQV/JTtkZH6imKjt53FfTVFkBUEfzncGVuJcA0L+kwWLKHEXJ4eu+q370iXcmYH2evlURzMlOOxTrfwfdgcSy+jfr8+T4k42Ea8GKDNErcfmXuLCfoPmKAoi62ycSsPQxXPa8MI2syTY0dJScVHC9o8mhVCP4HjFnLNzVkCWbI=
+	t=1786059717; cv=none; b=YiRkt0iNfiL/iPiW7XgNfFslRXTOOrpUOe6h/S7r5pL9LPRM7BwmythlTD+/bsbpi7lS2AQJzezsI0XOVoVWZeHb1jIMvT53Ovwapp/v4lJ39MCnj64yDi7mwHOFUm9NW70Uyi6B3iAJSseR8gIOURf+8c4AeR5/SsXbwGXzJ0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786050878; c=relaxed/simple;
-	bh=ac6RZcTzsI4Gs25GuGTUAJU8qHjSHt7mWU79d/MSV2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gDEZVw2mhHYyX6tt4xxG5RDvs88WcHypJ1fh8xeuMGq8/6ksH4ogkf1q3MM5m1EN9R/BbQt/RpWGtYcQ0cUKkudfgwiT4AbJ7pRFjyJ7LZCYREyfiyi21jK85yBgmXbZeIDcW9iQSV9VroMwjI1ef7htIa2f1a/6xao1o9H0t1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2hsTaTP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2hsTaTP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD411F000E9;
-	Thu,  6 Aug 2026 21:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786050877;
-	bh=3jlICewDkRp6aOAGKdbzw89x2qvlv4PFnb/rp5x8fTU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I2hsTaTPw5BPJRTEbeSrb/Lh6s9D9d8veZKAWA8WTS2YxoiWmEpCxHtMcz3vrZx0o
-	 er6jyKfXCfhtZJrKxgb2EMy/m1jsk9AGf8ztIgmcczeGll3zObjyB80SAqt4EfcKBi
-	 dSlUJNPFxfAvnCwcNI1G1hzO0kk+wpyQaTevN+Gbr/IuSe9T54Q61BlKHS8DguRMqi
-	 eLkWfXIPWiCVqhBPdsBLjEX0SeI8KzabSmVigGajZ+lsrQKuKWbATKW2bjpT0JspMO
-	 ++6uHTPmaqOA8BxDZFHb6mEKQOXel4f6vzwucxBnud5yU2x+VIescMaFjRLJWjcYYr
-	 CZTey2FAqL6Bg==
-Date: Thu, 6 Aug 2026 22:14:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Konstantin Ryabitsev <mricon@kernel.org>, Greg KH <greg@kroah.com>,
-	Theodore Tso <tytso@mit.edu>, Jonathan Corbet <corbet@lwn.net>,
-	ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
-Message-ID: <021a85e0-fb3c-48b6-bf13-78e0267aae05@sirena.org.uk>
-References: <87y0ekm9nw.fsf@trenco.lwn.net>
- <anSpoxZ9SUBvFOZj@mit.edu>
- <2026080651-bony-hertz-bfb6@gregkh>
- <20260806-industrious-whippet-of-jest-a91eaa@meerkat>
- <anThWLhqipEM34kg@stanley.mountain>
+	s=arc-20240116; t=1786059717; c=relaxed/simple;
+	bh=PIIdLqzcILBA2dGyuSLMgX1xPZGXBT9Ci4TCWDySEf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MQGIK0tT7UovLR4xOD/THI0WROGNEhC/8nIb+T+phQG4i5DhqvsB4wNcvO/2sju6ga+W4+6q+hR5SbmGa1VlLe++fvNv1xNUJ4nRQKroLC2Exb7hjGuCXOHQmaHjJOgnLhjRC0OvIYsErM1t4ZwSDA/oeiHhYYcivJKjG8eJiAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id B4F0680680;
+	Thu,  6 Aug 2026 23:41:53 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 4C9672F;
+	Thu,  6 Aug 2026 23:41:52 +0000 (UTC)
+Date: Thu, 6 Aug 2026 19:41:53 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+Message-ID: <20260806194153.6443a3ba@gandalf.local.home>
+In-Reply-To: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
+References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mSrtPG6mt/58Mxvt"
-Content-Disposition: inline
-In-Reply-To: <anThWLhqipEM34kg@stanley.mountain>
-X-Cookie: Brain fried -- Core dumped
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4C9672F
+X-Stat-Signature: 9kyaa9bbi55gyehk31qacsg3cqwmpp7n
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18XD0Hp5HcPu6aGn2yarH0eNFwXepxVTIk=
+X-HE-Tag: 1786059712-26925
+X-HE-Meta: U2FsdGVkX19qN3jhQCoNqTQejENYKb65CYPw+lUBQHOB/+mFUpDCznuQX1FeJMyfwvP/cEsh+eYEUzZDmlR8gs6/rRPrzMB0cQarSReJj6mGNidKLYQ8JmhT9xoNcsqsi2LlU9c/P4PAxV3yFghKfDLgIt6fnNJGbhxPoNkYoWrQDbUOuBX8VjVOw1YYzWX+ItXBXuEQddmHHVdpi0xPv/RveAgDnTsFBrVtGGvozyouzylTQM78Et9X9wbgY74KBrMAFXayrtaviVhqgsgJSfDU07jzWzUeocvvGpvWX/1nzNa7z7+ilp2R1akFoQXQgu7m9PXM25PCBhUs2Ot2XKvfh3VShsiukwF553dIlbmf3CbZhz1TwiB51bApJlMnuhE9fC6vELFIxMUHdTVGPm4dtGmC/PVI
+
+On Thu, 06 Aug 2026 11:34:09 -0400
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
 
---mSrtPG6mt/58Mxvt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> 
+> there isn't really anything that would move the needle for a potential
+> sponsor.  Equally, there's nothing really that couldn't have been part
+> of a wider discussion at Plumbers or LSF/MM, so I'm not sure there's
+> anything that actually required discussion at this event (i.e. nothing
+> to move the needle for kernel developers either).
 
-On Thu, Aug 06, 2026 at 10:32:40PM +0300, Dan Carpenter wrote:
+Well, I'm guessing that AI will be a big topic this year at MS. That alone
+may drive up sponsorship! If the AI bubble doesn't pop before then, all we
+need to do is market MS as an gathering of those that will influence AI on
+the Linux kernel. ;-)
 
-> Most subsystems take patches against -next and backport the Fixes.
-> A couple have a tree for the -rc branch and want patches that apply
-> specifically to that.  These are net, bpf and certain Intel networking
-> drivers.  These three subsystems want people to put in the subject
-> which tree they are working against like [PATCH net-next]"
 
-I think it's at least as common if not more common to take fixes against
-Linus' tree or the tree's current fixes branch and then merge them up
-into the development code as needed.  There are a few trees constantly
-cherry picking things around but it's a very small proportion of trees.
+> As for fixes, one possibility is definitely keeping MS as is and moving
+> the sponsor responsibility to Plumbers, but unless I can strap Linus
+> down and sell companies on pitching to him directly, I fear that would
+> end up creating a US$100k hole in our budget.  Perhaps there are
+> actually outcomes we could sell to sponsors but, because of the reduced
+> audience, we simply don't get to hear about them ... so if you think
+> that now would be the time to say what they are.  Another solution that
+> seems viable would be folding the MS into one of our existing sponsored
+> events, like Plumbers or LSF/MM.  Structurally either would be a fit
+> for the past discussion topics and both could probably accommodate
+> (although I don't think either could expand to a fourth day to do it).
+> A final thing we might do is change the structure of the event itself
+> to have more sponsorable outcomes; perhaps simply making the event more
+> like the kernel summit of old, so moving back the KS track from
+> Plumbers would be enough?
 
---mSrtPG6mt/58Mxvt
-Content-Type: application/pgp-signature; name="signature.asc"
+I guess it really comes down to what Linus wants. He's been saying he would
+love to get rid of Kernel/Maintainers Summit for years. Does Linus still
+find it useful? It is still good to have the more controversial topics done
+face to face and allow Linus to listen in. I've been saying he needs to
+interact more with the general community given the number of times he told
+me that "nobody does that" when I'm hearing from talking with people at
+conferences that several people do do that.
 
------BEGIN PGP SIGNATURE-----
+Thus, I still think it is good to find a way to make Linus do what he loves
+and interact with his fellow developers ;-)  But perhaps it's time to
+rethink the format and restructure it once again.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp0+TgACgkQJNaLcl1U
-h9AePAf/V8zB01okQASKlpsGQg21sZ445J4k03QLuXo55uQvGAC+2FG7Gisd1g2c
-Kkh50MQJJ+Xi1nt6NxfQi94mNC5QogBw6DlSYVfddZBJQCiKq1A5aG5cLzxF860T
-XJS/xaf8hsqHkndwE8sf98/Q5X7NdkBqCIAysrGgG0HbvjOH6kF/NPjk6kM9go3n
-jjPa6vNC8BGiqVkHx4jvECeI72CETO+ZcWvqgQulIJ5SRZ+Yzxq1YnVYwhbQ2Vwa
-6pmCPwZiW68pLjO2zYd45/wlpgQ0Ty27mHaAmWrzWS8y8imB1oLYGY6fe2qSdrrb
-PHYcaJDGH6hK55UuhmxTyJIpKDRkGQ==
-=3CU5
------END PGP SIGNATURE-----
-
---mSrtPG6mt/58Mxvt--
+-- Steve
