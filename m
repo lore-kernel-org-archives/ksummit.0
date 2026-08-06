@@ -1,130 +1,77 @@
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04353AEB5F
-	for <ksummit@lists.linux.dev>; Thu,  6 Aug 2026 15:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BC4377015
+	for <ksummit@lists.linux.dev>; Thu,  6 Aug 2026 15:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786030453; cv=none; b=HqFGAZw144W6WYhG3IXzKf2ryvfnALvjEE/RzXr/ZLT2Gf3E4ra16WhGwesjBjPOkTtTwCUe1xal0dpM2S9F1VTlogFydFu71iNI//L5+lDx4POHGqVfxhlcigfUnsvLePMIOY+QTZP2UK5EjbcHKiiIk7iAq7QvmYxfHXZJB+U=
+	t=1786031018; cv=none; b=lEyRz31XevIJ6E+tepiaflQYqP/C7kR6BlIXkxGH3Io89xtCCzgu8dy2nGdxsg1YaR5zM2R8jr1558NT5Myqrbf0LaQZhWy8ghweJigBHRrWhKsmSTSVMua5095rKoGzowo3OWOHUwjqaSq0AZVQx5wasXgn5pODrwS+Fys1EZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786030453; c=relaxed/simple;
-	bh=lY1gdBK6naCmU2M1HJuyoKRgoMWtSEOKObaEFIP866k=;
-	h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version; b=gzW5Z/Hv9GV53jukA9vWLDs0w91zAADvmtr8BxJ0OoB8hPNKgV/p9uAmuh6w3/a3zZquRdtjYQiA5Za2vUDu66WCWX2knud2EYvc8kHCX2elQJm0XrkdZEglkUfvQd/A52/6RpioPDKBrBcHBE98hu/34o6xV16P5O73DnWJtGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=E3uWeJNG; arc=none smtp.client-ip=198.37.111.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	s=arc-20240116; t=1786031018; c=relaxed/simple;
+	bh=6vgchO9NzZPZOaeF4J0DPAxzpUDWgttWiQ5ecMdpO8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uhaNGHThwPHcKA9dF3vVVuiuFHhXjHdpeq53a1TlOSAFpG0wHeszian3OMJGhcaMVaz5iPrKkow1K1onbDuAwIj0ow6M06sVZ+3L4qdVYuXKeMIhy2xL91y0U7d2PSdm/39R+vWHaT6Ng6lNXz7TsR6x6Hy8ClneUoE17zJAyxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=qPfLMpJY; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="E3uWeJNG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1786030450;
-	bh=lY1gdBK6naCmU2M1HJuyoKRgoMWtSEOKObaEFIP866k=;
-	h=Message-ID:Subject:From:To:Date:From;
-	b=E3uWeJNGH+YeIcLXnU7BsmwNPsL70TopbHmOvOinBH5/ui5WYxqevQ0Zkv50slS0U
-	 VimDhvMikG6ocD2kwHSca0/i6sbDJUuHEl/K5KmEVP+UUdFSfhkbh/dfUPuLGlRXRG
-	 OMmYN4yl4oWKZskLWa4ZetN+Sc5jqFkltV/S4pJI=
-Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id A0C0A1C0601
-	for <ksummit@lists.linux.dev>; Thu, 06 Aug 2026 11:34:10 -0400 (EDT)
-Message-ID: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
-Subject: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
- summit?
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: ksummit@lists.linux.dev
-Date: Thu, 06 Aug 2026 11:34:09 -0400
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
- lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
- 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
- RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
- X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
- HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
- MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
- FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
- 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
- K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
- tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
- 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
- dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
- QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
- 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
- 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
- rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
- L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
- BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
- yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
- CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
- jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
- e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
- ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
- a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
- L2jzOsA5663bw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="qPfLMpJY"
+Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 676FhXsV031180
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 6 Aug 2026 11:43:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1786031015; bh=nCcVbuXRaZbgB5u3nSPp8ckXwZnBWdhpqfbFXkKOwTk=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=qPfLMpJYbS/paarnsXCVaGNCE6obJzv5tO+hKyAXPg+BGnZfFKN3KfZB9PTmOD3eV
+	 zf8eGPHBhWpPOefHQvtm+/F+9k1enmzIw7WQzFGzW34RLEYBHeJD9VlSrden4okjrA
+	 Xn7B94v+gWon8d0MxLRyBp+VKnlDg582dDFg2GVL0tScWHx6pXMLUxHZwbf8REIqax
+	 3TIfNgVs8O1hx2zb2DAjtfXzg7FH+NZtp+I8ID048NmPaua03KjDug1XLD9IQS9ySN
+	 Ak+nEuHH+v+6EyJTOwLCiHhRueA1PUGRYG0suy94VPq6yH6QPlTvo7hq8u7wENvxQy
+	 MDTarovf/QpXA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 28DD3DC5904; Thu,  6 Aug 2026 11:42:33 -0400 (EDT)
+Date: Thu, 6 Aug 2026 11:42:33 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
+Message-ID: <anSpoxZ9SUBvFOZj@mit.edu>
+References: <87y0ekm9nw.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87y0ekm9nw.fsf@trenco.lwn.net>
 
-What got me thinking about this is the obvious funding problem: MS is
-free to attendees, but only had one sponsor in 2024, none in 2025 and
-is on track to have none this year. Since Plumbers has a reasonably
-successful sponsor model and the LF brought the problem up in recent
-conversations, we thought we'd take a look.  A colleague remarked that
-it should be easy to sell seats to a room with Linus, which on the face
-of it looks to be true, but when examined more deeply isn't
-straighforward.  The problem is conferences like Plumbers, LSF/MM and
-MS are usually sponsored by engineering not marketing where budget is
-much harder to come by and the justification for ponying up the cash
-has to be very clear; effectively they pay for outcomes not access or
-publicity (although access is required to get successful outcomes).=20
-When you look at the actual outcomes of MS 2025
+On Wed, Aug 05, 2026 at 05:26:11PM -0500, Jonathan Corbet wrote:
+> Do we need some sort of more organized onboarding structure and, if so,
+> are we able to create and sustain it?
+> 
+> At a minimum, one could imagine a bot that notices a patch posted by
+> somebody who has not been seen before and responds with a "Welcome!
+> Here's how we do things here" email.
 
-https://lwn.net/Articles/1049982/
+I wonder if we could make the bot more sophisticated than just sending
+a welcome message.  If the patch is white-space damaged, or doesn't
+apply against upstream (or if there are indications that it was
+applied against an LTS branch without an explicit LTS tag or something
+indicating that it is a backport), one could imagine having the bot
+sending a newer contributor a more specific set of constructive
+criticisms.
 
-there isn't really anything that would move the needle for a potential
-sponsor.  Equally, there's nothing really that couldn't have been part
-of a wider discussion at Plumbers or LSF/MM, so I'm not sure there's
-anything that actually required discussion at this event (i.e. nothing
-to move the needle for kernel developers either).
+Some, of this could, perhaps be something that we could add to
+Sashiko, with an eye towards giving a more friendly message.  Just
+today I had to let a new submitter know that they had sent a
+white-space damaged patch, and given they were using a gmail.com
+e-mail address, it could be possible to send a more useful message.
+(Since I was in a hurry, I just pointed them at the Submitting Patches
+document, which is rather long.  :-)
 
-Before I go into potential solutions, it might be beneficial to review
-the history:  The kernel summit began as a stand alone event in 2001
-run by USENIX and was the first time many kernel developers had
-actually met each other. It continued as a 2 day event co-located with
-Ottawa Linux Symposium (still run by USENIX) until 2008 when it mostly
-co-located with Plumbers and was run by the LF.  In 2015 Linus
-complained that he didn't find the KS talks that valuable and he'd like
-to discuss process with a smaller audience, so in 2016 the kernel
-summit was split and the talks went to the kernel summit track in
-Plumbers and a 1 day Maintainer Summit was born.  It can be argued that
-the decline in sponsors began with the 2016 split and thus, as the
-sponsors apparently see it, the decline in outcomes as well.  Oh and
-for those of you who keep saying the LF doesn't fund Linux: without
-sponsors the LF is eating the cost of the entire event which, based on
-what Plumbers costs, will be somewhere north of US$100k.
-
-As for fixes, one possibility is definitely keeping MS as is and moving
-the sponsor responsibility to Plumbers, but unless I can strap Linus
-down and sell companies on pitching to him directly, I fear that would
-end up creating a US$100k hole in our budget.  Perhaps there are
-actually outcomes we could sell to sponsors but, because of the reduced
-audience, we simply don't get to hear about them ... so if you think
-that now would be the time to say what they are.  Another solution that
-seems viable would be folding the MS into one of our existing sponsored
-events, like Plumbers or LSF/MM.  Structurally either would be a fit
-for the past discussion topics and both could probably accommodate
-(although I don't think either could expand to a fourth day to do it).
-A final thing we might do is change the structure of the event itself
-to have more sponsorable outcomes; perhaps simply making the event more
-like the kernel summit of old, so moving back the KS track from
-Plumbers would be enough?
-
-Regards,
-
-James
+					- Ted
