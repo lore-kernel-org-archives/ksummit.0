@@ -1,109 +1,117 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7056637F8AA
-	for <ksummit@lists.linux.dev>; Fri,  7 Aug 2026 20:15:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DE32D2397
+	for <ksummit@lists.linux.dev>; Fri,  7 Aug 2026 23:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786133726; cv=none; b=fTBz5NrL/twIkFPjSV2EQ/lE7OM2psDeQz57MfpkofjSsQxu6ndWz51lNp+PyHkLjZxYydOxVm/dBZbe/6mWZ5vobbAHeHd5qmIJpAKM9KUIaSM+tbGa4DEWzKTXAH2KNg6IP9iZRv59FU6j1whGmXujI8dPS9nU9VOeFf96xhI=
+	t=1786144810; cv=none; b=AbIO3UvMnaLK+eqNK3naIZq4T3x3LC87X4S6aHD6ZW5A6+0FHAw6Esc5L+ViaRA277ZnjSedMXY0muWVfswcdqBYipm/vtDYaipkbunXUrwOlKu/Xqjuk/MITE7qwYpChZFZdONc6zk2ltAdvg9zttI6DbqaNcd/c+eXVkzAzCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786133726; c=relaxed/simple;
-	bh=Wq6A+DMjtld7ppcsBe1KyYBJpegJ1a9MES9KO9eLg84=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=dTenE4ZxzUsDbsaO3wv0x5xCU308UqRZwdtdv6QmbMWfr+7TTZ58+0lzg+Rx8w4uKzHdF2gAwuNgQcQw8K7502wp1nF3ziL4MKC6wWVGsJVNQm3Qr+D+hzqQlFAuwxh5pTO9WLYUdvrL2hh0wGpy8jx7MSIgS159V209VPIZOKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=rMzOL13D; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1786144810; c=relaxed/simple;
+	bh=B0KTKw7/1wY45z+Ga29V9vUr2Zu1LmAEiDvoqlxrzds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hDV21Ur/ZmlsWumPOrttsK6L30+YyhmgwR1VwZroUounKo2qXgjZeLGIviJzFTmMPw9Dij7QTYPuIuefZJS5sIu5wu9AM+vBIfCFweQsdYE9c3smmDaYl2rrKWnp5X5sfbfaIK0v/zGfaFmGD/MpIlCIi6THVBGPkw5pSKBusDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=F2HAWdSV; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="rMzOL13D"
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="F2HAWdSV"
+Received: from macsyma.thunk.org ([67.208.186.90])
 	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 677KFAtw2868857
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Fri, 7 Aug 2026 13:15:10 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 677KFAtw2868857
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026072801; t=1786133710;
-	bh=Wq6A+DMjtld7ppcsBe1KyYBJpegJ1a9MES9KO9eLg84=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=rMzOL13DG2cmjtrHhvojyr6EucGGAFAMI5KTY8lr3rpfe/FZnSMtEkcQkCtO/WRk/
-	 icc+dHVCyKDuRFR+bUwnaCeKVbi1csJ6IXBy7LrVjWtEtCF8EmlDakCG/m6JnccXMS
-	 KcI8pVmQuMXboBO0uC/CemoxmLAOnMu8XypZnbGjYdi5FxMRn2se7miTGO/2ja8Yql
-	 shKaKJyvMxlL0VixpcowsvEV8RyffLgYIQYyO7Ph8MoA6ti75SoFCS1to0g/41DYQY
-	 CG1TiG9EQxBnm7mkNZMUj1xAfcpZHP4blfIP2HaC/VmPAEvoqGz/HIREkiRcQpEkQ/
-	 huTzTOlzqbhyw==
-Date: Fri, 07 Aug 2026 13:15:02 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-CC: ksummit@lists.linux.dev
-Subject: =?US-ASCII?Q?Re=3A_=5BMAINTAINERS_SUMMIT=5D_Time_to_cal?=
- =?US-ASCII?Q?l_it_quits_for_the_maintainer_summit=3F?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <8f07d379f3f4c67b2a9a62330e43066d312d42a4.camel@HansenPartnership.com>
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com> <20260807125825.GL2201016@killaraus.ideasonboard.com> <8f07d379f3f4c67b2a9a62330e43066d312d42a4.camel@HansenPartnership.com>
-Message-ID: <D97C9783-9D8F-4F66-B572-32EE1129722E@zytor.com>
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 677NJw2u015733
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 7 Aug 2026 19:19:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1786144800; bh=u6TVoU043MV9/ZombO8uFwghfi0gMQSwLVkOmWrMYqI=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=F2HAWdSVNEfgL8OpgxD4rkeDyE6LB305I3DFstQs/NZIgKcbTpLyvHt4CkMyXwJDG
+	 eXgwJ4wXcqAJ03H9iB/DeR6I1+/H4MKA/4MyspZIfi859KnGaPHHJvtrh1DovzhU+G
+	 Bds1Ahq2ymOqE0HFz8MF9fsQcKqFkOqMzx2ThIos/y+Cxk7qehKu5QJ9ukMdUgufrx
+	 qnUHFIrSA72OgghQ0lVw+LwbFgWkldYKtGpun5GjpILv/h+hXRRRRQfVxqwBzkyt7B
+	 gAv11cdegfObyB7BI7vepYpi+Ie/7MxFJo2iQEMKrd3iMrEL/3GrJZEDePmCAMw1v3
+	 LeyCdq9uc3pdQ==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 183C0DE9978; Fri,  7 Aug 2026 19:19:57 -0400 (EDT)
+Date: Fri, 7 Aug 2026 19:19:57 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+Message-ID: <anZi9nDTNu4WNc3s@mit.edu>
+References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
 
-On August 7, 2026 6:09:05 AM PDT, James Bottomley <James=2EBottomley@Hansen=
-Partnership=2Ecom> wrote:
->On Fri, 2026-08-07 at 15:58 +0300, Laurent Pinchart wrote:
->> On Thu, Aug 06, 2026 at 11:34:09AM -0400, James Bottomley wrote:
->> > What got me thinking about this is the obvious funding problem: MS
->> > is free to attendees, but only had one sponsor in 2024, none in
->> > 2025 and is on track to have none this year=2E
->>=20
->> The sponsorship prospectus ([1]) indicates that the "attendee gift"
->> category is sold out, does it mean one sponsor signed up ?
->
->The LF paid for the attendee gift last year=2E Since they have to be
->ordered some way ahead of the conference I'd guess the same is true
->this year=2E
->
->[=2E=2E=2E]
->> The maintainer summit is limited to 30 guests, plus up to 7 sponsored
->> attendee according to [1]=2E Assuming neither Linus nor the program
->> committee are counted as guests, that would be 43 people in total, so
->> a rough cost of $2500 per person for one day=2E=C2=A0
->
->I take it you've never seen the bill for attending a USENIX (or a lot
->of other) one day events=2E
->
->> I understand that hosting events in large venues is expensive, but if
->> the maintainer summit is an invite-only, separate event, would it be
->> an option to drastically cut costs by hosting it in a nearby but
->> separate location ?
->
->Is there any point wittering about your speculated numbers vs mine?=20
->The bottom line is there is a cost and someone has to pay it if there
->are no sponsors=2E
->
->Regards,
->
->James
->
->
+On Thu, Aug 06, 2026 at 11:34:09AM -0500, James Bottomley wrote:
+> It continued as a 2 day event co-located with
+> Ottawa Linux Symposium (still run by USENIX) until 2008 when it mostly
+> co-located with Plumbers and was run by the LF.  In 2015 Linus
+> complained that he didn't find the KS talks that valuable and he'd like
+> to discuss process with a smaller audience, so in 2016 the kernel
+> summit was split and the talks went to the kernel summit track in
+> Plumbers and a 1 day Maintainer Summit was born.
 
-I think it is worth in all of this to consider the following somewhat bigg=
-er question: what are the things (not just events) that we cannot expect to=
- be individually sponsor-covered in the long run?=20
+When the Kernel Summit grew from ~50 people to a bit over 150 people,
+it started getting a lot more unwieldy, and it became impossible to
+make sure all of the people needed for a particular technical topic
+could be issued invites.  The flip side was that when there was that
+many people in the room, it was too hard to have focused process
+discussions.
 
-The whole mission of the LF is to provide funding for exactly these things=
- through aggregate fundraising=2E=20
+So that was the reason why the the split took place; it was getting
+too large for process discussions, and it was too small for technical
+discussions.
 
-To me, that comes in a few buckets: ongoing infrastructure (e=2Eg=2E kerne=
-l=2Eorg), fellowships for senior architects like Linus and Greg, funding pr=
-ojects that are highly critical but not "glamourous", and urgent assistance=
- (legal and financial) for members in the larger community when either some=
-thing catastrophic happens (e=2Eg=2E the xz disaster) or there is a brief o=
-pportunity window (we had a few day window for getting sparse relicensed; I=
- had reached out to LF for legal assistance but never even heard back=2E In=
- the end we had to wing it without any legal help=2E)
+Today, the Maintainer Summit is basically a half-day event, with
+around 30 people (plus any sponsored attendees), and is only focused
+on process questions, with the technical discussions taking place at
+the Plumbers Conference where it is colocated --- the miniconferences,
+Refereed and Kernel Summit tracker, and the BOF's.  And I think that's
+worked pretty well.
+
+As such, the costs of the Maintainers Summit is actually pretty cheap,
+especiallly since there is no A/V, and a room that can hold ~30 people
+is not really that big of deal.  So I doubt it is as expensive as what
+James has estimated.  If we did want to economize, we could do things
+like drop the Kernel Summit dinner and the "sponsor gift".  I can talk
+to the Linux Foundation to see what they are willing to fund, but
+given some of the process discussions that have taken place such as
+"The End of the Rust Experiment"[1], and the discussions around AI
+that almost certianly will take place this year, I think the value
+Maintainer Summit is one where hopefully the LF would be willing to
+support it one way or another.
+
+[1] https://lwn.net/Articles/1049831/
+
+
+We can split this discussion a couple of different ways.  The first is
+how can we make the Maintainers Summit more valuable.  I do think that
+in the last couple of years, there *have* been a number of quite
+valuable discussions, but it's always worthwhile to consider ways in
+which we can improve the discussion.  So that's on the "benefits" side
+of the equation.
+
+The second is on the "costs" side of the equation.  There are a couple
+of things, such as the dinner and the gift, that we can almost
+certainly slim down, if this is becoming too much of a burden to the
+LF.
+
+Getting more sponsorship dollars is going to be challenging.
+When we had the the technical content in the Kernel Summit as part of
+the invite-only portion of the event, companies would pay $$$ because
+they wanted to introduce specific technical ideas, to better support
+their products because what they were paying for was the attention of
+the Kernel Developers.  This "attention economy" dynamic is one of the
+things that does still work and drives sponsorship with LSF/MM, by the
+way.
+
+						- Ted
