@@ -1,80 +1,120 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5E238AC99
-	for <ksummit@lists.linux.dev>; Fri,  7 Aug 2026 03:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C5E2E06E6
+	for <ksummit@lists.linux.dev>; Fri,  7 Aug 2026 09:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786073028; cv=none; b=AuDRaKebDxCPp/5yE8pHZ0sqC3avGwSB6kfCFY4cKPaqpRkU6ZZQjxl/NgOeetCcb7kj1Rkf+jmRzx0ODILUwH6sbmfPMmFfy8RcHxsEFybProBwU87mALqe4AhAKZEd+e1sCe+MP18X7j7cep8yRwPJJVszA9MKcc6OqgQ4et4=
+	t=1786094446; cv=none; b=reJEJxITw1p3UejWVRldLAgk9nN7qJQm4AsYnuj3i58jyR4K6D886UHNa3cojEvNJbmiEpEjk1VBvl4+oI1B8tBR/SLQYVPm7BxaQ4yvvu9SAeLPqLGplITRKNDsvQyYSN/fgTxx+L1b9uMGQN2bz8HBy91XxFlkWlfr6ldNyKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786073028; c=relaxed/simple;
-	bh=UbIvgCi8U5R3yz3kt++CI72zPuitCyWGWj4LusP8bRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PPwqEVBjP7jnp8TTlku0CRambucdTY/dHZ+iQBqew3opnGTK07ENH2to4LcaineGH9ZjyX8JPtqEEMRrl3Uw+5lcIHipdB5oovAsEhdompGrgbXz7DXGo+CRkR2RjUTl903BKPJIlgWaBvEITSswSWC4ksSpYutnBfy91JIPmNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=Aiv0+7Sc; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	s=arc-20240116; t=1786094446; c=relaxed/simple;
+	bh=tZnfE81RnHmQ/5N/U/kKvA7W9K0IZCZ3EuvXZG7tsAc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jokWjmraeZyCPOROxH9/L0aqHxJXdNPuEZiZiNaFhT2s4uckqLCL/zzaQQNgl/PE5AH5Nh4ti2kvNnM2DszcQ8nSmIDC/+JjNtbYVI/vuY0S3X4Cu0zIBJG7RYumBCl7GUC13LxtnhYgXUV9WD8I8KkxjJdGvEfFVU6aeqhe9q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxqkKvdH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="Aiv0+7Sc"
-Received: from macsyma.thunk.org ([67.208.186.90])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6773NaUV020000
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 6 Aug 2026 23:23:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1786073019; bh=Po8J6e/3SU7cSDjXzSD9V0uZdHckvMMCKLZrq2WDlHw=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=Aiv0+7Sc1s7/ZQDGXNuogc+nev00bH9ZVLjYPtBJNj0cht8Xdf4UNrtjO4sbE2A4M
-	 PY8dZj2/9dMSbS+fTAlilN7iaDZLa+KhT37j5CkP8repq/cWmLAYgEhPnnXxTNZVVQ
-	 ATnb2IoxF9yO5TwvbJztXn9P/GcBc8osI5bXl9ys9e/We/ELObVwgHNTAeXszL5F8O
-	 gs2imQ3xysCqaBquz8JcABP11OHW1Q3xDewi55C+gPWNwX3IVqa4Pda8fLXEuYUyjM
-	 XJvNyEUkEY0yIJvQHyW4f7Yu4AeOqb0JPfJSHooGxWN2+uAWVSxYYz6n7FngNmh1MK
-	 AmRJhvHFJlu7Q==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id EF2ABDD3303; Thu,  6 Aug 2026 23:23:35 -0400 (EDT)
-Date: Thu, 6 Aug 2026 23:23:35 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Konstantin Ryabitsev <mricon@kernel.org>, Greg KH <greg@kroah.com>,
-        Jonathan Corbet <corbet@lwn.net>, ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
-Message-ID: <anVK-qkUOaIJkt9M@mit.edu>
-References: <87y0ekm9nw.fsf@trenco.lwn.net>
- <anSpoxZ9SUBvFOZj@mit.edu>
- <2026080651-bony-hertz-bfb6@gregkh>
- <20260806-industrious-whippet-of-jest-a91eaa@meerkat>
- <anThWLhqipEM34kg@stanley.mountain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxqkKvdH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424941F000E9;
+	Fri,  7 Aug 2026 09:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786094444;
+	bh=sclpx3L6zm4qMF/pQV/SGGCAQ0K3S3mEoskbP57lcFw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SxqkKvdH//4Dx3xT1ZBBCxCIRFQORdSzjc3t+U+xRS8Y2Iyi/4R/8pAqwovIy6lxO
+	 SzQvY7RFQukr0WSIau0RnxrkYmFIAnVus/9DzZTlKFvzyHJxZ4xYwNO5uK5KJF7cCl
+	 uNY0QuhmxTNpNWghhWoCqcdRJ2sT8pER+zXzXbi62eqHs8PHIOTNXCRj77c/OwyNYu
+	 w8gYyafINb1G2AcakVcWP0GbLaKNyiFDJXpaLKNQ1bORGHbBOqFAyChJDCm7ZHiMya
+	 MQzQ4CQbsGajJP5693eZ5wlliHzIEyMeAX9SzTJs/rv9Wy4uiTV+LmSQT6FcCfde84
+	 /blEl5coeMobg==
+Message-ID: <78ee9f53-09b1-4934-82af-25f3652b108a@kernel.org>
+Date: Fri, 7 Aug 2026 11:20:39 +0200
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <anThWLhqipEM34kg@stanley.mountain>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
+Content-Language: fr
+To: Theodore Tso <tytso@mit.edu>, Dan Carpenter <error27@gmail.com>,
+ Konstantin Ryabitsev <mricon@kernel.org>
+Cc: Greg KH <greg@kroah.com>, Jonathan Corbet <corbet@lwn.net>,
+ ksummit@lists.linux.dev
+References: <87y0ekm9nw.fsf@trenco.lwn.net> <anSpoxZ9SUBvFOZj@mit.edu>
+ <2026080651-bony-hertz-bfb6@gregkh>
+ <20260806-industrious-whippet-of-jest-a91eaa@meerkat>
+ <anThWLhqipEM34kg@stanley.mountain> <anVK-qkUOaIJkt9M@mit.edu>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
+ YBNdx5Xl74NLSgx6y/1NiMQGuKeu+2BmtnkiGxBNanfXcnl4L4Lzz+iXBvvbtCbynnnqDDqU
+ c7SPFMpMesgpcu1xFt0F6bcxE+0ojRtSCZ5HDElKlHJNYtD1uwY4UYVGWUGCF/+cY1YLmtfb
+ WdNb/SFo+Mp0HItfBC12qtDIXYvbfNUGVnA5jXeWMEyYhSNktLnpDL2gBUCsdbkov5VjiOX7
+ CRTkX0UgNWRjyFZwThaZADEvAOo12M5uSBk7h07yJ97gqvBtcx45IsJwfUJE4hy8qZqsA62A
+ nTRflBvp647IXAiCcwWsEgE5AXKwA3aL6dcpVR17JXJ6nwHHnslVi8WesiqzUI9sbO/hXeXw
+ TDSB+YhErbNOxvHqCzZEnGAAFf6ges26fRVyuU119AzO40sjdLV0l6LE7GshddyazWZf0iac
+ nEhX9NKxGnuhMu5SXmo2poIQttJuYAvTVUNwQVEx/0yY5xmiuyqvXa+XT7NKJkOZSiAPlNt6
+ VffjgOP62S7M9wDShUghN3F7CPOrrRsOHWO/l6I/qJdUMW+MHSFYPfYiFXoLUZyPvNVCYSgs
+ 3oQaFhHapq1f345XBtfG3fOYp1K2wTXd4ThFraTLl8PHxCn4ywARAQABzSRNYXR0aGlldSBC
+ YWVydHMgPG1hdHR0YmVAa2VybmVsLm9yZz7CwZEEEwEIADsCGwMFCwkIBwIGFQoJCAsCBBYC
+ AwECHgECF4AWIQToy4X3aHcFem4n93r2t4JPQmmgcwUCZUDpDAIZAQAKCRD2t4JPQmmgcz33
+ EACjROM3nj9FGclR5AlyPUbAq/txEX7E0EFQCDtdLPrjBcLAoaYJIQUV8IDCcPjZMJy2ADp7
+ /zSwYba2rE2C9vRgjXZJNt21mySvKnnkPbNQGkNRl3TZAinO1Ddq3fp2c/GmYaW1NWFSfOmw
+ MvB5CJaN0UK5l0/drnaA6Hxsu62V5UnpvxWgexqDuo0wfpEeP1PEqMNzyiVPvJ8bJxgM8qoC
+ cpXLp1Rq/jq7pbUycY8GeYw2j+FVZJHlhL0w0Zm9CFHThHxRAm1tsIPc+oTorx7haXP+nN0J
+ iqBXVAxLK2KxrHtMygim50xk2QpUotWYfZpRRv8dMygEPIB3f1Vi5JMwP4M47NZNdpqVkHrm
+ jvcNuLfDgf/vqUvuXs2eA2/BkIHcOuAAbsvreX1WX1rTHmx5ud3OhsWQQRVL2rt+0p1DpROI
+ 3Ob8F78W5rKr4HYvjX2Inpy3WahAm7FzUY184OyfPO/2zadKCqg8n01mWA9PXxs84bFEV2mP
+ VzC5j6K8U3RNA6cb9bpE5bzXut6T2gxj6j+7TsgMQFhbyH/tZgpDjWvAiPZHb3sV29t8XaOF
+ BwzqiI2AEkiWMySiHwCCMsIH9WUH7r7vpwROko89Tk+InpEbiphPjd7qAkyJ+tNIEWd1+MlX
+ ZPtOaFLVHhLQ3PLFLkrU3+Yi3tXqpvLE3gO3LM7BTQRV4/npARAA5+u/Sx1n9anIqcgHpA7l
+ 5SUCP1e/qF7n5DK8LiM10gYglgY0XHOBi0S7vHppH8hrtpizx+7t5DBdPJgVtR6SilyK0/mp
+ 9nWHDhc9rwU3KmHYgFFsnX58eEmZxz2qsIY8juFor5r7kpcM5dRR9aB+HjlOOJJgyDxcJTwM
+ 1ey4L/79P72wuXRhMibN14SX6TZzf+/XIOrM6TsULVJEIv1+NdczQbs6pBTpEK/G2apME7vf
+ mjTsZU26Ezn+LDMX16lHTmIJi7Hlh7eifCGGM+g/AlDV6aWKFS+sBbwy+YoS0Zc3Yz8zrdbi
+ Kzn3kbKd+99//mysSVsHaekQYyVvO0KD2KPKBs1S/ImrBb6XecqxGy/y/3HWHdngGEY2v2IP
+ Qox7mAPznyKyXEfG+0rrVseZSEssKmY01IsgwwbmN9ZcqUKYNhjv67WMX7tNwiVbSrGLZoqf
+ Xlgw4aAdnIMQyTW8nE6hH/Iwqay4S2str4HZtWwyWLitk7N+e+vxuK5qto4AxtB7VdimvKUs
+ x6kQO5F3YWcC3vCXCgPwyV8133+fIR2L81R1L1q3swaEuh95vWj6iskxeNWSTyFAVKYYVskG
+ V+OTtB71P1XCnb6AJCW9cKpC25+zxQqD2Zy0dK3u2RuKErajKBa/YWzuSaKAOkneFxG3LJIv
+ Hl7iqPF+JDCjB5sAEQEAAcLBXwQYAQIACQUCVeP56QIbDAAKCRD2t4JPQmmgc5VnD/9YgbCr
+ HR1FbMbm7td54UrYvZV/i7m3dIQNXK2e+Cbv5PXf19ce3XluaE+wA8D+vnIW5mbAAiojt3Mb
+ 6p0WJS3QzbObzHNgAp3zy/L4lXwc6WW5vnpWAzqXFHP8D9PTpqvBALbXqL06smP47JqbyQxj
+ Xf7D2rrPeIqbYmVY9da1KzMOVf3gReazYa89zZSdVkMojfWsbq05zwYU+SCWS3NiyF6QghbW
+ voxbFwX1i/0xRwJiX9NNbRj1huVKQuS4W7rbWA87TrVQPXUAdkyd7FRYICNW+0gddysIwPoa
+ KrLfx3Ba6Rpx0JznbrVOtXlihjl4KV8mtOPjYDY9u+8x412xXnlGl6AC4HLu2F3ECkamY4G6
+ UxejX+E6vW6Xe4n7H+rEX5UFgPRdYkS1TA/X3nMen9bouxNsvIJv7C6adZmMHqu/2azX7S7I
+ vrxxySzOw9GxjoVTuzWMKWpDGP8n71IFeOot8JuPZtJ8omz+DZel+WCNZMVdVNLPOd5frqOv
+ mpz0VhFAlNTjU1Vy0CnuxX3AM51J8dpdNyG0S8rADh6C8AKCDOfUstpq28/6oTaQv7QZdge0
+ JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <anVK-qkUOaIJkt9M@mit.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 06, 2026 at 10:32:40PM -0500, Dan Carpenter wrote:
-> On Thu, Aug 06, 2026 at 01:28:25PM -0400, Konstantin Ryabitsev wrote:
-> > - actually applies
-> > - isn't against a known LTS branch
-> 
-> No one wants patches against an LTS branch.  That would violate the
-> stable rules since everything should be upstream first.
+Hi Ted, Dan, Konstantin,
 
-Right, we should issue a warning if it's not a backport from upstream
-(e.g., if it's against an LTS branch, it should have an
-Upstream-commit: tag).
+On 07/08/2026 05:23, Theodore Tso wrote:
+> There are some few exceptions, where a fix can't be easily backported
+> to the LTS branch, and so a different way of fixing a particular
+> serious patch needs to be applied to the LTS branch.  But normally
+> this will be explicitly stated in the commit description, but we don't
+> do that in a structured way, so it might be hard for a non-LLM bot to
+> figure this out.
+Good point, but instead of looking at the patch description, it might be
+enough to look at the header: an exception could be added for patches
+sent to the stable ML with a version in the prefix.
 
-There are some few exceptions, where a fix can't be easily backported
-to the LTS branch, and so a different way of fixing a particular
-serious patch needs to be applied to the LTS branch.  But normally
-this will be explicitly stated in the commit description, but we don't
-do that in a structured way, so it might be hard for a non-LLM bot to
-figure this out.  On the other hand, this is a pretty advanced
-technique, and it's unlikely that a new kernel developer would be
-doing something like this.  So we probably just ignore this case for a
-newcomers-focused bot.
+But back to the idea of checking if the patch can apply: it might not be
+easy to deal with all the different trees and branches. There might be
+some dependences that are still in review, or applied somewhere but not
+in linux-next yet, or conflicts with linux-next, etc. Plus note that
+Sashiko will generally complain if it cannot find where to apply it.
 
-						- Ted
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
+
