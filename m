@@ -1,41 +1,50 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0900B442399
-	for <ksummit@lists.linux.dev>; Fri,  7 Aug 2026 13:28:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCA647A894
+	for <ksummit@lists.linux.dev>; Fri,  7 Aug 2026 13:34:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786109339; cv=none; b=EmOyFiL3s0YVajjScFV8+bO3Ty2UI5ZvbuM9udNeOIaZTp3imb3W44SM0v0WG8Yto5QGOecEu3Az1bavYmLIKEsRcIb7k7vBmMywH8h9F3ovJOay+m93TUhixKWEbg9YVJ6DgMVTnH0naSVLRjfsX9C0f+1lCfBSdQ8iYjn4GYY=
+	t=1786109679; cv=none; b=KVHxsbHIiP+Gp6e7ZFQ0ctAs3SyZvjKURgk1nhpD79V8OszZUrDHp34y/fxeE6mnumGfz62WDxRFs5ZHRsFewXgu4Rk4jEqOEgCwNftYrcSwnRGsIM8GyhoTnvBn88at2fDQrOTwURUt2pTWrc/ZFxxboaE4oVE8T1CMKdTb7u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786109339; c=relaxed/simple;
-	bh=hLYFnrrUGVJdeB9Vwceu7x4of47fQZhBIzlr/duq8OQ=;
+	s=arc-20240116; t=1786109679; c=relaxed/simple;
+	bh=eFeYVq0z2jxs/nOaFRr+kFuY49EYbvyg369USkMewUY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V+AkagLpomPQ8I3vhW9kW9rZpgnyZVFXVMKmP1aXkGeyqO0OkQzVWw/FaAXOf0a333gV1n0p+MO6ZSS2D36Q+uQ9jasUKif0PNKwXkId9QP+w4kCLacjp88Otc5fqudHCzV8cJk1DX6xRbnm7uiVXDmAExP5uYOvSfazkwk2PEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mJ0a8AWW; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=AjuVi4JgQKEePQpJekFna+sCkslUzB3wfp+vHofN8p4uUEoUUgM1X9p2Bt/qf/rmj2ysLH9EKYwTSa5g+d05S/GAmH/cZ7mQSBwXyMGYR4VvSzjg96QAe15X7Zj+9Y/ifR6RHuKA+yZ+xw4cB9bRWPfagBOG/gynOhVxGRhe5oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i6xUzDw6; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mJ0a8AWW"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i6xUzDw6"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5AD9E324;
-	Fri,  7 Aug 2026 15:27:42 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8892F517;
+	Fri,  7 Aug 2026 15:33:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786109262;
-	bh=hLYFnrrUGVJdeB9Vwceu7x4of47fQZhBIzlr/duq8OQ=;
+	s=mail; t=1786109599;
+	bh=eFeYVq0z2jxs/nOaFRr+kFuY49EYbvyg369USkMewUY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mJ0a8AWWVi8ZBYRRov0CxjI95xNm8LW4o8RA906qWnUVjSiVWOVq/8azmtMD3+uRy
-	 tVJrqI/RmWbS2WyS9hGb6fr1wmXzg0Lgm/H17wYuR4oeUIBLnFVg6Z59E/X/1sEvUx
-	 EwQ+N3Ok4cCgCJinOhPvidE1smM7/CMtAokEqI4Y=
-Date: Fri, 7 Aug 2026 16:28:52 +0300
+	b=i6xUzDw64evrO24ABVizAFJF0ZyuhlOkUQoKD8gxqI4FS2s2v9MQnSWhiKREQ7QxO
+	 F3B77Bp+N+GpU6mlJnMg86NDGGalrs0T+rlaCipy3kO87YJvMD2HmCzKcvkjoroQ89
+	 7a/Mttc3iwDugbjU/QoWmHoGyIWorj3nfn5lXx6k=
+Date: Fri, 7 Aug 2026 16:34:30 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
- summit?
-Message-ID: <20260807132852.GM2201016@killaraus.ideasonboard.com>
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
- <20260807125825.GL2201016@killaraus.ideasonboard.com>
- <8f07d379f3f4c67b2a9a62330e43066d312d42a4.camel@HansenPartnership.com>
+Cc: Matthieu Baerts <matttbe@kernel.org>, Theodore Tso <tytso@mit.edu>,
+	Dan Carpenter <error27@gmail.com>,
+	Konstantin Ryabitsev <mricon@kernel.org>, Greg KH <greg@kroah.com>,
+	Jonathan Corbet <corbet@lwn.net>, ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Coping with the new-developer flood
+Message-ID: <20260807133430.GN2201016@killaraus.ideasonboard.com>
+References: <anSpoxZ9SUBvFOZj@mit.edu>
+ <2026080651-bony-hertz-bfb6@gregkh>
+ <20260806-industrious-whippet-of-jest-a91eaa@meerkat>
+ <anThWLhqipEM34kg@stanley.mountain>
+ <anVK-qkUOaIJkt9M@mit.edu>
+ <78ee9f53-09b1-4934-82af-25f3652b108a@kernel.org>
+ <20260807115603.GH2201016@killaraus.ideasonboard.com>
+ <04b4e9abab2831b177228752860bedab1f15a736.camel@HansenPartnership.com>
+ <20260807124017.GK2201016@killaraus.ideasonboard.com>
+ <9190410e0173138f9cc95e6e7f68c4ca14b2d333.camel@HansenPartnership.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -45,48 +54,45 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8f07d379f3f4c67b2a9a62330e43066d312d42a4.camel@HansenPartnership.com>
+In-Reply-To: <9190410e0173138f9cc95e6e7f68c4ca14b2d333.camel@HansenPartnership.com>
 
-On Fri, Aug 07, 2026 at 09:09:05AM -0400, James Bottomley wrote:
-> On Fri, 2026-08-07 at 15:58 +0300, Laurent Pinchart wrote:
-> > On Thu, Aug 06, 2026 at 11:34:09AM -0400, James Bottomley wrote:
-> > > What got me thinking about this is the obvious funding problem: MS
-> > > is free to attendees, but only had one sponsor in 2024, none in
-> > > 2025 and is on track to have none this year.
-> > 
-> > The sponsorship prospectus ([1]) indicates that the "attendee gift"
-> > category is sold out, does it mean one sponsor signed up ?
-> 
-> The LF paid for the attendee gift last year. Since they have to be
-> ordered some way ahead of the conference I'd guess the same is true
-> this year.
-> 
+On Fri, Aug 07, 2026 at 08:51:50AM -0400, James Bottomley wrote:
+> On Fri, 2026-08-07 at 15:40 +0300, Laurent Pinchart wrote:
+> > On Fri, Aug 07, 2026 at 08:28:08AM -0400, James Bottomley wrote:
 > [...]
+> > > There are two reasons not to insist too rigidly on base commit:
+> > > firstly because a lot of series are invariant (they apply to any
+> > > tree because there's been no commits in the areas patched)
+> > 
+> > Then the author could pick any base commit available in Linus' tree
+> > the relevant subsystem tree (typically an upstream release of the
+> > next branch of the subsystem). Would that have any drawback compared
+> > to not specifying any base commit at all ?
 > 
-> > The maintainer summit is limited to 30 guests, plus up to 7 sponsored
-> > attendee according to [1]. Assuming neither Linus nor the program
-> > committee are counted as guests, that would be 43 people in total, so
-> > a rough cost of $2500 per person for one day. 
+> It's just pointless hassle given the maintainer workflow is ignore the
+> base commit and do git (or b4) am on the current branch and only if
+> that rejects either try and upport based on the base commit or ask for
+> a respin (the latter being the most common course of action).
 > 
-> I take it you've never seen the bill for attending a USENIX (or a lot
-> of other) one day events.
-
-USENIX, no. That was unfortunately before my days.
-
-> > I understand that hosting events in large venues is expensive, but if
-> > the maintainer summit is an invite-only, separate event, would it be
-> > an option to drastically cut costs by hosting it in a nearby but
-> > separate location ?
+> > > and secondly because the series has a dependency on another posted
+> > > but not yet applied patch series (i.e. no published base commit at
+> > > all).  At least make it a Maintainer decision whether to insist on
+> > > base commit or not.
+> > 
+> > Isn't that what prerequisite-patch-id is for ?
 > 
-> Is there any point wittering about your speculated numbers vs mine? 
-> The bottom line is there is a cost and someone has to pay it if there
-> are no sponsors.
+> Dear god, absolutely not.  I can't match a patch hash to a series, I
+> want the lore link of the prerequisite series in the cover letter.
 
-Please don't speculate that I'm speculating. I've organized multiple
-one-day events for crowds between 15 and 25 people, at costs of around
-100€ per attendee for a meeting room and lunch. I know it doesn't scale
-linearly, and I'm sure we don't want to organize the maintainers summit
-at the lowest possible cost, but there's quite a gap.
+I thought lore was indexable by patch-id as well, maybe I'm mistaken. If
+that's not the case, it could be a useful feature.
+
+The message-id of a prerequisite series is certainly better. There's
+apparently a b4 trailer for that, prerequisite-message-id. See [1] for
+an example. I don't know how automated, or automatable, adding that
+trailer is.
+
+[1] https://lore.kernel.org/lkml/20260805-tegra264-pcie-v9-0-fa2ed7350ae1@nvidia.com/
 
 -- 
 Regards,
