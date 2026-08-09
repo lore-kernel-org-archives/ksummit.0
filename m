@@ -1,81 +1,76 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95D73612E0
-	for <ksummit@lists.linux.dev>; Sun,  9 Aug 2026 18:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65DA390CB7
+	for <ksummit@lists.linux.dev>; Sun,  9 Aug 2026 19:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786301253; cv=none; b=q40GvxsOpH3X42YxYB7GjBa8kgvBjkS+VfZQBqrvTHs8ws4gznfOjLB0jyk6b0MudqZ3zQM+zpOYiWALRVyuesLUGvowbGNK72Bh7U7l3lTC+ii9VPKIY39HEyW5NbqNd6TKvHqV0DWpnOdXLsED8F1CuzrjG68g8cYfnwI8NGU=
+	t=1786302314; cv=none; b=kbUCxZOuai2kFWjr5E/4EcjCMTEY024wTjaosEcsCgChcODS9xLSPlXuhof4XQ3QCRilgkunL8xywvof8QfT8JoWs+XDhLioDszh3Lfym7xeYxSJmLb7ZQT0j3JjvgCNCKqxcxBsUYwiTgp7kOi7hMWxXcw+gO5iDA6lfvleFcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786301253; c=relaxed/simple;
-	bh=a/KhQrXhgxCfBlwcANO2olMNr8WMVXJJeFNw+4xDi2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ltPdf3NAZgDiqslIuU5PpVO2rdkFFuBn3h1wYX/Yb3Yp2YCBU5S7m4VxsLm/W8mOLgtnXIPxyq5mYWp67YT53pUmPVvV46KH0pdWuDoBXvylsFLTgiNWmT6FaFxDyKW/2T9WxNz9emJx8WMCWa5doqHol2ztQNGtJVtaa0SXKmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=trPeI8M9; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1786302314; c=relaxed/simple;
+	bh=oJDWN2zcE6MBIrqcfjDGg4L6Yd7OICnY5pAqDVVaGog=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=RytQVgodBWZj8eEqgLxPsdh21UfcbJ+dMDeIqeVkWVFIiNElyvaC4GzzMHLNLVFTTBIeKV6T77pv7Mxyh00LCsbfYWTtykjfUu6WYmWT3i7ThNGprytmk0tyFpZfWJrnOhL/8+o1ac8eo3XHXSfOLgBz14D78haN/WKRDqna9/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=PxexqIj9; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="trPeI8M9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=KTY7I1oQbKiTrwLuQfdd1MVFzbW4yGfbck/EMwLqnkc=; b=trPeI8M9rr/cFhQeYM+KvYmoGY
-	xxoAhn0vYSiHO0ayKQmsY5R/UMn4dqEm00Wv00OoB03T+GiE0cyunV0kZxmv49HVA2pM6tFmsHjxY
-	zOvyyoMlzNHWsiTewaRpnHRMAeAw2uibg7TOE4kwMVOU0LhfnnStsE4BQ/O96GWf9Pc+nH7oZOiDk
-	XljLMh7UBjGOKNbc/lY5qYf91bXdcfP7bDNmFE7Tut4Stl+Nh+0tn0enPqHXUvaN68KHGQBFZO/CE
-	YvldXHuxQIe2fH6U83oMNoZT2uBDqQBcGGkBn/3yXTvU2XmiGCCtszoEJu9jWUjifsyolZpBhQqb4
-	KlAOuWCw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wt8YO-0000000AalF-41fK;
-	Sun, 09 Aug 2026 18:47:25 +0000
-Message-ID: <48552534-ab4f-474f-ab6f-d09a1516e610@infradead.org>
-Date: Sun, 9 Aug 2026 11:47:19 -0700
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="PxexqIj9"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 00220408BB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1786302274; bh=880bOuFD9t0FVzgQ7jKywhlMYeoPZA6I73X2jc3tsEY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=PxexqIj9DAP9gNzZn14mJTMS7WiaKEMgWQh9cFJKQV1ONhFo4IeliL8MzbB0gVPNk
+	 c9I6QQWZQ0RLbWJjaJMDKYUmrq4FCtaaYY+OaupIYhMD9dLdUkBdQo0f+oDV0r4ISk
+	 1fgKcya4mW26bzfTQ0rc6KgmDRyoMPHlEUFDNWMBs5jMB3J4mkQpXT/2cUZuJwY9LD
+	 6TTaC6KD7YqSCE2n1ErqLyoZYds6dlLkLI2cmbsTGDMv6dGu3Qm2XixdSthmzsdslM
+	 rLFdkVl8L8Tl2F46Ou6PBUUr2h1uZUEne3fgcMNLnwYIc8V/z0OlK3yyR+bF3DADB1
+	 zovAp0xyNobwA==
+Received: from localhost (unknown [IPv6:2601:280:4600:27b::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 00220408BB;
+	Sun,  9 Aug 2026 19:04:33 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Theodore Tso <tytso@mit.edu>, Linus Torvalds
+ <torvalds@linux-foundation.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, James Bottomley
+ <James.Bottomley@hansenpartnership.com>, ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+In-Reply-To: <anfUgiByUVffXlrQ@mit.edu>
+References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
+ <20260806194153.6443a3ba@gandalf.local.home>
+ <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
+ <anfUgiByUVffXlrQ@mit.edu>
+Date: Sun, 09 Aug 2026 13:04:33 -0600
+Message-ID: <87y0efi08u.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
- summit?
-To: Theodore Tso <tytso@mit.edu>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- ksummit@lists.linux.dev
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
- <20260806194153.6443a3ba@gandalf.local.home>
- <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anfUgiByUVffXlrQ@mit.edu>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <anfUgiByUVffXlrQ@mit.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
+"Theodore Tso" <tytso@mit.edu> writes:
 
-
-On 8/8/26 6:51 PM, Theodore Tso wrote:
 > As another thought, when we had 100+ people attending the Kernel
 > Summit, that we would make a *point* of inviting people who had never
 > attended Kernel Summits before, so we would get new blood attending
 > the Summit.  After we significantly reduced the the size of the
 > Maintainers Summit to 30, we've stopped doing this as a deliberate
-> practice.  Should we change this?  For example, we could decide to
-> include a few people who aren't currently acting as a maintainer, but
-> are fairly prolific contirbutors / reviewers.  I do *include* such
+> practice.  Should we change this?
 
-I think this is a very good idea and would like to see this change.
+FWIW, in my role in the program committee, I have always tried to think
+about who we should bring in that hasn't been there before - with a
+certain amount of success, I hope.
 
-(and I'm not looking for an invitation :)
+We could perhaps do better, maybe with a rule that N% of the seats
+should be filled by first-time attendees.  But we do also have to be
+sure that the right people are in the room handle the topics under
+consideration, and that will inevitably include a number of old-timers
+who have been there before.
 
-> people for consideration in our ballots, but they tend not to be
-> chosen by the program committee.  Should we change our criteria to
-> explicitly include a few such folks?
-
--- 
-~Randy
-
+jon
