@@ -1,72 +1,50 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3D8375F83
-	for <ksummit@lists.linux.dev>; Sat,  8 Aug 2026 08:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA572DA74C
+	for <ksummit@lists.linux.dev>; Sun,  9 Aug 2026 01:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786178762; cv=none; b=ccOC+xPa5UEpy85VePmDTtZ8vETW8l9R0A8Td5EI//lehdjQ9Wn+KDEhx0JJ4C3MLw4/sr/nurrwyLpZHT1AippjFX8RHy2/oWYJI5pzMDmoiVK4F6xAVZGBMar0yaUVNymi0zPUusobG1/CxYd84myHMICi38RlPcYA47fHIfg=
+	t=1786240292; cv=none; b=eLWScam0e2BAtAcCO2DEs5FrVCDxtWAcBJaZvKzjaPxooIUbIGDwQtQjm8AQ8UDJYiJ77bqGSnvfSsX7npS0RjSZZUKzKqUfBQwjG5CXkk68bxx96KzIIbfc6CQffaDcCDHklc1576RWX4I7KM9KKicpa31ATjlbWZ2FqruoBR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786178762; c=relaxed/simple;
-	bh=G4MB8ll5KVtEuoFvBo8IyYPKIZSwhpNw0QfKou5GsdE=;
+	s=arc-20240116; t=1786240292; c=relaxed/simple;
+	bh=SYEU1OvMOGtTBhSgmJqVJ6fgiehyx0UOMchcpHSoZzA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iIlCaU5UDclIhtn6jMYlWZBdPf/KMH5RulSQjHAjXyARK0QdRnG8fVGKC7E/BFOz51Gb9+7hQX7IXPnuEeBS2FBtjOTqabBpbr1FUjtWruHddxFTUbstTaDvU+mhCPhOvbTnfmGrBN7RIo20f47NCaDGN7sCf5ENtuBZl+Sl6wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mwJlhic0; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=fAswJsc8X8kVehOGCNx0RpweowncPpunsMthd5VQ+mtQy+AIMVXusWy17/JsK8g7kFyNavYy0Pj2Rit3430IuJk12IccyO0hxqBaEay0etPKlGYHjI9aAzIJnvfOutjZqhPSwOsYB2iDIC92BbJXoCr7x68w6l28UY36U/IfeIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=kJ3ZzaIg; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mwJlhic0"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-8efcfdb2b43so1803256d6.3
-        for <ksummit@lists.linux.dev>; Sat, 08 Aug 2026 01:46:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786178759; x=1786783559; darn=lists.linux.dev;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jVm/sTIO4tgRVYPW4M9ej7eAcrR0SHHeFL/mJZzoPYk=;
-        b=mwJlhic0jRHQ4w7uISdexPRxMf6fcxWQawA5w9u0sF/JXFCvQDf0X/c3HcWROGN2un
-         XutoPf+K/DHjcH/cB823/N/Zk0jdL4/LNPewG/7/MnNmCfkAayzqoR0PK7Xl+Uqx/fYB
-         F02ei1u0UGoBZkYvad2soxQaM1UTQc8wnlgbDkCG6eyDChOo6xJTiwTTINgNyo1Y4XLk
-         GyUEcSZORS5WosZxv1uwksE6Hx8Gkzv60qzY188XM7s8baAQykLQpyJobp6YpuScuY4I
-         edmJ2VyX9N8jJ9MWwu6DNanu2kqy5qJRzaUVhEFF20O45PNztoukxLXYtjfqEdDOMHFB
-         VquA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786178759; x=1786783559;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jVm/sTIO4tgRVYPW4M9ej7eAcrR0SHHeFL/mJZzoPYk=;
-        b=d5TZ9+I/0hr5Q1J/nPL1qpAidzDJzRwYi0EX2Q1vQDIzVw0VfihyPph/WOB5L3WJDS
-         Er3Ij+rR/AYug5+GcBP4ZG8USjGgXFtJ8P2XL6Ntn98VMT572iHJanvsGtQksoe8LiKM
-         evt0MiEoUywDy4PMEor0+SVecIgC6kg2V2c7570qErP4DGFd6OqZ9vj3LlaalBKV7tOB
-         wrDDPvWtj3KRASR+f9HF5gCsc0qD9IRMzVv4GOik0JPIS6BarvP+9MJhZXiXIjVHgxHH
-         W6EF8HEk0lJOhWvWw1KJMYsEKtuwLLCMT5JUJeEzZBQjIqdGRhaNONsTSM0Y7Rv/BOT2
-         Nc1g==
-X-Gm-Message-State: AOJu0YzhKaslDxM/n3WatnSzV7APt+pvuSSzF6mvW1okno6qR2E75Eay
-	RJkn1nYAcx4xyCttHEXvwO7/wjpDCPP2qQEkDBZCzXrCLHkEIzBM24yT
-X-Gm-Gg: AR+sD12grP74rBPTUky4aKcTkvsmTJgU0LGcRPuzruorPWQMCJtMu8RJT5m0kwy+2CS
-	NCY6a9K0ftpS3uNwifxaWPBDTnWSZHNoytWx7pmntBpol2M1HgLd9sLDqXfjn7T4Knw4827JPXR
-	6lDN6nmIT74B2otk5EQw/rzrqPDQ6V6Tf23b9uC4sSRobSefkaKAyIy457frOv97vOZpQ8ZYqyB
-	9Le/XL4YHfmUkvghMkpZ8Xhm77dw0rwEFbK1rKJelMTfl8fXqjci727luRRn65vdWAjibdGVPIC
-	xsd5rqEE3+xkbEcZ4n0r9KrMW1wqeoDIRum8hvJ5aZQMRRWjlNg3kSWkWIA82OVnfRQRr7WaNMc
-	n5ngYjpIxHctzHu1tkzTZ9WozOyVS2aUk4JQLZZqPkxS/BAazw4U51TDblAEUr4Te5ku/p2BKKV
-	Wagg/TtSCtJMoMG6G7nAT6+v2AATlqQCRMTlKQBQmCkWvbdcPfWYK8+w==
-X-Received: by 2002:a05:6214:501d:b0:8f3:9d85:405b with SMTP id 6a1803df08f44-908812539afmr295114256d6.16.1786178758597;
-        Sat, 08 Aug 2026 01:45:58 -0700 (PDT)
-Received: from localhost ([172.216.11.43])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908a9331213sm26562066d6.41.2026.08.08.01.45.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 01:45:57 -0700 (PDT)
-Date: Sat, 8 Aug 2026 11:45:51 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: ksummit@lists.linux.dev,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [MAINTAINERS SUMMIT] Other LLM-related topics - tags, newcomers,
- etc
-Message-ID: <anbsv_EUkXZD4dtx@stanley.mountain>
-References: <87wluv7yzc.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="kJ3ZzaIg"
+Received: from macsyma.thunk.org ([67.208.186.90])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6791pG6S030245
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 8 Aug 2026 21:51:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1786240279; bh=WAxYNN5tgB6qi2sDeBkFSCLI2lfkJFYTctYDbOemtS8=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=kJ3ZzaIgp2lguA/108EZh8NjRR8cq3zxbllXPYxTHJOt+2Q4nKIegByU477VxW8fj
+	 snQC3oSXH4j9vekebxkQUtmPF1hxsAuuXXRO+fbX3bQSZYVWeuVippCzehVqICA1P4
+	 xPb0bJ8ptXtllaGevfzW3vZDJWkYEicS/miDLcYs1p9qJcc/RvQq1Uz9+AhEG8Gkow
+	 KSZNGeA0Luw603BpYBbg8CJvj/AaCldKk8s2wX8l4yKkQlaDDNe7y+X6IKHGTDO2sZ
+	 PUsUwwfEKfDO/yF3alXG2HjIrrYcwIDzcbYWE6GyTkifAV/0vDkg0eK9qlxXlhqH7P
+	 FtUpliFbO8+Yw==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 5FA52E0880C; Sat,  8 Aug 2026 21:51:13 -0400 (EDT)
+Date: Sat, 8 Aug 2026 21:51:13 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>,
+        ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+Message-ID: <anfUgiByUVffXlrQ@mit.edu>
+References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
+ <20260806194153.6443a3ba@gandalf.local.home>
+ <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -75,34 +53,64 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87wluv7yzc.fsf@trenco.lwn.net>
+In-Reply-To: <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
 
-I wish people would say describe their process more in commit messages.
-Harshit Mogalapalli and I regularly review CVEs to figure out how the
-bugs are detected and most of the time it isn't stated in the commit
-message.  These examples are all based on guessing and not from anything
-which was said in the commit message.
+On Fri, Aug 07, 2026 at 10:27:27AM -0500, Linus Torvalds wrote:
+> The maintainer summit being a pretty constant "in-group" is
+> fundamental, but it still feels a bit sad and wrong to me.
 
-I reviewed a patch and it was sold as a buffer overflow fix but their
-actual process was 1) grep for FIXME.  2) Ask AI to implement the FIXME.
+I was curious about the data, so I looked at the spreadsheets for the
+last four Maintainers Summit (from 2022 to 2026) to see how many
+people had attended all four Summits... or 3, or 2, or 1.  Here they
+are:
 
-Another time, someone sent a security fix and a security company prompted
-their AI to fuzz test the heck out of it and discovered that the patch
-was incomplete.
+# Summits
+Attended   #      %
+------------------------
+4 	   9	18.37%
+3          8	16.33%
+2         10	20.41%
+1         22	44.90%
 
-Or someone set up a test system to just connect and disconnect the
-ethernet in a loop until something broke.  That's a real bug, but there
-is no way they hit it except in a test environment.  That sort of
-information is useful because we could all add that to our test process.
+I'll be honest; these numbers surprised me.  I can understand Linus's
+statement about how it feels like it's pretty much the constant
+"in-group", since I had the same feeling --- but it's much less of the
+same "in group clique" than what I at least had expected.
 
-Or another person set up a virtual test environment and they were able
-to produce real stack traces.  These are bugs which can only be triggered
-using malicious firmware.  They explained this when pressed but it wasn't
-in the original commit message.
+Probably, some of it is that there is a certain set of biases and
+thinking that comes from people who are "core maintainers" -- such
+that even if 20% have only attended two out of the past 4 summits, and
+45% have attended only 1 of the past summits, those attendees probably
+approached our discussions the same way as someone who has been at all
+of the past 4 summits.
 
-What I want in the commit message is more of a description of which
-AI prompts were used and the process so I can copy that and discover
-other future bugs.
+If there are things that we could change in terms of how to make it be
+less of an "in group", I think that would be a good thing to consider.
+Should we invite people who might have a very different sets of
+opinions --- for example, while Kent Overstreet was an in-tree
+maintainer, should we have invited him?
 
-regards,
-dan carpenter
+And I'm only half-joking here, even though I would have found it
+personally uncomfortable if Kent was at one of the Summits.  But
+perhaps we *should* be a little uncomfortable.  Furthermore, one of my
+original goals behind starting the kernel summit is that sometimes we
+can work better together when we've broken bread over a shared meal
+together.  That being given tht many of us had a chance to work with
+Kent at LSF/MM/BPF and (I think) Plumbers, I'm not sure it would have
+made that much different to what happened with the Kent situation.
+
+As another thought, when we had 100+ people attending the Kernel
+Summit, that we would make a *point* of inviting people who had never
+attended Kernel Summits before, so we would get new blood attending
+the Summit.  After we significantly reduced the the size of the
+Maintainers Summit to 30, we've stopped doing this as a deliberate
+practice.  Should we change this?  For example, we could decide to
+include a few people who aren't currently acting as a maintainer, but
+are fairly prolific contirbutors / reviewers.  I do *include* such
+people for consideration in our ballots, but they tend not to be
+chosen by the program committee.  Should we change our criteria to
+explicitly include a few such folks?
+
+Cheers,
+
+					- Ted
