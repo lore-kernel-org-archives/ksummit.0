@@ -1,42 +1,35 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144A534D90C
-	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 14:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6733F4DE9
+	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 14:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786371864; cv=none; b=JPYx4EWBna66jH3pzwPzvjuT7vEH/lY3rS7wIePbLmw542vgSX0kywJ0oux0rRI0x2nspvtbmVfDPLZWmAEdZrSHmoY14ZcsV6hsI67/5o+WF7ikltbwDGFaBhwTkgtnvtAX4KV+Rxy64QvJ34r6p3/yEAJ9Aj7JJQhcWOHYxew=
+	t=1786372906; cv=none; b=jmR6Jjby25XN+5yYjwzngxI9ttO4B9hBD1r274PkmSu5tz0J+Kn6++U5rmcHpVQsIT3q2+/4WpDrD/Ci0DfG0GzT+Q2z4V8Q6q19VOdgE2+SiPXEYRla41kQ8nIkn+r/5SBmsXO2CPfHPOJKB1pLt/zWo2E0FotYZV753hUCXy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786371864; c=relaxed/simple;
-	bh=FfmF+HAi8vaVoyv044mzQpFrJg30hPCa/crvcSPh9Zo=;
+	s=arc-20240116; t=1786372906; c=relaxed/simple;
+	bh=YLgqI7Stu32AEW7B0BSXZNE4PlW0xULnvGmOLVgc7Gk=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hXPE6BGz0w5a2T5D1tGSmkgECw3WMvqwv5kgYiRWX9qNcKyr0qkcebWYJ75Du4/9fBU7Ri9b3/jOi1YrdmVybvPjBKE+aecsssUVjXxpRSZMkVUgmsPO1SpaVZUrVyZczqzPxn6o7Jcx6DNRfQUiQTfmZbQP2rRaEuwnkAF/2e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.16
+	 MIME-Version:Content-Type; b=LlZJyjNc9qNhAE7s1KMAK3cGdsfkzO7AU5nL5grmWaFOQwYgKgVfwJDP4PmnSI6ICqmT2ykuj3wJ5JF8AKOi+j3Y5XFM/NWW1HqsIyTvse3AA7h6xJkp+5cBiY9oBmRKfCEcxNwSljrG66Ke3QHi2B3QtTL91wcN/x1ymyyE8qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 17118C0196;
-	Mon, 10 Aug 2026 14:24:16 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 48AEE19;
-	Mon, 10 Aug 2026 14:24:14 +0000 (UTC)
-Date: Mon, 10 Aug 2026 10:24:23 -0400
+Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 947271C0206;
+	Mon, 10 Aug 2026 14:41:42 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id 0723F20025;
+	Mon, 10 Aug 2026 14:41:40 +0000 (UTC)
+Date: Mon, 10 Aug 2026 10:41:50 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: "Lorenzo Stoakes (ARM)"  <ljs@kernel.org>, Dave Airlie
- <airlied@gmail.com>, Linus Torvalds  <torvalds@linux-foundation.org>,
- ksummit@lists.linux.dev
+Cc: Theodore Tso <tytso@mit.edu>, ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <20260810102423.342c4e9d@gandalf.local.home>
-In-Reply-To: <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
+Message-ID: <20260810104150.2dd12365@gandalf.local.home>
+In-Reply-To: <215b3cdfda17207d91b0fa057b01f3cb45eb874c.camel@HansenPartnership.com>
 References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
-	<20260806194153.6443a3ba@gandalf.local.home>
-	<CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
-	<anii3u-87kSrB9K3@lucifer>
-	<CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
-	<anl7CgkKb6tORavG@lucifer>
-	<20260810091154.2d3cd6d5@gandalf.local.home>
-	<cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
+	<anZi9nDTNu4WNc3s@mit.edu>
+	<215b3cdfda17207d91b0fa057b01f3cb45eb874c.camel@HansenPartnership.com>
 X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
@@ -46,64 +39,38 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: eoq4wkes5wrfjacepfgf6ub17cpmqnhw
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 48AEE19
+X-Rspamd-Queue-Id: 0723F20025
+X-Stat-Signature: e3ojkhubj7iasy91phebuie8f77gsmbp
+X-Rspamd-Server: rspamout03
 X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/FMr1c0vFNz1MupxNsyHgFZ0T8lrFfWWg=
-X-HE-Tag: 1786371854-676396
-X-HE-Meta: U2FsdGVkX18bbTFeSYeQ/Rb2msLbGxoGe6iSTIvvClAoX8FRTcF1rryB/H+76aWtGpFAr0FF0Cw3HhhctTBmRW6CTgEN+oghCRyKcvM+qYK1Qsh9ruSpg4R0bVrC2tD/S5zZnp2dWX7VK0vMjDLolPAnYxMD1/dZS0jyhrHk7gH+5CWDqUk2uiy55XJK9SDysEBhhwOuEv4LVmbHTYeMdaOSu50kG8ck4gIYjet5inVIKToFbv7G7eQyLX89ZZn9o7x9i3HTwAt0f3KBTlX4Jku+uHUoLI/XmgixRDEaEp1WXMI1HZeU0+EfPXd42n0AFAR40CMbLwIJyUN1L4/uB7uukelp5TR4cu70dfBTr1m5t9wIAucgaMfE0VRmaXfddJ40434EeNPfkv8NlpJEhkoFaMAuuHsh
+X-Session-ID: U2FsdGVkX1/cpFNgGcgCFxPLvemcokppeFESnfXK3Mk=
+X-HE-Tag: 1786372900-281806
+X-HE-Meta: U2FsdGVkX1/+BiIz36QN5IwfTQhxYoXNVb2rHvoHSfHfPtt/K3lgZjwAE+2Q4UPkNqUv09FotOJqE+s9ynqP0rk7nngCngWgc9rvpsSOIzReDWXZkLYfsw6fkqeoDFkUFbsWjLivDNwNBTRwq1Ax7sbCcYMdGE09DpSC/YwyTKN5rx6B98hk6f8fk+Kkl4vRqCjUzZnTg/p63KYka+S/8FmuGQMAJUOvtb1/atG5wuHk6rMgszNtgEggPRVj9IHCADqt57YvS1Eg2i2kWFQTh6nG9J0dlwKD3sMRp+q8KM8hxD2jNJ5W+6M6G218qWdo9K9MLiDBsKEDXnftSvAKYWdfsE/YfxKS5P+U5VXzuFM7s8z8susVE1xTaxJ9/OhAwMDat+cvV58z+MOXDT4qw5vNXX/b+uGz
 
-On Mon, 10 Aug 2026 09:32:24 -0400
+On Mon, 10 Aug 2026 09:54:31 -0400
 James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-> > MM may be a large and critical subsystem, but most hardware acts
-> > pretty much the same.  
-> 
-> Have you met some of the weird architectures with their super strange
-> VM extensions and the even weirder confidential computing extensions?
+> So I think we first need to start with the problem statement.  I think
+> it's that Linus doesn't go to any other conferences except MS, so for
+> him to discuss stuff with us in person, or us to discuss things with
+> him the issue has to be scheduled for MS.
 
-But they are "weird architectures". That is, basically something that is
-not the norm, and needs to work with the main core to come up with
-solutions. Heck this is what we had to do to get RT working. 
+Honestly, I believe if Linus just came to Linux Plumbers and hung out and
+talked with the developers there, it would allow him to get a good
+representation of the happenings of his kernel.
 
-> 
-> >  Where most developers are working together on a common
-> > platform. Even with minor differences between architectures.
-> > Architecture specifics of how to create memory mappings can be mostly
-> > be abstracted out.  
-> 
-> True (well mostly), but the internal complexity is concealed within an
-> external abstraction rather than having it spill all over the kernel
-> ... I would hope DRM does the same.
+That may make MS obsolete, and he wouldn't have to stay in a room for half
+a day discussion various things that could have been BoFs at Plumbers.
 
-That's a good question for Dave Airlie. Is it possible to make a general
-abstraction with DRM (much like VFS)? It sounded to me that the "weird
-architectures" of DRM was the norm not the exception. Perhaps it is more
-like what ARM was before Linus told them to get their act together.
+When he sat in on the printk session in Dublin, he listen throughout the
+presentation and then gave his opinion about it at the end. I thought that
+was way more productive than any MS session we had. It wasn't just a
+technical talk. It was about changing how printk worked and how it may
+impact people who use it in various ways. Something that affects pretty
+much all subsystems.
 
-> 
-> > I don't know DRM at all, but just from listening to Dave, it sounded
-> > to me like everyone is doing things their own way and Dave needs to
-> > manage it all with a more complex process. Where networking and arm
-> > may be the only ones to rival the complex process of DRM.  
-> 
-> If your assumption is correct, this is internal cat herding ... MM has
-> much the same problem except that it has to deal with somewhat
-> opinionated architecture maintainers (around 22 of them) to agree on
-> the internal abstractions for MM primitives.  Perhaps rather than
-> getting into my problem is bigger than yours type arguments, we could
-> observe that MM might run a bit more smoothly because it gets an
-> additional 3 day conference (LSF/MM) plus a MC at Plumbers to sort
-> itself out?
-
-I guess the question is, what exactly is being big for DRM that it needs to do
-cherry-picking for their linux-next branch whereas Networking and ARM do
-not? Is DRM bigger than either of those? From what I understand VFS doesn't
-have to do that either. And VFS has a large range of file systems to deal
-with. But it also has one of the best abstraction layers of the kernel.
-
-Perhaps we can look at the process of these other big subsystems to see how
-it could help out DRM. Maybe this would make Dave's job easier?
+Plumbers has a much more diverse attendance with respect to things within
+the kernel. I know Linus hates conferences but Plumbers is basically what
+kernel summit used to be at a much larger scale.
 
 -- Steve
