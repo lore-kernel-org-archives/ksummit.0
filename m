@@ -1,104 +1,99 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B1243F091
-	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 21:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA062F0C62
+	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 22:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786398313; cv=none; b=eeeQrCK4LqNvrdFv80cTMhRjK8cv30/yXcltwS67f7Ege1EmVWPEf8XjQx9UhHq70lDD0ciMC0RfRacVP5P7ymV4Qdjcu+7ImOxPwVcoYHXRiyqCfcUIxNWI5uTnTQlURIbnkTLOOuwTbZ3alUWBWk+MRTvJSmuZ6JxMJ2wH3AY=
+	t=1786402037; cv=none; b=hiIb5tKY1Pm0fEQZWX8NERlPzL2MCUi9nkgkh/cHxEFsmDVo5IsplXcN+lw0ruecVr6jFrdP2sMvwOTehXvQwH18cUW2ukJYjJ6P4esLH1+lnJVDOfIdVD5/VPgt4MBijRUbclg4uILzsJxU2ycfYQ7y/HwZx8hRybbvHufnUtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786398313; c=relaxed/simple;
-	bh=HtFPoHiXhsgQWgGKV6R9Iy6JVpQultpfD/Cb5UOSLTE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=TkAtq6s77kNDm51go13O5UmI5IGY91XnV91js8aV8wqs3nFtp+YOmNBb4gx8a4zLSUjGpwcq7bwYjiR5QcUVIaSvSGVFcz0RQ/T4XQUOnh1upEhN8LaPETswD+jPLMfwoJ0J39sdE9lmlOTgbL7uODjOlrxoM39y7Ss4t8HC0V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OSYrmGjK; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1786402037; c=relaxed/simple;
+	bh=qeoM0WAHex8xUKOq2nRFFpnoan8umeo2aQTl7Ko7PqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QjznlVmSwXOuyouIE4bI0HPJeHzfgOCiEtUcS1J80XRTYA1Y7wY2Tm/xdKep8ETnd++Y5xd2wzfdOqgemZIYlxgZxubOsjVd80UKbXlfQOxB2+HaJcboDttDJlCGshP6mab43eRWP5+9vFT0mzO+qKC8kJyt14UjgZdFFwy1RpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEyD0qkd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OSYrmGjK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:
-	From:Date:Sender:Reply-To:Content-ID:Content-Description;
-	bh=fDSoZ8aV+G3aRQiHFwIN1ZZDuhtGyPPpEazhlNPcCR0=; b=OSYrmGjKXFGXxTLou6jWwHw2Dt
-	yJFxLbUxi/KFyBmPoPwyjaGlvopcOjDYA74nNCeab4aUQKHmBMBNyJmqDWMuwD4ff2ZZUe2EVarLd
-	oFsBuDAggeIZZaRCQ/DTD0qx1EcX2SJT4cltfZoPakubMS3c7OAagoZhvkLCJ5o54f5wrcTCmCrBm
-	fmLL7Xf9wAobbSdrWQpa2ULM77RK3GKEGmHyJwWcy3+xGJlGMB7ge4LP3h3MxdBUR1+wrGpfxjQJJ
-	fmD87ItgtJfz1/laXQ3ZLKFSBxdMQ6OqJtIfvizv89GT9PMM6vqlqHHkD0wtanvLCannlQQL2pYF3
-	CICFpG4g==;
-Received: from [38.23.173.23] (helo=ehlo.thunderbird.net)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wtXnp-0000000CvPH-26Px;
-	Mon, 10 Aug 2026 21:45:01 +0000
-Date: Mon, 10 Aug 2026 17:45:29 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Dave Airlie <airlied@gmail.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-CC: Linus Torvalds <torvalds@linux-foundation.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- ksummit@lists.linux.dev
-Subject: =?US-ASCII?Q?Re=3A_=5BMAINTAINERS_SUMMIT=5D_Time_to_cal?=
- =?US-ASCII?Q?l_it_quits_for_the_maintainer_summit=3F?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CAPM=9tybMTBw0iz2BSQ_p+3ybk=SmoLuRgiyyE6BP+=1+2RkfQ@mail.gmail.com>
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com> <20260806194153.6443a3ba@gandalf.local.home> <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com> <anii3u-87kSrB9K3@lucifer> <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com> <anl7CgkKb6tORavG@lucifer> <CAPM=9tybMTBw0iz2BSQ_p+3ybk=SmoLuRgiyyE6BP+=1+2RkfQ@mail.gmail.com>
-Message-ID: <F06EE533-9F8C-4869-9C27-5D8D79D8DC8A@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEyD0qkd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDEC1F000E9;
+	Mon, 10 Aug 2026 22:47:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786402036;
+	bh=J5xk24pC70jZS3eOJlFZ4nDjEJ+3AQo3NOWmARzPbCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AEyD0qkdx2NVri9+d57kky3REtcDbVRMrw/2HHTB/J5QZlWpOm59vodHFNOL84TZc
+	 /HX7x8beHq8AVhhavm94IPA7XNnZorsH8jiQHqhzm0ts5fq0GJUxok2vZCGv5x+/+D
+	 aoFOULOhVsErJvXi7b20PWeun5rrjmW9OwUU1g0aqSEur4qurqdRZFY+z3zW2IB6V1
+	 5qSr6n9ACCUGodLI9wd2aX9t9q8vteqtMrTlmkDvZDKJB0NYulVT8eiqFCbF9o8y3I
+	 j1L7P5L7qvIcsi6GQwXW3v/Gzipk7OIBF97JcLpi8wl8q7858re+O3jn8W/z85lDfU
+	 7AWrTfUK1+PNQ==
+Date: Mon, 10 Aug 2026 23:47:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Dave Airlie <airlied@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+Message-ID: <0a723972-7be8-453b-8fd1-d934e3c422af@sirena.org.uk>
+References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
+ <20260806194153.6443a3ba@gandalf.local.home>
+ <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
+ <anii3u-87kSrB9K3@lucifer>
+ <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
+ <anl7CgkKb6tORavG@lucifer>
+ <20260810091154.2d3cd6d5@gandalf.local.home>
+ <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
+ <20260810102423.342c4e9d@gandalf.local.home>
+ <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-On 10 August 2026 17:30:48 GMT-04:00, Dave Airlie <airlied@gmail=2Ecom> wro=
-te:
->On Mon, 10 Aug 2026 at 17:26, Lorenzo Stoakes (ARM) <ljs@kernel=2Eorg> wr=
-ote:
->>
->> On Mon, Aug 10, 2026 at 08:10:21AM +1000, Dave Airlie wrote:
->> =2E=2E=2E
->> > I think people really have a misconception about what goes on at the
->> > maintainer summit, the best explanation I've been given was that it i=
-s
->> > Linus's staff meeting=2E The people that Linus works with closest, ge=
-t
->> > invited to talk to Linus and help him figure out where the overall
->> > ship is going and where things are going wrong=2E
->> =2E=2E=2E
->> > Your language choice already makes it feel like you see it as some
->> > elite or special group=2E It's a bunch of technical project managers
->> > talking about the processes of producing the kernel=2E If a talk abou=
-t
->> > the technical content of the kernel sneaks in it's very rare and also
->> > usually not of interest to half the room=2E
->> =2E=2E=2E
->> >
->> > > I mean I don't know, maybe it's necessary to run it as a tight ship=
- of
->> > > trusted people, but I think we should at least be more clear about =
-that=2E
->>
->> I mean this is kinda my point=2E
->>
->> It is being advertised as X but is actually Y=2E So say it's Y=2E
->>
->> That's not what Ted's posts or the write ups or generally any comms abo=
-ut the MS
->> say it is=2E
->>
->> The CFP-ish bit is probably pretty redundant too on this basis?
->
->In my opinion, quite a lot of the problems that get raised by the CFP
->on this list, often get resolved on this list, which to my mind
->suggests we just need to have a better year round maintainers list
->that doesn't get consumed by patches or internal subsystem matters=2E
->
-
-Reviewed-by=2E=2E err=2E  Yeah, this sound like a decent idea to explore=
-=2E
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NXYutNHVGVFB2Hfy"
+Content-Disposition: inline
+In-Reply-To: <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+X-Cookie: Words must be weighed, not counted.
 
 
+--NXYutNHVGVFB2Hfy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Mon, Aug 10, 2026 at 04:23:41PM +0100, Mark Brown wrote:
+
+> I don't think any of that stuff is really what's causing issues with DRM
+> externally - for -next the issues I see are the constant cherry picking
+> (which I gather is also an issue for stable), and outside of that the
+
+For some numbers on the cherry picking: I'm currently seeing 111 dups in
+drm (we also have 6 more in subtrees), out of 1739 total non-merge
+commits.  That's about 6% which seems like a lot, and they generate
+almost all of the frequent conflicts that DRM generates.  Next on the
+list is nfc with 17/35 which is a much larger percentage, and all of the
+8 commits in the hyperv-fixes tree are duplicates.
+
+Sometimes trees show up in those numbers transiently due to sending
+their patches upstream as email rather than a pull request, that doesn't
+seem to be what's going on in the above cases from a quick check.
+
+--NXYutNHVGVFB2Hfy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp6VO8ACgkQJNaLcl1U
+h9A3YAf/QvBThZWy7JQaVLp/mdxrBsfBokgEqrcs8isE47xkpd2sohZu/yz0UtaO
+PudwO0b+NWzPVewpS+Yr3FB6M5fmMWt7VKHT8b0263wuslQaoJ54bNIkGr1AoMLt
+hLy8bgaFFdznDsobuj3aKMVuMt72yyad+lNWfNFsIPf6wGKfjEb9r2/PeLN27uC8
+4hnWy9/pYogNjAK4pN7bhvbICjvgPmqu9vIhsANM+eIt3pJpOJAEy6sd63DFXW6b
+h5uLkEu+0RYuHTlwQWQkJChCwsIarR/01UCyegDOxaDHxghB1kDnTd8WMd+3uHlr
+tNa5mf6u+fBkbVkLF51GCzkGZkFi5g==
+=Zrt6
+-----END PGP SIGNATURE-----
+
+--NXYutNHVGVFB2Hfy--
