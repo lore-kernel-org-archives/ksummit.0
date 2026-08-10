@@ -1,57 +1,55 @@
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9634F30C359
-	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 14:57:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FE53ED5D9
+	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 15:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786373865; cv=none; b=qO0EyCq1HPkgP7Ckq4Yd5AJgoWNeRcQV42BFcFXhjRMseMf6GpfJeqiZqysnZiMLBFJbhyGbX8k4N1aYHvygI7Utz+jnizGyKrebcZqBoCjgt+g6mR4d75eJh8OwDLN0mWcfomXIIsOIaezz4Fli5F30MCyvCwz2qvZZtd9B7m4=
+	t=1786374527; cv=none; b=IBjFSq5QAjqzEAR5cDb3Q7BhXO0z+epkOgKCGGxZY1SZKfBxAlOMTS7L6dtcrtNXp/wmXoFYuEuKD4elzaPDuL4g/i071CqppqhI1irARY/m9/9xQgziH+RJjXS0QYybT6EF6jRxnVW/HPvj0ERpoplZ5HPllx4P+ybfyNciIuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786373865; c=relaxed/simple;
-	bh=bgLQkFBz8IjXZsj8vCIxaGhO8Aewlpwu/j4IbR3Hic0=;
+	s=arc-20240116; t=1786374527; c=relaxed/simple;
+	bh=1ubW86/gb2A6W/48U4RkfJFuOaeqDVNskldH0HbHaps=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KKohckef03rijU/iz/ZfAdmvHLCQT2/gx9sEdBSXmIgL4gbQvZsKNsOFr1v416fYv6c2RyeIlECN3mNQOIn9rZBTyEyvSnca8biRgp7PPiIji6OHnKTgqekvNBAXQklYwumK3l9JbrNjL/EvxxVx61xOhQoBEtd79SsrBOdRCtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=Bxq6GLC8; arc=none smtp.client-ip=18.9.28.11
+	 Content-Type:Content-Disposition:In-Reply-To; b=QRqBJN/w2lL+Po6BwDCSQaa9GOrXAiHfXhLqJS3ngfrFvwpZQAKvnfi+ej3uUU+YyPROzKVDCxyg6vPwh4eaImSC79fy3Wv5NH6HAGxIp/hds5rypLg/0mNUwApGjjgs5ioYKLv4G7kuB/o85Ctf+LXLs0xR/22wX0qk/zCOoy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=GIi01LfF; arc=none smtp.client-ip=18.9.28.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="Bxq6GLC8"
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="GIi01LfF"
 Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67AEvIfe011700
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67AF8Y15024609
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 10 Aug 2026 10:57:19 -0400
+	Mon, 10 Aug 2026 11:08:36 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1786373843; bh=cXuG109aXjSsGZeauKdsfDKOO7M/cKiNCLv4CIuZc6E=;
+	t=1786374517; bh=dngTPHsYZeEXkvoS2esdjOLLGeb6WaSxaq/8WpBfMyk=;
 	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=Bxq6GLC8uUb4jKWOLhvWO+OtIUgfwChjVcjG1/C6VRAiU59zcTsoYFRoy0FCZ1YEw
-	 asdEXRmNJd3FbUo9HRg0euoW1y/P31X0vrK+iS+59pTNqIisf8w15cZj48rBZByoVl
-	 cvgNj181W+ah5A+NlRYQ2qidurvPDzP9Uq8kIFZlsHoNAUFE7N9C1UJJxCWYvw+317
-	 m/w2+RDZqdkZNlyP3Us36DVejV/Rj6aF5Xa8Ouu3iEBeU3RWW69312sBBdCk5BRdLf
-	 a7H2F4tNwMQT0kNgI2mfrjUT6OP7YFqQqug+/95aTg5ElLDXOsrIEvUW4NXYWHp17x
-	 pT0jUODDIC7nA==
+	b=GIi01LfFKXTyAPe4txVPIG3/Nx4m61kn6RIndKlLpYpnYkodTHQmJzCB6vldbzL6/
+	 XPmvRCQkJJU3gcoqHaetyKxoEGEMVIoHyNLdFptFgt+xPoWk++ND6OyVpsY9UnNcuM
+	 5WtHQ6GYO5yKjvP4PPrLs6Z6/Jp6e6TZR5RzYzEZbXFUstdnmCoIl0YEd4iGIZdvFf
+	 WjIW0+vEPjEGdzBdBO4ZmCBTP22VZIKowbKxBYX+fsfwO/2QJrJDmkg9DIPW71BbDf
+	 MlCMmBD8PqZnacYiJwRqzduWnLSt75NSgYl31/JSdj95HCOZZeTRMcMnFD8ue/s2zE
+	 Wx0eKK2y2xIzQ==
 Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 846FAE61A41; Mon, 10 Aug 2026 10:56:18 -0400 (EDT)
-Date: Mon, 10 Aug 2026 10:56:18 -0400
+	id 82DB9E61C14; Mon, 10 Aug 2026 11:07:34 -0400 (EDT)
+Date: Mon, 10 Aug 2026 11:07:34 -0400
 From: "Theodore Tso" <tytso@mit.edu>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Dave Airlie <airlied@gmail.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
         Linus Torvalds <torvalds@linux-foundation.org>,
         Steven Rostedt <rostedt@goodmis.org>,
         James Bottomley <James.Bottomley@hansenpartnership.com>,
-        ksummit@lists.linux.dev, Dave Airlie <airlied@gmail.com>
+        ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <annadqPN0HnRFi8K@mit.edu>
+Message-ID: <annmzHu_s3X6LxOH@mit.edu>
 References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
  <20260806194153.6443a3ba@gandalf.local.home>
  <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anfUgiByUVffXlrQ@mit.edu>
- <87y0efi08u.fsf@trenco.lwn.net>
- <006B9A78-D7A3-4684-91C8-BCA700487B65@infradead.org>
- <ankkb2siES7o86qd@mit.edu>
- <anmD822InwjWKmhy@gremlin>
+ <anii3u-87kSrB9K3@lucifer>
+ <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
+ <CAMuHMdWCnGVQeSJiVfWrcBGpcq-Zr_oQGPLNUFhcpxishmT_FQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -60,81 +58,37 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <anmD822InwjWKmhy@gremlin>
+In-Reply-To: <CAMuHMdWCnGVQeSJiVfWrcBGpcq-Zr_oQGPLNUFhcpxishmT_FQ@mail.gmail.com>
 
-On Mon, Aug 10, 2026 at 09:08:32AM -0500, Lorenzo Stoakes (ARM) wrote:
-> Your emails are really unclear.
+On Mon, Aug 10, 2026 at 09:42:12AM -0500, Geert Uytterhoeven wrote:
+> On Sat, 8 Aug 2026 at 01:20, Theodore Tso <tytso@mit.edu> wrote:
+> > Today, the Maintainer Summit is basically a half-day event, with
+> > around 30 people (plus any sponsored attendees), and is only focused
+> > on process questions, with the technical discussions taking place at
+> 
+> Forgive my ignorance, how do the sponsored attendees fit into this
+> picture?
 
-Ok, let me trry to clarify.  The current process that we've used for
-the last couple of years work like this.
+Sponsored attendees are part of the "pay to play" aspect of how we try
+to get sponsorship dollars.  There can be up to 5 sponsored attendees,
+but I don't think we've ever had more than 2 sponsored attendees;
+sometimes a sponsor won't even send an attendee even if their
+sponsorship level would entitle them to do so.
 
-1) I send a message to Linus asking for his set of ~10-12 people that
-he definitely would like to attend the Maintainers Summit.  He uses
-some scripts that show who he pulls from the most, but it's also
-modified by his perception of who might be a good people to attend and
-to make sure we have a balance between different subsystems and
-constituencies (e.g., architecture maintainers, people who work for
-distributions, etc.)  People identified by Linus, plus the program
-committee, are on the automatic invite list.  (Roughly half of the 5
-person program committee overlap with Linus's list.)
+In practice, it's rare that a sponsored attendee actually speaks up at
+the Maintainers Summit, and for last 3 years, we haven't had any
+sponsors, so more recently Linux Foundation, not the sponsors have
+been paying the cost.
 
-2) We send out the Call for Topics, which among other things states
-that (a) anyone who suggests a topic before a cutoff date will get
-added to the list of people whom the program committee will consider,
-and (b) anyone can nominate others, or self-nominate others.
-
-3) In parallel, I run a set of scripts that look for people who are
-the most active in the past year, which includes people who review
-commits, test commits, author commits, etc.  My scripts are a bit more
-expansive than Linus's (which tend to be much more focused on
-identifying the core maintainers).
-
-3) The program committee will take a look at the list composed of
-people from (2) and (3), and nominate other people to be considered.
-This falls under the "anyone can nominate others" clause in (2b)
-above, but I call this out because in practice the program committee
-tends to nominate more people than non-program committee member
-(including self-nominations).  It is at this point that if we think
-someone has something important to contribute for a particular topic,
-we might make sure that they are added to the list.
-
-4) Each program committee then assigns a score from 5 (this person
-must be there) to 1 (while we're at it, why don't we invite Darl
-McBride).  We then average the scores, and for the sake of efficiency,
-we'll decide on cut line where everyone above a particular line will
-be added to the invite list.  But it's not just a mechnical exercise.
-We do try to consider balance, people who might be needed to have a
-robust set of discussions, people who haven't attended recently or at
-all, etc.  HOWEVER, given that we we are limited to inviting 30
-people, our ability to achieev balance or to make sure very single
-point of view on a topic is represented is quite limited.
-
-> (Though I question whether 'most active' is a good metric or one that's
-> actually being used).
-
-It's a starting point (among others) for creating a list of people for
-the program committee to consider.  It's not the most important
-criteria by any means.
-
-The bottom line is that it's complicated, and we are trying to balance
-many competing goals while keeping the size of the summit small enough
-that we can have good discussions.  Can it be changed?  Sure!  I'm
-sure that based on the discussion on the list, it will almost
-certainly come up at the summit.  I can't guarantee that changes will
-be made, since it is very much an over-constrained problem, but it
-will be discussed.
-
-
-It might be helpful if people frame the Maintainer Summit as being no
-different than what happens at the subsystem level, except that it is
-exclusively focused on process issues.  A wise maintainer will take
-the concerns of the subsystem contributors in mind, because you can't
-force volunteers to work on your subsystem --- and you don't want them
-to quit.  But at the same time, it's not a democracy, and a maintainer
-is empowered to make decisions for the good of the subsystem.  The
-mailing list discussion is an important part of what a wise maintainer
-will take into account, and that's why if you want to make sure an
-idea is considered, please make it on the ksummit list.
+The "Pay to Play" model for invite-only workshops has worked much
+better for LSF/MM, because companies are generally much more willing
+to pay $$$ to get in front of the upstream developers to get them to
+consider some technical proposal.  When we had technical discussions
+happening at the Kernel Summit, that was definitely the dynamic.  But
+most companies are much less interested in trying to inject proposals
+into process discussions.  Especially in recent years, allocating
+dollars to pay for more AI data centers seem to be more important than
+many things, not just conference sponsorships.  :-)
 
 Cheers,
 
