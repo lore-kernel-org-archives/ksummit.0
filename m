@@ -1,127 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAB4426429
-	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 15:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137BC32861E
+	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 15:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786375426; cv=none; b=OhqlhVG9LXgMkizrpyGqKP+2HfiPeX7Yna+KsXl0T0EThALb0/TYsWMyoPnZ3w0EgVMMSHZlSgCtteZTWvBY0dLSCiN1ezg1XSeTqDCi+wz55m8iSuRisyt67ncHyCoRw9o4955HQdTZeDXRHN8pSdcqN1sidQByU+ZPbgUt3F4=
+	t=1786377005; cv=none; b=VMZV131B647qbCTgTDs2VQcMudJFkwgjNvdHg4+BaX0JeFEOcO8Tm+F3BHoYqwwHoU22X3JRdr7TNgK4T/GQgEw7KLk2jPImkAYwD2KFLiz/iKYOX1Psa1A7K/jUNy7cO83LJHsu2A7Tgk90MXRZysrbxjcW1QE9hSK2OP4Jc1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786375426; c=relaxed/simple;
-	bh=Su66lhK19XfZCBzWbqQ1qQzGkAPO8UiJJSxm/olEcWk=;
+	s=arc-20240116; t=1786377005; c=relaxed/simple;
+	bh=HMxT6CMgG1CS5ZzrCTmaWcDJVPGmp3fagL4OExOc1R0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GbGCf6eAlcvfBRzTFGgDF+BPpboraBUjSWzU1QpdeLivhaaPfgzSLA5m4rx0POfwHQR+ZJesJ0+TVpGKbxvo3X/ZMBTbaH4zemVdh3bNaZjb0GWwDX5jefMd4gALPRMhoa3LrXJSjbXjCaaGEeIUhM4IUIARMDv+xUluQRGR80A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GPJv3PA0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=aQNNjeH2hFl9mbGmkUiAJ8KSiapthat3c1hUxuloGLPbznMJ2RbpWEAVC1jGd2/xThy0qwtUBAjd/PEn96P4oTgCEcG5TTLsv/TYK1ocTdhcOgqb7SqjVW/gk9YR6F7vjTivLquKVrDYFRmaPgPDcFlnQQJbGQRBD53hiSJ+qSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hE7Vn3NE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GPJv3PA0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385B11F00A3D;
-	Mon, 10 Aug 2026 15:23:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hE7Vn3NE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57581F00A3D;
+	Mon, 10 Aug 2026 15:50:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786375425;
-	bh=cyrrEVU31XJO2YM7vc7RUvZlAQBWmTYjwuJjvVTJf6k=;
+	s=k20260515; t=1786377003;
+	bh=DytD3J14FJEiBSD5kqFiIrsEmzeSyATZpOtxY8qShEA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GPJv3PA0IZjO9EgCYPQNvYsrrf1XpCQ23cNBzTpfLzbGNsNwGyAlixhma8iLqh6TF
-	 R98As+M11hdDmfv7DWHs2c2ItKTwJHGsp4ZJlznClmfk5BFwbxr5ykfzTiDfIRZ5Vd
-	 41pLonIrMpUcvEA1uITsPZynjlXbhxWNkaKnRXlUg2Tg84E0SkADgMsTX+nG445R1l
-	 MITghtnIlLkSU1vmIPv4II2529pFoy6vN5wMaJjy7jtFg1UJpQ114CmTCdn6h1IBkY
-	 30xX3liBcvTyVmjVdg3wazBdp4Zm3wlXw3ErWSGFQvRgzG/grvc12fNnlT52qU3dnz
-	 nt76UfksLRjnA==
-Date: Mon, 10 Aug 2026 16:23:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Dave Airlie <airlied@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit@lists.linux.dev
+	b=hE7Vn3NEPc1hy0X1DVJwrc/7pqkzRiLHwl/8Xm6nzeskhS1cJ9+ziCAIqc+JoXy36
+	 iwCFFd2RBMqF05jnXkPtwfAjh6UDmX5NcUlHOy8yvXPn2yjJ1UVFzbjRJlreV1AZL0
+	 ZEOCimvuXYoOEfsa6uunKObVANDuqMOQTS/iHSwhes4EhhFkC7oAO93h26MZIM8tjA
+	 RHSIdBHX30ALu/89lADsHwRi7jHuH33jQtWDHOZkq01xvNoB5DD+GTcJPWUzGf9pEl
+	 BrPHe2VYeqBjRf/b3f2UbNnnvF+wT+LXZfPZCvHqPya9wfkGP6vp/SrUb57JZPKYgM
+	 +V1hCxmUK8vaw==
+Date: Mon, 10 Aug 2026 16:49:46 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	ksummit@lists.linux.dev, Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+Message-ID: <anntucHhrzF_b4sy@lucifer>
 References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
  <20260806194153.6443a3ba@gandalf.local.home>
  <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anii3u-87kSrB9K3@lucifer>
- <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
- <anl7CgkKb6tORavG@lucifer>
- <20260810091154.2d3cd6d5@gandalf.local.home>
- <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
- <20260810102423.342c4e9d@gandalf.local.home>
+ <anfUgiByUVffXlrQ@mit.edu>
+ <87y0efi08u.fsf@trenco.lwn.net>
+ <006B9A78-D7A3-4684-91C8-BCA700487B65@infradead.org>
+ <ankkb2siES7o86qd@mit.edu>
+ <anmD822InwjWKmhy@gremlin>
+ <annadqPN0HnRFi8K@mit.edu>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OQdp1dLDCsh+ZTq9"
-Content-Disposition: inline
-In-Reply-To: <20260810102423.342c4e9d@gandalf.local.home>
-X-Cookie: Polymer physicists are into chains.
-
-
---OQdp1dLDCsh+ZTq9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <annadqPN0HnRFi8K@mit.edu>
 
-On Mon, Aug 10, 2026 at 10:24:23AM -0400, Steven Rostedt wrote:
-> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On Mon, Aug 10, 2026 at 10:56:18AM -0400, Theodore Tso wrote:
+> On Mon, Aug 10, 2026 at 09:08:32AM -0500, Lorenzo Stoakes (ARM) wrote:
+> > Your emails are really unclear.
+>
+> Ok, let me trry to clarify.  The current process that we've used for
+> the last couple of years work like this.
+>
+> 1) I send a message to Linus asking for his set of ~10-12 people that
+> he definitely would like to attend the Maintainers Summit.  He uses
+> some scripts that show who he pulls from the most, but it's also
+> modified by his perception of who might be a good people to attend and
+> to make sure we have a balance between different subsystems and
+> constituencies (e.g., architecture maintainers, people who work for
+> distributions, etc.)  People identified by Linus, plus the program
+> committee, are on the automatic invite list.  (Roughly half of the 5
+> person program committee overlap with Linus's list.)
+>
+> 2) We send out the Call for Topics, which among other things states
+> that (a) anyone who suggests a topic before a cutoff date will get
+> added to the list of people whom the program committee will consider,
+> and (b) anyone can nominate others, or self-nominate others.
+>
+> 3) In parallel, I run a set of scripts that look for people who are
+> the most active in the past year, which includes people who review
+> commits, test commits, author commits, etc.  My scripts are a bit more
+> expansive than Linus's (which tend to be much more focused on
+> identifying the core maintainers).
+>
+> 3) The program committee will take a look at the list composed of
+> people from (2) and (3), and nominate other people to be considered.
+> This falls under the "anyone can nominate others" clause in (2b)
+> above, but I call this out because in practice the program committee
+> tends to nominate more people than non-program committee member
+> (including self-nominations).  It is at this point that if we think
+> someone has something important to contribute for a particular topic,
+> we might make sure that they are added to the list.
+>
+> 4) Each program committee then assigns a score from 5 (this person
+> must be there) to 1 (while we're at it, why don't we invite Darl
+> McBride).  We then average the scores, and for the sake of efficiency,
+> we'll decide on cut line where everyone above a particular line will
+> be added to the invite list.  But it's not just a mechnical exercise.
+> We do try to consider balance, people who might be needed to have a
+> robust set of discussions, people who haven't attended recently or at
+> all, etc.  HOWEVER, given that we we are limited to inviting 30
+> people, our ability to achieev balance or to make sure very single
+> point of view on a topic is represented is quite limited.
+>
+> > (Though I question whether 'most active' is a good metric or one that's
+> > actually being used).
+>
+> It's a starting point (among others) for creating a list of people for
+> the program committee to consider.  It's not the most important
+> criteria by any means.
+>
+> The bottom line is that it's complicated, and we are trying to balance
+> many competing goals while keeping the size of the summit small enough
+> that we can have good discussions.  Can it be changed?  Sure!  I'm
+> sure that based on the discussion on the list, it will almost
+> certainly come up at the summit.  I can't guarantee that changes will
+> be made, since it is very much an over-constrained problem, but it
+> will be discussed.
+>
+>
+> It might be helpful if people frame the Maintainer Summit as being no
+> different than what happens at the subsystem level, except that it is
+> exclusively focused on process issues.  A wise maintainer will take
+> the concerns of the subsystem contributors in mind, because you can't
+> force volunteers to work on your subsystem --- and you don't want them
+> to quit.  But at the same time, it's not a democracy, and a maintainer
+> is empowered to make decisions for the good of the subsystem.  The
+> mailing list discussion is an important part of what a wise maintainer
+> will take into account, and that's why if you want to make sure an
+> idea is considered, please make it on the ksummit list.
 
-> > True (well mostly), but the internal complexity is concealed within an
-> > external abstraction rather than having it spill all over the kernel
-> > ... I would hope DRM does the same.
+Thanks, that's all really useful information, and I appreciate you taking
+the time to go into detail.
 
-> That's a good question for Dave Airlie. Is it possible to make a general
-> abstraction with DRM (much like VFS)? It sounded to me that the "weird
-> architectures" of DRM was the norm not the exception. Perhaps it is more
-> like what ARM was before Linus told them to get their act together.
+For me the real issue here I think is less how it works and more how it's
+perceived to work.
 
-I don't think any of that stuff is really what's causing issues with DRM
-externally - for -next the issues I see are the constant cherry picking
-(which I gather is also an issue for stable), and outside of that the
-thing that comes up a lot is that it can be hard to get someone to take
-responsibility for actually applying a patch if you're not a DRM person
-since the responsibility is more diffuse.  This can lead to issues like:
+Having insight into the selection criteria and the problems you're trying
+to solve is really helpful.
 
-  https://lore.kernel.org/r/46b86d82-6ff4-458a-ac7e-cbbae214b4e5@I-love.SAKURA.ne.jp
+I actually think it'd be really useful to document this somewhere in
+Documentation/process/ personally.
 
-or things where the DRM parts of a cross tree series look like they're
-being ignored.
+But for me again I think there's room for improvement in the Call For
+Topics which, at least partly, reads like any other conference CFP and
+clearly - that isn't the case.
 
-> > If your assumption is correct, this is internal cat herding ... MM has
-> > much the same problem except that it has to deal with somewhat
-> > opinionated architecture maintainers (around 22 of them) to agree on
-> > the internal abstractions for MM primitives.  Perhaps rather than
-> > getting into my problem is bigger than yours type arguments, we could
-> > observe that MM might run a bit more smoothly because it gets an
-> > additional 3 day conference (LSF/MM) plus a MC at Plumbers to sort
-> > itself out?
+So I think the simple solution here is to reword the CF[P,T, whatever :P]
 
-> I guess the question is, what exactly is being big for DRM that it needs to do
-> cherry-picking for their linux-next branch whereas Networking and ARM do
-> not? Is DRM bigger than either of those? From what I understand VFS doesn't
-> have to do that either. And VFS has a large range of file systems to deal
-> with. But it also has one of the best abstraction layers of the kernel.
+The bit I'd change is the topic proposal bit. Something like this:
 
-It's not even all of DRM, it's specifically the AMD and Intel driver
-stacks which as far as I can tell just routinely cherry pick all their
-fixes between their development and fixes branches without even
-considering the possibility of either merging up the fixes branch or
-just waiting and letting the fixes propagate back.  None of the rest of
-the DRM trees ever seems to cause these issues.
 
---OQdp1dLDCsh+ZTq9
-Content-Type: application/pgp-signature; name="signature.asc"
+-	Anybody proposing a topic before July 24th will be added to the list
+-	of potential attendees selected by the program committee; other
+-	potential nominees can be proposed (as a self-nomination or by others)
++	Potential nominees can be proposed (as a self-nomination or by others)
+	by sending a note to the ksumimt list saying why that person's
+	presence would help the discussion.
 
------BEGIN PGP SIGNATURE-----
+And maybe add something extra to really clarify things:
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp57PwACgkQJNaLcl1U
-h9AvzAf+KzY31Pkp5wTTyXtwMCet6Pk5lGhH4QABt2+6brIpvypaQPmhdwPA1BET
-e0tgSoIU8tlQi1aw95mE3CT6wT1Fma6uZEjQS1Jxg9Sl3xgrp2upm7QSwlbh1Xmu
-nJsMnxV5GoByjR6ATQPH6tvy/A5169GRVXP2VzogNjymA4+pFTgCjqIu9ViDLjU7
-UYWND7MuZkW22wS4o6dHNw+q8V61afL46QCF1qq3Cx6tYbta3LLWrmC43MrI/hGj
-k0tmmCjeXkAa22QqV0NZxkFDZ2RbAvE7QZbubOapmGqWcju/4owgKyOQNq2mrKCj
-J/GzVBEaye4/88wnza2+yHLykjOGIA==
-=wTaG
------END PGP SIGNATURE-----
++	The Maintainers Summit is unlike any other conference in the
++	calendar and as such the primary selection criteria for attendance
++	is upstream engagement.
++
++	Therefore, while topic submissions drive what is discussed at the
++	conference and taken very seriously, they do not guarantee
++	attendance.
 
---OQdp1dLDCsh+ZTq9--
+Keeping the rest the same.
+
+>
+> Cheers,
+>
+> 						- Ted
+
+--
+Cheers, Lorenzo
