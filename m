@@ -1,115 +1,105 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03D135FF6E
-	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 05:29:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9642B2FFF8B
+	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 06:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786426147; cv=none; b=S7pg12YjqyH1srZ6vor+Ddn9Sj32ZvhDwPE055UzAnGOUoFgvxDg2uNvG8i6/k3MHOt2IFHPsYberJc6J0rVdm6uEaNVDs2VIZCHzyK/JpV49D+PWEzf2F/qXhJKaPY1YMwfCOTMBcYJWnZki3Hlb8K9hUM7+q8QQvyt1hJMPd0=
+	t=1786431210; cv=none; b=oIGxHMd+I8BI7SVhILVWBtBw1BeuOI4OSxH9mPQ0f6thb5eJfwKG1o52Xs+Y4LmsHrDnh11lxtyTJKvIDX256RRi6sx9vPBNNVzMbmiAjxG1h+NfFDJQURzKbbC0m628HZ5b7arbn8Gte7YoHd9lrDgG21ZQt1303oARjcNUzpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786426147; c=relaxed/simple;
-	bh=UG40KTZlIiITD/pijtbAc+/92pLD2+qeM77iPsAJ8v8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZVhgGqaZjWDM98iihxbjdGyrEbUbx6thcA1Ea5nNppQ+1KChjRK/vqAuppx0cH4tKnRB326oDI4QtRfCArnB6g/ozrAFRl4c3POO1d/Hqd2LLT4evKwx6UkngsTKHp/mYyHPG1g3GuwHvRaaivgvXguK/ASGmhe7z6OVVaExL1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=egqqTbhb; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="egqqTbhb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=lLjIymwgPsfvbeo9zedisFypugVEa+fERQrquD+NWa8=; b=egqqTbhb6iB5mruRIfbtYcdr4O
-	8Dn1bAZ5nftCV7OQKR7K11WgTTjlIo4lw/HiQdbcwA92tHw7HS3Zu2OQ9M+LEBDxtQh2lnvifOJCX
-	xPgL1nwleRMvrXQLj9JLZ5nM807nKt3OmLKpGaQ0yAaBgz1q2/mumgiSIKLK4AfE1BIELNxM42kLb
-	nnGL54dx3AVRDPBucoqzYNO4fyVlY0x/DCfMH0F6CnQHorzS4+beo4fw5VAF8+a4TsfZmOUVLqJXb
-	haXp898moBq9GKy4cOmBWbA22cjycQ7hpXGODFN4qgUmvghCZN/gb31q5femlEc+cFoT9B4yTJm4+
-	aGibryiA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wtf2r-0000000DK0G-241c;
-	Tue, 11 Aug 2026 05:29:01 +0000
-Message-ID: <bb767aef-79e6-4019-9dac-929486db14f0@infradead.org>
-Date: Mon, 10 Aug 2026 22:29:00 -0700
+	s=arc-20240116; t=1786431210; c=relaxed/simple;
+	bh=2R1NlP31QH50KVeM6Y44K63w/mz7DBz9+c5i7H1hUMQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MidL4qe2KKuiIgr1NgDJVmRQ8iUYs3ujrH//zj8axvZwLVt+eFATmoJVhzYNsmb4KhP68WtMU/Y2GhkVzQ9rHPW2swr5WGOvUioB3KZMUZxakFjJS1w2SyZ8f2ef0h7kpVXpMu9yDg45iCoa/PEtID0QAG4QPsIwbBw3NmT/N0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5bf9466412fso2146502e0c.1
+        for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 23:53:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786431206; x=1787036006;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u2Y8Uy9ktnpirEpsDEEFETdTh2WzBzcOANO/t1TlGts=;
+        b=q8mVXDMZIl4pXoUAyN0DKfU71YaCQah10Z1LWUJhuFi4gf79mYroCpzwOQp7n4yVKQ
+         pElrc0y3q2Tvv2Xn1/x57LkjBTqJyPLTPqbkXMcwOX+LX7h0zJ7AmPeKz9Z0Pdtby2aK
+         2WhAbDfhMJMhp6JQcneWZ5sJmJZ7jXdmzPUC5TmqBH3xnrApmHe/R2PfbdQXcPWeE/62
+         LbjEkBQWyb3NHLd4Sr3RTD675rNm/eFDcfFNmUJPD+fUGXI29SGywMP9ivbUSFNOxVWP
+         cVYUuzHfAgudbT79uYasaOEMJakpEY3UTdkHJ/FD3UWDG1VA646NPNr5UefndNwYUuPG
+         rEvA==
+X-Forwarded-Encrypted: i=1; AHgh+RrjEvY9rfeVrw+/IdKe3QQwywsY5FE4zyMvEcEM0DC0ET56w+Y0upj6c3iIrDlpdXUV/P1S7DgM@lists.linux.dev
+X-Gm-Message-State: AOJu0YykFgM0NptMcojXr1zidRvRbmzwD9ercgO+s6SXPmXSOk9lzABi
+	mX/L1nFSc3s0jSoaSmbYDtpg8bmqMpvnP8fyOFfIR/NovwmhCCVWS8JKJRLcOa7O
+X-Gm-Gg: AR+sD103UZ3FG+bgSbG909EezwTG+qVblUKo1x9gKDdMFW8Kbu6h0Ok5P40E6EmB/Cd
+	7h/K/NjNoMMcPohm8YlipP2f18l/mpUn5DxnlRTMGA+J4aqrBnl5cMOHbhDZMOa9k7Li9upFlqu
+	x4oTXuuPiyrnHSEenr5lMMk2wVf/NqQfN+Y3ePS177os8jaDCxvvAIG54ZbCSnUZhgXqDLswjm0
+	R3br8GUOYwsjg3GOGvwYHq3g2fqhFaBa7/cI5xwRzBKj/TMuWR4sYqH5N74F1R87OGxBlVQVB+W
+	rQeXneAsa0uEXRc+Sl8r+8Ctb57VoiMYXjRe7KaLTRdc02ZpsNItFt8RsTfpbMcFZyEkiJVvyaY
+	p8ySPrGM7+/oVE5/5ipvehTlsEMHVofMJ1ZuisO/BG1MAm+pKzkYe2kqOxpvoo5mdDNiqbOkW+r
+	KGCyaxqD4F2jIL4NkvomLeQ2Q5Pk/3ok/3deyMn1VnHUdHH79couRYlBlwSEwQkkIH2wOwubt4d
+	muIU7Ib53CGNHUU+88i6MYnbg==
+X-Received: by 2002:a05:6122:4f8a:b0:5a5:3eea:4513 with SMTP id 71dfb90a1353d-5c4504dd53emr187795e0c.12.1786431206090;
+        Mon, 10 Aug 2026 23:53:26 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c451df9943sm129658e0c.9.2026.08.10.23.53.24
+        for <ksummit@lists.linux.dev>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 23:53:25 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-746d77537f8so1332016137.0
+        for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 23:53:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoDyIMMC+zGgkwJG5T2kWNwoufKrLiD/FSLuSamMO1J30Sv6AYaqCtr0g9WkcKL9IvGMBkmQVwc@lists.linux.dev
+X-Received: by 2002:a05:6102:4191:b0:650:94b2:b209 with SMTP id
+ ada2fe7eead31-76b55781b77mr360620137.4.1786431204583; Mon, 10 Aug 2026
+ 23:53:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
- summit?
-To: Dave Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, ksummit@lists.linux.dev
 References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
- <20260806194153.6443a3ba@gandalf.local.home>
- <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anii3u-87kSrB9K3@lucifer>
- <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
+ <20260806194153.6443a3ba@gandalf.local.home> <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
+ <anii3u-87kSrB9K3@lucifer> <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
  <anl7CgkKb6tORavG@lucifer> <20260810091154.2d3cd6d5@gandalf.local.home>
  <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
- <20260810102423.342c4e9d@gandalf.local.home>
- <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
- <aa8f4e34-906c-4a37-a8c6-623389addece@infradead.org>
- <CAPM=9ty=Kb7rqNg14UCJWz=GJuMbQMZpvsDxfEdgeqePDD1gXw@mail.gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <CAPM=9ty=Kb7rqNg14UCJWz=GJuMbQMZpvsDxfEdgeqePDD1gXw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <20260810102423.342c4e9d@gandalf.local.home> <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+ <aa8f4e34-906c-4a37-a8c6-623389addece@infradead.org> <CAPM=9ty=Kb7rqNg14UCJWz=GJuMbQMZpvsDxfEdgeqePDD1gXw@mail.gmail.com>
+ <bb767aef-79e6-4019-9dac-929486db14f0@infradead.org>
+In-Reply-To: <bb767aef-79e6-4019-9dac-929486db14f0@infradead.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 11 Aug 2026 08:53:12 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXmxdpcVk77SOVSoeVypa-CwTk5T3XzBwOMqDhOWGL9ew@mail.gmail.com>
+X-Gm-Features: AUfX_myamLF7vA7At6Wdirm7FNTVxX6g-G9u2XG1T1-vADvjNq_ogVVTQ04mn7c
+Message-ID: <CAMuHMdXmxdpcVk77SOVSoeVypa-CwTk5T3XzBwOMqDhOWGL9ew@mail.gmail.com>
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer summit?
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Dave Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Mark Brown <broonie@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, 
+	James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Dave,
+On Tue, 11 Aug 2026 at 07:29, Randy Dunlap <rdunlap@infradead.org> wrote:
+> On 8/10/26 8:24 PM, Dave Airlie wrote:
+> > or can I offer drm-misc commit rights I suppose, but yes we don't have
+>
+> No thanks on drm-misc commit rights.
+> Actually I rather expected these patches to go thru drm-misc instead of you
+> or Simona handling them.
 
-On 8/10/26 8:24 PM, Dave Airlie wrote:
-> On Tue, 11 Aug 2026 at 01:52, Randy Dunlap <rdunlap@infradead.org> wrote:
->>
->>
->>
->> On 8/10/26 8:23 AM, Mark Brown wrote:
->>> I don't think any of that stuff is really what's causing issues with DRM
->>> externally - for -next the issues I see are the constant cherry picking
->>> (which I gather is also an issue for stable), and outside of that the
->>> thing that comes up a lot is that it can be hard to get someone to take
->>> responsibility for actually applying a patch if you're not a DRM person
->>> since the responsibility is more diffuse.  This can lead to issues like:
->>
->> That's even true for simple kernel-doc patches. :(
->>
->>>
->>>   https://lore.kernel.org/r/46b86d82-6ff4-458a-ac7e-cbbae214b4e5@I-love.SAKURA.ne.jp
->>>
->>> or things where the DRM parts of a cross tree series look like they're
->>> being ignored.
-> 
-> Is there any tag I can put somewhere that for cross-tree patches that
-> are just changing and interface, or cleaning up an API change, that we
-> give you an Ack without getting one, it's really a pointless bit of
-> review theater if something needs changing.
+"Do you have drm-misc commit rights?" is indeed the most common
+answer to questions about delayed patches. No, I don't have it,
+I don't want it... (Does anyone even know who has? ;-)
 
-I'm not familiar with anything like that.
+Gr{oetje,eeting}s,
 
-> or can I offer drm-misc commit rights I suppose, but yes we don't have
+                        Geert
 
-No thanks on drm-misc commit rights.
-Actually I rather expected these patches to go thru drm-misc instead of you
-or Simona handling them.
-
-> a good responsible person for acking non-drm patches, and they can
-> fall down the cracks. But if it's something that can get handled via
-> another tree, then I'm usually fine with it just going in via that
-> tree.
-
-With the understanding above, it might be possible for Jon Corbet or
-Andrew Morton to merge these patches.
-They can comment if it sounds reasonable to them.
-
-thanks.
 -- 
-~Randy
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
