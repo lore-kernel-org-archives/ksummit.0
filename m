@@ -1,81 +1,81 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43ED6239E9B
-	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 03:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8B8394496
+	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 03:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786418674; cv=pass; b=R/mqUNkK307fYp6nKed42TAXK/KqyHrT9xCmGddJbZKgbwDMymuRzG7WYwIXAKBpIlLnQLHqjL7HJubWYAIsFEU4my7O7dr3UZfaZ6EQ5lLS5wSrLn2W/jpKQ3rlU2wKbGyaVxy2mE+DAL3oUObvM1ASr6h8I4qSXEafYIez8N0=
+	t=1786418993; cv=pass; b=J6+5B6ZNlQtpEk8r4MXz+HbfSgc4QAoBYOYS4S4JPm2OFyy1MWT/IRKc7k6RqGKpdNluX43x40+3f1UWulauYDFbvIZmfDQ6UwHTLEGvyi51CQ4IeGGCIp8w4Hht3Wj18s77BNaF+m/5/NYFBYa9/6HI+Y/VX0LI+cJz1Mnr8OU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786418674; c=relaxed/simple;
-	bh=/8lQQeGz+a+p9zfMp3m0QZERmgJdqW53VGWnbMPJsno=;
+	s=arc-20240116; t=1786418993; c=relaxed/simple;
+	bh=HwmzaSVHZpFrkV99PNYhXyhe6CB4fBCq46yGOrkawXA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mAL6YfHh5FfvBze/0XOpgdvB2FLKu1brB00yZ2T3pAs0IsJSW25mD0HbiqwouDdTR1QZmWGIndzfAYd62WhyvDWy9v70OwYsKYHbTqUM0JULmAbwfsFN7CkbDokliimGJYuB17hMp4vXcucMvyOu16rJFgBd6ZXIP1ZdxjyFPB8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JbTJ03pu; arc=pass smtp.client-ip=74.125.224.52
+	 To:Cc:Content-Type; b=Vmnaj5icXOqaYBnwA2qQO6Xiwz2FfNMkGt9tl8JBy5Qw5+SSZvC7bA23Yoyq59BVJg2nfLZBvXbfHKxVE5b0zFEy+mFRlOx4WaMkLwHAeelcwxccf4HooXLOyKS2SEr9IeCUQuWwWwgcErhqRQcQnpvsvgk2Ul4hHHX5R9tGNp0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gVWGey0I; arc=pass smtp.client-ip=74.125.224.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JbTJ03pu"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-664ce3000e6so1997034d50.0
-        for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 20:24:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786418672; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gVWGey0I"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66771ded50aso3633087d50.1
+        for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 20:29:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786418991; cv=none;
         d=google.com; s=arc-20260327;
-        b=ZGdadQnUMswlCVBtIUSJFUSBPP3G/DmLNU/arRqsmC61F17anjqWwzR8Cucl9SWbBK
-         ffKMAOTDGs0zl5315VqkrKkbsgLbDZa1Aw+hjkMkfZavRJd/hWUn/2Tev6P73zA9olvM
-         828wr36e+oXoHjU4Fsz4cq6LV4hRNU6kOguuYfXL3hHx5Van4aChvBCl/wQbU5N8Dfe3
-         askICH7Z4/F+dIK7D7ry9BjBy9t8/xnQv9QHp091/29jo4LjM2KXEwXhEBwZW6rYNvSq
-         ABBc2BoyNV9xvFl78Tr3dtjGTAOz9ytX0VO/2AHPhPy6EKi0iWcp07b6PTMWRmAevcmN
-         TBuA==
+        b=kliaGwEpgrERWZloCvMGlH+GmaOYta8io/Uo3vir6CcMp0bqIngFfiFOAWPT7+DOgL
+         FknC8ktCj/ozh5AIyVe4Jiun7PRRu+VON/5s7mISYeQsy7H54g95/znEc8hayhGFG0Hz
+         I8fjkE903OljrFSXdlNIKnbu4hepsa+2HQ9NfnMw3BOGTBCWHdbNgug3A+guiQlCJ522
+         ZIzKi8ghkfN9JRI88ooYNUETT4Qf3XQRKlPq7vKty1+wzRV9L3OB/oQehwtQr7EK7c92
+         inRnzYZm0TocXMknhvqqQRDN1rrdyRT+0rqfrtq6CXmHpOY77die5rJh8YNG7G7uEoaQ
+         YlIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=eD3VLxzi2oFkAI+EImhT58nx7Vz/4iCd/W11x8DDeK4=;
-        fh=WWtvlBEUghOtJ/KHj99hDfDryXuSSUnqv652RMmnE3w=;
-        b=NFX01rQRs0AVdgFbC8wx2OOzIA/EGcle+ET6o+G4Ba/Bnxr8kBfiV+RjDoRSSsWG4U
-         AO8pR2+nrd1cU6D6aWTTiZelF7RQKFJK8KVJ4BNdQk0r/NDNan+mk3q/9LkA5sPx1nE1
-         XnP/sDUioXkzivgIrzMTLnFlEDMvozjkQ7eIAfdbnD3mErtseKDhT+6YFtNTGtcgnKwd
-         TIRX8xHKzanzWKdoHZ6rHqEfIXCZy0ChMhnubFrikM/UzTxmRnAEHrmufsG3KSFTMrbr
-         b2Mc51aFe0RjuV9kPuGRWVL8guBTO/hKiLptEf6nYf+XcriBiRIJvNf6GQdMYv+f42Uv
-         81eg==;
+        bh=x2H4Z4qUaT9gG3eXqk48FDL7nUnOMDIV+GrpCgYNl7M=;
+        fh=P5cAaEvmzYSbARSqJkeiKHpylFtKKrb2vSWG/9G3dXw=;
+        b=M2HGOKJ1d6uOrVtgfIeGVYnTrDfTsP4WoEaqf1ldjyrKZfrms2taN7nY/QiEpBtvnH
+         MKpAmiBvHISqWUTVAdDWBL72fL0Zr2AXJioabKWBdUgMOs0DlSRmWEGNHFpdvLcds2tM
+         Itn6w5IbiAgHdUouBxme0mIuMLGuSxPSsn19MiAIq1cJCfxgzmpS39vRMHIKE7PmlJ5X
+         USIWQV+YmxLiN8f8BpWVa+7Pktz/s+SQnLZtJZ8e1SBA7zh/qsw4InqAztwSxwQtGWMq
+         XV/mtD4wjX2/Z/VsbAPEr/CrDVRcmAIumafmcJHhp2cQnGHuNXKgNAsCA0UK//TUp8NQ
+         c/UQ==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786418672; x=1787023472; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1786418991; x=1787023791; darn=lists.linux.dev;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eD3VLxzi2oFkAI+EImhT58nx7Vz/4iCd/W11x8DDeK4=;
-        b=JbTJ03pun68h+6bdZ0t4IrOt5MuenSNvbTn+G+Xa+ztMjeGQKt02/y7ijPUj5UDqWG
-         k5c9Jdg6uN+SU/0xwYOIKClCYRYcU2CKpEjr6HolCvOz5fZFmnki/tQ721osu/RiV6BX
-         l8c//ma0OT9iSyxAphqMjuQ7PLnOH9x22Y/ZlWSmr9RuvSdfaGxQnvXzYJDBvf4qqedQ
-         PP9TUb/qxlpFxyVyn3zNRMNTKFpQlzkTv9OVYIgcqQTqo+ZNjW+Lkm6+uUDFID0/XeHt
-         MlTgMQVBandgazX8Eh267pxHflAgBKqoF8wLIeumJO8/nfrKUCn5BMtVKVQLlAth5o/q
-         zP+A==
+        bh=x2H4Z4qUaT9gG3eXqk48FDL7nUnOMDIV+GrpCgYNl7M=;
+        b=gVWGey0IOEOesTuoI7G1j8P7iNpUUr4TGdBvhYEnNcP8QUoQGcjn55AJjiEQL8z7Gy
+         W3e62SEAZBoR7rgP5AgHgEc4Isua2GJgXNnsQcGm159TkXw3CcGigGs80z+RvBagcTjr
+         R8fxEKe35q/Whbd7FdXgfO63T49OnlTFCXSojdyJvvd+AwZBZA1xsWhxlnMLvXdN/V/n
+         Ie5hJLqTOM4L1yf60o/1QQbq0MHfwy8lolIwuRMZPgKNo+rSw7utkSXe7K25zlXYYGbN
+         8bQQjCi1wtVlq6oTL1y5dqdPdnKbAlXcW9NZ+x3nPPZo8g142MYMhIWoNwZfBQCRUF3p
+         Cq5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786418672; x=1787023472;
+        d=1e100.net; s=20251104; t=1786418991; x=1787023791;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=eD3VLxzi2oFkAI+EImhT58nx7Vz/4iCd/W11x8DDeK4=;
-        b=hgn99zJ+NCf3r39rCh0MYCVKYIGbw/RdrXb7ZvAaq7VFSUdAVaFxq6SqcUNjPo6rfU
-         CFryN+2trRg4OF62AKvG7f214kDmhtll2/N72Hth2IDgzPZQze6l63yL00quFKsIquog
-         n3j+FGDRyKXMNNpW8eouhXzr8h6i72ACbqPEKRNlixt7yk/b1hMWx3m42sudd6Dooypf
-         T8yfoDwuWWBu7dvc9lElbDNiVW2mmbmkoXq2LHFFXGvKrfxosvJL0rCpyydWILz71Kh8
-         ztUKGpOp4T96J8kWDT6SVrUJyCICtdn/daHK8hSfdV87wf8wnlBP3eiS8uCJXmDiGd9M
-         Y/wA==
-X-Forwarded-Encrypted: i=1; AHgh+RoZRMk3oBJJi9mpe/CAvmz27aTEv+HtphEuRXSlBTMEAzJULXW8PCS43dVtqgrexQ1sgKmShy17@lists.linux.dev
-X-Gm-Message-State: AOJu0Ywail3nFb/pl6+AuTVAkvCu3hmWSwIHQfLtbsDlP5civqnQ/k4N
-	5/xIRcsdGFs9iOmw3kzf7PqJAfuNcUq2vYmXgaUI6B8rioZk+rrfUVLfqh4KiqAkb+LZaca5pwe
-	1Bcw9euuKQgImYICeipoAZfuv9LgxEYs=
-X-Gm-Gg: AR+sD10RWYPujwQM2z4ysrQhOXbMeLdC+xJRlRJKzKvnjzhufGP7TGnKIa6ZtDvB+MD
-	NZckTr/eWAIjKECb5oyFNW2rPFpHU75efXAP3ZPmtRxg+ZU1uLAssBHXIXrFFSWMF/HbLHrcNE0
-	vWJLcEXySsnyRKEgWCdFWGlzSiaf8inlVDBPt7cyAX2xjooF1AIv9Vr/m03nAmwh3G6epCGLC3m
-	4woluFLsBogpYbr3f/MGE3otBlmEqSYmlg5kgML234ky8QyY9B5Y10a7AXt702rbBdEPK92ZeGB
-	LROWeoCb1BLUTrSZlH0sbl6pQUJ0bQvTyEn3DEqUr8FVyN0ea0WvmfEnKNzAjZRHz8YKDQlMCwJ
-	4kClabH/ikKOigvTaxWNBYvcyP/oUhA==
-X-Received: by 2002:a05:690e:1506:b0:669:586a:8673 with SMTP id
- 956f58d0204a3-66b22ddd291mr67693d50.21.1786418672095; Mon, 10 Aug 2026
- 20:24:32 -0700 (PDT)
+        bh=x2H4Z4qUaT9gG3eXqk48FDL7nUnOMDIV+GrpCgYNl7M=;
+        b=R4i6OV2v5eUsRTJWDsPPFDs58psRlk17N/WDJyGCZEwPEVe6RMfYy5+VF9gWXSuoA2
+         I1fZM1NeGXPruziGO4SDyFOffvYw+RqWVd/M6LlzB96A01lLMgcx0H5U2SG/KorLhV2Y
+         aOHXWSAvIT5m4Dkvqe7or29Pi6HBl+EfsyXOzxc3fXZODca++SByOd/LsBOeSozMHcS1
+         TKSlR9FjKR6i7YLbE6Q8FlgtmMr51HRjzFHWwJZibLRrHWbHeuxFuw+yrOvMcOBSHgTU
+         YI7liERuba4VEDbHgFevvrdsA9W+BnNeABTH3y/cmdsczK8yr8eXK5sFC7RhYRNIs9dH
+         +xqA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+j6m4lF5PnbwGS95uoxMVAA6BJ+2fgzMpcPoYm3rUiN7ZvuoF++5oqnf+C+3nspYj0+98wDkZ@lists.linux.dev
+X-Gm-Message-State: AOJu0YzKkeSMVbyM2xC+5I8UFDaL0NvohQE9xf0dfTzZdWgnQDOZNZA/
+	iBmk+DZrHQ8lJ7sClTDHrFTKRnI3i1c0LRAw/w9HXUASATC75L1E00l/AIk0Kel30DXzKieXK1p
+	JeOrJbBj7YQNW94EGH3XdcuBNB8cWzxA=
+X-Gm-Gg: AR+sD10EUsvmpZko8p133I3ihRNlf52+28Q5R5OZwn6loeUqUGy1D4qcsocTa35bRJP
+	n0W1owmzeLBuzt/UFHb/mPtUq0D6CMElkVQUkrJgh17UCNW00hXCZeio5DKeNGcw0cLsxwX95yC
+	fcUSLHXYtfjKqENSviF5HrwsKQY55MRW1Wjz2OGWvEmRdLTcK+0W2Pv+e1YsdPeJ5Q1lQRmcWR6
+	ERn0Bv9eytAqtto8yooZfC8LBZUMQgr1uAx9ZiBh9Fvwj2jdLQrKaLY0OOEEZWAJWM7EI5T+EkS
+	rzbT1x2e7H533LJgeQWS8i9UQrtM1Z+bt04ffCX8Eu174KGzzO8vP4kYSqclabQJz50h1WOhKgN
+	bAeivDk8uCYJmjRVX2Iwge1fQD3SuzvqjROKD0RN4Rw==
+X-Received: by 2002:a53:b88e:0:b0:668:3ed9:15da with SMTP id
+ 956f58d0204a3-66b22e899a2mr48625d50.33.1786418990690; Mon, 10 Aug 2026
+ 20:29:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -88,48 +88,56 @@ References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.co
  <anl7CgkKb6tORavG@lucifer> <20260810091154.2d3cd6d5@gandalf.local.home>
  <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
  <20260810102423.342c4e9d@gandalf.local.home> <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
- <aa8f4e34-906c-4a37-a8c6-623389addece@infradead.org>
-In-Reply-To: <aa8f4e34-906c-4a37-a8c6-623389addece@infradead.org>
+In-Reply-To: <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
 From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 11 Aug 2026 13:24:20 +1000
-X-Gm-Features: AUfX_mxamiHBeCGtiiCyQDTeyrA8UqNcU5oBzNhVMN3Prec0Kwaa0yhFfvEI32E
-Message-ID: <CAPM=9ty=Kb7rqNg14UCJWz=GJuMbQMZpvsDxfEdgeqePDD1gXw@mail.gmail.com>
+Date: Tue, 11 Aug 2026 13:29:37 +1000
+X-Gm-Features: AUfX_mydHzA9-221QAh3EhXRqE3cjl31RV-cWqamXPTEvysHoYEOtN-Ty-pt3oo
+Message-ID: <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer summit?
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+To: Mark Brown <broonie@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
 	James Bottomley <James.Bottomley@hansenpartnership.com>, 
 	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, ksummit@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 11 Aug 2026 at 01:52, Randy Dunlap <rdunlap@infradead.org> wrote:
+> > > If your assumption is correct, this is internal cat herding ... MM has
+> > > much the same problem except that it has to deal with somewhat
+> > > opinionated architecture maintainers (around 22 of them) to agree on
+> > > the internal abstractions for MM primitives.  Perhaps rather than
+> > > getting into my problem is bigger than yours type arguments, we could
+> > > observe that MM might run a bit more smoothly because it gets an
+> > > additional 3 day conference (LSF/MM) plus a MC at Plumbers to sort
+> > > itself out?
 >
+> > I guess the question is, what exactly is being big for DRM that it needs to do
+> > cherry-picking for their linux-next branch whereas Networking and ARM do
+> > not? Is DRM bigger than either of those? From what I understand VFS doesn't
+> > have to do that either. And VFS has a large range of file systems to deal
+> > with. But it also has one of the best abstraction layers of the kernel.
 >
->
-> On 8/10/26 8:23 AM, Mark Brown wrote:
-> > I don't think any of that stuff is really what's causing issues with DRM
-> > externally - for -next the issues I see are the constant cherry picking
-> > (which I gather is also an issue for stable), and outside of that the
-> > thing that comes up a lot is that it can be hard to get someone to take
-> > responsibility for actually applying a patch if you're not a DRM person
-> > since the responsibility is more diffuse.  This can lead to issues like:
->
-> That's even true for simple kernel-doc patches. :(
->
-> >
-> >   https://lore.kernel.org/r/46b86d82-6ff4-458a-ac7e-cbbae214b4e5@I-love.SAKURA.ne.jp
-> >
-> > or things where the DRM parts of a cross tree series look like they're
-> > being ignored.
+> It's not even all of DRM, it's specifically the AMD and Intel driver
+> stacks which as far as I can tell just routinely cherry pick all their
+> fixes between their development and fixes branches without even
+> considering the possibility of either merging up the fixes branch or
+> just waiting and letting the fixes propagate back.  None of the rest of
+> the DRM trees ever seems to cause these issues.
 
-Is there any tag I can put somewhere that for cross-tree patches that
-are just changing and interface, or cleaning up an API change, that we
-give you an Ack without getting one, it's really a pointless bit of
-review theater if something needs changing.
+AMD and Intel are just the two largest teams with the longest
+pipelines of internal engineers and teams. There are between 50 and
+100 people in those groups, across multiple disjoint teams feeding
+into a single driver. It just doesn't scale for all 50-100 people to
+understand the cycle of the upstream Linus tree at all times for all
+patches.
 
-or can I offer drm-misc commit rights I suppose, but yes we don't have
-a good responsible person for acking non-drm patches, and they can
-fall down the cracks. But if it's something that can get handled via
-another tree, then I'm usually fine with it just going in via that
-tree.
+Which means for CI reasons and pipeline reasons, things go into -next
+is the default, our -next trees are always open, and get disconnected
+from upstream next from rc6->rc1 so not to mess things up.
+
+Then there are people who understand the upstream cycle dealing with
+fixes, because they know what goes into rc2 isn't what goes into rc4
+isn't what goes into rc7, and that knowledge is hard to disseminate.
+Having fixes be a free for all has usually meant me refusing trees in
+rc6/rc7 because there are inappropriate patches for that time of the
+cycle.
 
 Dave.
