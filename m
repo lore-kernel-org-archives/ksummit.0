@@ -1,123 +1,156 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8F73090E8
-	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 08:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EE1207A32
+	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 08:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786436219; cv=none; b=VNlnXFs6kQcHPeZ1geu7vO+ca8BWWyeQJXhUp53Kp+bGeX8egH4vHeSED+i7c/V3KBC7qBBuPKi716589V98i0/RlgfFJjEM8bTFFBgKT+JEIfi7BjuulHdAIXi7L5y++P6+2VVuwsq7xvl2tCnuAqASn3ONAlp6I8iluMUTRig=
+	t=1786436409; cv=none; b=Psxx+pFLDfYf0yMyYHnoaKQht6k0qrHXV0Ni2CrHTOCWzWbv11Zm56R+2e66XthtvmAygiIMoff7g7jiiQI9XUcLkG+K/MPx1MC+HDrbyKYVfSCl7TnL6eajY5KASMcdOs/IMZSpsrnvn80WvRw6nkPkpayVKScF1lE3ec6153Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786436219; c=relaxed/simple;
-	bh=AS0yogx2wPBu2VySh+F0I+137k8R+L2lUwi2YiEcUAM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P+wcy1QIcnUHNQGp3RGJCVdGeQ0Ri7d88FeOg4wzq0cVrrfwNILnV8xLq5k93v2iMvqmxSNQ2xWPmPBfdfDRbzKG/gnLXj0AvV90WRtn6V4m+pS5qTTFMA2Bqkhhu2QT4QwWCjMWPwELdRcYBj/c+mJF9v1vpDTVef8pyCzS+Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7475a4f8b05so1426130137.1
-        for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 01:16:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786436216; x=1787041016;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5ZqcTS0hKJpzx6pkCR7CSpELI7qaA77dtCsgqy0+gj0=;
-        b=AxCHD3YQ/T7MrlEEH37kvuMlqjj8ChSrSZqvfF6s18yAWHErRClWxzNh8Q/SNOon1a
-         4l//3wBwp7ql+EO0jGrpUq6rTuv2oai4CFVDSoWeBKyHslHz7GGoP/q77R0aQA0Njtry
-         FOjOAV1mjOp7kcr2m3txMWC8eutBXgcjjMD6dWaVuqOG1OHL1jZClP/yMKP84MgFg5NO
-         /tEZ1psE4DshimP8616azaSJKTlE2dwz0LHGibz/9BucfcXRjW8IiDClczSkuFmOOkbt
-         4EPnL9aUssDRg1ouFqIzv9aLsy3JfisQ4qZIknc/H2G+hZoIptGFlVXEFGWRNPtgzuSp
-         CMuA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+lf3sjwLIkWBaiTOE6ajXlrw/JTH6Sy0npBDfvWV8V0Fu85eGn7cx3kYkodgECSCJOntmFjDK@lists.linux.dev
-X-Gm-Message-State: AOJu0YwvsAy5WzdInLgTi2N9p91unE8Etm183v5KJBIcSLWBTMFYNvcW
-	qhfcTlsHlHizhStpCkIuavbcOvBVGcD46p+n4KKAzywJQ6C7DFRAVKh+kaGO6lK/
-X-Gm-Gg: AR+sD12zaH7MPRUINU76mbidd/LTFXWdIStBXJ/2uJgkfUiPC8wyEHfrlQOMqzZGiPG
-	9Wt3G6OGtd0sRQ7YnNTmqhSdDY17398sXck1Vjzq3ADB8lnXHl5+st5nvUeo7aydzVOvm1pLXL1
-	vTnyj9En7N7rJXpn76Gw72O2CSdNBlcBRnfP98F6Kbktwp8L3Pxu/EYvIiriLnAWc/n2F28sVpI
-	8jO+v2Vogw0f/hqYHWuDqg0XUfOOY4RjFHidcN/ydqIwnYwoci7cTpCi3Rw6ESGV6l7Oj1x22Yi
-	jfScI6QXDHroRCvzcNzzu4Gj4iFKJuQVRz3iUEK2wSUDfx8H5HDTo50+qILmtr0tBCRZgxzukoK
-	DOD9lgsB8O6A+TUOe0svuEwGr7ygECEp5Rz9wejRUU9N+SzNbEnvKxpYcCBP7XD4CanD6VjCjeK
-	nucSrW0VY3hz/sOuS9AHE8TJGNDkxAmRonXNs/BjbaIdM1mTYOBYkQstEpCx3yQcAeTEsCuPAsf
-	YAMhmA/lmxwai4bTZDuN45cig==
-X-Received: by 2002:a05:6102:c13:b0:726:8813:2078 with SMTP id ada2fe7eead31-76b56fb9d92mr469689137.11.1786436216086;
-        Tue, 11 Aug 2026 01:16:56 -0700 (PDT)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76b65bb5ddesm277372137.12.2026.08.11.01.16.55
-        for <ksummit@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 01:16:55 -0700 (PDT)
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-976ea28c65fso1576487241.1
-        for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 01:16:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrGN5l03wmCXBq33j+0Qw1EIFRXMff0KJUBWBnA7uTrDvL5pQBVNMDtMjoCRAJIt0awXyz3KlZw@lists.linux.dev
-X-Received: by 2002:a05:6102:809f:b0:631:2624:e5e7 with SMTP id
- ada2fe7eead31-76b579d3cd2mr521998137.14.1786436211273; Tue, 11 Aug 2026
- 01:16:51 -0700 (PDT)
+	s=arc-20240116; t=1786436409; c=relaxed/simple;
+	bh=Iyrmz4qog0hvpX0aTUKIsOKxNvlyjWffusjQpu2WyYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A0ihMi91Da2wiKcfvRrnGVugoQQ9t0R4N/IMCULGYsmBz4PKs5NYv2RWIqZJCtSUYe6+VniZbDU46CznF9Na52TEtynU/XeTp54HT4IvTHCn7Jq+8x2HRdVJylFXA6g+O+lzMuel2AGJ/9yR633cPfF92fG9YVGs4CCbpEpKhhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFq9l3ct; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFq9l3ct"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A6E1F000E9;
+	Tue, 11 Aug 2026 08:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786436408;
+	bh=XnepErEprEGSFmGnAmeVydpFFWc622CVVzW0JqJPGXM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oFq9l3ctRqv9x71SeQQkx/hthjQOSg+1mdsChbz7+CzNA2TpASQ+/QudCW5SXgp/S
+	 AVtn0BHz0u35uhZBCu82ReRCSdeQKTbacBtMeX99cjB3zOrID0yYEU7Ad/OojpNc01
+	 bjznB98sow1QV3XUBBpdo3ly439OS4f9i3d7bJQW/jKwKtVdpZxB00wbHTKC8hM6nw
+	 Mj7gZf7DzP08WzAiqTpLdmbNVFgYOX8XHKunTUmxmkuPb3zHVyTTsLNCCDe/yDfO2r
+	 O/uMIySwCbkZCqsAqU8Iv4a1wMZs9WDczizY/ADqtjj1hmq4EDV3yrCwlQqogN6s9/
+	 Bp8PQKght1YaA==
+Date: Tue, 11 Aug 2026 09:19:50 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+Message-ID: <anrWlBpyy6fmfCu4@lucifer>
+References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
+ <20260806194153.6443a3ba@gandalf.local.home>
+ <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
+ <anii3u-87kSrB9K3@lucifer>
+ <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
+ <anl7CgkKb6tORavG@lucifer>
+ <CAPM=9tybMTBw0iz2BSQ_p+3ybk=SmoLuRgiyyE6BP+=1+2RkfQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
- <20260806194153.6443a3ba@gandalf.local.home> <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anii3u-87kSrB9K3@lucifer> <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
- <anl7CgkKb6tORavG@lucifer> <20260810091154.2d3cd6d5@gandalf.local.home>
- <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
- <20260810102423.342c4e9d@gandalf.local.home> <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
- <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com> <CAMuHMdVBABOiOWDdCKE0zDffj856ui5qr3UFVptwcAn1_Hx7oQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdVBABOiOWDdCKE0zDffj856ui5qr3UFVptwcAn1_Hx7oQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 11 Aug 2026 10:16:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVfTs+jbmx=jc=aqdCBEqN80=QW84imJo1ozHzsj3mJDw@mail.gmail.com>
-X-Gm-Features: AUfX_mxtkGoRWce7-mM287fnPaiA5dsJUILtWerp-mKKZ6sRdFKvuIibgt7CB2U
-Message-ID: <CAMuHMdVfTs+jbmx=jc=aqdCBEqN80=QW84imJo1ozHzsj3mJDw@mail.gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer summit?
-To: Dave Airlie <airlied@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, ksummit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tybMTBw0iz2BSQ_p+3ybk=SmoLuRgiyyE6BP+=1+2RkfQ@mail.gmail.com>
 
-On Tue, 11 Aug 2026 at 09:12, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Tue, 11 Aug 2026 at 05:30, Dave Airlie <airlied@gmail.com> wrote:
-> > > It's not even all of DRM, it's specifically the AMD and Intel driver
-> > > stacks which as far as I can tell just routinely cherry pick all their
-> > > fixes between their development and fixes branches without even
-> > > considering the possibility of either merging up the fixes branch or
-> > > just waiting and letting the fixes propagate back.  None of the rest of
-> > > the DRM trees ever seems to cause these issues.
+On Tue, Aug 11, 2026 at 07:30:48AM +1000, Dave Airlie wrote:
+> On Mon, 10 Aug 2026 at 17:26, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
 > >
-> > AMD and Intel are just the two largest teams with the longest
-> > pipelines of internal engineers and teams. There are between 50 and
-> > 100 people in those groups, across multiple disjoint teams feeding
-> > into a single driver. It just doesn't scale for all 50-100 people to
-> > understand the cycle of the upstream Linus tree at all times for all
-> > patches.
+> > On Mon, Aug 10, 2026 at 08:10:21AM +1000, Dave Airlie wrote:
+> > ...
+> > > I think people really have a misconception about what goes on at the
+> > > maintainer summit, the best explanation I've been given was that it is
+> > > Linus's staff meeting. The people that Linus works with closest, get
+> > > invited to talk to Linus and help him figure out where the overall
+> > > ship is going and where things are going wrong.
+> > ...
+> > > Your language choice already makes it feel like you see it as some
+> > > elite or special group. It's a bunch of technical project managers
+> > > talking about the processes of producing the kernel. If a talk about
+> > > the technical content of the kernel sneaks in it's very rare and also
+> > > usually not of interest to half the room.
+> > ...
+> > >
+> > > > I mean I don't know, maybe it's necessary to run it as a tight ship of
+> > > > trusted people, but I think we should at least be more clear about that.
+> >
+> > I mean this is kinda my point.
+> >
+> > It is being advertised as X but is actually Y. So say it's Y.
+> >
+> > That's not what Ted's posts or the write ups or generally any comms about the MS
+> > say it is.
+> >
+> > The CFP-ish bit is probably pretty redundant too on this basis?
 >
-> Doesn't this cause internal (to AMD and Intel) issues, too?
-> How come we cannot educate contributors at these two large companies,
-> while we expect other contributors to be aware?
-> I would hope the people who do the actual commits do know?
+> In my opinion, quite a lot of the problems that get raised by the CFP
+> on this list, often get resolved on this list, which to my mind
+> suggests we just need to have a better year round maintainers list
+> that doesn't get consumed by patches or internal subsystem matters.
+
+Yeah that's not a bad idea!
+
+Though threads (especially bikesheddable ones) tend to go one of two ways:
+
+1. Some good constructive discussion comes out of it and decisions are made
+   (convergent)
+
+2. The conversation turns into the world's biggest talking shop and I want
+   to scoop out my eyes with a rusty teaspoon (divergent)
+
+So probably we'd want a way to cut-to-the-chase and say either 'OK cool
+let's do X' or STFU :)
+
 >
-> > Which means for CI reasons and pipeline reasons, things go into -next
-> > is the default, our -next trees are always open, and get disconnected
-> > from upstream next from rc6->rc1 so not to mess things up.
+> >
+> > > >
+> > > > However I wonder whether we should look at an alternative approach like
+> > > > those with M: entries in MAINTAINERS voting on topics, or something
+> > > > similar.
+> > >
+> > > Voting on what though, I'm already over the number of times
+> > > maintainers with small potato problems think that the lives of
+> > > maintainers with big potato problems would be much simpler if they
+> > > just adopted their niche one-person mutt based review process.
+> >
+> > Ah good to know core mm is small potatoes ;)
 >
-> Just merging fixes into next[*], and resolving the conflicts, before
-> publishing the latter would help a lot.  That would mean the conflicts
-> would no longer impact every user of your next branch.
+> I was more referring to the idea that voting would make any sense in
+> that forum, I do believe mm should be well represented, but also you
+> have your own very successful forum, and maybe the mm leadership can
+> meet at LSFMM and pick 1 or 2 delegates to send to the MS every year,
+> and they would get auto accepted, this of course wouldn't stop
+> additional mm folks from attending but at least make sure there are
+> voices in the room.
 
-That wouldn't solve the issue for people who care about the actual
-commit IDs and not having duplicates, e.g. for stable tacking, and
-in Fixes-tags.
+Yeah I see that now, sorry I misunderstood, all I saw were the potatoes ;)
+I guess being British I default to always seeing subtext...
 
-Gr{oetje,eeting}s,
+And yeah, having 100 equal votes for people who maintain
+random-driver-just-because-they-happen-to-work-at-company-X vs. 1 for the
+burnout-adjacent maintainer of massive-vital-critical-subsystem-Y doesn't
+seem fair either.
 
-                        Geert
+Your comment re: this being Linus's staff meeting I think is the best
+insight on the thread and very much reflects what I felt it was, and what
+I've heard from others about it.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+So I think we're pretty much violently agreeing at this stage (well other
+than the clique-ness but that's fine).
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Anyway the TL;DR way to schtop Lorenzo moaning here (TM) is to edit the CFP
+mail a bit to separate attendance from topic submission, something like:
+
+https://lore.kernel.org/ksummit/anntucHhrzF_b4sy@lucifer/
+
+That and ideally adding something in Documentation/process to explain what
+the MS is and how it works.
+
+Ted's response there was great and goes into oodles of detail, be good to
+save that somewhere to help people (including myself of course) understand
+it.
+
+>
+> Dave.
+
+--
+Cheers, Lorenzo
