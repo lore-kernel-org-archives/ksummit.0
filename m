@@ -1,99 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA062F0C62
-	for <ksummit@lists.linux.dev>; Mon, 10 Aug 2026 22:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CBF1A0BF3
+	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 00:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786402037; cv=none; b=hiIb5tKY1Pm0fEQZWX8NERlPzL2MCUi9nkgkh/cHxEFsmDVo5IsplXcN+lw0ruecVr6jFrdP2sMvwOTehXvQwH18cUW2ukJYjJ6P4esLH1+lnJVDOfIdVD5/VPgt4MBijRUbclg4uILzsJxU2ycfYQ7y/HwZx8hRybbvHufnUtc=
+	t=1786407377; cv=none; b=K+p8hsezjaFwxK2D2RLKW40avlEXADmyLtU4Lt3icK42lAgvq+YItGO8GIubtNeavbM0p9hWxfbhsNrYCa5uEWtxO6FjduVdauXXppLiLkx5hGfXr+NSuHzyz6wK13Oo0c8wVJn9EbbCrNkM0iCNdwUO+EFDPKsyt6S+zZQ+VPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786402037; c=relaxed/simple;
-	bh=qeoM0WAHex8xUKOq2nRFFpnoan8umeo2aQTl7Ko7PqU=;
+	s=arc-20240116; t=1786407377; c=relaxed/simple;
+	bh=WBSinI0927KTcZUVrGLChPM4v1tw+3QdnI/T1fEY470=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QjznlVmSwXOuyouIE4bI0HPJeHzfgOCiEtUcS1J80XRTYA1Y7wY2Tm/xdKep8ETnd++Y5xd2wzfdOqgemZIYlxgZxubOsjVd80UKbXlfQOxB2+HaJcboDttDJlCGshP6mab43eRWP5+9vFT0mzO+qKC8kJyt14UjgZdFFwy1RpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEyD0qkd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=vAkY22Gx43D35GH+YDgJDJarsj4pJdRqdC2MCMcDEOX1xK4wH7/Y6qlxuhI/Rn1fpcS56ZnHZiADJOtdo+KHOGjIzA4bu7Vri+nLFRQleI8JddG4mAfIiTMuNKY29fZl9gUf2lj8cpcZPrzFPdLTPZfPxjop4ftTc7vbADDBW80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=HCcWJ90E; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEyD0qkd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDEC1F000E9;
-	Mon, 10 Aug 2026 22:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786402036;
-	bh=J5xk24pC70jZS3eOJlFZ4nDjEJ+3AQo3NOWmARzPbCc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AEyD0qkdx2NVri9+d57kky3REtcDbVRMrw/2HHTB/J5QZlWpOm59vodHFNOL84TZc
-	 /HX7x8beHq8AVhhavm94IPA7XNnZorsH8jiQHqhzm0ts5fq0GJUxok2vZCGv5x+/+D
-	 aoFOULOhVsErJvXi7b20PWeun5rrjmW9OwUU1g0aqSEur4qurqdRZFY+z3zW2IB6V1
-	 5qSr6n9ACCUGodLI9wd2aX9t9q8vteqtMrTlmkDvZDKJB0NYulVT8eiqFCbF9o8y3I
-	 j1L7P5L7qvIcsi6GQwXW3v/Gzipk7OIBF97JcLpi8wl8q7858re+O3jn8W/z85lDfU
-	 7AWrTfUK1+PNQ==
-Date: Mon, 10 Aug 2026 23:47:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Dave Airlie <airlied@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit@lists.linux.dev
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="HCcWJ90E"
+Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67B0FpdM023307
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Aug 2026 20:15:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1786407355; bh=fjT8yjBVzF+8XMSiyPakQBDcIuqT2H4pG5ckSdZlkLU=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=HCcWJ90E1BkQPl6ZbHfy2CpIzFn7PTj+MRW9CK06k9qyos31U45hI9Zs0/Ie9W8Jx
+	 oriova3JLAEE032oO4gH6ZLZCf68xEKHNoOwkiN2q+l6OQzuBLZjNF+zK1mC0C54tW
+	 Ny1hhNdti+uFHobjkoZW8s604VZLfxmEH7Mky1LFF1DKoLrwAvYDghNfIGryeQX/g9
+	 3QmrRrl1up8PrM1c2Dkrj5yl8UIxtVwcgJIiiWLzqTpbBVQh4FLoy5u2S6vHnzrPyk
+	 I7nsqLuMvF6SKu5WqQbE74emFM5koCygkyNhHHaLPirZqaaJclzIVUJgTApP/NyRqd
+	 3l0/mvo5BjEOA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 7004EE6C1C3; Mon, 10 Aug 2026 20:14:51 -0400 (EDT)
+Date: Mon, 10 Aug 2026 20:14:51 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+        "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>,
+        ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <0a723972-7be8-453b-8fd1-d934e3c422af@sirena.org.uk>
+Message-ID: <anppSi8oQvvODOI2@mit.edu>
 References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
  <20260806194153.6443a3ba@gandalf.local.home>
  <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anii3u-87kSrB9K3@lucifer>
- <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
- <anl7CgkKb6tORavG@lucifer>
- <20260810091154.2d3cd6d5@gandalf.local.home>
- <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
- <20260810102423.342c4e9d@gandalf.local.home>
- <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+ <anfUgiByUVffXlrQ@mit.edu>
+ <87y0efi08u.fsf@trenco.lwn.net>
+ <20260809170918.218792b2@gandalf.local.home>
+ <anmHaRzbnY7rtLX8@gremlin>
+ <20260810092003.5fda8e06@gandalf.local.home>
+ <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NXYutNHVGVFB2Hfy"
-Content-Disposition: inline
-In-Reply-To: <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
-X-Cookie: Words must be weighed, not counted.
-
-
---NXYutNHVGVFB2Hfy
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
 
-On Mon, Aug 10, 2026 at 04:23:41PM +0100, Mark Brown wrote:
+On Mon, Aug 10, 2026 at 04:35:48PM -0500, Liam R. Howlett wrote:
+> 
+> I don't want to be invited.  My only reason for being vocal is to
+> facilitate process improvements.
 
-> I don't think any of that stuff is really what's causing issues with DRM
-> externally - for -next the issues I see are the constant cherry picking
-> (which I gather is also an issue for stable), and outside of that the
+Liam, do you have any concrete process improvements that you'd like
+propose?
 
-For some numbers on the cherry picking: I'm currently seeing 111 dups in
-drm (we also have 6 more in subtrees), out of 1739 total non-merge
-commits.  That's about 6% which seems like a lot, and they generate
-almost all of the frequent conflicts that DRM generates.  Next on the
-list is nfc with 17/35 which is a much larger percentage, and all of the
-8 commits in the hyperv-fixes tree are duplicates.
+Thanks,
 
-Sometimes trees show up in those numbers transiently due to sending
-their patches upstream as email rather than a pull request, that doesn't
-seem to be what's going on in the above cases from a quick check.
-
---NXYutNHVGVFB2Hfy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp6VO8ACgkQJNaLcl1U
-h9A3YAf/QvBThZWy7JQaVLp/mdxrBsfBokgEqrcs8isE47xkpd2sohZu/yz0UtaO
-PudwO0b+NWzPVewpS+Yr3FB6M5fmMWt7VKHT8b0263wuslQaoJ54bNIkGr1AoMLt
-hLy8bgaFFdznDsobuj3aKMVuMt72yyad+lNWfNFsIPf6wGKfjEb9r2/PeLN27uC8
-4hnWy9/pYogNjAK4pN7bhvbICjvgPmqu9vIhsANM+eIt3pJpOJAEy6sd63DFXW6b
-h5uLkEu+0RYuHTlwQWQkJChCwsIarR/01UCyegDOxaDHxghB1kDnTd8WMd+3uHlr
-tNa5mf6u+fBkbVkLF51GCzkGZkFi5g==
-=Zrt6
------END PGP SIGNATURE-----
-
---NXYutNHVGVFB2Hfy--
+						- Ted
