@@ -1,52 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852FD448D03
-	for <ksummit@lists.linux.dev>; Tue, 11 Aug 2026 14:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CA42C21F7;
+	Tue, 11 Aug 2026 16:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458372; cv=none; b=b/sM6+5yaTwhC1PHyVOhdW2aRbMYjG2Eu/V1FOzaERE1PJ4QuJAXOh4zAgpMJioKdGXPS485GeBqXdEU35mpt4qtDN6KemaYh3UJGCyfmAZmJMoyqgH7iGYBr/JN4GRVqBn0be4ySshCkerZ2s9sb1DRCajnOz0iuRhA5XVOwqQ=
+	t=1786467305; cv=none; b=TfBUkrKqrroFaHGCoG5Vz8Px9zc3uQ/lJzF+mWntRsHsWZqPzQRRIfwwlmuPrM/nHWbb/fVoatKHG29IMnKrWohnBgEbhdTmFvijZUANzoLKwACWF5PCG3lIIa5YzhpKufiREVXGQyYcbp1sFy+DjbYVtmJK9MPaWMMllcp30DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458372; c=relaxed/simple;
-	bh=PXunbhheNrdnkHIlQCISOCno3a/ylSqfHV2WgBYXyWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ltVQHX/gxFne/rXt3G+R6MeZG9qOTLZ6NTQtINeUvHoQ/1u17NRbo8cqTiFl6tzomP4Od+Q8gmFiF5bTu8cy9zT4xEfIGbKXskfkEp0O6DC7vUKjivMzJFzCpT8iT/UvDKce5bLnOm+dnFa2iZgCbACamUjhK5Hz60zv7eYr2CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pv3Kp9N5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786467305; c=relaxed/simple;
+	bh=cChe8BfPsOs/vPJ+DLdQ3iNSIhevi67O19UHRePatb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=YbrXCW7bdWdDfTSjA0YzSg3KyQFvWABi3b1vVJ5gkcuo2434Q+unsEuY6nEQjoG8IfddGlk7KsWH9yW6qbzXX5qddixKwfKG7Jdl76g6diskBtCgEsPkYVwj0FFB4FqFvSluInkW/7RCTg76EkYWfP7uhmLuM21hhuDA/8IgS/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1xAC98b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pv3Kp9N5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68A61F000E9;
-	Tue, 11 Aug 2026 14:26:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1xAC98b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6CC1F00A3A;
+	Tue, 11 Aug 2026 16:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786458371;
-	bh=1PbOJms8TnVxvWDQr4CW3m7sccuccDRu06T9yYcituk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pv3Kp9N5F/XRkelR4zbNIl/2PYRNC/EFJ/jekiZ8F/z4FQqwRKT7HtsH6bxO/IF8c
-	 sQT4D3R2EfhZ2eHHF7TgGRIT6Ao1pnLqJ16fhx+sAEqrlHZv7yUrPkO3cg4w1ctSN/
-	 uxhXy53GDsXxaaciODQCwDpLIC1gaEJrERzWdNl1uo4tDGIcv6FF4qpFfssGcRDtZA
-	 zg4kzjs/mE0IEhXyvR6f64J5W4nM3z4tVhuCk1ipuSyAmFHmz0d8HmJfkFeiNWHtrk
-	 MoaWNePrTSaQiPMK8XgihNo5Gww62nYtfMoUNKKcYQzqV0f3Ja3YNWPdeNgeGtSthd
-	 zwNgIo64iiuGQ==
-Date: Tue, 11 Aug 2026 15:26:07 +0100
+	s=k20260515; t=1786467304;
+	bh=87b40jnc6VA8mL+qpcyBST+UsnB8+jMbx6tglGl+bgs=;
+	h=Date:From:To:Cc:Subject;
+	b=j1xAC98bBA0jS9cXPc43eB66pf1o2Qy4ZInvLPLqlSHOE03hoBs/fEMhtUuxKvgZz
+	 qJ8F1+3xSvDPiFMFtcl/bfdMryQCWyxrSPN/IHuoxzUmZG9rbiFJ7O0OW4mb96zENe
+	 AA3dBHdzlZEEJSPz9flNDbYZ975Gz4NgwHNxPur37JDGL+5olERzJHWBb0pAubBgUp
+	 v0pLwC84VLVK4tHA6AcBDH6lnc0Hn1Pk8JSW8hZBAuKpCay7aVoDpCylWBrpyJMNgh
+	 gZva7+aZkLl7HxbxXdmlMp9yQAU6ZgTVOcdXvj9x2gIqK8McO2BXqV6H4VQooggqic
+	 wrl6JCRNpBUOQ==
+Date: Tue, 11 Aug 2026 17:54:59 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit@lists.linux.dev
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
- summit?
-Message-ID: <cab91284-4b9f-4e37-9f65-a4673c6b9de3@sirena.org.uk>
-References: <20260806194153.6443a3ba@gandalf.local.home>
- <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anii3u-87kSrB9K3@lucifer>
- <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
- <anl7CgkKb6tORavG@lucifer>
- <20260810091154.2d3cd6d5@gandalf.local.home>
- <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
- <20260810102423.342c4e9d@gandalf.local.home>
- <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
- <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
+To: ksummit@lists.linux.dev
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+	Breno Leitao <leitao@debian.org>, linux-next@vger.kernel.org
+Subject: [MAINTAINERS SUMMIT] Any feedback for -next?
+Message-ID: <1025da50-3e21-43c7-a761-4f65ed5e5069@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -54,81 +40,103 @@ List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GghxiJ+JvSaDTmrT"
+	protocol="application/pgp-signature"; boundary="mFbxSc5ie7ZI2xnp"
 Content-Disposition: inline
-In-Reply-To: <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
 X-Cookie: Take me drunk, I'm home again!
 
 
---GghxiJ+JvSaDTmrT
+--mFbxSc5ie7ZI2xnp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 11, 2026 at 01:29:37PM +1000, Dave Airlie wrote:
+Hi,
 
-> > It's not even all of DRM, it's specifically the AMD and Intel driver
-> > stacks which as far as I can tell just routinely cherry pick all their
-> > fixes between their development and fixes branches without even
-> > considering the possibility of either merging up the fixes branch or
-> > just waiting and letting the fixes propagate back.  None of the rest of
-> > the DRM trees ever seems to cause these issues.
+I was reminded by some of the maintainers summit threads that it would
+be a good idea to check in about how things are going with -next and if
+anyone has any ideas for things that could be done better.  I've flagged
+this as a maintainers summit topic just in case but I think it's quite
+probably more of a list thing.
 
-> AMD and Intel are just the two largest teams with the longest
-> pipelines of internal engineers and teams. There are between 50 and
-> 100 people in those groups, across multiple disjoint teams feeding
-> into a single driver. It just doesn't scale for all 50-100 people to
-> understand the cycle of the upstream Linus tree at all times for all
-> patches.
+Mostly it's been business as usual, hopefully I'll get better at doing
+merges as time goes on.  That said the list of visible changes I wrote
+seems a bit long:
 
-> Which means for CI reasons and pipeline reasons, things go into -next
-> is the default, our -next trees are always open, and get disconnected
-> from upstream next from rc6->rc1 so not to mess things up.
+ - We in theory now do rust builds (at least when all*config enable it,
+   hopefully that get fixed soon[1]), given that rust things need merge
+   fixups and rust is now a normal feature this seems obviously useful.
 
-> Then there are people who understand the upstream cycle dealing with
-> fixes, because they know what goes into rc2 isn't what goes into rc4
-> isn't what goes into rc7, and that knowledge is hard to disseminate.
-> Having fixes be a free for all has usually meant me refusing trees in
-> rc6/rc7 because there are inappropriate patches for that time of the
-> cycle.
+ - We now do KUnit runs as part of the builds with KASAN enabled, this
+   has been quite useful for keeping memory corruption and severe boot
+   break issues out of -next I think.  Prior to enabling KASAN it would
+   often flag on a different tree to the one that was causing issues
+   which wasn't so useful but KASAN seems to have done the trick there.
 
-Having everything be a complete free for all does sound like a bad idea
-but there's a fairly big gap of processes between there and what's done
-currently which is probably worth exploring.  Having a more limited set
-of people who can apply things to the fixes branches, having a flow for
-getting fixes integrated into the branches that CI looks at and so on.
+ - We now cover a subset of the kselftests, this does find issues
+   moderately often and helps keep CI coverage.
 
-It strains credibility that it's not possible for people to work out
-that a commit clearly labeled as a bug or erratum fix might want to be
-routed as a fix, and that with such large teams it's not possible to
-arrange for anyone who might be able to confirm this to take a look and
-apply to the right place in a reasonably prompt fashion.  Some things it
-might be less obvious and some cherry picking might be a sensible way of
-dealing with those after the fact but there's a lot of cases where
-that's clearly not the case.
+ - Started sending out a weekly summary of the state of the world -
+   perhaps there's extra stuff I could be adding in there?
 
-Possibly just always merge the fixes branch into the development branch
-immediately (or after going through a pile of fixes), it'd result in a
-large number of merge commits which would annoy Linus but perhaps he's
-not reading the DRM pull requests in enormous detail anyway?
+ - Removed one tree that was causing issues and came very close to
+   removing another, that one fixed the problems promptly.  I'm not sure
+   if I'm actually being more pushy here (as was requested), that's
+   about all the issues that came to my attention.
 
-Even just labelling the cherry picks as cherry picks of the original
-would be an improvement, right now the cherry picks are completely
-silent which really doesn't help anything.  IIRC the stable people have
-mentioned that that's one of the things that causes trouble for them.
+ - We now do allnoconfig builds on the incremental builds, this does
+   occasionally catch things that are allnoconfig specific which I did
+   get some reasonable grumbling about but I think the majority of
+   issues are things that would show up with any other build so the
+   failing fast is very useful.
 
---GghxiJ+JvSaDTmrT
+ - Swapped around a bunch of the targets from PowerPC to arm64.
+
+ - I live in Europe not Austraila which has messed with some people's
+   schedules.
+
+Things that I'm aware of that have been suggested but didn't happen, or
+where I'm aware of issues:
+
+ - Covering the documentation builds, I don't think I've ever seen them
+   building cleanly when I've looked and IIRC there were some issues
+   with not getting error codes on failure too.  I do intermittently
+   build as part of the final build.
+
+ - Standard reporting of duplicate commits (the tooling does notice, but
+   it's a manual job to actually tell anyone about it which mostly only
+   happens if I notice them causing a conflict).
+=20
+ - Pushing out mails more promptly, there's a manual step where things
+   get dropped into my postponed folder and I don't always actually send
+   as fast as I should (the "tree for today" mails ending up getting
+   sent the next day is the worst for this).
+
+Any other ideas?
+
+Thanks to Thierry and Breno for helping out with holiday cover.  There's
+also a bunch of stuff changed with the scripting which they're also
+helping with but isn't really visible if you're not actually running
+-next.
+
+[1] https://lore.kernel.org/r/20260805-rust-reverse-randstruct-dep-v3-1-7b8=
+b2c761d6e@kernel.org
+
+Thanks,
+Mark
+
+--mFbxSc5ie7ZI2xnp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp7MP4ACgkQJNaLcl1U
-h9DacQf9HyQsEiMALEoprIePr17C8FTK8v7M1sqi1nqhYKpn7pu8rbX4IS9XIdeL
-bImlz7FkDQ9j7vq8U17PDzYQ4+kAwiq0sIjqWbvmcOkbBmzybyIou7m74Af5ebNE
-ggYSF2mwS/bkI6hS2+Jw/F5wve0SfwKvHC4Mz9V3Js+fNYaRULBo67DjXHupL8pF
-HgLyQd/58VtZoeHBmyaPdt4oTyfuAY7QKwrTyXltbFfpGGZMx1izvduUk3qJtiyd
-4iBvlEXVTt6UQ3BJtiqcbUIZtKMkND0jgOhGUM9coaQ8hYgJP/CR1inEcaS1xvUF
-x3Z97c6GPdmqugu8kvaPOz5mqEJ47A==
-=k5TD
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp7U+IACgkQJNaLcl1U
+h9DQXAf+IqjcVdYrrkoqV3Y3mHzzK2KcV/uRAHH7OOMdkPjvMhJUcft7PetULCu8
+HJK/fhyMkw4CqVGcZkWiQpLlnVA+8zVUku9Noj18F2b5PvRjOJc93K0BqVvAukVk
+2jsbJpEu0cw94lzGW0mJ0pjp3V312+MDOIWJqYPKV+ZGX0TOFENGGoj9OzKTP/Du
+NxNQn5ASSeC6iCmV669CL0XbNx7O7SaK2SfqscrzzsKRM/G+IoXXveSvvk0ZPdbb
++MJh0OyYfiyNLg7mSoE74hW2eb+WPsIjX2VvtLmYT+UwvvPVDM1Ume+k7aD/ijdI
+OXML/kwC8QwI4951UNo7t6zljPmIMA==
+=E0N6
 -----END PGP SIGNATURE-----
 
---GghxiJ+JvSaDTmrT--
+--mFbxSc5ie7ZI2xnp--
