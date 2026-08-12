@@ -1,81 +1,92 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC25246EC64
-	for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 15:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB4F476689;
+	Wed, 12 Aug 2026 15:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786548451; cv=none; b=eaVV7Sb4iTqqUzXn2vdIj4MZ0GTjmW7OTs3ogwA3texfV0s3vZs9h9s6Rk2CkLZX3mHDp05DFRFwHc38AdK9MAzDRYItyTDWD+H5v5IaRLUxB2BlhqawaJAVNBfP4znBLMDC3KiEOBjiaY/1JGGSR0RH+DDZf7jY/MIsC1f3tu0=
+	t=1786550378; cv=none; b=dutTXkM8I3UnSB0ilHmx0kB+1U0VVPvvpwtsDY8uzUoc0imBHW4HRcRtNTtOj2hbT5empR9lxUCZMkl0F8aM+xbAYV0+6qrUNzOH/UkpR6GvfSnH24oCPm94STyrbR/rtyeXb66GT07vebB792bCl8+sO6xHRcNFoJxggV5EzAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786548451; c=relaxed/simple;
-	bh=W8BDtGafd67deGkn0gqvwQt5IcNOmrrSope5Te+4Orw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PTXaIwr+nGRiCmPNWA1bea1hpCnR5VxUBUOLarD0AyJJ2xOe2SLbXy2jguoGob8GKiZOM1I8F8Vsk+BnE9XHFdmadrcdDL8a60/Fl8wVavf2lhiwTlt6mZggTMDkoDjlxZl8BCD3qnIBc7NGuZ5aTFf+7RSbnCcIFi5i52+EIoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 61582803F0;
-	Wed, 12 Aug 2026 15:27:11 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id 8D78A2001E;
-	Wed, 12 Aug 2026 15:27:09 +0000 (UTC)
-Date: Wed, 12 Aug 2026 11:27:23 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Mark Brown <broonie@kernel.org>, ksummit@lists.linux.dev, Thierry Reding
- <thierry.reding@kernel.org>, linux-next@vger.kernel.org
+	s=arc-20240116; t=1786550378; c=relaxed/simple;
+	bh=4UtsdmhHOz4+CfNG1LFd/YTv8e1FCYmWcxWqVHJJNro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tm6Fo4E8AgEZ3FcwsVSOLLbiuQz+RLRRjOXuUpmxPh9SIoH1bPijT8oxyDlogOfXhaPBi2DftSHSl/zwGMfWAvc1ybqO5/mamIjpg5Qp1r2bpul5tHdhje/du182y4UkTXV/ewvFPaqTOFlJdBLacd4nVAOsLW3/OKuaxNutYyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLkjl6uE; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLkjl6uE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEED91F000E9;
+	Wed, 12 Aug 2026 15:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786550377;
+	bh=dVrURgH2KpXxgvHO/qTtIsF9Joxm5i6JVe3Cni4GjYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FLkjl6uE/ogjuVHjuZ3SY1v0h2W23kN0jLq3gbpveOmPmwIwTQBlNvG4q7Ej+fQlN
+	 zcx8ZnE4931h25Lao78faAojuZ7wSXgJ4oTl0VNsDkhU0DtsUVopSxu/nMMCZhKXqE
+	 b5o6pSjw25JGtoI3oRcP90kGPRxoS/PxxEkpJ4794HtQHwXeEqGW/knbJkWJR7/KbZ
+	 7Ix50IxqTETcadVYv3mvZrUFxo8v01GyN/EP4JLgDEBeiBvgrrP6L6t5gRCCm4piYS
+	 1hhD7AGyPZbdDBPoAahyDOily+X6eC9gEz+FrwF/DSqnOyZxjA91FgSohIxw+ZSsLR
+	 2BPla1KNOPXjg==
+Date: Wed, 12 Aug 2026 16:59:32 +0100
+From: Lee Jones <lee@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Breno Leitao <leitao@debian.org>, Mark Brown <broonie@kernel.org>,
+	ksummit@lists.linux.dev, Thierry Reding <thierry.reding@kernel.org>,
+	linux-next@vger.kernel.org
 Subject: Re: [MAINTAINERS SUMMIT] Any feedback for -next?
-Message-ID: <20260812112723.643f9502@gandalf.local.home>
-In-Reply-To: <anxaYg9XL7nD9w40@gmail.com>
+Message-ID: <20260812155932.GV1072730@google.com>
 References: <1025da50-3e21-43c7-a761-4f65ed5e5069@sirena.org.uk>
-	<anxaYg9XL7nD9w40@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <anxaYg9XL7nD9w40@gmail.com>
+ <20260812112723.643f9502@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: uwpqbecrdp1pa795whtr3k4r333cj7cs
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 8D78A2001E
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19OkGugwwNhirT7Sg8Y81ynR68O27nAi58=
-X-HE-Tag: 1786548429-347555
-X-HE-Meta: U2FsdGVkX18NjuaY6rzQws8sXsG2e9AnnwInFA/36tQQQSIhRh1elZN969Xlbxinhb/0E/scDkPvp/NDQ1u4P3IverPQsJd5cUhJOGL0S7N5NFE4ITfbF80wplICSABc20kpnJhWFLz9h2EzbOEDmyPEl2E+xtUERG/vlua4ySZRIt5UmOFm7PH0R+phr+N2Lyeboanm0PalnHC5AbB09SC43eY2vkYQmJMTlXoMT8ruwVIP6bS7xUUuMHMczZ6S45MTb73JVu5fdQk4ExqDcQRkilkC+uuD3Gmq0vuSfZTBCtN8AyU8juJZFTqwWNN4B8mdfaJQfAfmWpDDSX0SNBOmc8NgIESAS6+OB8FJcDSZEgBBn3IOGiWDFkdoeOgwQHCm7arf+MfNhUo/FVoiTrjAcYEyOkaLXukBagsAdb427AEUcc5DePluBU47CdK/XU7TSN4V3Vy1T3o/k8lwJukTMrR+YwBH7ohg5qPzdx4=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812112723.643f9502@gandalf.local.home>
 
-On Wed, 12 Aug 2026 04:42:21 -0700
-Breno Leitao <leitao@debian.org> wrote:
+On Wed, 12 Aug 2026, Steven Rostedt wrote:
 
-> On Tue, Aug 11, 2026 at 05:54:59PM +0100, Mark Brown wrote:
-> > Any other ideas?  
+> On Wed, 12 Aug 2026 04:42:21 -0700
+> Breno Leitao <leitao@debian.org> wrote:
 > 
-> I'm new to this area, so please forgive what might be a silly
-> question: would it make sense for maintainers' -next trees to keep
-> a stable git history?
+> > On Tue, Aug 11, 2026 at 05:54:59PM +0100, Mark Brown wrote:
+> > > Any other ideas?  
+> > 
+> > I'm new to this area, so please forgive what might be a silly
+> > question: would it make sense for maintainers' -next trees to keep
+> > a stable git history?
+> > 
+> > Some maintainer trees are already stable and append-only, which
+> > gives linux-next users/testers stable commits to point to, instead
+> > of ephemeral commits that can disappear later due to history
+> > rewrites.
+> > 
+> > Would getting rid of these ephemeral commits make linux-next easier
+> > to work with?
 > 
-> Some maintainer trees are already stable and append-only, which
-> gives linux-next users/testers stable commits to point to, instead
-> of ephemeral commits that can disappear later due to history
-> rewrites.
+> This has come up at the Maintainers Summit in the past. I believe it is
+> even in the article I posted earlier in another thread.
 > 
-> Would getting rid of these ephemeral commits make linux-next easier
-> to work with?
+>    https://lwn.net/Articles/1050027/
+> 
+> We are even discussing issues about this in that other thread as well:
+> 
+>   https://lore.kernel.org/all/0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk/
+> 
+> I try to keep my linux-next branch clean, but I do rebase to add tags. I do
+> on occasion remove commits if they prove to be totally broken. That's rare
+> but I rather have that then having to push something to Linus where a bunch
+> of commits are simply reverted.
 
-This has come up at the Maintainers Summit in the past. I believe it is
-even in the article I posted earlier in another thread.
++1
 
-   https://lwn.net/Articles/1050027/
+FWIW, I have always reserved the right to rebase in order to remove,
+move around, reword and otherwise fix-up commits and do so often.  To
+that end my 'next' branches are not, have ever been, nor do I intend
+them to ever be, stable.
 
-We are even discussing issues about this in that other thread as well:
-
-  https://lore.kernel.org/all/0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk/
-
-I try to keep my linux-next branch clean, but I do rebase to add tags. I do
-on occasion remove commits if they prove to be totally broken. That's rare
-but I rather have that then having to push something to Linus where a bunch
-of commits are simply reverted.
-
--- Steve
+-- 
+Lee Jones
