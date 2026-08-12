@@ -1,196 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01521C8FB1
-	for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 07:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5B738655D
+	for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 07:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786518467; cv=none; b=VGubSyaVA4Y+bl3fDiSCT/N7N1nFcVOA1VFAPIrmqNKcAejTJFqdOv25mh2t8ftTsULC4lfYOzrccdnBR4AzAc1n528huJJF8UWtSlqOrEmCFmA5Y1hVV1TO4H5zTT3+b2hx3uPXccbdooz9u0gYOpKrMhwp6IHYnNt7If92Acc=
+	t=1786520606; cv=none; b=keebB9OnqFFfLiJ9ksS3LAZOPIiJZQg1j3wsAvWhV5iqdl6n59c6nSaNap4NZiWYKi0Md1lTewFuhTygO35rQAlWWPxfq69vqvq13sbu0Q0b/irxQkyYx0WPridqIgcBm7M0C60lO9AgJSpcsSTSTy3/BdAts6IzUaAtZbYW+CU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786518467; c=relaxed/simple;
-	bh=yJA7bHjl7grRNReXrBX1m5N6tZ/E4pf1lBPyZPCkmkw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dllVYk3cxhktXAX8OWEGlCPWUILIECEmFMFbdFvaj+TIwmvjEEAYDsSz6F8cTcXK0uqiSGarm4bmGVZDaQqC8lPY5D6Mb8BPRAX9UeLTBNooRkykMWUx9gjhib0ztcZte7hRGb+vexDXV0GT3hykcBEV7cD5kOVmo9dbx/jW0Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERRkWeDA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786520606; c=relaxed/simple;
+	bh=wKhPvIBE62d+feW0UmpLMNoj+5FVWxidSBtdNhXPTP0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lQEz8JtwtB8/hEasnY2VpnXXt19G0OcwjDTbjnrUqfWbKjO1cCcIo0ptl6HgKuON2JVWvHKeEbcU5yRx9A2cAirY1sewRvPJzVwVEsm2WR5WqwcQuLpvOKSRbh8UteEr6YdbfzzMN0J4vJNe9jmK1pkti8F+Gx669HCKbr7x1FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=Av6yp6Y4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=P0PXOJef; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERRkWeDA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29261F000E9;
-	Wed, 12 Aug 2026 07:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786518466;
-	bh=QrqLXG3Is+IWemGAPwysx8HWP6KAcr8F0ujh8mjOjtg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ERRkWeDAPWcDJ9tXTWGsGPhoFn3a9FCY3t9Wz3LgDvZ82T71e7zUuhdnAFWcAuUV2
-	 3u2VbSpXR9N7TVKf6Lm8tx9m+Ob4cl4yzse7GB6vySGyUMdkZZLUDBzwXfTNoTqhGc
-	 R/cvYrUB1ZmNdCRkl33bJ9gQ4Nk11ba4Z+WrXDnDiNA1iMGyUA2kt0W32+3ozVsSr+
-	 WyyiNb8vosykCuMMsBYT3wXaCsQNooVjHhnrWf3gLxr4WkxuUaQOR4nNJS2PAombZz
-	 TT/T1DRZyXelat3Y4nTfp6gYT6TmPy/4RlKyWRjHssgcv25bjkZmjqY7Zlfnr69yma
-	 uuKvAyGk3aL/w==
-Message-ID: <2509536d-cdec-448d-bf20-80d2b3d6728a@kernel.org>
-Date: Wed, 12 Aug 2026 09:07:40 +0200
-Precedence: bulk
-X-Mailing-List: ksummit@lists.linux.dev
-List-Id: <ksummit.lists.linux.dev>
-List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
-List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="Av6yp6Y4";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="P0PXOJef"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 88FC67A00D1;
+	Wed, 12 Aug 2026 03:43:23 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 12 Aug 2026 03:43:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1786520603; x=1786607003; bh=U9aoBIn75N
+	YhEszw14LIEJ58uGNqfBIEY7LHCoarq54=; b=Av6yp6Y42ml7OCmtJWq2axHIos
+	feTXVMQSrsoyeiazozQppNKR366YMXQef2RjJByvr8gRamNVoDuVISjhlBc026Dr
+	5NAIOQTxxBWgxQf6pasPDCT+0DWInT49bCAB1xRzLiwWw/di/cLDx/Zo5YbWsc/z
+	ecm0a8trh4jcUJ/bYpNy1CVnAl63XObGytQigGlx2d5CPg46ZdIRG8SgkHue2kJs
+	O7pJaYpYgxpdSSGkgVvzLNTDrIIhKZ9wuXzP5Tsm6OEPDpHj2jtg4DmSMoWewaND
+	niuSbsYT6LZAXIB8+0J9Jo47HukeuOcw0jCzceqJSECOxRFbNQlplhwHKSAg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1786520603; x=1786607003; bh=U9aoBIn75NYhEszw14LIEJ58uGNqfBIEY7L
+	HCoarq54=; b=P0PXOJefxrtIYStA9Yt9Zv6jLvFRIrAjU42wZv0bk+HikE0wAgf
+	3Wi9rd/00iz54Ti8VvgBBW23bStdPobue6nc4KZgI+YQT6qIjcO+4iiAxe13jnzi
+	TyRMcacEsWhHGfnZz8nMhaV7XDn2czGbOYEXRw4a1UjOeKwA5LpomWNLBmLech0/
+	p3Y1fh/Ua3IZbAIj2KSu8WtMD0BODlYr8ucq+5SPiTuZi2FToIkq2o6bFpBPhk2d
+	zSqH9u40CWAc5jCdYVRfSvAhh5xVqw0Xhqx4oriKxvg9HEeu22bPPw3viaJe2LaF
+	n4Zsy4YjnKc8DLTaxt3qKbYrKeIUIzxzSoQ==
+X-ME-Sender: <xms:GiR8ap1cjkJXuQeyrfWaK9yTCbwjua0gNn2I91wlHXNqS0pruTMauQ>
+    <xme:GiR8anpMIBtAidM5B0Q8hYUiu-U0TjQSZbz_z_I2BPPclL67K21QAhELeaPQkMaxm
+    oJcAytcgbxqroeTAd9o5AfAL66FAF1wicB5M1IZF_TW-it1fw>
+X-ME-Received: <xmr:GiR8apg2mfhtGYebTgus-ruSDJmnFZ4B2zLV0VqVDhPFw-mHdRJqx_U>
+X-ME-Proxy-Cause: dmFkZTFnROseTsgbOeRAB+kpGZjeu4YriqV19nhYmOG05f5SOUNZN79I8tgD7RSG/HP5Yt
+    BsUL+/IZTRTSKUVmcwyRPiUQIeZBbJxcoc4okyNQjhQwwI4S9yObx/ArzUER52ogCMD/bg
+    VD8MsrHlDKKVL8yIbPlhXe1oqYeojSt9EMNI3XTjn3k+UKS22rFtca2mspOnMlckvj2Afa
+    4BApMtOYwySakzobaJpMjcIcyli52fhZVSCGwsOMffJQCkNpHglwuGGvHuLfYhS83mTMx8
+    +bK1j144a34vyR/gyvygWmFXA+iSwLWDX7YMulZZIdg3wWdnoo4vbUUplE75bB7/DQVqUj
+    mc9IGGKd3swH8tLV8SSC8hAZZbPiQ9zyVQ24iQWUfkBlbm3Ogt6EEFF+D6lNPEVWYwtt1i
+    SzYupQ416q52UqyyvSHGQTcsVp3uSrS7u5YEiiUEEwQALw4OtwZxL9kicIdV7vGlSmIKc6
+    MglhFCjgyrrLRxdbtFDpNwT0vHnJrxTgo+vk5oJGZ5siWNtAqKb+YGxzF9RIGY4u1Q3fs4
+    USH66QO77ea9QZxxLVNZ3MDw+uwXJZPDeXd4IXfQ1NYAyAgo3FCld96KtT0oepfkMLKQ68
+    V6guMD1Seb1lRubzKGO5dzhmYq2JwbmScUaQGzUwUkyfnz7fflzR6W5MVWNw
+X-ME-Proxy: <xmx:GiR8ajkuHFi-V_26sjxhY0r4oSRMh8qljRQ-Dc9X6W7LNUNcBQiLcg>
+    <xmx:GiR8aipsZPR2vqnDLkaZSgCxkJ_gP43_dDeP_J6fpv00dkpJ3cn-Jw>
+    <xmx:GiR8avIHLkqisABUAUvskohZpJxo9I1AYWS9h8pNlojPDqv5U6paag>
+    <xmx:GiR8auDp0JXwjFmMiiOst_e9_m074ry0hWyPkLHbsS2ZCrttSzsEXA>
+    <xmx:GyR8agIwnLMtxD2v3ZnS5a2r11jbxlcCU_Ed_ZbM9fmcc7XSCkvXV9BL>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 12 Aug 2026 03:43:21 -0400 (EDT)
+Date: Wed, 12 Aug 2026 16:41:48 +0900
+From: Greg KH <greg@kroah.com>
+To: Dave Airlie <airlied@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-To: Dave Airlie <airlied@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, ksummit@lists.linux.dev
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
- <20260806194153.6443a3ba@gandalf.local.home>
- <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anii3u-87kSrB9K3@lucifer>
+Message-ID: <2026081254-scrubbed-avert-b5b4@gregkh>
+References: <anii3u-87kSrB9K3@lucifer>
  <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
- <anl7CgkKb6tORavG@lucifer> <20260810091154.2d3cd6d5@gandalf.local.home>
+ <anl7CgkKb6tORavG@lucifer>
+ <20260810091154.2d3cd6d5@gandalf.local.home>
  <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
  <20260810102423.342c4e9d@gandalf.local.home>
  <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
  <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
  <0c95dc03-5b33-49aa-8368-bac482b8b40e@kernel.org>
  <CAPM=9twMwxo-yO1Ke45D0Sxmji8Mt23BqxUMv-_GY1gzssVCiA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
+Precedence: bulk
+X-Mailing-List: ksummit@lists.linux.dev
+List-Id: <ksummit.lists.linux.dev>
+List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
+List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <CAPM=9twMwxo-yO1Ke45D0Sxmji8Mt23BqxUMv-_GY1gzssVCiA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 12/08/2026 08:20, Dave Airlie wrote:
-> On Wed, 12 Aug 2026 at 16:01, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 11/08/2026 05:29, Dave Airlie wrote:
->>>>>> If your assumption is correct, this is internal cat herding ... MM has
->>>>>> much the same problem except that it has to deal with somewhat
->>>>>> opinionated architecture maintainers (around 22 of them) to agree on
->>>>>> the internal abstractions for MM primitives.  Perhaps rather than
->>>>>> getting into my problem is bigger than yours type arguments, we could
->>>>>> observe that MM might run a bit more smoothly because it gets an
->>>>>> additional 3 day conference (LSF/MM) plus a MC at Plumbers to sort
->>>>>> itself out?
->>>>
->>>>> I guess the question is, what exactly is being big for DRM that it needs to do
->>>>> cherry-picking for their linux-next branch whereas Networking and ARM do
->>>>> not? Is DRM bigger than either of those? From what I understand VFS doesn't
->>>>> have to do that either. And VFS has a large range of file systems to deal
->>>>> with. But it also has one of the best abstraction layers of the kernel.
->>>>
->>>> It's not even all of DRM, it's specifically the AMD and Intel driver
->>>> stacks which as far as I can tell just routinely cherry pick all their
->>>> fixes between their development and fixes branches without even
->>>> considering the possibility of either merging up the fixes branch or
->>>> just waiting and letting the fixes propagate back.  None of the rest of
->>>> the DRM trees ever seems to cause these issues.
->>>
->>> AMD and Intel are just the two largest teams with the longest
->>> pipelines of internal engineers and teams. There are between 50 and
->>> 100 people in those groups, across multiple disjoint teams feeding
->>> into a single driver. It just doesn't scale for all 50-100 people to
->>> understand the cycle of the upstream Linus tree at all times for all
->>> patches.
->>
->> Qualcomm has also between 50-100 people in different teams upstreaming
->> to similar subsystems (like SoC) and they try to understand the cycle.
->>
->> It's just AMD and Intel do not care to understand, because it is easier
->> for them and no one nags them...
-> 
-> Get back to me when their devices are in a place to be running
-> upstream kernels as much as AMD or Intel at the same scale.
-
-So I am back. All recent flagship SoCs since a 3-4 years have full
-upstream patches posted from day 0 of hardware release. Since a year
-Qualcomm upstreams most of the patches before hardware release.
-
-And their devices is a SoC, consisting of not only GPU but few other
-DSPs and multum of other IP blocks, so not even single hardware.
-
-I am not saying that they are doing perfect, but they received clear
-guideline they need to adjust to upstream process and cycle and they do
-try to adjust. I know it from first hand since I have been directly
-involved in this for a year now.
-
-> 
+On Wed, Aug 12, 2026 at 04:20:04PM +1000, Dave Airlie wrote:
 > We've tried to keep the upstream schedule for ages, as Rodrigo points
 > out it falls down, stuff goes missing in the shutdown periods, telling
 > teams to stop working for 2-3 weeks isn't an option in most companies.
-
-Well, we tell that Qualcomm and Qualcomm listens to maintainers. Are you
-saying that others cannot listen to maintainers? That is a very bad
-precedent, because now Qualcomm managers will get back to me and say
-"why are you so harsh to us? can't we get some slack like others?"
-
 > Intel and AMD are trying to upstream GPUs that aren't even on the
 > market yet, velocity mattters a lot more because thier customers are
-
-Same Qualcomm. Qualcomm posts patches all in public like 9 months before
-hardware is going to be announced. Publicly announced, so availability
-even later!
-
 > usually on the end of the pipeline via Linus' tree,
-> 
-> Qualcomm is not in the same position, a lot of their pipeline delivery
-> is via Android or ChromeOS and they have nowhere near the amount of
-> regression finding problems that upstream GPUs have.
 
-No true anymore. They do release to Android but that's downstream and we
-do not talk about it here. I talk about upstream and their
-upstream-first releases for all of their major and minor products.
+Why would anyone need to "stop working" for 2-3 weeks?  That's not what
+other trees do, the patches just go into a different queue/tree until
+the merge window is over and then they flow into the normal -next branch
+(or whatever you want to call it.)
 
-That's mainline Linux distros: Debian, Ubuntu, Yocto. Their current BSP
-is pure upstream based.
+The only one that needs to worry about the merge window is the
+maintainers.  Developers just need to be aware of "is this a new feature
+or a bugfix", and all other subsystems seem to be able to enforce that
+tiny rule, which guides which branch to apply a commit to.
 
-That's the same amount of regression handling as Intel and AMD.
+Are GPU driver developers really not aware if they are fixing a bug or
+not?  If not, who is doing the crazy cherry-pick in the first place?
 
-Do not assume AMD and Intel are the only ones or are somehow special.
+And again, I hate how the DRM tree works, and I think overall you
+greatly suffer for this model as the "Fixes:" tags all are wrong which
+cause regression and CVE tracking to be totally broken for all
+backports.  So I guess the teams for those 2 companies don't really care
+about stable trees?  :)
 
+thanks,
 
-Best regards,
-Krzysztof
+greg k-h
