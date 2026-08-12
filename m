@@ -1,177 +1,166 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A92399357
-	for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 08:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786521951; cv=pass; b=W3VltTMEM4naajlzUG/5PYeAUAfKQtz82VueP0dkZesWWF4Gx9GB7VxsAFb2goNGYN0Zgw96+5utO8oNcDOrbljO+MNCAxIYAIk3AZhztt4yStlDce53cMcfT0RLgSnUzYt7JS/buaRAj/FUJch8Q6KQCAEITxHQ2FixPz6eD9c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786521951; c=relaxed/simple;
-	bh=Td4DoLD/zfAi95wL5cUfYBgq08TNHSr6jF6BY+PJbEc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B/HSyfbC8EQdx5lyoHjiqXPTNgK94GIv5kzraI9FpuuEu7p6GbMQFW9BN6Pb5pGWv7U6/Of8zkY/QRL0TSIrOin6esuNOTjYQmre/pSv7LLPmEjAehc+Dr0SMDwTonMUseUYdjL2R+ksL3z2jM2tCpeqAIB9saylbf7QHtrGBs8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O5AUynFr; arc=pass smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F61543CE49
+	for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 11:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786533552; cv=none; b=E2VcHQy3HncBCnGEpPubY1IlJzXIJAPiLNSOdawPOEX9Fpl1buLfwXqi3YPkvosIgzRoUfiowqbF8B1cLcz5kR4Ij8pI+3+ckPXozZIFIwzRGxpvS48BxAqBNngpygYK4On8h2HU6KGAeL/OzHws/cot7YgUiji4aZk/g3Us1tk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786533552; c=relaxed/simple;
+	bh=Zu06VORGd60eC5cvXuXkiAljsTtoYdTtZHZBSaSEP/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XkM09TLHXx1snEReqA0uIiW6NgQ3xy6jfOJpKqZky5y1VvhiHeRJQOF7PP74s5HupuvkTmKgEWw7Pr2MPbI/MQR4teiA0qEcyzCjNN3ZPH7RoBjFtGPU9/7id0NlruT+RP43wFRuFA6Rb1Fh4y+ho7DnKief08ECBQA4Zxm7Yi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QNDfRYJg; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O5AUynFr"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-6626b5ace23so2715889d50.0
-        for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 01:05:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786521948; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D0I+5/Wd96k5Y13Vp5NRvG13b5u546vUt56C6OL8iMAixkGoC6/z2LFQk1NI0pIyRR
-         egdWE6rrbnk7KQ57qyDkXB69vvwsfwfwLrLXnJTCB+0FQFSy1h+af8dWIwFyd0zHChbQ
-         M4N6ABwTQsXugQ23ywMO4vfqBsjYposOubB08mX1Tn1bp+up3Anb4OqFxS2doF+CKhOn
-         j46mmK0i37uj/AqeFflVXSNaF/QGEhuIxTeh0TS3ItWHhCkQocoqyxi2o/P4mg5XE9SZ
-         IzN/Sir3WUV9YvJ7t5bvdWRo3IFrFmXgpdJnuE1fAhXqLl06DDz0TVEOrsccxxPqpbjn
-         8qJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kzOo+Ci3XqiLZw/TvujRVzrd9Pc8lI3YII6NefBMbMg=;
-        fh=5lP/MnwFEWYc5/+NjZYEMJxvn7KXhCzwYUt6nwV79Nc=;
-        b=d7/d7bVhqO4apvJLyhrYs0uoCdA176H1r8ehPPGIvIvqFrEWwk6LbayzmvtlWWV1Uh
-         fR3CkyTlwYz1fU5DUL1PMiPs4HePmmFCLkcu6GZNr5y2sGJhA7gFYskDpxw0VVDey2DE
-         bP/D8UVbWjyk/e7USTbZ/2JSCCgySgwQfK4qPxT6MCGGYFXq+n2D5slkNrNKV2vKgHCn
-         IzjD9ECJoqOMgpIzkakD2L0o52ApCC2r8gyTlAu2oFb9A5UEujBDhk5IJ7zsi74Dek7i
-         nFEWQt7BdeTH6yYBHI0o/XJDFG6JNdm7Q1N362OlBEw8H99n2SZWoWMwrW8nivnhJxC6
-         GLNA==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QNDfRYJg"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f7027ca11so509180f8f.3
+        for <ksummit@lists.linux.dev>; Wed, 12 Aug 2026 04:19:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786521948; x=1787126748; darn=lists.linux.dev;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kzOo+Ci3XqiLZw/TvujRVzrd9Pc8lI3YII6NefBMbMg=;
-        b=O5AUynFrCSg2Tyw3X2C5ZJbIen8lwERBcGQTVwm7SRlmESdDSl9RjghCQc79bIJ8aq
-         30O9PJlFEpZ4WQD2KvTgLbMXfb5W91biXOWtOytP+Kcl62gahBRAmA3scAqBEMaWJ9G6
-         1wEg+Nhn/ZLPKNMWwDGkvQKRZxKXB5PUVIe0Lr2KoUwFRjfNPLntq8A/stii4kzo+5Lg
-         s9Whte4O9RkoL+JK5xn9s5YEehig8IJnPHbCvBUvL0yq8lQMEcqRFmWMREBEzmxRUPmS
-         GrDbCvSee4FhAPbevWRcPY8RNY+XgNnC6bAFCOlNWUbEs5VYuhBdK2jterXroFNGcmcr
-         0ZJw==
+        d=baylibre.com; s=google; t=1786533548; x=1787138348; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Zs2Hm8JVtmV7cUaMS0qqZCPK78yy/iCq/DyzoPGqmjY=;
+        b=QNDfRYJgFC+9ENDBTWDDk9Fb8K3j7Ykad8ty3Drm72UNbkyklLNJaiPBd8M7PPplyX
+         zMRMYl5uEGfT2aRkcw3BWnHl/9RES/NdwjzKo/QmKnI2WYXGNNu7Oxy1Q50aLv9mEDQL
+         ONHHvN76rnM0q41sPNTTo65MTuHWFScxB2YV98voy/NKsUxibehhBaVM1qmBQwStj5AK
+         e7oGXk4fp5m35Refvs9nR08+X2TaX2978PzAUP63RNDz5w6zaRtln0VU7pyx8Xo+C9SK
+         ry4xBTfMV4mHmSJgzL7A6mTX0O0RMZr68gqEspQjEPLtXT6ASSWaAM+c9rZMxPDUahqw
+         aKFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786521948; x=1787126748;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kzOo+Ci3XqiLZw/TvujRVzrd9Pc8lI3YII6NefBMbMg=;
-        b=nvI8/CnYVxzMfTDlgUNzUKXEi4o0I+GU/TpqUGgFBxRAWBMypCy9Cys+EiO5LDpb7h
-         J3McahAqm0XKx7ReDymXkZcNtljKjEKRoWx9hFeaweGEDp07wZKGc/UlVOh0UNLcWa9a
-         gII51oE4Fi8PDnMKB4Tg2qCPQTiPspj0fGPJYkxsickyxiwNV/whxBTksiNqKezzxI0t
-         qNBwwim3Y+P/25njsZBa+xd2wWvSnG0Ajt50Q1Pn2FYyweEFEICE/Y2XN1qhR3lg2+q9
-         hYdtbZvOYa8kKd60QAJr5ICSF+3jPavY4tIIDtbwAyv/g0P5yPIDO51GDd6rdqaoy0w2
-         hFHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoX9xeXYhp0vo3HURfsd+HEqVyWLwqMZxZSUdFrcqAE3RulhOP9cog4xzQokgyybpmxApsiGiBP@lists.linux.dev
-X-Gm-Message-State: AOJu0Yy6b4Y/6Lg+BS2VTeeNlM8r+4OmkYaYSrDQ6b9VpJUW8po8Nf+l
-	0gkvg/Gh9gKpSnnFEZx/uStEmpUkN4xq+V3RfGokv0uJYM2JAJuzKiaG3MyauyLeUAIx1F8vdtL
-	rJuiJRUZF/HS14I8fOXtQ9G7ZWKABnP4=
-X-Gm-Gg: AR+sD137gTEMFfwX+M9CbA4G0UbRkKAt9QLeqczIVL7hPCoT0gDULtDQVJK97QhQw1C
-	acOPX2ag5w4VVNzj67gSWsUd26CRp3dPRIIcTXnjoiCXDj92idPUpS0EnU4zTGuTgIjH2iUqB6r
-	+zouwNOsGnTrGfI+WHW6SFMWA8hcx+gQJApy+67cPB+QdS11Em2tYhUKtVl8wsakTHtpvoNYiip
-	3Uud91C47pM58w+36SznNEwYYFZ70AIpB1Rj9X+4PusleXjQ9G4cr7XPmzkdkxPjnSXmFQ3AmT0
-	buDpHSVTjQH6trUbvEdZKBUJ1QGv58CaCFFaJKUvAmplSPuO1un18+oLiMPij7WelWWe+1QRisO
-	5pua0IAc9nE2ogmyDvz7UaAhI+E6nsQ==
-X-Received: by 2002:a53:a64b:0:b0:664:d5ff:2856 with SMTP id
- 956f58d0204a3-66b2cbc1c20mr3003561d50.14.1786521948491; Wed, 12 Aug 2026
- 01:05:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786533548; x=1787138348;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zs2Hm8JVtmV7cUaMS0qqZCPK78yy/iCq/DyzoPGqmjY=;
+        b=GtvZNy4fSq6DAg48Ymmfi9+9MUqMc9ln1XCY+LpDwz8hIJwgQA4raIVM1dWRCmE2OH
+         gkr4mxtXFQrcIAd3n/HnH9TmYOGb/Egje20LJcNKG/cLQWN9oxDXi9OJqdCQlVi3Jnuw
+         Dm7HxVh9dpxSarUq/lPQmDFzh3l9wAUE2MthPT2mrDH5v8fyphAG1wqRDhUAx9Mnsx/V
+         C4s2gsNKq+qajJ9ATxp87skaT1MREJP13fmr2411xx7wvGk25XXFMTsVFl0xFfDcN2ch
+         1zFgowsvJJPPZYLt0dqkiTa7HPQgbv/z6bg9pbzdP3wjBjcJ7VJFhw+2rEFbCpBkXI9S
+         t01A==
+X-Gm-Message-State: AOJu0YwSlEWS+UbB9QQXmuKe8kz4j1hTnUGFZFWdEIGm78dUwVEX6sdt
+	dHCX0Zb3i1U5keZsUaVNcb7OFqdWSgey8hgUqvUDEFcX021zqtb65XIRJdBwYlCQEQo=
+X-Gm-Gg: AR+sD12r4dTCXaIZ5A5jyeiUBO8G9koYPU8olGHL2yDZJ8z8EvLP9oqn9ayVQZJN3e9
+	rONOFewxAMw6YE1x7NtCOmd7EBwrXM/8zO6EsHMSBp49VToOwcaUqebn8R/6czYy9VZbyu964lR
+	P7+0WOEA8QYct65b1q+FqR5MXYmGVsKxJN1l9/mNTme8hbDjGpPbYKl2MGqIcO4NCsQ7SqvW7yB
+	gpK9e/0GigZaaU/YqAOLsXUvq5uHN7DL8wXIL7LF+szi4R/FTKecPfXXjXZ73jxkV3EEmUwXLoH
+	qci3CNvi8KYjXeZDwb7TPieo5yAQ9QVECAKrkVnl5RSx8Cmk+o7vSA+29s/iNzyjWtumVmN85Q5
+	2nmBDUd09YadjCnoYActE+Wg0Z6FwrdbcMR47nXYqEWwNB2k9ioBrVx5QisLZ988R+1NHQWBHiL
+	Bdq87dxr2+jbEtQoDZ8uzZhT55rIfajG5rpx8g80vxt3GUiBweHzIASVnE4APLb+NX8Rla6r1T/
+	6+jVqg1oNRLfGqQEchUv7RsYmXpK2VAqp5uI9rITt3WiaBP4Ie95IL/XbbaNg==
+X-Received: by 2002:a05:6000:4a0b:b0:47f:9759:7f0e with SMTP id ffacd0b85a97d-48152c55ed3mr5806022f8f.7.1786533548090;
+        Wed, 12 Aug 2026 04:19:08 -0700 (PDT)
+Received: from localhost (p200300f65f017104d1b8d865063c5703.dip0.t-ipconnect.de. [2003:f6:5f01:7104:d1b8:d865:63c:5703])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48150bf5f0esm6308468f8f.4.2026.08.12.04.19.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 04:19:07 -0700 (PDT)
+Date: Wed, 12 Aug 2026 13:19:05 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: ksummit@lists.linux.dev, Thierry Reding <thierry.reding@kernel.org>, 
+	Breno Leitao <leitao@debian.org>, linux-next@vger.kernel.org
+Subject: Re: [MAINTAINERS SUMMIT] Any feedback for -next?
+Message-ID: <anxTFWS4KAMqGNGT@monoceros>
+References: <1025da50-3e21-43c7-a761-4f65ed5e5069@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <anii3u-87kSrB9K3@lucifer> <CAPM=9tx7izyUJr_XVQju26fevzepZ-L6vs5vgH2aib9jPPjvRA@mail.gmail.com>
- <anl7CgkKb6tORavG@lucifer> <20260810091154.2d3cd6d5@gandalf.local.home>
- <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
- <20260810102423.342c4e9d@gandalf.local.home> <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
- <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
- <0c95dc03-5b33-49aa-8368-bac482b8b40e@kernel.org> <CAPM=9twMwxo-yO1Ke45D0Sxmji8Mt23BqxUMv-_GY1gzssVCiA@mail.gmail.com>
- <2026081254-scrubbed-avert-b5b4@gregkh>
-In-Reply-To: <2026081254-scrubbed-avert-b5b4@gregkh>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 12 Aug 2026 18:05:32 +1000
-X-Gm-Features: AUfX_mz4fYhaRUX8qgivIGi5JapXotwZvu1fsj9gY07ZZGJOxKaQfLkOx1FixL0
-Message-ID: <CAPM=9twhoA2_ngguhxj7t52kvnuR0DGgqznp7cWhTVztX_ryrQ@mail.gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer summit?
-To: Greg KH <greg@kroah.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, ksummit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="26nzh2zlm5zbxdqi"
+Content-Disposition: inline
+In-Reply-To: <1025da50-3e21-43c7-a761-4f65ed5e5069@sirena.org.uk>
 
-On Wed, 12 Aug 2026 at 17:43, Greg KH <greg@kroah.com> wrote:
->
-> On Wed, Aug 12, 2026 at 04:20:04PM +1000, Dave Airlie wrote:
-> > We've tried to keep the upstream schedule for ages, as Rodrigo points
-> > out it falls down, stuff goes missing in the shutdown periods, telling
-> > teams to stop working for 2-3 weeks isn't an option in most companies.
-> > Intel and AMD are trying to upstream GPUs that aren't even on the
-> > market yet, velocity mattters a lot more because thier customers are
-> > usually on the end of the pipeline via Linus' tree,
->
-> Why would anyone need to "stop working" for 2-3 weeks?  That's not what
-> other trees do, the patches just go into a different queue/tree until
-> the merge window is over and then they flow into the normal -next branch
-> (or whatever you want to call it.)
 
-Where is this magic tree, how do you keep CI on that tree, is there a
-maintainer who isn't saying, I won't review stuff for 3 weeks because
-the merge window is open, etc. There are plenty of examples of
-maintainers not merging stuff into trees for weeks on end around
-release->rc1 etc, shit developers get used to but it cuts their
-velocity for upstream work. We've had plenty of examples of
-development been taken in house and then upstreamed by separate teams
-later, which is the result of what we previously did. I hate to sound
-like an asshole, but we tried most of the things people with the 5-10
-developers 5 years ago and 5 years ago before that, and they never
-scaled out. There was always shit falling on the floor because of
-various bottlenecks introduced by the upstream process vs what
-internal teams were trying to deliver. Often you have internal teams
-trying to deliver a coherent driver across non-upstream and when that
-becomes easier or the priority upstream suffers from it.
+--26nzh2zlm5zbxdqi
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [MAINTAINERS SUMMIT] Any feedback for -next?
+MIME-Version: 1.0
 
-> The only one that needs to worry about the merge window is the
-> maintainers.  Developers just need to be aware of "is this a new feature
-> or a bugfix", and all other subsystems seem to be able to enforce that
-> tiny rule, which guides which branch to apply a commit to.
+Hello Mark,
 
-Maintainers care about the merge window, but also disappear or
-shutdown progress in it, if you tell me this never happens, I've got a
-number of bridges I'm selling.
+On Tue, Aug 11, 2026 at 05:54:59PM +0100, Mark Brown wrote:
+> Any other ideas?
 
-> And again, I hate how the DRM tree works, and I think overall you
-> greatly suffer for this model as the "Fixes:" tags all are wrong which
-> cause regression and CVE tracking to be totally broken for all
-> backports.  So I guess the teams for those 2 companies don't really care
-> about stable trees?  :)
+One thing I recently wondered is if it would make sense to not merge one
+tree after another into the same tree, but first create pairs, then
+merge two pairs, ...
 
-Hey you said very explicitly and in many forums in the past that
-nobody needs to care about stable trees, not my fault if people
-listen!
+So the resulting history doesn't look like:
 
-They are not aware if they are fixing a bug in Linux or Windows
-sometimes, they might not know what Linux release they are fixing a
-bug in, or what the state of backported patches to that tree are. They
-also don't have access to CI for all of that. They also don't know
-that rc6 fixes are different than rc2 fixes, and sending Linus an rc2
-fix in rc7 is an internet fame earning offence.
+*   4c0d3bb911f5 Merge branch 'E' into HEAD
+|\
+| * 43c281fce114 E
+* |   13879e35a4ac Merge branch 'D' into HEAD
+|\ \
+| * | fc44516d50b1 D
+| |/
+* |   7264b63a7026 Merge branch 'C' into HEAD
+|\ \
+| * | 16f2802060cb C
+| |/
+* |   5928d0287cf0 Merge branch 'B' into HEAD
+|\ \
+| * | 793fdef4e4e3 B
+| |/
+|/
+* 1e7199adfd77 base
 
-There is a lot of subtley the smaller trees get away with if they do
-one next and one or two fixes pulls to Linus. We send 1-2 next and a
-fixes round for every rc for Intel and AMD, I'm lucky if I get one
-batch of fixes out of qualcomm in the middle of the rc cycle. Despite
-Kryzstof's efforts to convince otherwise, Qualcomm are small potatoes
-from at least a GPU pov.
+but:
 
-We have tried to fix Fixes: and tried to fix cherry-picking, and to be
-honest I've lost track of the objections we've had from the same
-people no matter which way we go.
+*   53dad0ca9b44 (HEAD) Merge branch 'B+C' into 'D+E'
+|\
+| *   54d327c589e7 Merge branch 'E' into 'D'
+| |\
+| | * 43c281fce114 E
+| * | fc44516d50b1 D
+| |/
+* |   e75826f69561 Merge branch 'C' into 'B'
+|\ \
+| * | 16f2802060cb C
+| |/
+* / 793fdef4e4e3 B
+|/
+* 1e7199adfd77 base
 
-It's possible to have a coherent view of things and Fixes can be made
-to work, how do I know, because we deal with this inside of my
-employer quite regularly.
+.
 
-Dave.
+The advantage is that if commit B breaks something there are less
+intermediate trees that don't contain B and you can still test on e.g.
+D+E.
+
+I'm not convinced the advantages outweight the additional effort, but
+IMHO this is a bit similar to the request by the filesystem guys to have
+a tree with only filesystem changes.
+
+So this is just an idea that might be worth to be thought about by more
+than just me.
+
+Best regards
+Uwe
+
+
+--26nzh2zlm5zbxdqi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp8VqYACgkQj4D7WH0S
+/k74rQf/XATSq0OIpLM9cJzDG+3OZ012nb5lNjJ/DnvWKWXHIaoS/pZGOvtoFWtE
+h1SgImA5a334T0E0xoWIkHP1hDDoCRPrWm2R9ZBA4AV4uGg0TDJEPIL6wybfs+kg
+ShLAHKdg3ul2CwJ09vF/qiRwR/UnQh3tWdfz+C60a/HU9fAtRy2oObu3J8O8aXIK
+yKFsbi6JvAImAa1xfWFVR8Io1OlFr5o3YHrkVfERNHZIsGnOGOKptwWgUa+gCD1+
+AOzlHNdTx+Jk7y9GIqDcD3sZyOQ/JK9DVWcv/qPd5uy0PmxnEBTTyywOyNpxeKHZ
+YoxohZNYZb6dk1ky4ax1NUlVZAsCJQ==
+=FZxn
+-----END PGP SIGNATURE-----
+
+--26nzh2zlm5zbxdqi--
