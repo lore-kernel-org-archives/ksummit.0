@@ -1,48 +1,53 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7FB30FF2A
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 13:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1796247884B
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 14:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787058573; cv=none; b=m/5RtFfmjjjjOv80WhkWMlrQgL8p16GUo63Fv2sart3eHHDywRUnq0CyzDO+DF4X27qwFv5epInfugjI2jA/+5MmrKZhZGF2O/za9UFCIHcz/66XWsxbrYYO0cXZu5AW3qXXK5QYLSR2u6PwlnZ7KR3Y4y3886v9q2lehhzMeFI=
+	t=1787061819; cv=none; b=CzNrge1JNQRmRePd5kOUkEJhCROxrdZ19xHlH9OkVf89kuQ3HmSy6vQNdyhMcg8WWoziCsKedeeULxWU8bSwH+xdITUoXe8aoMBNnmTd6Pt+5pkRbuupFK68qKUuznucX2NokaqmOtopNbRrsxMTo/yRJymcTBmoKRu4Z691FWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787058573; c=relaxed/simple;
-	bh=IqY45mI8URFyVE0Q4zvm2KDWuXaEb7SuHPDGPiQNZXs=;
+	s=arc-20240116; t=1787061819; c=relaxed/simple;
+	bh=ibP4COQWPkURdlLlI+bF6F4OSFvrqXcFEgm6RkUPTF4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CrIvgDjDMNEYbZrZLWa7a0dQr1UFcxiA34CcMwqIlBZdiytniTBoCxWHT9xqMyCEw/zpMHQq/ELfPXioFJHCqbCkxzo8GGJx23yBB+U5H875zovaiSLRMa97MwMhcfiVQyrApfDE8Tz8VTStPpFEvQgaK4xcxv6e2ba177V5KsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=28CnqS70; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=plunXG8drvNTLd5i4/lYXgUmApCUqvyfKKnx97z4zmTo+5nsVsdLbgj5tMQR06KA9LR6Ycjd4aqlDJQBol/27ap2Oc5WlgxL2puWFjUead+8NOXcnt+3UYglrnZ4s80LTyQdVW5BQzndWLw+KfrwpLHub+3sYDAzWii0b+Opw/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=aZRRZxib; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="28CnqS70"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=DAcDbp7ee4boJIm9Ul5KYOkSLVyxVm682BVB8rX+zI4=; b=28CnqS70tuw49wKEORUQT75ooQ
-	JkLKdqwji0qcQUUl94QsLtJCnjXEe1w1jb6uoWM0RgUGQe125IcWnE0tFYpUmAZKNfHmYXmy9+sCp
-	u2TWJMcpSdnNAufA/XVDQCtw5veH3ulE/iQMuJbNkTf0NKPxcHGpwFwj0uS2pipKOoPseU5yubJVu
-	xsKLY78mRX1kr7zV+XoRznrhLlAZbBNA1y7s+PilbCIlov2C/0aj+0UA1No0mZENqRwIXu9eoqIf4
-	pj2STe8HtCOf2xqsCcvvDcmKjAn9GixYviOLVwvGH3gl926Eg3ZGFTm6HwMUg4hJ4Y+5+ko2P3aYz
-	V7SuSfmA==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wwJZG-000000080iW-1YZ3;
-	Tue, 18 Aug 2026 13:09:26 +0000
-Date: Tue, 18 Aug 2026 09:09:22 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Theodore Tso <tytso@mit.edu>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Dave Airlie <airlied@gmail.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="aZRRZxib"
+Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67IE31wT029279
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 10:03:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1787061794; bh=41tm8X9zI8H39IpSGdryGK66X38rfx1HQO6JvgReAJ4=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=aZRRZxibMf4XBapbNSSXfHl7GKsenpxEwFChce2EShOYLdKhxYafdmqgCtBTvZ0D8
+	 UhAgysvrFC1EbcpXZI+bdOKtMPMMzjC4d+syzbh6+qxa4yZXu7b6RJPb3ax4DNo54t
+	 4rVdeOyo4GFVigoTGb9qpK/L2qnYBuzdX0NjaNrPGOFgE0XtS1jWY1hFBf6mpQver1
+	 hrzQC/eFdzuJbY/aDM3UguosoJ7xTBy5CTPiEINuofgTJ/2Cw0cgy26cFEtsH8sueW
+	 33uYIJhue99BBEpwbVZJKkv9UJTX/OB8ieSQhYELsaDyRc6GQH3zW2pBFVXSxRETff
+	 igMxaHeJEH4sQ==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id C8EC5F770BC; Tue, 18 Aug 2026 10:02:00 -0400 (EDT)
+Date: Tue, 18 Aug 2026 10:02:00 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+        "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>,
+        ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <od7zzwh6dqabzqyz6tlvd6n4uibcqvnhohikbbmjxwjjtpnjjw@xnkg7kwr2zz2>
-References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.com>
- <20260806194153.6443a3ba@gandalf.local.home>
+Message-ID: <aoRlKyICddc7U353@mit.edu>
+References: <20260806194153.6443a3ba@gandalf.local.home>
  <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
  <anfUgiByUVffXlrQ@mit.edu>
  <87y0efi08u.fsf@trenco.lwn.net>
@@ -51,6 +56,7 @@ References: <8ae41b73983eee6ba716a61b8701df6522a02baa.camel@HansenPartnership.co
  <20260810092003.5fda8e06@gandalf.local.home>
  <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
  <anppSi8oQvvODOI2@mit.edu>
+ <od7zzwh6dqabzqyz6tlvd6n4uibcqvnhohikbbmjxwjjtpnjjw@xnkg7kwr2zz2>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -59,22 +65,21 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <anppSi8oQvvODOI2@mit.edu>
+In-Reply-To: <od7zzwh6dqabzqyz6tlvd6n4uibcqvnhohikbbmjxwjjtpnjjw@xnkg7kwr2zz2>
 
-On 26/08/10 08:14PM, Theodore Tso wrote:
-> On Mon, Aug 10, 2026 at 04:35:48PM -0500, Liam R. Howlett wrote:
-> > 
-> > I don't want to be invited.  My only reason for being vocal is to
-> > facilitate process improvements.
+On Tue, Aug 18, 2026 at 09:09:22AM -0500, Liam R. Howlett wrote:
 > 
-> Liam, do you have any concrete process improvements that you'd like
-> propose?
-> 
+> When succession is happening, it would be good to have the new person
+> shadow the outgoing person.
 
-When succession is happening, it would be good to have the new person
-shadow the outgoing person.
+That's a good idea, where it's possible.  Have you suggested this to
+David and Andrew?  I know there are a lot of discussions about the
+succession within the mm subsystem, and since it's (from an outsider's
+perspective), it's a large and very healthy community, my personal
+preference would be to let the mm subsystem work through this
+succession, and then we can take learnings a year or so after the
+succession is complete.
 
-Thanks,
-Liam
+Cheers,
 
-
+					- Ted
