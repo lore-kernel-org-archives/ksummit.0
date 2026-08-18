@@ -1,52 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B747D920
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 17:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABEF1FECBA
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 17:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787073954; cv=none; b=TiSUie/b0S997DLRdUW7UAuxXQZG+KEqGIzK2uNoSWJEOI3kRDKB7KLzhmhneD4c17doE2KGihRVz8OyMI2qwjLpRUteEF3UEPDboXZdjlbafRgrGpW9zYRqkjsteRZeI5WmiX+u60Tnup8ixFISWTa4srpeR9c0gvFkOsGzU0M=
+	t=1787075262; cv=none; b=AqpROyux6+H+xcQPgUUzmNIL/HqxNEx1THO0V7W/I1zdI7RubxuQqRTYIx6WMQVqPXx2ZeQ9q9EcMRc0IN/y6sPcaUjIgosjgnkFIm9DYaAH7LNncr8xzOOl7eTPf/+Jy0MLYWbWXz41WjmBEKyfNnXQ3JLbrX4m9iAk8FHqq70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787073954; c=relaxed/simple;
-	bh=5oNB8pfsLDCP2/IFajESPPHmmSQRatCH3WVBqXGtnew=;
+	s=arc-20240116; t=1787075262; c=relaxed/simple;
+	bh=PCKiQigMYiMLMuHl04IEorzxh3BzizYUUrzOG2xNwD4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GWDMK8ucHyB4IWft5pOtWQOFyEiosJRX7fD1/YLJAE/FpB0SzYW/AIVygpXN7h0GPfxchis1gZObdTcEDd4n8wpS+hN3BPI8+UEkdZiFjSufDIGITlRPPmZ74Qtgme3rc7nLKtSmpZXIDTr6VCDZ2ZQcP5sAfleykD5e4Or++WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZDII/B4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hHzFSYFANlkIu0GYvalTWwflXD/nOMn9UwAKWZWZAZNgj7lFUKIosV+Q28TEE61OTMHtEpl3DSTWmUkRlMFqCFkn4HTfmZyWY5pP0CKfP+1+pK5O1lNQ9unWIB/D1RLYKU0OXRaqRi1LuJ+QMQUAEu15HHY5lqvgqmShisf2tGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=LKKcSoVO; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZDII/B4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C7B1F000E9;
-	Tue, 18 Aug 2026 17:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787073953;
-	bh=qmq9MK/S4W931ItbYQChBFNxFDVjTAbmZEBOAwvsCVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oZDII/B4OYSTLZqhkiG/xO/7P+pZDGqQwo5lFc78+LvCzk7QINa8IntSEx9+XLs0p
-	 WeAICf9fSXpcCg9YqDvWYsO7klzs4cODViBjjLpGmSovcxeRhl42C3oF5l1QWEeeZe
-	 tHEP3qrUFDaG0i96gl/QtAY05IgOfXQiDOZRRJYZ2yWAf9c1e4mdSyZop9aZIFtKDp
-	 0HRPS9ZmhKQlUYESP7Y6RO9gVLCJE0xXn5qae/YzYk8Yn2vLlNFOBTwoc3JFlPBX+g
-	 r9po2TaUqFrOdSd2GinFTON4Rgbmh7G8JLzWkKT5JyFc4HmPyIpsUSzu8Nv7K1xgJm
-	 ofbk5rtphAccQ==
-Date: Tue, 18 Aug 2026 18:25:47 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Theodore Tso <tytso@mit.edu>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Dave Airlie <airlied@gmail.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="LKKcSoVO"
+Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67IHlGBL018472
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 13:47:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1787075245; bh=BfyLw+i3Rx3j6d2nwTbjTPdXz+6BvJmPuayAE0J+YCM=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=LKKcSoVOA/EweZmeM42MQu2MkFL+armG5ampWCcvxt/xjKcPCqxCUqdyKW/R1JrvZ
+	 IjxrQ5XP/K66fP7M5CTyDiPDJxGdS1CSGHbbgm/uJuk28K5wd0u5NOyLU30ObivWwn
+	 kigIdyftsfFsdHIjL+Ofr0oCPRFwJ9yXKls+sWilcXmNCO2IEd6bpMMNvA9WASA08E
+	 pXZo6geVR5pNM+1Tc9mj9eryh8/Xp9ZvCMkrs1Q6rbEyhwP6tl2rmeumljCnfqjSt9
+	 46iDw7iFeePTmFWtCbQiI6FBShahKuTvbENxIZ5UgaYv0F48V8OACdwZB5/qyFFrpN
+	 SpHIOK/XpV/Pg==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id D1B71F7D867; Tue, 18 Aug 2026 13:46:15 -0400 (EDT)
+Date: Tue, 18 Aug 2026 13:46:15 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Steven Rostedt <rostedt@goodmis.org>,
+        "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>,
+        ksummit@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+        Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <aoSNkGUJUxWfUPaM@gremlin>
-References: <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anfUgiByUVffXlrQ@mit.edu>
- <87y0efi08u.fsf@trenco.lwn.net>
+Message-ID: <aoSMSTIxK0nXHYDr@mit.edu>
+References: <87y0efi08u.fsf@trenco.lwn.net>
  <20260809170918.218792b2@gandalf.local.home>
  <anmHaRzbnY7rtLX8@gremlin>
  <20260810092003.5fda8e06@gandalf.local.home>
  <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
  <anppSi8oQvvODOI2@mit.edu>
- <aoRwK2L8CjtnhTK7@lucifer>
- <aoSIANv2L18fV4RN@mit.edu>
+ <od7zzwh6dqabzqyz6tlvd6n4uibcqvnhohikbbmjxwjjtpnjjw@xnkg7kwr2zz2>
+ <aoRlKyICddc7U353@mit.edu>
+ <fe049a6b-be36-40dc-9d52-506b65b1f74b@kernel.org>
+ <jguyya2bs2caylvcxu2gwl3g4sjuajb2fhjrpojwy5osyqyw55@doc2x6d5nm2y>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -55,57 +65,42 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aoSIANv2L18fV4RN@mit.edu>
+In-Reply-To: <jguyya2bs2caylvcxu2gwl3g4sjuajb2fhjrpojwy5osyqyw55@doc2x6d5nm2y>
 
-On Tue, Aug 18, 2026 at 12:45:52PM -0400, Theodore Tso wrote:
-> On Tue, Aug 18, 2026 at 03:51:16PM -0500, Lorenzo Stoakes (ARM) wrote:
-> > TBF I did make concrete process suggestions myself here:
-> >
-> > https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
-> >
-> > And here (documentation):
-> >
-> > https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
->
-> These are the same URL; cut and paste error?
+On Tue, Aug 18, 2026 at 11:32:07AM -0500, Liam R. Howlett wrote:
+> The committee is looking at how to draw a line on the people to go and
+> leave everything else up to the subsystem maintainers.  This assumes the
+> committee knows succession planning and actions in the subsystems and
+> that they keep it top of mind.
 
-Yup sorry I hadn't realised I'd made both points in the same email :)
+I suspect that for major subsystems, if it *can* be planned, everyone
+will know about it.  I didn't want to talk about the details of
+internal deliberations of the program committee, but it's safe to say
+that Linus explicitly mentioned it, it was discussed by the program
+committee, and we extended invitations to both Andrew and David.
 
->
-> > And they got ignored, so I'm not _entirely_ sure that's what you
-> > guys are after here :)
->
-> The above message was essentially a suggestion to (a) improve the
-> Maintainer Summit Call for Topics, and (b) document the full process,
-> with all of the details in the Documentation directory.  The first is
-> something that wasn't immediately actionable --- it's something to do
-> for next year, and the second is one that we could do eventually, but
-> to be honest, it didn't seem super urgent given that it's documented
-> in this e-mail thread, and many of us have other things with shorter
-> timelines (such as the merge window) that is keeping us busy.
->
-> I'm sorry that you feel ignored, but we all have tons and tons on our
-> things screaming for our attention.
+There were people on this thread that seemed to assume that the
+program committee had completely ignored the situation, but that
+wasn't the case.
 
-I mean honestly that isn't very convincing - the entire thread was
-low-priority and we're all very very busy.
+> There's also the point raised about more changes on the horizon, so we
+> either make it a part of the process, trust the succession planning
+> takes MS into account a year (or more) ahead of time, or risk a number
+> of first timers at MS.
 
-So I'll eat my hat if either of those suggestions ever actually get
-actioned :) [or you can choose a suitable actually edible alternative if
-you hold me to this ;)]
+Personally, I'm not worried about first timers; in fact, having a
+first timers is a *feature* not a bug.  The opposite is the complaint
+that it's always the same "clique" attending the Maintainers Summit.
 
-It's all rather embelmatic of the MS as a whole - appearance of community
-but structurally not that. And what complicate it is that it probably _has_
-to be that way for things to be functional, as discussed ad infinitum in
-these threads.
+As long as the new subsystem maintainers are experienced kernel
+engineers, that's the most important issue.  As far as process
+concerns, as long as major subsystems give a heads to Linus (not to
+mention discussions at LSF/MM, or Plumbers, both of which have
+happened with different senior developers planning their upcoming
+retirement), I don't think we really need to worry about the community
+getting taken by surprise.  So if things aren't broken, I'd argue that
+we not add more formal procedures where they might not be necessary.
 
-I do still feel that we should just be honest about that (that's what my
-suggestions were about), but you know, hat, fork :)
+Cheers,
 
->
-> Cheers,
->
-> 						- Ted
-
---
-Cheers, Lorenzo
+						- Ted
