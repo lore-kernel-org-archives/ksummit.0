@@ -1,101 +1,111 @@
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A0D48124E
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 17:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B747D920
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 17:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787072410; cv=none; b=cy9wY1sGJWeTJqKCil8Zh50z/0Hh1tZ0Xmk9fMliSabTGT3AjhpQ04eXDEgZcmzGA90YnEiMYJIBqBb/22O5KEi3QU2fXEfj7wTuGIEAIrTDaR19hVaLR2wlx+tVuIA6LWd6Tcd4fwPuqbVQZsT0EnQqdOVKkxfVzFHbsE/zIVk=
+	t=1787073954; cv=none; b=TiSUie/b0S997DLRdUW7UAuxXQZG+KEqGIzK2uNoSWJEOI3kRDKB7KLzhmhneD4c17doE2KGihRVz8OyMI2qwjLpRUteEF3UEPDboXZdjlbafRgrGpW9zYRqkjsteRZeI5WmiX+u60Tnup8ixFISWTa4srpeR9c0gvFkOsGzU0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787072410; c=relaxed/simple;
-	bh=hIGZDmIggsBdVHc23nxSkjEF7Ed/6qbplznhe0UVcNI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lrE8cdNxgVse0gVknbz0/2iAAI+Rx5ZUY0GiaAnGKJuSfCLBl+nJEo4XJ44cop3iPhkvarWR71fRP1Ox7JjJbE25GSsoeNSjJP1i55gnoF3XTlXIuYuI3V9OS36+9XVReL52vb1ZkVJgMBvkRXTBAloHqIO+mNN/gofa7Ttendo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=PaTA+zex; arc=none smtp.client-ip=198.37.111.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	s=arc-20240116; t=1787073954; c=relaxed/simple;
+	bh=5oNB8pfsLDCP2/IFajESPPHmmSQRatCH3WVBqXGtnew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GWDMK8ucHyB4IWft5pOtWQOFyEiosJRX7fD1/YLJAE/FpB0SzYW/AIVygpXN7h0GPfxchis1gZObdTcEDd4n8wpS+hN3BPI8+UEkdZiFjSufDIGITlRPPmZ74Qtgme3rc7nLKtSmpZXIDTr6VCDZ2ZQcP5sAfleykD5e4Or++WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZDII/B4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="PaTA+zex"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1787072406;
-	bh=hIGZDmIggsBdVHc23nxSkjEF7Ed/6qbplznhe0UVcNI=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=PaTA+zexwCY2fKyPGNp7n5qFxTkTIFE8vZUj4SLcx7Yy+i3Ab8Tp2QbxIPawJ0+55
-	 nvbeImv/VHcDn1RSHO0n6X1oExTEzgiqisSxD2GZGoTfY0oe1NgyPfgP+pKdNQn/Fe
-	 NQJvm/Antdq6YDk8J9V8IqHpYktOG07UZS1IRRxg=
-Received: from [IPv6:2a00:23c8:103c:f701:6906:2df:959d:44bf] (unknown [IPv6:2a00:23c8:103c:f701:6906:2df:959d:44bf])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id A707E1C032D;
-	Tue, 18 Aug 2026 13:00:03 -0400 (EDT)
-Message-ID: <8d0fb0549a57bfa5060bb185fd5bcc0a1fca5575.camel@HansenPartnership.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZDII/B4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C7B1F000E9;
+	Tue, 18 Aug 2026 17:25:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787073953;
+	bh=qmq9MK/S4W931ItbYQChBFNxFDVjTAbmZEBOAwvsCVI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oZDII/B4OYSTLZqhkiG/xO/7P+pZDGqQwo5lFc78+LvCzk7QINa8IntSEx9+XLs0p
+	 WeAICf9fSXpcCg9YqDvWYsO7klzs4cODViBjjLpGmSovcxeRhl42C3oF5l1QWEeeZe
+	 tHEP3qrUFDaG0i96gl/QtAY05IgOfXQiDOZRRJYZ2yWAf9c1e4mdSyZop9aZIFtKDp
+	 0HRPS9ZmhKQlUYESP7Y6RO9gVLCJE0xXn5qae/YzYk8Yn2vLlNFOBTwoc3JFlPBX+g
+	 r9po2TaUqFrOdSd2GinFTON4Rgbmh7G8JLzWkKT5JyFc4HmPyIpsUSzu8Nv7K1xgJm
+	 ofbk5rtphAccQ==
+Date: Tue, 18 Aug 2026 18:25:47 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Theodore Tso <tytso@mit.edu>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Steven Rostedt
- <rostedt@goodmis.org>,  Jonathan Corbet	 <corbet@lwn.net>, Linus Torvalds
- <torvalds@linux-foundation.org>, 	ksummit@lists.linux.dev, "David
- Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Dave Airlie <airlied@gmail.com>
-Date: Tue, 18 Aug 2026 18:00:01 +0100
-In-Reply-To: <aoSIANv2L18fV4RN@mit.edu>
-References: <20260806194153.6443a3ba@gandalf.local.home>
-	 <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
-	 <anfUgiByUVffXlrQ@mit.edu> <87y0efi08u.fsf@trenco.lwn.net>
-	 <20260809170918.218792b2@gandalf.local.home> <anmHaRzbnY7rtLX8@gremlin>
-	 <20260810092003.5fda8e06@gandalf.local.home>
-	 <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
-	 <anppSi8oQvvODOI2@mit.edu> <aoRwK2L8CjtnhTK7@lucifer>
-	 <aoSIANv2L18fV4RN@mit.edu>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
- lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
- 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
- RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
- X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
- HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
- MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
- FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
- 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
- K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
- tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
- 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
- dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
- QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
- 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
- 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
- rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
- L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
- BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
- yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
- CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
- jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
- e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
- ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
- a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
- L2jzOsA5663bw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+Message-ID: <aoSNkGUJUxWfUPaM@gremlin>
+References: <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
+ <anfUgiByUVffXlrQ@mit.edu>
+ <87y0efi08u.fsf@trenco.lwn.net>
+ <20260809170918.218792b2@gandalf.local.home>
+ <anmHaRzbnY7rtLX8@gremlin>
+ <20260810092003.5fda8e06@gandalf.local.home>
+ <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
+ <anppSi8oQvvODOI2@mit.edu>
+ <aoRwK2L8CjtnhTK7@lucifer>
+ <aoSIANv2L18fV4RN@mit.edu>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoSIANv2L18fV4RN@mit.edu>
 
-On Tue, 2026-08-18 at 12:45 -0400, Theodore Tso wrote:
+On Tue, Aug 18, 2026 at 12:45:52PM -0400, Theodore Tso wrote:
+> On Tue, Aug 18, 2026 at 03:51:16PM -0500, Lorenzo Stoakes (ARM) wrote:
+> > TBF I did make concrete process suggestions myself here:
+> >
+> > https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
+> >
+> > And here (documentation):
+> >
+> > https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
+>
+> These are the same URL; cut and paste error?
+
+Yup sorry I hadn't realised I'd made both points in the same email :)
+
+>
+> > And they got ignored, so I'm not _entirely_ sure that's what you
+> > guys are after here :)
+>
+> The above message was essentially a suggestion to (a) improve the
+> Maintainer Summit Call for Topics, and (b) document the full process,
+> with all of the details in the Documentation directory.  The first is
+> something that wasn't immediately actionable --- it's something to do
+> for next year, and the second is one that we could do eventually, but
+> to be honest, it didn't seem super urgent given that it's documented
+> in this e-mail thread, and many of us have other things with shorter
+> timelines (such as the merge window) that is keeping us busy.
+>
 > I'm sorry that you feel ignored, but we all have tons and tons on our
 > things screaming for our attention.
 
-I suggested what I thought were three actionable discussion topics that
-didn't get much traction either:
+I mean honestly that isn't very convincing - the entire thread was
+low-priority and we're all very very busy.
 
-https://lore.kernel.org/all/215b3cdfda17207d91b0fa057b01f3cb45eb874c.camel@=
-HansenPartnership.com/
+So I'll eat my hat if either of those suggestions ever actually get
+actioned :) [or you can choose a suitable actually edible alternative if
+you hold me to this ;)]
 
-Regards,
+It's all rather embelmatic of the MS as a whole - appearance of community
+but structurally not that. And what complicate it is that it probably _has_
+to be that way for things to be functional, as discussed ad infinitum in
+these threads.
 
-James
+I do still feel that we should just be honest about that (that's what my
+suggestions were about), but you know, hat, fork :)
+
+>
+> Cheers,
+>
+> 						- Ted
+
+--
+Cheers, Lorenzo
