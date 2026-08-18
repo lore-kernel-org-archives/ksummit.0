@@ -1,56 +1,61 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192F03812FB
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 15:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4205E47F2E1
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 16:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787067147; cv=none; b=M2w7coLg+Xzxw/qkU+ecnnbaT1/ycfM24kZdgpo8j6aQRQzO0BaknoHL9CNcXFpU5m5LtloCTGe5BwtIO3KM/NmMMZ1nmh3phlEkXaqXn8jGTBH/3nmRdyFEktZqZhwNZSPprw4yQ3POMqCGeJh3o1Ic6yVDgL+p//UIwC/L7Y0=
+	t=1787071636; cv=none; b=md3d6A74M4qufsCivGla+KIUdWmX4PTz8Q3iOpmCuWF1OsNYbi7da+blaI6ZEkS6iNYmf1/Z6l+94vc67X2HO9FuW1ANl1Y+5fp7NcjN+5sDabL1L3S2wUYLD/+pZ1HFBzAFBZBMulbnPWrsdVN3l3OT60S+fXq7tEra/xYOzz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787067147; c=relaxed/simple;
-	bh=ZDNtituXXsvg5oNkz3BRjLgy2jfc1v41asy8brDd59Y=;
+	s=arc-20240116; t=1787071636; c=relaxed/simple;
+	bh=KAEm6rWjeLPT+W8QTStW+bk3y3usuzNkLjqqhiX6zpk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfxYpiF3ngGfHR/EoyiOTTw/2oXNA3fDyMnzeawba09O0vWb/hHWKrvOABFIIO3jB4iDenPHU9tOq+s8IlXegMO4GeiZ+ykL2TnJyPPszh6/YnK8BAdmB4/N/lQ8WRdrhfhb+ziH3HsOQ7dTUa36IMbaBhLDQQ9CfE6tJ8AII4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eS46l1fW; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=QNurzi/QWC2scIlVHzncsoC8apkL1ENC31EKzImRCX6IITE/DJ+npWB+m4mcPrUPS3zzgxnyN314N0Te0h8a7i2Gj8pzPijni6NMoK9rqxfh9BLSRptBLDHoxV/BNJQZ15bSdiI55fNHCQQ949HPmi7RX3T1/7UNlvsOK+cr4Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=RgkBLvUI; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eS46l1fW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=WW2g00NRUGJ9L/+4qQVfoTXFoYIgWnbepqYjeuHiP3g=; b=eS46l1fW4WNnRn9MC7APLxqtz3
-	mIGX6nx9DDWFb51xGLXo73qN6A0d0usZjnDbs4D5dimUJrzwPYqzuxZrIC1nzNxhUzRsQgyTHYZhM
-	p+JRgkW7RQanluJVe6+jyOdNAXNvkJIABlVhTA9OPRFkSio79AEGts1k8bV8av5kW9vy9KODqFZFD
-	slVdyHMzBj79km9RvO+p/UVtA3zwnHDP8riJblFZcQMuZfU0L8SVNzSfIc8IMYa+RRW2erR1sgZ75
-	NlYygLyUxtsiAPy/NvQXENb9HI7ymUK14EiYl5I+mkonhzsnLCpeo0S6iWKa+GuxqV541JQ3HV/yn
-	dDCNOfmg==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wwLnX-00000008GyR-13xR;
-	Tue, 18 Aug 2026 15:32:19 +0000
-Date: Tue, 18 Aug 2026 11:32:07 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Theodore Tso <tytso@mit.edu>, Steven Rostedt <rostedt@goodmis.org>, 
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	ksummit@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>, 
-	Dave Airlie <airlied@gmail.com>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="RgkBLvUI"
+Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67IGkruJ019788
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Aug 2026 12:46:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1787071616; bh=X+iSUEnja8z3+V3CmBDVD3e/CPgDKiGSdij9q3BQ16I=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=RgkBLvUI+e/d7UN1YFlXGVR4zA1FqmUf07HAZ33Sl6daJDqIAmrMybN5ZHpL6Aaot
+	 PMZEKoEn4mdaWARVJcfIJc9HsweiBN5iTo+vsyO59l569mE+Xb41hu4kU3B4zjqwcd
+	 2kIoO3QKiPmmJ2p6AzKcDaO2j/99R5/rmLZVgwPAyV0jwkUpid71WFopZFy5GKvE2H
+	 3VERR+VZvkDCY9qZ2K7AsT+mmb8TCpc3V/YcBt1msQuUvlO1cHSWbhaw/jC7uZoP5c
+	 WG/Sg8m0e4KNoHlpxN/Wj7lHmbbMYB1/FE1somojDW+qBFO+VYYEeKaYcRqgP0eJtc
+	 XgAp8lR9qolTw==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 9DDA1F7B6C5; Tue, 18 Aug 2026 12:45:52 -0400 (EDT)
+Date: Tue, 18 Aug 2026 12:45:52 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+        Steven Rostedt <rostedt@goodmis.org>, Jonathan Corbet <corbet@lwn.net>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>,
+        ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <jguyya2bs2caylvcxu2gwl3g4sjuajb2fhjrpojwy5osyqyw55@doc2x6d5nm2y>
-References: <anfUgiByUVffXlrQ@mit.edu>
+Message-ID: <aoSIANv2L18fV4RN@mit.edu>
+References: <20260806194153.6443a3ba@gandalf.local.home>
+ <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
+ <anfUgiByUVffXlrQ@mit.edu>
  <87y0efi08u.fsf@trenco.lwn.net>
  <20260809170918.218792b2@gandalf.local.home>
  <anmHaRzbnY7rtLX8@gremlin>
  <20260810092003.5fda8e06@gandalf.local.home>
  <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
  <anppSi8oQvvODOI2@mit.edu>
- <od7zzwh6dqabzqyz6tlvd6n4uibcqvnhohikbbmjxwjjtpnjjw@xnkg7kwr2zz2>
- <aoRlKyICddc7U353@mit.edu>
- <fe049a6b-be36-40dc-9d52-506b65b1f74b@kernel.org>
+ <aoRwK2L8CjtnhTK7@lucifer>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -59,50 +64,34 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fe049a6b-be36-40dc-9d52-506b65b1f74b@kernel.org>
+In-Reply-To: <aoRwK2L8CjtnhTK7@lucifer>
 
-On 26/08/18 04:21PM, David Hildenbrand (Arm) wrote:
-> On 8/18/26 16:02, Theodore Tso wrote:
-> > On Tue, Aug 18, 2026 at 09:09:22AM -0500, Liam R. Howlett wrote:
-> >>
-> >> When succession is happening, it would be good to have the new person
-> >> shadow the outgoing person.
-> > 
-> > That's a good idea, where it's possible.  Have you suggested this to
-> > David and Andrew?  I know there are a lot of discussions about the
-> > succession within the mm subsystem, and since it's (from an outsider's
-> > perspective), it's a large and very healthy community, my personal
-> > preference would be to let the mm subsystem work through this
-> > succession, and then we can take learnings a year or so after the
-> > succession is complete.
-
-I haven't brought it up with Andrew and David, but we do have meetings
-about what's going on - although I might have missed one due to time off
-recently.
-
-It seems like a good idea to have the shadow option opened for
-transitioning and it seems worth bringing up as a process change in its
-own right.
-
+On Tue, Aug 18, 2026 at 03:51:16PM -0500, Lorenzo Stoakes (ARM) wrote:
+> TBF I did make concrete process suggestions myself here:
 > 
-> I am not sure why we are suddenly discussing the MM transition here.
+> https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
 > 
-> Liam, do you see a particular problem in the way we are currently tackling the
-> transition? Or was that just a general comment, independent of the MM thingy?
+> And here (documentation):
+> 
+> https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
 
-I was more thinking of a process change, in general.  Even if it's a
-note saying 'if you have a known transition of ownership coming, let us
-know".
+These are the same URL; cut and paste error?
 
-The committee is looking at how to draw a line on the people to go and
-leave everything else up to the subsystem maintainers.  This assumes the
-committee knows succession planning and actions in the subsystems and
-that they keep it top of mind.
+> And they got ignored, so I'm not _entirely_ sure that's what you
+> guys are after here :)
 
-There's also the point raised about more changes on the horizon, so we
-either make it a part of the process, trust the succession planning
-takes MS into account a year (or more) ahead of time, or risk a number
-of first timers at MS.
+The above message was essentially a suggestion to (a) improve the
+Maintainer Summit Call for Topics, and (b) document the full process,
+with all of the details in the Documentation directory.  The first is
+something that wasn't immediately actionable --- it's something to do
+for next year, and the second is one that we could do eventually, but
+to be honest, it didn't seem super urgent given that it's documented
+in this e-mail thread, and many of us have other things with shorter
+timelines (such as the merge window) that is keeping us busy.
 
-Thanks,
-Liam
+I'm sorry that you feel ignored, but we all have tons and tons on our
+things screaming for our attention.
+
+Cheers,
+
+						- Ted
