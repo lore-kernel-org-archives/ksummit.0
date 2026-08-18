@@ -1,100 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD5C471436;
-	Thu, 13 Aug 2026 12:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642BE36B061
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 09:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786624600; cv=none; b=i8J6IBujC4Rhq7ZPRONA1zS0OQozQCE2qk/RY3njgw9c58qFb0YQh82Kt/FqZzCtEHMGQtnaghJT8D2IdEuTQznOPHZwp5TDl0CRy1cspMQr/C73wc5RtSpsDflTxWhljdQW2GkXeIS8ITry0keIDHLjwsUFDtH94LSe4eeFkB8=
+	t=1787045897; cv=none; b=YbAxSXvpfCmcabhX3xdPAe68oTFYOqfxqPBB+4XN9v93YaRZB9A7+aB92SRNGtZXHsLwy0PqDClU0X9IhH9UE3emMRoNnmx8PatSFs8TuAjy6v1imq9+3rS0KgpeO2FnWU1vz/SaWcwHdwPbF/P7xRhwdRNBB3YxV8772JXLtVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786624600; c=relaxed/simple;
-	bh=jujdjRVVQLsr1FENvBUXq47QOxtvRBOLN7T2jlCXYtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m37/YjA6wgUkybJkrwUX4oSKWFOoLEs4Bkcu4/VZcKvcrTRkjBXcg8FTjGTwTKlpx9YzXl5iCP4ezKeM6AMihFDSRMfKjMSiLR77nrE1hpmQUOjpBd5un9Lk0Op1ZwGAyYnL8CY3vVF5S27KARHDib0BiN+ELg5R4uawpZVlmj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051C81F000E9;
-	Thu, 13 Aug 2026 12:36:36 +0000 (UTC)
-Date: Thu, 13 Aug 2026 13:36:34 +0100
-From: Mark Brown <broonie@debian.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	ksummit@lists.linux.dev, Thierry Reding <thierry.reding@kernel.org>,
-	Breno Leitao <leitao@debian.org>, linux-next@vger.kernel.org
-Subject: Re: [MAINTAINERS SUMMIT] Any feedback for -next?
-Message-ID: <a0e4b0ac-41d1-40bb-b704-67ba71e8ce43@sirena.org.uk>
-References: <1025da50-3e21-43c7-a761-4f65ed5e5069@sirena.org.uk>
- <anxTFWS4KAMqGNGT@monoceros>
- <1a34c486-2fb5-41e3-991f-23bf82468412@sirena.org.uk>
- <CAMuHMdVEejuG-Dyr4DXgg3MhtDY6n5cDYPotRiGXeSGv0AcA+g@mail.gmail.com>
+	s=arc-20240116; t=1787045897; c=relaxed/simple;
+	bh=gbeInos+Ueabo7424PAZxdO5ZGXhefkJagHhSlCvu0M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Ah+0iTAdy82u+ZCsUG1Hm6kCGnEokKS4Py3N8HymgwhpmRIzBfrhkEpg77eoHW7w/JTgc3A5+LfzHdwLCmP84rEOyQiF4Flg8pQ0NmHaV49XE3WHcOtuK14skBQEbax3fkWrrjDDAyk7RQxozAqQ/5pLc4JyHwW7seRsHkApJNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vz8/bcjJ; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vz8/bcjJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787045896; x=1818581896;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=gbeInos+Ueabo7424PAZxdO5ZGXhefkJagHhSlCvu0M=;
+  b=Vz8/bcjJ79Inm6LcqbRQL0ATkC79yYeA4GL98OBPmaqE4A8Jzp3GKDn4
+   VcEh9GG+xiSl16Z+mRv1wgRhzCndVvp1j+6mUNoFjHQHL7p7xGRxhzzRw
+   JQ6L1JPi3iiTBATYpmkmPrOq72MzeJqO/sE7VuDP8PexebhSAC6VuAh/G
+   vl8phE7O6+7reHm23gyQGKn7S7/m0kdAPckPR+yc0YEZkha7zxCSnXmaX
+   wqTVsos84mGbD5VmxPqiRLacNxdBb89SAgJV8Gch1PL9jys+uL8E8bm9/
+   aZGvA8D9ElcmrOW3b6rQd1ul9FPoXxicHkhMdWj5QyEnD+6zoD78nnp5o
+   w==;
+X-CSE-ConnectionGUID: mLGAqivFQQqfM38zh05EJw==
+X-CSE-MsgGUID: jY/e+6W7Q2OpZ6jwq2lUJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87389061"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="87389061"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 02:38:15 -0700
+X-CSE-ConnectionGUID: JYzPN1TcQoqpYpmfg5StjQ==
+X-CSE-MsgGUID: KiAKlrzERQCvqG3HQvanEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="269017015"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 02:38:12 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Mark Brown <broonie@kernel.org>, Dave Airlie <airlied@gmail.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Simona Vetter <simona.vetter@ffwll.ch>, Steven
+ Rostedt <rostedt@goodmis.org>, James Bottomley
+ <James.Bottomley@hansenpartnership.com>, "Lorenzo Stoakes (ARM)"
+ <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
+ ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
+ summit?
+In-Reply-To: <3a382504-6bff-45c0-8b05-3982e604d7c1@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <anl7CgkKb6tORavG@lucifer>
+ <20260810091154.2d3cd6d5@gandalf.local.home>
+ <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
+ <20260810102423.342c4e9d@gandalf.local.home>
+ <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+ <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
+ <CAMuHMdVBABOiOWDdCKE0zDffj856ui5qr3UFVptwcAn1_Hx7oQ@mail.gmail.com>
+ <ant9_jhefKix5TGu@intel.com>
+ <5aa1aa71-3eb5-469e-b285-94df94ac5bef@sirena.org.uk>
+ <CAPM=9tzNxPUJGwzabdEwGiTrZER6VBHHDgaOq2bn+zBeFusjCQ@mail.gmail.com>
+ <3a382504-6bff-45c0-8b05-3982e604d7c1@sirena.org.uk>
+Date: Tue, 18 Aug 2026 12:38:08 +0300
+Message-ID: <e5bde7b3a9093fa4a9b27f47a3bea9f8c5a6101f@intel.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lbzmob6C3cucPftz"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdVEejuG-Dyr4DXgg3MhtDY6n5cDYPotRiGXeSGv0AcA+g@mail.gmail.com>
-X-Cookie: Immanuel doesn't pun, he Kant.
+Content-Type: text/plain
+
+On Thu, 13 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
+> On Thu, Aug 13, 2026 at 06:33:05AM +1000, Dave Airlie wrote:
+>
+>> So I remember some of the problem, if you cherry-pick with -x the
+>> complaint was we had commits in -fixes with a cherry-pick commit id
+>> that wasn't in Linus' tree at that time.
+>
+>> It would of course later materialise in Linus' tree when the next
+>> merge window occurred since we don't rebase, but this either broke
+>> people's brains or scripts badly enough we got push back on it.
+>
+>> I think we should definitely do -x on all cherry-picks and I'll push
+>> to make sure we start doing it again.
+>
+> That'd be helpful, thanks -  I guess you're going to annoy someone
+> either way unfortunately but at least the commit not in mainline issue
+> would be transient.
+
+We use the drm subsystem maintainer tool for cherry-picks, and it uses
+the -x option.
+
+If you have any suggestions for helpful but non-intrusive additional
+annotations on cherry-picked commits, it should be easy enough to update
+the tool. And perhaps the annotation could be more widely adopted as
+well. It's not like nobody else ever cherry-picks, we just do it
+more. The annotation could still be the same.
+
+BR,
+Jani.
 
 
---lbzmob6C3cucPftz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Aug 13, 2026 at 09:31:58AM +0200, Geert Uytterhoeven wrote:
-> On Wed, 12 Aug 2026 at 18:44, Mark Brown <broonie@debian.org> wrote:
-
-> > > The advantage is that if commit B breaks something there are less
-> > > intermediate trees that don't contain B and you can still test on e.g.
-> > > D+E.
-
-> Sounds like a nice idea to me!
-> And you can put the trees that usually cause the most conflicts in
-> the same subgroup ;-)
-
-> It may also help in bisecting an issue.  I have the impression "git
-> bisect" on linux-next (against Linus' tree, not against yesterday's
-> next) shows me more "a merge base must be tested" test points than
-> expected/optimal.
-
-IME it tends to walk down the linear history of -next until it find
-which branch introduced the regression.  I've never investigated in
-detail but my feeling is that the inefficiency is more driven by the
-size of the branch it lands on.
-
-> > There's also the issue of incremental build benefits.
-
-> That should be more or less the same as before. After all you're
-> building the same number of times, it's just the changes that are
-> reshuffled. And you do use ccache, I hope?
-
-No ccache, it was enabled in the past but it got turned off by Stephen,
-I suspect the reuse over what you get from just doing incremental builds
-is questionable.  We did have mediocre experiences with it on KernelCI
-too.
-
-The thing isn't just the number of builds, it's how often those builds
-change headers that trigger full rebuilds, and we're only sampling the
-builds rather than actually doing every single one so that the merge
-completes in a viable amount of time.  That might miss stuff, but due to
-the way trees are ordered it will likely be only things that will get
-resolved before they go anywhere near Linus anyway.
-
---lbzmob6C3cucPftz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp9ulEACgkQJNaLcl1U
-h9DPRgf8C01n6omewBHClQ6oaoY+PihJcK+HwKZ6dF90liRF6k32I0vFK+zcIYy9
-dLMhDrhJn8rNRJ19WI0UuuAMNzczJy9h+Jwi7i8S2e3T/1u6Z5IL9OzkYO7fdrOq
-Qo0U7l5SWSkb18FnLk9BSq0wO2azdKFxI+xplQcorT0+P43xUE34ONOQTrAArbK1
-Zmj/YKgv+jYC9owGcJLj/02+QtQJYG2Hydz0qGm6l8Ixkvs+eP7dZObjjmkJ+qzy
-UrD8Ml9zR2GdH2GAFai7cdHeSWtfJgpLZF9iaLfHYeltLXEL0Lu+jqnYhLXOmWnM
-bzi96QOfkpSGaCBGu+PUWEQo7lz/Cg==
-=S7mR
------END PGP SIGNATURE-----
-
---lbzmob6C3cucPftz--
+-- 
+Jani Nikula, Intel
