@@ -1,54 +1,43 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABEF1FECBA
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 17:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC32D3033EB
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 18:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787075262; cv=none; b=AqpROyux6+H+xcQPgUUzmNIL/HqxNEx1THO0V7W/I1zdI7RubxuQqRTYIx6WMQVqPXx2ZeQ9q9EcMRc0IN/y6sPcaUjIgosjgnkFIm9DYaAH7LNncr8xzOOl7eTPf/+Jy0MLYWbWXz41WjmBEKyfNnXQ3JLbrX4m9iAk8FHqq70=
+	t=1787077133; cv=none; b=JT3NFbs4Vom5tdguvzFcQCdUDbVfjTWcpDTeyzBsA7nNg10P3rpAIn8k+Vx1m/gEMjnMJsECe/OttvxsA+Iq7wmXKKvdD72KEl2kPTBXxNLbh/Gdg/cITnkhPard1VdIuYyDMsg72IrjBHRxz5mvlFaugR/3krz8/DfwgtGNAU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787075262; c=relaxed/simple;
-	bh=PCKiQigMYiMLMuHl04IEorzxh3BzizYUUrzOG2xNwD4=;
+	s=arc-20240116; t=1787077133; c=relaxed/simple;
+	bh=PhVJsXZYcL5/hHF9cDXJ/HKgicki9Xtukxw/32PlP5M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hHzFSYFANlkIu0GYvalTWwflXD/nOMn9UwAKWZWZAZNgj7lFUKIosV+Q28TEE61OTMHtEpl3DSTWmUkRlMFqCFkn4HTfmZyWY5pP0CKfP+1+pK5O1lNQ9unWIB/D1RLYKU0OXRaqRi1LuJ+QMQUAEu15HHY5lqvgqmShisf2tGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=LKKcSoVO; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=rG0gpAgu2Z/gd9kgKA1hsryeqtBcWMMobT5XDQHGc2lNHSrU/NFNZacAFQlAollS0CvUqRVMqsTCKL5XJwp83HS4jIVCrLI6ssdt5tQPITw/TMDrWh+pxUQ+HVtBHAwsukeeTMztZeEGJsE/9Am0VR2xr3l4rcZ7+KCk70lMj/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT2PTEM+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="LKKcSoVO"
-Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67IHlGBL018472
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Aug 2026 13:47:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1787075245; bh=BfyLw+i3Rx3j6d2nwTbjTPdXz+6BvJmPuayAE0J+YCM=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=LKKcSoVOA/EweZmeM42MQu2MkFL+armG5ampWCcvxt/xjKcPCqxCUqdyKW/R1JrvZ
-	 IjxrQ5XP/K66fP7M5CTyDiPDJxGdS1CSGHbbgm/uJuk28K5wd0u5NOyLU30ObivWwn
-	 kigIdyftsfFsdHIjL+Ofr0oCPRFwJ9yXKls+sWilcXmNCO2IEd6bpMMNvA9WASA08E
-	 pXZo6geVR5pNM+1Tc9mj9eryh8/Xp9ZvCMkrs1Q6rbEyhwP6tl2rmeumljCnfqjSt9
-	 46iDw7iFeePTmFWtCbQiI6FBShahKuTvbENxIZ5UgaYv0F48V8OACdwZB5/qyFFrpN
-	 SpHIOK/XpV/Pg==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id D1B71F7D867; Tue, 18 Aug 2026 13:46:15 -0400 (EDT)
-Date: Tue, 18 Aug 2026 13:46:15 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: "Liam R. Howlett" <liam@infradead.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Steven Rostedt <rostedt@goodmis.org>,
-        "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        James Bottomley <James.Bottomley@hansenpartnership.com>,
-        ksummit@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-        Dave Airlie <airlied@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT2PTEM+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526E31F000E9;
+	Tue, 18 Aug 2026 18:18:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787077131;
+	bh=Ky/nINkPsuNkFlOtENpoAh/4nNhTYCHrvbEGw7lXCxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BT2PTEM+4LlJiL0AOXtmodSkzMIra0su3HaeTVQdGtyW60xA1jpRKBJbKlsRued4C
+	 x1WaKiX5HICkf1bpjj1gGPkjGAeKEc8l29zKLY/0KLfC0aZXAb1swBAkpsBLwu7vTP
+	 pdIW02z+8icF/Vx4mLYgvB1fSONBniXbxywFvffBsN7M+E5iC4Z679UcoRtOHbrDlS
+	 70qyoFvfC3KgpnXMjVSPrOtmeaej862zcSIwMk95QGINCEsGUbC1MVvX3cSVbBHdjq
+	 BsBxY/fvQM/kVg2Wh7ahpB0M2ExpFZbeBqAuI91ewrvxeC4HU6nOlQf9EAbe7e7Lcw
+	 Hnvm4lv8En8vQ==
+Date: Tue, 18 Aug 2026 19:18:33 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Theodore Tso <tytso@mit.edu>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	James Bottomley <James.Bottomley@hansenpartnership.com>, ksummit@lists.linux.dev, 
+	Andrew Morton <akpm@linux-foundation.org>, Dave Airlie <airlied@gmail.com>
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <aoSMSTIxK0nXHYDr@mit.edu>
-References: <87y0efi08u.fsf@trenco.lwn.net>
- <20260809170918.218792b2@gandalf.local.home>
+Message-ID: <aoShJTlxpvpBdBRD@lucifer>
+References: <20260809170918.218792b2@gandalf.local.home>
  <anmHaRzbnY7rtLX8@gremlin>
  <20260810092003.5fda8e06@gandalf.local.home>
  <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
@@ -57,6 +46,7 @@ References: <87y0efi08u.fsf@trenco.lwn.net>
  <aoRlKyICddc7U353@mit.edu>
  <fe049a6b-be36-40dc-9d52-506b65b1f74b@kernel.org>
  <jguyya2bs2caylvcxu2gwl3g4sjuajb2fhjrpojwy5osyqyw55@doc2x6d5nm2y>
+ <aoSMSTIxK0nXHYDr@mit.edu>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -65,42 +55,31 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <jguyya2bs2caylvcxu2gwl3g4sjuajb2fhjrpojwy5osyqyw55@doc2x6d5nm2y>
+In-Reply-To: <aoSMSTIxK0nXHYDr@mit.edu>
 
-On Tue, Aug 18, 2026 at 11:32:07AM -0500, Liam R. Howlett wrote:
-> The committee is looking at how to draw a line on the people to go and
-> leave everything else up to the subsystem maintainers.  This assumes the
-> committee knows succession planning and actions in the subsystems and
-> that they keep it top of mind.
+On Tue, Aug 18, 2026 at 01:46:15PM -0400, Theodore Tso wrote:
+> > There's also the point raised about more changes on the horizon, so we
+> > either make it a part of the process, trust the succession planning
+> > takes MS into account a year (or more) ahead of time, or risk a number
+> > of first timers at MS.
+>
+> Personally, I'm not worried about first timers; in fact, having a
+> first timers is a *feature* not a bug.  The opposite is the complaint
+> that it's always the same "clique" attending the Maintainers Summit.
 
-I suspect that for major subsystems, if it *can* be planned, everyone
-will know about it.  I didn't want to talk about the details of
-internal deliberations of the program committee, but it's safe to say
-that Linus explicitly mentioned it, it was discussed by the program
-committee, and we extended invitations to both Andrew and David.
+I mean it feels like you're batting things off again here :) if you want
+more first timers you would have to make changes, your analysis on that was
+rather flawed, another point which wasn't addressed:
 
-There were people on this thread that seemed to assume that the
-program committee had completely ignored the situation, but that
-wasn't the case.
+"That puts the number of seats filled by one-time attendees at any
+conference at 21.6%, not 44.9%."
 
-> There's also the point raised about more changes on the horizon, so we
-> either make it a part of the process, trust the succession planning
-> takes MS into account a year (or more) ahead of time, or risk a number
-> of first timers at MS.
+http://lore.kernel.org/all/anii3u-87kSrB9K3@lucifer
 
-Personally, I'm not worried about first timers; in fact, having a
-first timers is a *feature* not a bug.  The opposite is the complaint
-that it's always the same "clique" attending the Maintainers Summit.
+>
+> Cheers,
+>
+> 						- Ted
 
-As long as the new subsystem maintainers are experienced kernel
-engineers, that's the most important issue.  As far as process
-concerns, as long as major subsystems give a heads to Linus (not to
-mention discussions at LSF/MM, or Plumbers, both of which have
-happened with different senior developers planning their upcoming
-retirement), I don't think we really need to worry about the community
-getting taken by surprise.  So if things aren't broken, I'd argue that
-we not add more formal procedures where they might not be necessary.
-
-Cheers,
-
-						- Ted
+--
+Cheers, Lorenzo
