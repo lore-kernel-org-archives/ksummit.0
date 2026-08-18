@@ -1,97 +1,109 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4205E47F2E1
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 16:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A722EA749
+	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 16:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787071636; cv=none; b=md3d6A74M4qufsCivGla+KIUdWmX4PTz8Q3iOpmCuWF1OsNYbi7da+blaI6ZEkS6iNYmf1/Z6l+94vc67X2HO9FuW1ANl1Y+5fp7NcjN+5sDabL1L3S2wUYLD/+pZ1HFBzAFBZBMulbnPWrsdVN3l3OT60S+fXq7tEra/xYOzz4=
+	t=1787071851; cv=none; b=mR5QJmArvas8WCaltUVRNSghHPRA8oQzg5r0h5pO99mmmPrx4PApOcOljkuZmZdIZokylQbeg4IeGtBCOdsgI9ZJQ5DZUHjbnjkuigodqL7NDjNW9CRrfPbsNC56POq9wAreBzVWcgof1zN5Es4PJqARLsklnDnLMCfrN2sZ0mQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787071636; c=relaxed/simple;
-	bh=KAEm6rWjeLPT+W8QTStW+bk3y3usuzNkLjqqhiX6zpk=;
+	s=arc-20240116; t=1787071851; c=relaxed/simple;
+	bh=674aCT5W3njV0scAfZWWeZIeQFCBBTU3wlpdWshFzME=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QNurzi/QWC2scIlVHzncsoC8apkL1ENC31EKzImRCX6IITE/DJ+npWB+m4mcPrUPS3zzgxnyN314N0Te0h8a7i2Gj8pzPijni6NMoK9rqxfh9BLSRptBLDHoxV/BNJQZ15bSdiI55fNHCQQ949HPmi7RX3T1/7UNlvsOK+cr4Dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=RgkBLvUI; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=ar10cdmaSP1P/T2v7k73ereWoZPMt4whC98+JVf51Zkh6mdQB+xwqE/p9CIJuC2ntqPGgoHjWg0vwlEnq52pMbkskddoptwkOpF6Uc5FfxSKEQqvSEOL+OiogVQnMz2fxovAqh3YZKn+GzJ9uyD21EZMVfYU7TdZsYXhetoh6Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZRJjFUh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="RgkBLvUI"
-Received: from macsyma.thunk.org (pool-173-48-113-153.bstnma.fios.verizon.net [173.48.113.153])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 67IGkruJ019788
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Aug 2026 12:46:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1787071616; bh=X+iSUEnja8z3+V3CmBDVD3e/CPgDKiGSdij9q3BQ16I=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=RgkBLvUI+e/d7UN1YFlXGVR4zA1FqmUf07HAZ33Sl6daJDqIAmrMybN5ZHpL6Aaot
-	 PMZEKoEn4mdaWARVJcfIJc9HsweiBN5iTo+vsyO59l569mE+Xb41hu4kU3B4zjqwcd
-	 2kIoO3QKiPmmJ2p6AzKcDaO2j/99R5/rmLZVgwPAyV0jwkUpid71WFopZFy5GKvE2H
-	 3VERR+VZvkDCY9qZ2K7AsT+mmb8TCpc3V/YcBt1msQuUvlO1cHSWbhaw/jC7uZoP5c
-	 WG/Sg8m0e4KNoHlpxN/Wj7lHmbbMYB1/FE1somojDW+qBFO+VYYEeKaYcRqgP0eJtc
-	 XgAp8lR9qolTw==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 9DDA1F7B6C5; Tue, 18 Aug 2026 12:45:52 -0400 (EDT)
-Date: Tue, 18 Aug 2026 12:45:52 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>,
-        Steven Rostedt <rostedt@goodmis.org>, Jonathan Corbet <corbet@lwn.net>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        James Bottomley <James.Bottomley@hansenpartnership.com>,
-        ksummit@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Dave Airlie <airlied@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZRJjFUh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA631F000E9;
+	Tue, 18 Aug 2026 16:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787071849;
+	bh=/AqysMu/AHnBxCB9zWusQyh7Iat99WLi49/L81JeHrM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HZRJjFUh+dB/wauBLGBJ9fsrF1QEWCREuRcFnNh9oLW+L97yvIB0p4pFZrkHC5zpS
+	 zRgJZKLzmG9PO+2EWqySwd60uzRHftsXMsvHNkJ8TbdIzW9/JOr9Xkc9eL50XCW5m+
+	 K6g3OdymFHvOV4Micrh3YrqselJRL9bZcJldVAzUuT45+aV5pilqVpSagGr9YB7UTz
+	 sW+4qU1EbeDP16rk2MAzUWr1JdJfFDKUNyw7uI/IA+pwGqOOozj5SsyDdq3C6klWKE
+	 HJ6nq7n1/ru5mJXV1r28YZFBpoYIAJMJvM66PwaMJL+cjxN/iwHaGAUj6Cy5T5/h/v
+	 /fHeZbBiyWCoA==
+Date: Tue, 18 Aug 2026 17:50:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Dave Airlie <airlied@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit@lists.linux.dev
 Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
  summit?
-Message-ID: <aoSIANv2L18fV4RN@mit.edu>
-References: <20260806194153.6443a3ba@gandalf.local.home>
- <CAHk-=wi734UD_CKkmRwZJHnNXAPTzYASXFh_XR092BsgWs8Qng@mail.gmail.com>
- <anfUgiByUVffXlrQ@mit.edu>
- <87y0efi08u.fsf@trenco.lwn.net>
- <20260809170918.218792b2@gandalf.local.home>
- <anmHaRzbnY7rtLX8@gremlin>
- <20260810092003.5fda8e06@gandalf.local.home>
- <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
- <anppSi8oQvvODOI2@mit.edu>
- <aoRwK2L8CjtnhTK7@lucifer>
+Message-ID: <bf49df4c-f879-4856-b47c-b3cda80fed30@sirena.org.uk>
+References: <cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
+ <20260810102423.342c4e9d@gandalf.local.home>
+ <0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+ <CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
+ <CAMuHMdVBABOiOWDdCKE0zDffj856ui5qr3UFVptwcAn1_Hx7oQ@mail.gmail.com>
+ <ant9_jhefKix5TGu@intel.com>
+ <5aa1aa71-3eb5-469e-b285-94df94ac5bef@sirena.org.uk>
+ <CAPM=9tzNxPUJGwzabdEwGiTrZER6VBHHDgaOq2bn+zBeFusjCQ@mail.gmail.com>
+ <3a382504-6bff-45c0-8b05-3982e604d7c1@sirena.org.uk>
+ <e5bde7b3a9093fa4a9b27f47a3bea9f8c5a6101f@intel.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3ezD4zFPUlDuvype"
+Content-Disposition: inline
+In-Reply-To: <e5bde7b3a9093fa4a9b27f47a3bea9f8c5a6101f@intel.com>
+X-Cookie: Smile!  You're on Candid Camera.
+
+
+--3ezD4zFPUlDuvype
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aoRwK2L8CjtnhTK7@lucifer>
 
-On Tue, Aug 18, 2026 at 03:51:16PM -0500, Lorenzo Stoakes (ARM) wrote:
-> TBF I did make concrete process suggestions myself here:
-> 
-> https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
-> 
-> And here (documentation):
-> 
-> https://lore.kernel.org/all/anntucHhrzF_b4sy@lucifer/
+On Tue, Aug 18, 2026 at 12:38:08PM +0300, Jani Nikula wrote:
+> On Thu, 13 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
 
-These are the same URL; cut and paste error?
+> > That'd be helpful, thanks -  I guess you're going to annoy someone
+> > either way unfortunately but at least the commit not in mainline issue
+> > would be transient.
 
-> And they got ignored, so I'm not _entirely_ sure that's what you
-> guys are after here :)
+> We use the drm subsystem maintainer tool for cherry-picks, and it uses
+> the -x option.
 
-The above message was essentially a suggestion to (a) improve the
-Maintainer Summit Call for Topics, and (b) document the full process,
-with all of the details in the Documentation directory.  The first is
-something that wasn't immediately actionable --- it's something to do
-for next year, and the second is one that we could do eventually, but
-to be honest, it didn't seem super urgent given that it's documented
-in this e-mail thread, and many of us have other things with shorter
-timelines (such as the merge window) that is keeping us busy.
+Ah, so they are - I did do a spot check but it looks like I managed to
+find some of the few directly applied fixes.  I think I usually miss
+the cherry-pick -x annotations because they end up buried in the block
+of signoff information.  Sorry about that.
 
-I'm sorry that you feel ignored, but we all have tons and tons on our
-things screaming for our attention.
+> If you have any suggestions for helpful but non-intrusive additional
+> annotations on cherry-picked commits, it should be easy enough to update
+> the tool. And perhaps the annotation could be more widely adopted as
+> well. It's not like nobody else ever cherry-picks, we just do it
+> more. The annotation could still be the same.
 
-Cheers,
+The stable ones where the annotation goes at the top of the changelog
+are a bit more noticable?
 
-						- Ted
+--3ezD4zFPUlDuvype
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqEjWQACgkQJNaLcl1U
+h9BVBwf/WxCzud14etdRlCJqzpeZqqaO2HFCrcPosaTNd6BubD2bi2GaSuguIOze
+WLsqaRf2O8cz4E0F19pWR96j3eUtA3X283rycPcKudNh+A6z3D/+5RbDNPWlWLZv
+ZyY8+0Pj6XqnF5Wtg7pwL6un2oCnl8bVpZHgaR5P5w0ip5Y8lizrsrgC/PQ7n5kb
+JhCGYphmbjuNFjs16Ln1YEvulgjoYCrT2uhXgMKXl8ayAGx5D2iXJZXcHnRv5SRj
+JMAHa+yfai7zi4Da0aCOet5XlioSy2rlKe41eXU2ClGJk/xUQpt/lhMxgPca1Jzz
+ckr3fVwm4fkQX5tnkWRL1X6SR9ROxQ==
+=j4Kv
+-----END PGP SIGNATURE-----
+
+--3ezD4zFPUlDuvype--
