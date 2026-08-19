@@ -1,85 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC32D3033EB
-	for <ksummit@lists.linux.dev>; Tue, 18 Aug 2026 18:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D89B407563
+	for <ksummit@lists.linux.dev>; Wed, 19 Aug 2026 08:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787077133; cv=none; b=JT3NFbs4Vom5tdguvzFcQCdUDbVfjTWcpDTeyzBsA7nNg10P3rpAIn8k+Vx1m/gEMjnMJsECe/OttvxsA+Iq7wmXKKvdD72KEl2kPTBXxNLbh/Gdg/cITnkhPard1VdIuYyDMsg72IrjBHRxz5mvlFaugR/3krz8/DfwgtGNAU8=
+	t=1787128119; cv=none; b=Ke24x39NWlDUMpUg1KWZ46tV6F97kmvQnoBQ7cIF6hfIvgVOnm9Xw7E1vfqRroauJG0IQGJNQoh66oJ38GBRA6Ix9exBXtyO8KnAQgYnfAIST4asQ6/SkNabUeuJMFByIHb72uTYp950kaJgT3FJYZdoF3lwHmYHsZswlIXfgC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787077133; c=relaxed/simple;
-	bh=PhVJsXZYcL5/hHF9cDXJ/HKgicki9Xtukxw/32PlP5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rG0gpAgu2Z/gd9kgKA1hsryeqtBcWMMobT5XDQHGc2lNHSrU/NFNZacAFQlAollS0CvUqRVMqsTCKL5XJwp83HS4jIVCrLI6ssdt5tQPITw/TMDrWh+pxUQ+HVtBHAwsukeeTMztZeEGJsE/9Am0VR2xr3l4rcZ7+KCk70lMj/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT2PTEM+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787128119; c=relaxed/simple;
+	bh=Q9t9+n+MXx5a6Be63Vl3K5LVxnuIF9L6ugkS1eaAb8w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XneBIPi+oqNySkvWFD2im8KoE3PtnZ9fSy6WPGP8Wq9A/7bvKX3MMZlFFq5ePMAgB8I0R0VP/LPJrDEMLC+hBX0wGzmJDQBSD+HQDWXrjIJJQigE4no2H09O9fLrCg16BZct0UZHtxMUTcC0a8ixZTcngb5RtVnYYCRbgu6Fs2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=h+vJXaIA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=OFwTLrl9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=zVgLDpzS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=aiCtneUw; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT2PTEM+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526E31F000E9;
-	Tue, 18 Aug 2026 18:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787077131;
-	bh=Ky/nINkPsuNkFlOtENpoAh/4nNhTYCHrvbEGw7lXCxw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BT2PTEM+4LlJiL0AOXtmodSkzMIra0su3HaeTVQdGtyW60xA1jpRKBJbKlsRued4C
-	 x1WaKiX5HICkf1bpjj1gGPkjGAeKEc8l29zKLY/0KLfC0aZXAb1swBAkpsBLwu7vTP
-	 pdIW02z+8icF/Vx4mLYgvB1fSONBniXbxywFvffBsN7M+E5iC4Z679UcoRtOHbrDlS
-	 70qyoFvfC3KgpnXMjVSPrOtmeaej862zcSIwMk95QGINCEsGUbC1MVvX3cSVbBHdjq
-	 BsBxY/fvQM/kVg2Wh7ahpB0M2ExpFZbeBqAuI91ewrvxeC4HU6nOlQf9EAbe7e7Lcw
-	 Hnvm4lv8En8vQ==
-Date: Tue, 18 Aug 2026 19:18:33 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Theodore Tso <tytso@mit.edu>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, ksummit@lists.linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Dave Airlie <airlied@gmail.com>
-Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer
- summit?
-Message-ID: <aoShJTlxpvpBdBRD@lucifer>
-References: <20260809170918.218792b2@gandalf.local.home>
- <anmHaRzbnY7rtLX8@gremlin>
- <20260810092003.5fda8e06@gandalf.local.home>
- <1BD1C7E7-CCA5-4BBB-94D4-83A7706E2579@infradead.org>
- <anppSi8oQvvODOI2@mit.edu>
- <od7zzwh6dqabzqyz6tlvd6n4uibcqvnhohikbbmjxwjjtpnjjw@xnkg7kwr2zz2>
- <aoRlKyICddc7U353@mit.edu>
- <fe049a6b-be36-40dc-9d52-506b65b1f74b@kernel.org>
- <jguyya2bs2caylvcxu2gwl3g4sjuajb2fhjrpojwy5osyqyw55@doc2x6d5nm2y>
- <aoSMSTIxK0nXHYDr@mit.edu>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="h+vJXaIA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OFwTLrl9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zVgLDpzS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aiCtneUw"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 721423E6B;
+	Wed, 19 Aug 2026 08:28:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787128111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7JiutVk92DrXUch6P8zbG55zg9JeC7ZmNxMFDsHc8GI=;
+	b=h+vJXaIASW3Jny/XgKaAO6j/yobO2NE0lAf/VoGZoDU+JFQEvudLzbBSwmPpwUfxQgyV2d
+	9Y/RH9lMegb+NzAQxX34akz7MBthc6SF9nG5RLhxoLZn/5IH8zBqpVt++AhJ+s3ybXBjG0
+	DYFKcPPfTey819zGIheZjZMeQvNnUlI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787128111;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7JiutVk92DrXUch6P8zbG55zg9JeC7ZmNxMFDsHc8GI=;
+	b=OFwTLrl9VZEjBhI0da469cX+UME6sNiktc6CmFeBK0lIh2yVt53ZOSPXHUlA4PMtuT7sIk
+	oU9efq3j9Ua+27Cg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787128107; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7JiutVk92DrXUch6P8zbG55zg9JeC7ZmNxMFDsHc8GI=;
+	b=zVgLDpzSJkkuadwTqKm3GOE8h5mA2wa1NDqgEugOSOwDjmXw65s5ulkVMniOMofLyn8duG
+	a2KCnskB9NsA/T69cyi0pAHt1PVnPgJkOaUKo/LTsIynMm899CHi3eYKpsxfq215hu0Bce
+	zO6sauIPgP1fYQ+x8NXpT402CO/kBuU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787128107;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7JiutVk92DrXUch6P8zbG55zg9JeC7ZmNxMFDsHc8GI=;
+	b=aiCtneUwlRxDsEUTgsxlCwnyiEclDQjxSBiCYsZJCjWihXiFOUAFtAETu81z25Xafonfma
+	KI9zBe0QrAjm4bAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2B295779C1;
+	Wed, 19 Aug 2026 08:28:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id bn0kCStphWoGdAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 19 Aug 2026 08:28:27 +0000
+Date: Wed, 19 Aug 2026 10:28:26 +0200
+Message-ID: <87v796o6ol.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Dave Airlie <airlied@gmail.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Geert Uytterhoeven
+ <geert@linux-m68k.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Steven
+ Rostedt <rostedt@goodmis.org>,
+	James Bottomley
+ <James.Bottomley@hansenpartnership.com>,
+	"Lorenzo Stoakes (ARM)"
+ <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit@lists.linux.dev
+Subject: Re: [MAINTAINERS SUMMIT] Time to call it quits for the maintainer summit?
+In-Reply-To: <e5bde7b3a9093fa4a9b27f47a3bea9f8c5a6101f@intel.com>
+References: <anl7CgkKb6tORavG@lucifer>
+	<20260810091154.2d3cd6d5@gandalf.local.home>
+	<cc6505e586325cd59ba036cef5429039c9c71ba8.camel@HansenPartnership.com>
+	<20260810102423.342c4e9d@gandalf.local.home>
+	<0a8c1e90-1de1-4a76-b0fa-e367a4bd4f55@sirena.org.uk>
+	<CAPM=9twB=hJURcbdaiDZjkEeUHTLmOLAoxnD+g0zGTTMq3nySw@mail.gmail.com>
+	<CAMuHMdVBABOiOWDdCKE0zDffj856ui5qr3UFVptwcAn1_Hx7oQ@mail.gmail.com>
+	<ant9_jhefKix5TGu@intel.com>
+	<5aa1aa71-3eb5-469e-b285-94df94ac5bef@sirena.org.uk>
+	<CAPM=9tzNxPUJGwzabdEwGiTrZER6VBHHDgaOq2bn+zBeFusjCQ@mail.gmail.com>
+	<3a382504-6bff-45c0-8b05-3982e604d7c1@sirena.org.uk>
+	<e5bde7b3a9093fa4a9b27f47a3bea9f8c5a6101f@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoSMSTIxK0nXHYDr@mit.edu>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-6.30 / 50.00];
+	REPLY(-4.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	SUBJECT_ENDS_QUESTION(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_COUNT_TWO(0.00)[2];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,intel.com,linux-m68k.org,ffwll.ch,goodmis.org,hansenpartnership.com,linux-foundation.org,lists.linux.dev];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -6.30
+X-Spam-Level: 
 
-On Tue, Aug 18, 2026 at 01:46:15PM -0400, Theodore Tso wrote:
-> > There's also the point raised about more changes on the horizon, so we
-> > either make it a part of the process, trust the succession planning
-> > takes MS into account a year (or more) ahead of time, or risk a number
-> > of first timers at MS.
->
-> Personally, I'm not worried about first timers; in fact, having a
-> first timers is a *feature* not a bug.  The opposite is the complaint
-> that it's always the same "clique" attending the Maintainers Summit.
+On Tue, 18 Aug 2026 11:38:08 +0200,
+Jani Nikula wrote:
+> 
+> On Thu, 13 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
+> > On Thu, Aug 13, 2026 at 06:33:05AM +1000, Dave Airlie wrote:
+> >
+> >> So I remember some of the problem, if you cherry-pick with -x the
+> >> complaint was we had commits in -fixes with a cherry-pick commit id
+> >> that wasn't in Linus' tree at that time.
+> >
+> >> It would of course later materialise in Linus' tree when the next
+> >> merge window occurred since we don't rebase, but this either broke
+> >> people's brains or scripts badly enough we got push back on it.
+> >
+> >> I think we should definitely do -x on all cherry-picks and I'll push
+> >> to make sure we start doing it again.
+> >
+> > That'd be helpful, thanks -  I guess you're going to annoy someone
+> > either way unfortunately but at least the commit not in mainline issue
+> > would be transient.
+> 
+> We use the drm subsystem maintainer tool for cherry-picks, and it uses
+> the -x option.
+> 
+> If you have any suggestions for helpful but non-intrusive additional
+> annotations on cherry-picked commits, it should be easy enough to update
+> the tool. And perhaps the annotation could be more widely adopted as
+> well. It's not like nobody else ever cherry-picks, we just do it
+> more. The annotation could still be the same.
 
-I mean it feels like you're batting things off again here :) if you want
-more first timers you would have to make changes, your analysis on that was
-rather flawed, another point which wasn't addressed:
+The cherry-pick -x option helps a lot indeed, that's fine, per se.
 
-"That puts the number of seats filled by one-time attendees at any
-conference at 21.6%, not 44.9%."
+However, the oddity is that the original commit comes to the upstream
+a few weeks later again while the cherry-pick commit got already
+merged earlier.  And, of course, the original commit has no notion
+showing this is a dup.
 
-http://lore.kernel.org/all/anii3u-87kSrB9K3@lucifer
+So, a single direction cherry-pick solution doesn't suffice, and IMO,
+we need to have some reverse-mapping of the aliases.  This could be
+some external content or some other way.
+(I could think of git-notes, but people won't agree, judging from the
+historical development and the implementation of git-notes.)
 
->
-> Cheers,
->
-> 						- Ted
 
---
-Cheers, Lorenzo
+thanks,
+
+Takashi
