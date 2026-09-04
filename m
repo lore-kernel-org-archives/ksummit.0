@@ -1,88 +1,109 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896D636F8F2
-	for <ksummit@lists.linux.dev>; Fri,  4 Sep 2026 17:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26A1EEB3
+	for <ksummit@lists.linux.dev>; Fri,  4 Sep 2026 20:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542757; cv=none; b=c1vh5+gapGyN+28I6KfsWmUEfjMPR1M1HuLtyvVB+6R7sm2X/p4EYRG45BfVimy2UQGe+CScw0wCWW/gegX3cMf7s3/ZMDfqr0lk6TxpGMALd6RUuSW53aartDlH6Sh1/Y6UE2VceXlyZ8JKXF932WvM/zv9X5rBO9S0TmKq8Po=
+	t=1788553139; cv=none; b=WN8iQnhw5cgsoPI1ilDlVM6met5NII6U9mZRHiWwDSTXaUgvd0gilB8QnvdZ/hLLATo8MU6U5W0hSaoAM9xcWhypp48sq6osxbQtKSHyv3sG8oTHoiUwlZwkyyN9q4PomLrujFRmqhX5Bo/3C0Ln7j62H4b1wxVNY43e02ME84k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542757; c=relaxed/simple;
-	bh=3DtXMPnCPDU0+1AvVvbVLuMNT0P7e5LaE8XyZRrioLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T895RujcDRAH3FzYq1Va/XdYXBrXBKzImsqx4ZwDsFMKH/ZlqUiwYCDvt6I98pP/mHHlyF9X8WblgaoFRTUFNhZe3tFPaYe78UvJXZCBW1plPmksOBLKQFSZQhDWAAxjEQAUBMl6onW2EZdG2QixzNREjwxzOpdYv/2Wu3ugp/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=TYMtvovw; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788553139; c=relaxed/simple;
+	bh=jjbbvpayKUqnsrU76bl2miLDI5wUyXndYlhXN7mm+1o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MQEySeYoK6KGp+sSTny/XCS1x3ednp9MyTd8e7RChwaFPtiMZiIQurCkjQxXiWgnpxX3tGf0MQuznxXCQmMeUTuk0b5pdQ/q3jQi4g6qqCBml3yR3O1sFll/Vmu+rRc3HRIuxT2tvm1xT6b2wI8mYocP9NfVlQQGGeWfq6SwZRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RGwgb8az; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="TYMtvovw"
-Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 86C1F120182;
-	Fri,  4 Sep 2026 17:25:54 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 1338F2002F;
-	Fri,  4 Sep 2026 17:25:52 +0000 (UTC)
-Date: Fri, 4 Sep 2026 13:26:58 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Luck, Tony" <tony.luck@intel.com>
-Cc: "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
-Subject: Re: How to credit Sashiko with a Reported-by tag?
-Message-ID: <20260904132658.78be832b@gandalf.local.home>
-In-Reply-To: <SJ1PR11MB6083385BE00A70389C211177FCB52@SJ1PR11MB6083.namprd11.prod.outlook.com>
-References: <SJ1PR11MB6083385BE00A70389C211177FCB52@SJ1PR11MB6083.namprd11.prod.outlook.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RGwgb8az"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so2326998a12.0
+        for <ksummit@lists.linux.dev>; Fri, 04 Sep 2026 13:18:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1788553133; x=1789157933; darn=lists.linux.dev;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cMvbrvt+PfXUgAzCSvciVpc7wTYaMcsi71qPhmIzZpk=;
+        b=RGwgb8azd4FqsILABRwM3bEBURZjvvn2zEELnOqXWdODLy73KFng7F/jCcn4KQ0qfr
+         9sqwTM9uFhho8Q9lLuXXTZtrClD5cVzUGmyFLnfHwWFBdcqZDmf4DrwR7IGtuXk+UMpO
+         EgmtjD1Tr/hIgxnSPrWTwFN4WUQPNvejbNUAA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788553133; x=1789157933;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cMvbrvt+PfXUgAzCSvciVpc7wTYaMcsi71qPhmIzZpk=;
+        b=qKgZF8GbiZBiRpcWrgqtF4fxpH+3d8YQ7wmxzUB5HZNgJQRHBe911hq8pmLH06Lh9y
+         QI3iTzgcAVwURakZXnZBtBGXVLjV1dpPk/k/rr2F2eCBjvJ+TSHEMPQ8qPz4AEk/IsIP
+         tte5oF9BkXaFAJU+8pNZ/IiQ/1WFyp+6UZYugOINXh74FT+YHUlQqxc4h959oXO1LGVm
+         5C90+K1wcRwkVHqitAkBLkK89SoXhX5bgWwgouHFlHxuaMcl3/p7i1LI1OG3QS4LNUHP
+         AaeBU+uwKkfL6X+IGEO+Xcx8+BBlyZkbUn7GrCcKGYnXn+SBOG/YQyrbj86enTbXneYs
+         dICQ==
+X-Gm-Message-State: AFuF++kaf1EI/bLLckaHYuI9Iy6fpG2HKlh4hNWWvw9hIqjF5ogNgH+S
+	ATgOyFvksDBVAuUWMFUoOad5nHwcXBVKrCUM+fRvwNG2OSYcKmhpyvTsbR/RP15lRNd9B5pAJ1U
+	wnbFTo4Q=
+X-Gm-Gg: AYBFou2MIWgJelpxmUBpyH9MjJRHdaqvpDUyMZ4U0vgwEjWNMF0f0W0nUmkQKFG/piw
+	+Dgau3xGpcGSo3SySd7jeDjGybf+rAZRr1vHjipvmxTmSb45t7qoJqwDWfj3IJY9kKca1v04SHp
+	P6edgPLBLM2l95Bwbhdy5NXrzJnJ0RH5vxDgEKkDnW0/dMaQBteKz4wB99Dr3RjWlY5aAJhCxxo
+	glXYepnLBnjl4mKuSMvdOTiKMyuvLvwvGPBf4MAiMFTK6JpzUCm9lCd1Ar+Sf1tXVvZucfKFqIq
+	LeWOnrgs1UMDJtBopZ9e9oweWkO5DLY65L5AHS6KG0qrcS03TwxCB5R7aX6ebdJ89qxqFKvYa3Y
+	z8j6rglv5Glk9Jl/KkSeJjA5ScgnkSvXj+yIHYbb8Cb4UGRnGSiZ5BKPWdEqPbtMok1gZDFtipZ
+	1L7LX1P1VUKzWVhGVVFSO/6rAVbldTLujkJ1XKML3wV8bkLTibeVqee/Xt1avyE1cuoeGq0ve/7
+	sXc6FbjuFM7laH0CqD9cLRQpcQGNL9Hfra6dUmjS2zb+cCM
+X-Received: by 2002:a05:6402:3712:b0:6a6:7ed5:37ba with SMTP id 4fb4d7f45d1cf-6a7e8f99aa5mr3238730a12.22.1788553132984;
+        Fri, 04 Sep 2026 13:18:52 -0700 (PDT)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68e8c77sm1525149a12.17.2026.09.04.13.18.52
+        for <ksummit@lists.linux.dev>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 13:18:52 -0700 (PDT)
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15e2dab83eso237310766b.1
+        for <ksummit@lists.linux.dev>; Fri, 04 Sep 2026 13:18:52 -0700 (PDT)
+X-Received: by 2002:a17:906:c151:b0:c26:19de:912c with SMTP id
+ a640c23a62f3a-c2619dea162mr245646966b.31.1788553131723; Fri, 04 Sep 2026
+ 13:18:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 1338F2002F
-X-Stat-Signature: oza8wc83e87uao314ukczastk9a744pc
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18OlkOOkcVDUBnVP0Y+5vDibFZAmLdTA6Q=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=AmTWo8Y9/mZItBylMaKlINcmmhCkCc1nwB68G+4j8HM=; b=TYMtvovwqtY0DLZqy3fpb/PM5VQIroN/9PiOMxd+7iD/jTK1dwbBKvEHJ1oprtzkuED1xH07eNLDeDJyrWWrs2RvNCqlRKeq8NA8BUoVn7Z6ndjyF3ay6rbcBxIdtZ47yqsG+ih7A189JLvDrQ5+Zlsb5nVsKcH6yshAuy5J1Zo=
-X-HE-Tag: 1788542752-938727
-X-HE-Meta: U2FsdGVkX198+c7cD6OzyeUsLzBbqjk1yWKMqV3dHxFFQWzz0e8wxAkWO+vERFfpEySzDQVIFVvHwRjtlR7p3oc9pc4XSvxsjpozhhnelT2CntumsiDqmS432z/dEsjV+KCx7+Ono0R8P8hSDu3ZtnNKB8A648pcmfdnRQTnEkn6f1hYdT/sTKY9fObGpWCu7cQKdn9rmbF26vJQ+i2LSPIgQx9+CESlDzhtK9pGoIMdjSqUjpeCU8NY5qSpQ8nB9ukOOdVFmqBRLkEe4+8enZB0r9s9ixuKMoZKcFTFQJfPa1wsH+wAjwz7qZS9aVCX9q9W9kViW5tdXApC5AFJqFNnnHf11JYLGmWrUdDW87G136PhQmeMQI3Fj3aJAa+64yfiuOX/lkWUZF0h+LBHtKGWS3j9RD7SrseSLTyRgmKrIYigzOKywhjIAh6sjxoHZXJBw8c4nRACGxHy7lJ9sRKEKXGsrcvw+NH557a71GhJVcDcBvJRob0Um0mNArMPmAVKrTm6zXKOXIE0MhDeVY8F7EeYnKmuj/+63kfts5EuCkcJlZt4SRVb+Njv+p4XX4jaAG+0G6WFwQMV212IeQ==
+References: <SJ1PR11MB6083385BE00A70389C211177FCB52@SJ1PR11MB6083.namprd11.prod.outlook.com>
+In-Reply-To: <SJ1PR11MB6083385BE00A70389C211177FCB52@SJ1PR11MB6083.namprd11.prod.outlook.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 4 Sep 2026 13:18:35 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgyDUCS-vz4fb1_0J9oMKiOooxsFc036x0RZa-sFcXfMg@mail.gmail.com>
+X-Gm-Features: AcwNN1ULzcaG7I34smEcvUL8YmmUHtYXaT0NR4ZGG3xLbzR6GVezibEmKoM6k6E
+Message-ID: <CAHk-=wgyDUCS-vz4fb1_0J9oMKiOooxsFc036x0RZa-sFcXfMg@mail.gmail.com>
+Subject: Re: How to credit Sashiko with a Reported-by tag?
+To: "Luck, Tony" <tony.luck@intel.com>
+Cc: "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 4 Sep 2026 16:57:33 +0000
-"Luck, Tony" <tony.luck@intel.com> wrote:
-
+On Fri, 4 Sept 2026 at 11:27, Luck, Tony <tony.luck@intel.com> wrote:
+>
 > I see 30 different variations so far. Most popular are:
-> 
+>
 >     211     Reported-by: Sashiko <sashiko-bot@kernel.org>
 >     142     Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> 
-> which maybe make sense for those lists where a bot is sending e-mails to the list
-> though I think that ought to be accompanied with a Link: tag to the actual e-mail
-> and scanning a few of these commits it isn't done consistently.
-> 
-> Different e-mail addresses in tags where one has been used. Is there an official one?
-> 
->   <sashiko-bot@kernel.org>
->   <sashiko-dev@google.com>
->   <sashiko@linuxfoundation.org>
->   <sashiko@sashiko.dev>
-> 
-> But if there wasn't an e-mail? I see a handful of links to the reports on the sashiko.dev website:
-> 
->       1     Reported-by: https://sashiko.dev/#/patchset/20260415143735.2974230-1-elver%40google.com
->       1     Reported-by: https://sashiko.dev/#/patchset/20260424100221.32407-1-icheng%40nvidia.com
->       1     Reported-by: https://sashiko.dev/#/patchset/20260521021249.3258069-1-oss%40fourdim.xyz
-> 
-> That looks most useful. Though perhaps I'd be concerned about the long-term durability of those links.
-> 
-> No consistency on whether to grant Sashiko a capital letter as befits a proper noun.
 
-I treat the reports no different than anyone else sending me a bug report.
-I use the email that sent it, and the Closes: tag to the email that
-reported it.
+You missed a few other variations:
 
-For example:
+    Link: https://sashiko.dev/#/patchset/...
 
-    Reported-by: sashiko-bot@kernel.org
-    Closes: https://lore.kernel.org/all/20260901164836.D962D1F000E9@smtp.kernel.org/
+or
 
--- Steve
+    Closes: https://sashiko.dev/#/patchset/...
+
+which are sometimes - but certainly not always - accompanied by
+Reported-by lines.
+
+And quite a few times I've seen Sashiko mentioned just in the
+free-form prose section.
+
+Honestly, I don't think it matters which pattern ends up being used.
+It's not like the bot is going to be upset about the different
+spellings, so all that matters is that people see "oh, Sashiko did
+something here".
+
+           Linus
