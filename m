@@ -1,139 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDCF24C06A
-	for <ksummit@lists.linux.dev>; Mon,  7 Sep 2026 10:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB5D435EEA
+	for <ksummit@lists.linux.dev>; Mon,  7 Sep 2026 10:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775429; cv=none; b=ThAP/B5P51XY3VVUZWCwLr36bzC7CUMHX7WBQY/l8alKYNjxhaXxopC3OwH+x969VpbN2OgnWoyt7xCuLjML8UyCwNQd/X7E3xc/oVsv9GNW0TDNbLF9el5YqmOVu4n6pGHlfx/VNWEA0JAQeRoC+g2vvJjPSPJBnc2HIbbywJ4=
+	t=1788775885; cv=none; b=ruEPPdkCjphsOiPG0geKN2sbrPJ82gmC3cwpBTKDTNz1fnLJX9/1I4ZkuoaHXcWzHCb07gKblbpsz0HZP4uAy3/8QqEcWHNmiIDxf2bnRgznmieL3YWZtyDiW8TSqHfCcrZ4MTt9GpSIi3w0dZBid+KT/KZZlrXzw/b0fH9iG7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775429; c=relaxed/simple;
-	bh=taXTc8t7jL99ksLm+NqxwaqOr7jS9mZBmvjMDJCVE4g=;
-	h=Date:From:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cqxZTi+O3+apYZ/ga1WB8yd0xu03GjCAciTBjSJhP3is2k6n/qJ7xLcHVgwT0UE7ZVoMqEXobAgSLnkoh03D9ttUGSpmViKGTMEf9EsmrIR+O4HNC/BpHLjsqBqO0qOioXu39azB2aKvheV36bhHeYurCam2rg2YDKC8c8bfIqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fxR7JBaz; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788775885; c=relaxed/simple;
+	bh=Oqx/l3rviU3aX6pHP28Vdd7aIxHWEvQAMMcf7e8LKzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fKR20EQU+0oJ+5o1Pgyzb55ncGrwxSbDP1E2kfiW3rbyguHoH39wjPb43mKqj+bmkfP31nr2tFmWZ1xEuVmqx7HuYM5ENL9shoeOv1/FxRWSC9FO1qBjTIF4N6bDTt8ltxjk59naKon6f1DO2y7A4jddnITcdFkoRcKY6vBMZRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=kGgKe5xz; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fxR7JBaz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788775426;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=kFIjBLwrnQNzpzBiLrwLCrhQmY54y00GCWAvNQxRSQs=;
-	b=fxR7JBazs95yUALhjX6jg+Y53eYy/bEIByNgVjqSmvBfhIhGIRCc1Ci9nUuKWYFKFMMkqD
-	tSPpppNNF23NY5W36bQ68KiIxHP5HbDpuT8Zf46YPPpzoH12H1BwUeZe5olNVtHtK+ZM8a
-	lpS0mtWe9BlP/maLA6OB/SAgVxLihnc=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-662-dOe828M1M62SiGjXsLjClg-1; Mon, 07 Sep 2026 06:03:45 -0400
-X-MC-Unique: dOe828M1M62SiGjXsLjClg-1
-X-Mimecast-MFC-AGG-ID: dOe828M1M62SiGjXsLjClg_1788775424
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c24ae1a510cso350428166b.3
-        for <ksummit@lists.linux.dev>; Mon, 07 Sep 2026 03:03:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788775424; x=1789380224;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:message-id:subject:cc:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kFIjBLwrnQNzpzBiLrwLCrhQmY54y00GCWAvNQxRSQs=;
-        b=TswoYURZRCVWqKO1ABupwY+pEvT2bti90nsTvCfGa0Qlk883i2+HS2b43kpqMUxKaQ
-         m/Nq+3gMaJ113Bia04e5vsfCs973HZJnEy+XGHCvnKdwTq7qB4CE7F59/uYn5kq2XeCO
-         vmjtJcq7whasFJVLIFz6SuN2108sarPSBvp7+KTJ8tOwUZdb+SJ/HU0KCQ3dYR4VtH3S
-         pE7YeR5xvVW8vIsBrwU68K1Zi58lwHwVJUa/fM3rhEZQ5xeIF/pESUz39pi6+al/X37A
-         qEOII7K9gb3v/4D8RGjJrGaqb6Y5yqVtTTSRYbCGMkwcKb5LqL/wEhtLEIauij7T8I38
-         E1qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwDSrCMjeITGL6Qw6L/wDpML+BNyonhikakmwAL+qMLLGwPRLnp48JPeujOnt+8FLv07R8gaeIF@lists.linux.dev
-X-Gm-Message-State: AFuF++mj2R++1Y9VOV8ymhZysbl0i5aaL5de3xn1ndS5HJA1MJTkY2OG
-	5Zy/uWO2967Q1WRXjuFce9KVgY5hLiLTGOhhd0ieMOA9jc3yFEZ6TKBSIzp+agIfvkA6xCrHlDT
-	pzuL/z2bVF2XCRlfQVB85az5CbmcKEA9FzzcuVu2WsP8+//hoL/Grm7j840U=
-X-Gm-Gg: AYBFou2P+I5X3UKh/qgFRBIeUiz35KU57etvWdkLMJ/a7FZ2UIXj1Lh6/e3qCZAJELj
-	W1XeUbJ0i2Lku4V6IS1ad06DHDRGbNs71iSWfoq4Gzij5zE2FdObY/IRrZckSX7xNejz93KwSbN
-	rcV6rwpztaZoSfKNIeS0rBBibtX3UKBgIvJSkqxTtJrSH5L1WnLXmrc8GP1Gjla27gX/605Mg2a
-	zKDzfcTrTrpzp7XjBlpghoYf0YGJ1SBOCl9ENDCStWjl2O4knLMC60xd1J5M5xE99Bc3u9fGzNo
-	IawVFJJm08hzdTlaCn7eBtWLoWpxBFj45cfvESNr8hgAdo4nSJaypjmAvmi+w1LDHEx8FBMoeqB
-	r/Ws4uDB+kaIkBPMB5w95+0E=
-X-Received: by 2002:a17:907:3c92:b0:c15:f598:60c0 with SMTP id a640c23a62f3a-c260c65c118mr914662166b.4.1788775423495;
-        Mon, 07 Sep 2026 03:03:43 -0700 (PDT)
-X-Received: by 2002:a17:907:3c92:b0:c15:f598:60c0 with SMTP id a640c23a62f3a-c260c65c118mr914659566b.4.1788775422856;
-        Mon, 07 Sep 2026 03:03:42 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5921e2sm450449166b.46.2026.09.07.03.03.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:03:42 -0700 (PDT)
-Date: Mon, 7 Sep 2026 06:03:39 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="kGgKe5xz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=Oqx/
+	l3rviU3aX6pHP28Vdd7aIxHWEvQAMMcf7e8LKzg=; b=kGgKe5xzk5G9f+YBdfS+
+	6JCCGrAmHq0orRiWmQTKNqKK75JyxFJSUGWU6Hgh/32ZJaIK5nwwKw2o1x5tfDYk
+	iSOHzjRXOzPybG0AG0QYGO8OUlGgoDb364pO2pHYJQ8rLorrs6OcnnZ/262QHODA
+	MkboVHl8gHmpKRh+0BoI3eDYaSQNUi/DNsX2n7U4aMA+KvXF9FCw6H6WhJV7RX6R
+	3jA+TIuM3diI0k7LSVK22kpUkDyAiMH4mwjwy463TJOozMWa1qUBL3xVSU2iXP9L
+	KmF4IwIBfXP0urVCarlBdbmtYZvI1eK1pLz9xK1POeFkJtGYepTceUYGKxGl05+c
+	Ng==
+Received: (qmail 2343451 invoked from network); 7 Sep 2026 12:11:17 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 Sep 2026 12:11:17 +0200
+X-UD-Smtp-Session: l3s3148p1@tnjA1uFaQp8ujnsC
+Date: Mon, 7 Sep 2026 12:11:17 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
 Cc: sashiko-reviews@lists.linux.dev, Chris Mason <clm@fb.com>,
 	Roman Gushchin <roman.gushchin@linux.dev>,
 	virtualization@lists.linux-foundation.org, ksummit@lists.linux.dev
-Subject: How is sashiko bot deciding whom to Cc?
-Message-ID: <20260907055646-mutt-send-email-mst@kernel.org>
+Subject: Re: How is sashiko bot deciding whom to Cc?
+Message-ID: <ap6Nwf94aq2dk3WD@ninjato>
+References: <20260907055646-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 2
-X-Mimecast-MFC-PROC-ID: kaXmajVSMn33fcX4ZIVmPQtpZUkoaFdqYz80xWmx_bE_1788775424
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ukpn3ScpmSWIkEka"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907055646-mutt-send-email-mst@kernel.org>
 
-There doesn't seem to be a Sashiko list, so I added ksummit as the most
-likely one to catch attention. 
-
-If you run b4 mbox  20260905153514.B55561F00A3A@smtp.kernel.org 
-you will observe:
-
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Date: Sat,  5 Sep 2026 17:20:59 +0200
-To: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio Pérez <eperezma@redhat.com>, Dmitry
-        Torokhov <dmitry.torokhov@gmail.com>, Rusty Russell <rusty@rustcorp.com.au>, Pawel Moll <pawel.moll@arm.com>, Cornelia Huck
-        <cohuck@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>, Richard Weinberger <richard@nod.at>,
-        Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, Hans de Goede <hansg@kernel.org>,
-        Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>, Vadim Pasternak <vadimp@nvidia.com>, Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>, virtualization@lists.linux.dev, linux-input@vger.kernel.org,
-        linux-s390@vger.kernel.org, kvm@vger.kernel.org, linux-um@lists.infradead.org, platform-driver-x86@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] virtio: implement synchronize_cbs for remaining transports
-Message-Id: <20260905152059.89560-4-kmehltretter@gmail.com>
-In-Reply-To: <20260905152059.89560-1-kmehltretter@gmail.com>
-
-with this diffstat:
----
- arch/um/drivers/virtio_uml.c             | 10 ++++++++++
- drivers/platform/mellanox/mlxbf-tmfifo.c | 14 ++++++++++++++
- drivers/remoteproc/remoteproc_core.c     | 10 ++++++++++
- drivers/remoteproc/remoteproc_virtio.c   | 20 +++++++++++++++++---
- drivers/virtio/virtio_vdpa.c             | 21 ++++++++++++++++++++-
- include/linux/remoteproc.h               |  3 +++
+--Ukpn3ScpmSWIkEka
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
 
+> So it picked some mailing lists but not others, and some specific people.
+>=20
+> Is that opt-in somehow? I'll be happy to get Cc'd on the auto-review emai=
+l.
 
-the sashiko bot replied to it:
+To get me CCed with Renesas specific topics I sent a PR to modify this
+file:
 
-From: sashiko-bot@kernel.org
-Date: Sat, 05 Sep 2026 15:35:14 +0000
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: linux-s390@vger.kernel.org, kvm@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, Vasily Gorbik
-        <gor@linux.ibm.com>
-Reply-To: sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v2 3/3] virtio: implement synchronize_cbs for remaining transports
-In-Reply-To: <20260905152059.89560-4-kmehltretter@gmail.com>
-Message-Id: <20260905153514.B55561F00A3A@smtp.kernel.org>
+https://github.com/sashiko-dev/sashiko/blob/main/sashiko.dev/email_policy.t=
+oml
 
 
-So it picked some mailing lists but not others, and some specific people.
+--Ukpn3ScpmSWIkEka
+Content-Type: application/pgp-signature; name=signature.asc
 
-Is that opt-in somehow? I'll be happy to get Cc'd on the auto-review email.
+-----BEGIN PGP SIGNATURE-----
 
--- 
-James
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqejcEACgkQFA3kzBSg
+KbaU2Q/+LbU/+mSXPvVLMjs6D+LVE70LG0Whq76bO4zbytOfYavmIG3oJ/PfHYPy
+0kA7r8MoKcJG9aPri2eQnCKshhkd9DhUZA4dsLi/ojuF2WPu4LyW6ebf9udjcE23
+Qwc8kVe8qIShZzWHz8QXlrTQIpAfJf0Sjm1bL7XCte8f2BFys+LuXV4LLHSSLQpj
+JTlGvNz1YPd162sUDNUR4TDBfXZpBLJqbIcp6mAESDAf5Wc5VtJ7o6ypjjQSUeI3
+Xe50WgwWj/j/jr4LCOnlnlXO60U6gt2kcNf8IzCubAOCGkKVWjuGKqmAFrA9Z0il
+44nnphDpQ9MbGU5uj9PjWdDXruirnGcwQ9hoClVMx8jfrutH8pO6m7XG4pN8br5W
++P1jtKimQhPw7/wVbTPktX5UADMMT1F/CdjsB7sZHD8MFuQAeaHkBuVUb+ufyAjL
+5FlhyxwvPxeMP740ZbZjLO9Uo4Q2feySR9RI6BH7LAQ0ul0DsyZw7FM+v7iGMomY
+/TRiBrpA1R7E4eK0qHOcJAnVQZWkO8xLNGrQok1D26QnR6Nwov2Wq2430hQNGNP2
+YkoJIFRgEGEvFHRnGwNHDTVeR2gP1udQEfdv3i8yko6EFPaMv6GxtfWilGRpzU1c
+cp4/xbjEg5qQTU93jIhEHgPi6keQqIyoU5tR5Qd4G6kq3/gKGjI=
+=lhkt
+-----END PGP SIGNATURE-----
 
+--Ukpn3ScpmSWIkEka--
