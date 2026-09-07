@@ -1,106 +1,105 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCFA409273
-	for <ksummit@lists.linux.dev>; Mon,  7 Sep 2026 10:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F394646D548;
+	Mon,  7 Sep 2026 11:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776755; cv=none; b=XbLooRg6N2dh62nAjdE4eHmriThwLz5I1IZCoX9YC3oGwtHjuKb6a9HPsedqQuWnE5c+qvdaHJezo/DQxb+7dQcy8r/DoQ+1ZELfBKWYo5CaU2fvT1tRjgHu9N6f5o5KwxAyplJ89xIZf/hU5qszhxenmXVJObkZj4UylBHv0wQ=
+	t=1788780361; cv=none; b=C4P/BwRPRECSE3dOmaLQvN4RyrNgI3wRCciymccZDY+P9ZVLe5mhTBmrjGoP90j3q/YnfSbhHIAkbtc+Z5F4HVB+ctwiT61LTiotXJuuKMEydWXOOfuAJ2NadIBdjz2fRgoVmF50O6xDGTGQ0ebiGbncfmZjOa+U/+8fGv8O00E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776755; c=relaxed/simple;
-	bh=odSsB/u5yBK0p7NUXbxRT6g1aXnxRYVHZujTKirCCxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=G7RyrUb4XbV3AoBZh4+vB0HIsTdnOtlIXrmXSKghjQgEGOSWB8gyVQ5L7HdV0XOETAYebj4g9S/7nyxR69Iz3L3fQmU1XSecHeYe8QXJJ1I8cxG3yVJXw/ykmDn9rzaKNH4OkyYDaRNRMzRhH3Vx8JFQuVhg49TlVVJC8GV7+y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=K7XKJepA; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788780361; c=relaxed/simple;
+	bh=ZEMTfsctivsx9BHRCYbwUHlg/kjfE3N0XMnAg1ydWd8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OaTM2yxP7IK7F0j64Nj8e8OC9zo1oaOBN4zuuF0rnhJV5TE1X0ilJs+20Tj07M0I7sKBnPr5m6qsdMwXoth63YjZ1hEKdjGJfccoHBME1uCKCPPVU7KSkTjWCWXPWH2pAwwh9H8ukcpiDynBaFonAkvajfYyDXT+kRSeh+ZkjKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JONHbwGz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="K7XKJepA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788776751;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RojMlcyBo8KXKoX/Gtly8ZtzkjtceoUdIGXGbeR2hGw=;
-	b=K7XKJepACoVAIu1jiUMiWOd4cdtC1eGk1hcQnrLwiFU/ThC3sq5jGIhai1t61WjqdOYEm1
-	13yCUtVD0Gs1676LeDJ3Vi04j/uzodt/cnlL4OaCTL7tOlSYcusvHGpJLP5Xr4VtA48/35
-	3Tksllc/3uJxSeQ0d0cgFBGMRDccGFU=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-662-eIGe1DyIPpWMy4XJ5oL2Dg-1; Mon, 07 Sep 2026 06:25:50 -0400
-X-MC-Unique: eIGe1DyIPpWMy4XJ5oL2Dg-1
-X-Mimecast-MFC-AGG-ID: eIGe1DyIPpWMy4XJ5oL2Dg_1788776749
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-495529a93f9so33060845e9.3
-        for <ksummit@lists.linux.dev>; Mon, 07 Sep 2026 03:25:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788776749; x=1789381549;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RojMlcyBo8KXKoX/Gtly8ZtzkjtceoUdIGXGbeR2hGw=;
-        b=COOh+IOxk/65hJWj1umrUwTAnPqwNrbxMIzTakvaLyYUi/8sE+C1JMhy8wid8t9kdR
-         E9MjLE+445PfeF/XblmLu/y79sCE0KiH/8R1w4ldUxB0NJaQ44PgLXbFKmGShXiF7THR
-         ojeyNgAccn+UlojznVN1ouU/myS2qsX+6cfXjtyU6QH5D4iozba1um6idksEXeBrd+u2
-         mJ71IP8TulWTWHazZly21tsxyctiCbqTr3SQIb/ks/5tsT+bM482wq9+k5qx8qkYZBKX
-         kLkRpXnHZRpSR78rVK8LCXuhLS4Jr9yuXEcfepL3Wgo9XUOMuc6iovRFL22ez/GGlbwX
-         jJdg==
-X-Forwarded-Encrypted: i=1; AKwUvByRJrAgMxUxRNyNc1rZs38mTDinnZ7LlLrkk3kj1s/wy31gZQEAb2BsegQC2UstyLSOHViTt+Bm@lists.linux.dev
-X-Gm-Message-State: AFuF++mLm/jry7OaDHXir6bWrv0ermjrERNfMsWOI6dQyECiShefePZc
-	+pjUHnk6HLhNme5PqlJcroU1oOSzeLm6tBZO5vNBMBveBzZ6A39Ceg+KhCg5cc2lPSTm7relf3v
-	VGf6LqVmXVJDuv/nisIKmT2eGtSlrQCsrkgqpy29wcY19kt2GAcy46Wh1t9I=
-X-Gm-Gg: AYBFou1zpYyaDoBwZXnvAzkzlt82NFZhxe/Arp5xPrSS/RHNhySI7jFS4kDZKv4ONu3
-	PaTrkV1OoCneUhrr/QbXfTGpGY3r+nLDY5DmIV4Y9ZckRLrQxmO/DGCXsz+XmAOBw2y2H1Vnt51
-	vBd8a5iPPJRjuwwYB1fYaMZj9p7RO+mEq87QqlID6cdYPQ1m5eSoz84BYi3f5vN6DX3KQiKCarO
-	0oy0Zre2egbJ28XLyupPHeqJAxpPGzpbV19kR+JmUONR1GhEpmfuzO5oljhaOexNUGmgq4USZgO
-	TWYopRuz4EnyWtx3w+DTerGikT/+GWZSOmovI4XzTIYHbIo7BN6QS4rw56OrJ55LpZgrANNwZ3D
-	VwnCQU1B6fZ2EQK4I6KWaWC0=
-X-Received: by 2002:a05:600c:4e49:b0:49c:fa20:cc05 with SMTP id 5b1f17b1804b1-49cfa20ccd2mr198545415e9.28.1788776748834;
-        Mon, 07 Sep 2026 03:25:48 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e49:b0:49c:fa20:cc05 with SMTP id 5b1f17b1804b1-49cfa20ccd2mr198544945e9.28.1788776748301;
-        Mon, 07 Sep 2026 03:25:48 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm407611205e9.5.2026.09.07.03.25.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:25:47 -0700 (PDT)
-Date: Mon, 7 Sep 2026 06:25:44 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: sashiko-reviews@lists.linux.dev, Chris Mason <clm@fb.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	virtualization@lists.linux-foundation.org, ksummit@lists.linux.dev
-Subject: Re: How is sashiko bot deciding whom to Cc?
-Message-ID: <20260907062516-mutt-send-email-mst@kernel.org>
-References: <20260907055646-mutt-send-email-mst@kernel.org>
- <ap6Nwf94aq2dk3WD@ninjato>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JONHbwGz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E701F00A3A;
+	Mon,  7 Sep 2026 11:25:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788780359;
+	bh=ZEMTfsctivsx9BHRCYbwUHlg/kjfE3N0XMnAg1ydWd8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JONHbwGzEgBO2d9t1tO0hOs5IgjRNPjfL33DruxCD9W8uZikJtZnR7p4kQP/5WccE
+	 lKFfU419a9phXjfEW/63+8ae8SkjXdSZau0NOnUnIW4HcnaYYCuPvMlu85BwP85baU
+	 xMJO5oP0dZomWEh4HpwLkj9b07haWDYl1I0i6XYqjBIOHhe1Fdfqlf4wqebyHdaQWv
+	 PjXWOPXDoBbdDMKd6/x8DyDQSv7Qtut8X2H18n8wiuxJGWLSX93j1+KNh5YD69ByEq
+	 8DyHULbM1585VQL4QDN9pTcAqsCqxBU0X3WiIUHWeMSuLRQaSa4PMTrA6jeGrRVj2B
+	 PdzQWMz1T3Wlw==
+Message-ID: <22ef726e-d89b-4f02-91d9-6d42f9cf2bbc@kernel.org>
+Date: Mon, 7 Sep 2026 13:25:55 +0200
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <ap6Nwf94aq2dk3WD@ninjato>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: L2GxduleZC-oiBzR4uggXnGAFwv656A2_bA0APEUI3I_1788776749
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: How is sashiko bot deciding whom to Cc?
+Content-Language: fr
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: sashiko-reviews@lists.linux.dev, Chris Mason <clm@fb.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ virtualization@lists.linux-foundation.org, ksummit@lists.linux.dev
+References: <20260907055646-mutt-send-email-mst@kernel.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20260907055646-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 12:11:17PM +0200, Wolfram Sang wrote:
-> 
-> > So it picked some mailing lists but not others, and some specific people.
-> > 
-> > Is that opt-in somehow? I'll be happy to get Cc'd on the auto-review email.
-> 
-> To get me CCed with Renesas specific topics I sent a PR to modify this
-> file:
-> 
-> https://github.com/sashiko-dev/sashiko/blob/main/sashiko.dev/email_policy.toml
-> 
+Hello,
 
-Got it, thanks! Sent a PR.
+On 07/09/2026 12:03, Michael S. Tsirkin wrote:
+> There doesn't seem to be a Sashiko list, so I added ksummit as the most
+> likely one to catch attention.
 
--- 
-MST
+Just in case, there is a Sashiko ML: sashiko@lists.linux.dev
 
+https://subspace.kernel.org/lists.linux.dev.html
+
+Cheers,
+Matt
