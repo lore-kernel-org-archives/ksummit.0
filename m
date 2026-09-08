@@ -1,80 +1,79 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260314EE842
-	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 10:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C848252FE5D
+	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 11:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862503; cv=pass; b=fVbEt93/ctbTsH/Wbc92TnyC7FYriPMC6sSoIALjG8hR3JUbP8lUxyTohg3QhrklS1xhyCHjkoiuCaAhC5lswaSRLgPM7cxVGUaZwpsY7xaRLwYsr//LvSFkvZk1Qyv3+c03bBYRtt1zixhwHQvZZLTL6Z10wOD/OaErLBZp+Ew=
+	t=1788866789; cv=pass; b=g/pTn+pQ+9rv/afpmhBHdZuVfeVOwvcynTzMR44oSeZbATy2GyB3Aa9dPhq+pEOyj3hhUZfq0y6tBOXCKyuJxYM3SN0rUZe/1b2fljiljEgBoSzS85yiF3zuLYhC5Bx3nz2hcNJYOUi599/aNRH8G9SHIRhT4Pt2L5TDhkPZjiM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862503; c=relaxed/simple;
-	bh=i7r41e2HeVV4nrn9I4o/xUr5nJT1GajsMaS6Yd4x1lM=;
+	s=arc-20240116; t=1788866789; c=relaxed/simple;
+	bh=yS8rKa8izzuK0oIO1eBx7aBDB0qwkdrUOXQlalIooyQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ka7eZ8YsOsNSmV7S5Hba7tUBRCE3imW8BGk1H4XjH0ePJbY0TEiSCHLogio8Xad+lTN/75kGRXUtxZoUQm0caO4vZRvNDYGGwk+0b53LTVot+TOYIJacAAhRLTyF2eLa+11fBTy0GUp4SuAtaTi/X8+wQzliP8QXjkHRwuoIM5g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyxpMaPE; arc=pass smtp.client-ip=74.125.225.140
+	 To:Cc:Content-Type; b=Zrm7NYc1gJoTsc2SGcMeNEs2ueZJs76/DC6tsOTlaXASU+/H5PpRclvjdUUtumZe+ji/r2LMKzhMTAB3C8pQCcjR4Hx8GOdie0t3jNgFmCdrwnVzCEgefoz0011V1xxxSNzCcZIDH6DttragyMuSieCGnfAYRZhg1xvayunfN2Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pUZwDvhb; arc=pass smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyxpMaPE"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so5688225e9.1
-        for <ksummit@lists.linux.dev>; Tue, 08 Sep 2026 03:15:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788862500; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pUZwDvhb"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49557167508so53906855e9.1
+        for <ksummit@lists.linux.dev>; Tue, 08 Sep 2026 04:26:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788866777; cv=none;
         d=google.com; s=arc-20260327;
-        b=gKrwaAfBtCU9X1LHyzTc7Xq99Cck9i/qHbKpoqHjct3Jx/73lH9WjeV3VyDSaoXs+I
-         uA2LtWL6q1tJ3rqNk64WQjj1JBrWQJgTGXcra8hZJfIlZMaINvs6X5wUqKNnvixTfHRn
-         oo+Cj88m5FIaHIV/zwzg6jxc5IQh/v1wkLGy/x0kYO8lVibKV7T/oMWTn2MKj3aFiPiP
-         9Fqgw1JXZt82Uh08YpiE20vKEt2+yYW28Jd1BU6hvx8hh0bF4a98CATTRr8HkwQzHP3Q
-         ep3yKpTfbYwpCxQT3+Urtbrd3Q2JCqBre+HHVkrNZ59jfSrQtkLy2wZoI5SLGWSkmaDL
-         5zoA==
+        b=NuA8YIy0BY5LrG1c82m3zMHhIuW3Gl1qt4UYzoMGyvS1uNbxiNgBxlt/FgzqRPbaft
+         p1SzLk6rPhMKY9bSSDaphJTPoOUrnQrGBEZm/5X3vwyZNOWj/U5+JHQVQqgNQOHcACKS
+         hoHA+N70zOputpl3c1vT6wq4lYHXsMYoZQENpq929eF9+bSSPzguPvK4wOYGpkgpW4kU
+         4fxV481LoRPShlgS7lkD2MsNdADUVtqYIlls9wPSQ0sbXoTuhA63dlHJh9cSi6x/W3pu
+         qy903AwDzpjcWWBgCeSospFrJc/UKhoeLp548uVDxsYYxFzyleVX7Z5NjNggxBPwYBl7
+         eWyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=cR5STRjE6uLIJL2YiouHOz9BuRu4zq22VbYgNTgDSnU=;
-        fh=UU21ZB/F+lGqCw3rh3EEF6KZbi0P44oZ7U9iRw8RjzE=;
-        b=bo7Sf9pR549AOJCMSJScQgHLwEC+imWj8VbU+hSsk1acMUF5KRIgxyh2cjoVgc0ECZ
-         2avtZwvrL6Eb5bpIpr5ZpYsAJclOHQcu0wc+KtbtqS5QBY+b/THcdROTjG5g7AMsZCF5
-         dcKR+0spBCRAH27XGA74RKJpE949xNlZvOsNUgnCwCe5S9U/0/pGoaYOb4D1K/U47bMw
-         R1y4VW5keCzeCCJa8gMJ5MACEeXCHAO3lYNU0UZU1ZdeiQxwV1PzEf2bEp/Q98oFSLkN
-         WpgBtod+Y2dyJxjvH3aFb9iAEEFIldT9CLbIoDZn5FIaN91XM1QtDe2o0WNoVenDVOGT
-         oAwQ==;
+        bh=yS8rKa8izzuK0oIO1eBx7aBDB0qwkdrUOXQlalIooyQ=;
+        fh=shJsB4eIPJoPNbM/5kyB/AoB8oenWb/YFdDySMmnacI=;
+        b=Y7TcCBtS0SAFeIQB6nfmwC5UYkTGfDAdSSFmW/Bv7X12XSFCCmJN5LAFRsR4nuRc2D
+         Uw5Zs6RPorzUll7dnEix1vUXB3E09vOs2Lnn8O4O+VMvTrYRPxs/NUtzXQOkxxQI3OVv
+         dBijcOCd8Ig0/TovsMei0652iFnqlKFU5Xr9X8M89m8hjPnCCIVoiA+kgtvCxVThwggr
+         jNG+bAaHKIESKZ4cixxpJr6nyTMQyNouHuAubGOZEOjxDhvPrchP07k7bwltIB1K6gOM
+         ieoYJPQV/V3MaMgOTJRK5EovjK5ckjQueMY2QnN6mBhO7N4BLvaLtzYUy3Cr9n/DLdZG
+         YZIw==;
         darn=lists.linux.dev
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788862500; x=1789467300; darn=lists.linux.dev;
+        d=gmail.com; s=20251104; t=1788866777; x=1789471577; darn=lists.linux.dev;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cR5STRjE6uLIJL2YiouHOz9BuRu4zq22VbYgNTgDSnU=;
-        b=eyxpMaPEyDhlSE+UmxSNEG4+lQ2nZrPZEeINrIvT8vExh6sUWqX+1l62lGHN+evohJ
-         OVIZ/JQIYZpeVNNWsW59Qqp+zd6MOixe7Dhvi87z2wzVVsh4lKZHhUVNSaPE8l0Ozh9C
-         G1SDh0L4EMn0hfnsB1ks8Ls9FSaflwTYdQsB7tIwvfHSQe2UAvzgUv84zuXy1Vn60mQc
-         65WRW9hjbtku6F9ZIb988ohaEARp7VLZHPsB3t2oIl5iOm3Xj5ZSFwNUXVVS3FW8zZrS
-         V/T4SGDV6SecKVktlJmddn8krhl2ViO4kgVCuYLeZfe4KxJrCTNvI3kj7PqXHlatISeZ
-         kojw==
+        bh=yS8rKa8izzuK0oIO1eBx7aBDB0qwkdrUOXQlalIooyQ=;
+        b=pUZwDvhbLcCtn0BGQD45o4iK2PawGkMqdNXa22yKgwKeND7WPrTrF+Hofu/u0eXqix
+         5wmIaHxoBdNOr9yVOjT+ml6bvH1TEaL9ZXtmSl5pVEOBJ98cqELNa6wsJZ7e5ZP0hHMc
+         WW8QO/2KAKqpwbeQ7DSpVjH7GpjR4KQ2T2/Ulu273U4LjVg4egknKqYCcYOnsy42WtVQ
+         HLGtxSyfVtX/9WC/oBnDIwZDcQjRlkc4id9zJ/1U6XjBEHOaijPbeQXESglNlbUHozSj
+         4U7CiQGpukILSOvDhLgn4plF6OmrCCiQ1oQG/yKpPpwzri6dLNj/ZGFXtGQZhiCFRu/q
+         Ax+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788862500; x=1789467300;
+        d=1e100.net; s=20251104; t=1788866777; x=1789471577;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=cR5STRjE6uLIJL2YiouHOz9BuRu4zq22VbYgNTgDSnU=;
-        b=pNWYjlRlRE2pBnDXGitGiqg82bPSwTMtcNO1nk84G4DEKgx+2s4Lz1h4F3wEanndcj
-         vvc4MamEbZUpHDRB9HzDM0uIAELH5m76oI+WrbA+gVw1AHiDELdiwnUD6Niqzh7yRpvf
-         8Oyh9SucDf46qCX91VXv8iiMIh1iH3wdfgjoyL9tRpcThIELJ9/Dwz/2LlHKWGc086rL
-         JYmQ0Q6PJbOc+2um1X68NPjZKLcbYZjkcmmwrvuDyFtwHXDyRxwinYSMBbNIwJIFO4ap
-         QxEWLmxv88iAmWgZqdxWtM+T1IBcNoLvW6Q9mTQdkIQKE3rPfS20DfaHajzYSgRmNvnH
-         UpLA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwkwmjeswNcTPfxFyAS+duf+f4MiECWQ9MWDYdQEU2kt1y/y2dkk89gsViR/sXixmvYTE56ade@lists.linux.dev
-X-Gm-Message-State: AFuF++mLnqMZ0UME434p3LRIEP9ax96ZpFBgBgW9ANbCU9WI3ZFkQdzq
-	hiwR2Gfm6u0iM/11W1Qn+JRTiIwos8DxDosGIjyYXtLmIBNr+0UrRt/V1k9D9M0r85cmTkdbb+M
-	pj9GdQ0BcR53TgrqY2OLZ4rOvRqRcTIs=
-X-Gm-Gg: AYBFou1E/NvLdIZZnrKiIR1OmCxkQ/B9WQg5WFFIonmpQEh8ykeLEd7ZFCr+4edXvX8
-	WtJ1uuuhGZ1Vnl/IqMPorNURybHBPZXB1rU+eMmKynBr90HaIC101yZ2Eg94abSDaVHDd0A3CtE
-	CyzoZV1eH7VUQb5Ax8iM05hLi7646W81tw/MtQHhhYAv3/I1Cx9qO2T7eEupZnvqKfC+DEp962M
-	8mCoReVA11Tnv/IrjhZCo8faLuFRhXS2tF68ykwzyjr8triQVc+iBySkRhRA3qHHT56UIA1v3qC
-	wJAKgRXi4p+Gtue2/D9+mnS4KrzCOKQr+75ikcdj9pJqJA==
-X-Received: by 2002:a05:600c:6216:b0:49c:799a:177b with SMTP id
- 5b1f17b1804b1-49d1754394emr71887255e9.2.1788862499888; Tue, 08 Sep 2026
- 03:14:59 -0700 (PDT)
+        bh=yS8rKa8izzuK0oIO1eBx7aBDB0qwkdrUOXQlalIooyQ=;
+        b=J2oM/qsk+MCc/ixpNIXk8zG2h6y/7Kksnrih46T5K1NtdtOMKPXVSyI6+HloEqIC1w
+         7uWx3De+R3+8vMi72ZRWsGnH9+KHg3E+PpCIuGjYJMFqTRZUn1q32dQBzalQPy7zuxtj
+         FL3B7/O90G9ZsHyuYB+su/tWVMHRStGezpF8RokaEpqnx8Iul4ZCuEV/g7ijuVcdJ17j
+         554LkLP5T+r9ia2NqBvq/5yPhrGCb2Kx93OBTzCV+1RdFZKi/uA0xhbWrHVeynSBivU+
+         TNnABvoGlT6lLC8cVfUvl4u/TMk+APnT1l1iTchZllyaIq48s2QoBAz+041gbLhqhZLZ
+         a/gw==
+X-Gm-Message-State: AFuF++n0sjw3u/CadXZzRjE01bXx4VogtPnB8r/r8yVFW8pP+rFnF6Gw
+	RlCAO7WrAskHSkqFbVSPs0Ks7TAyg8H/0/wnsHid6gK30cfnp58OMiudltLGgpzN2eZWrOVR+xD
+	eDHtzM66fD6YDJ98XMYHek+wKiQiqJuI=
+X-Gm-Gg: AYBFou2sf7PN+EbsfybL+t0BJFoEozNi9otAsZ/SqRo6mUqHKyRLCuUAeQqdqzWxlu2
+	QFx0k+n+In9DNT0QhrRup/6tHXxZZRdmIIyIKTpcdGxt+GI+u8Lhhk/r1cUjkM1DFvl2vXFBgbL
+	Xp22yLJgJzUOvuJGwOR3hjc1vT1RyRgWffg6HvlpEyD/hAlC9WBbUrx1Sh+9gTlUK+hWw0PgK5Y
+	cni8W9GFEvLVk4Xft+bmt5W5iyvL3jFSHEvjOQpDBInr43hyu/wvK878eDTcwWQkA/yk0IaYNMP
+	9Bn+UPIWUJMadMEo20mhQoxbLlU6oG6d10kFUwtJWZQhZg==
+X-Received: by 2002:a05:600c:3b01:b0:49b:4d64:bbc4 with SMTP id
+ 5b1f17b1804b1-49cf81f1592mr483781065e9.8.1788866776548; Tue, 08 Sep 2026
+ 04:26:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -83,61 +82,166 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 References: <CAH2bzCTjmRnSj5ppEEOKf7_jky54xAK6FroHhs207CqcqXJPaQ@mail.gmail.com>
  <2026090747-carless-trio-ae92@gregkh> <CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
- <ap-AmsGgDNFYLlw8@mit.edu>
-In-Reply-To: <ap-AmsGgDNFYLlw8@mit.edu>
+ <2026090810-yen-tablet-8843@gregkh>
+In-Reply-To: <2026090810-yen-tablet-8843@gregkh>
 From: "igor.stoppa@gmail.com" <igor.stoppa@gmail.com>
-Date: Tue, 8 Sep 2026 13:14:48 +0300
-X-Gm-Features: AcwNN1VhQkxOy690DUGsXKlV7H-MNDJfqcHRS0e-im_GEylFFHLnIzc59vKZbh0
-Message-ID: <CAH2bzCS8DzBqR_4ELtg__4x8dX0+SYihKK0LLy3-pJmu=pRnsg@mail.gmail.com>
+Date: Tue, 8 Sep 2026 14:26:04 +0300
+X-Gm-Features: AcwNN1WtwsGoI3TFwK4oipqTV7wyVoeSRciWL0CtdaU7rcCmMVtUWjCrwZUXDws
+Message-ID: <CAH2bzCSCy_=B1SBt9X6+xM5qkzsitgC+TDb0Cu-h5YRFTnT0dw@mail.gmail.com>
 Subject: Re: [TECH TOPIC] Improving kernel security & integrity by
  generalizing ad-hoc safety mechanisms
-To: Theodore Tso <tytso@mit.edu>
-Cc: Greg KH <gregkh@linuxfoundation.org>, ksummit@lists.linux.dev, istoppa@nvidia.com
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: ksummit@lists.linux.dev, istoppa@nvidia.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 8 Sept 2026 at 06:52, Theodore Tso <tytso@mit.edu> wrote:
->
-> Looking at some of the videos which you cited, and your description,
-> what the kernel safety effort reminds me is the PREEMPT_RT patches[1],
-> so the path to upstream that was followed by the PREEMPT_RT patches
-> might be instructive.
+On Tue, 8 Sept 2026 at 08:05, Greg KH <gregkh@linuxfoundation.org> wrote:
 
-Yes, that path is the one we expected from the beginning.
-But OTOH it's perhaps the slowest.
+> If you don't even try to create something that can be upstreamed, and
+> submit it for review, then there's nothing that we can ever say other
+> than "I guess they never tried" :(
 
-And it's not mutually exclusive with trying to accelerate all or part
-of the process.
-Through this discussion, for example.
+The problem is not that we don't want to try.
+The problem is that the ways it can go wrong or in the wrong direction
+are too many.
+And the hope was that we could prune a good deal of dead branches upfront.
+But I will try to explain it better a few lines below.
 
-Slow path as a fallback is always available.
-We are definitely not betting the house on getting feature X
-merged by any date Y, which often seems to be the cause
-for friction when someone tries to upstream something.
 
-So we can afford perhaps more flexibility
+> But that's what we care about, working code that solves a problem that
+> you have, in a format that we can discuss.
 
-But there is an extremely important aspect, where what we are doing for safety
-diverges from the typical project. Even from the PREEMPT_R one.
+There are 2 aspects:
 
-AFAIK PREEMPT_RT was driven by specific functional needs only.
-We need to deal also with additional regulatory requirements that affect
-the shape of the code, not only its behavior.
+1. working code that solves problems that we have, but those are for safety
+2. working code that solves problems that upstream has, for example
+integrity and security
 
-To the best of my knowledge, this aspect is perhaps a new addition to the
-typical kernel coding criteria.
-And that is what I wanted to discuss.
+Here the proposition was about discussing #2 and see if we could leverage #1
+Sort of win-win scenario. We don't really expect much interest in #1 per-se.
+Not even trying to promote it, at this point.
+Hence the more open-ended approach.
 
-Like: how the measured (and here there are lots of opinions) complexity
-of a given code component affects its suitability for being utilized
-for a functionality
-that must carry safety goals.
+But you make a valid point, here below.
 
-A comment like "don't use function F, use function G" or don't implement
-"function H, because function J already exists" might not be compatible
-with the needs we have, to qualify the code.
+> I didn't see a specific feature, nor how it was implemented, in your
+> email, just some videos which aren't really "reviewable" at all.
 
-Has there been any previous occurrence of this sort of constraint?
-I couldn't find any.
+Fair point. For good or for bad, I got so used to interrogating some tools that
+I didn't consider they would not be used. Sorry about that.
 
--- 
+But it's very easy to fix =)
+
+What we are doing, in a nutshell:
+On ARM64, we are enabling per-core, per-function, selective transition between
+different kernel memory maps, with different write capabilities.
+Kinda of MMU enforced rings.
+And we pair that with the ability of controlling memory allocations, so that
+specific allocation requests are served from matching memory pools.
+The same is extended to userspace creation, of course.
+Scheduling and other stuff are involved as well, but I hope this gives
+at least a generic idea.
+
+Why?
+For "our" use case (#1) we do it because we need to protect selected processes
+and/or drivers data from the kernel at large.
+This part might be controversial, but in a functional safety world,
+the specific user process is what matters, and the monolithic kernel
+is assumed to contain
+lurking bugs that at some point will bite.
+Unlike the security scenario, where a malicious agent is required, here
+the simple assumption is that - statistically - if one or more bugs
+are present, they will bite.
+Given e.g. a large amount of cars (any car, not necessarily self
+driving ones) circulating over
+a large period of time, the number of failures climbs fast. So,
+something needs to be done about that.
+
+But what I was hoping to discuss at the ksummit was "your" case as in:
+"would the kernel community might find anything useful in what we
+have, to solve some of their open problems?"
+This is where I wouldn't even know what problem to tackle, that might
+be considered worthy.
+Or I'd rather hear it first from those who would then review the patches.
+
+
+> So, along with what Ted said, turn your ideas and proposals into
+> something that meets your and your customer's needs,
+
+We will do that. No worries.
+But this round was actually about upstream's needs. Not (only) ours.
+
+> I don't see anything "special" about your topic from any of
+> the thousands of other new Linux kernel features/additions that warrents
+> a change in our development process, do you?
+
+"special" tends to imply "better" - in that sense, no, we are not special
+
+but "different"? perhaps that we are.
+
+AFAIK we have a few constraints that are not typically present in
+upstream development.
+
+The "special" constraint here is "sustained qualifiability", or the
+ability of obtaining and preserving
+a certificate from a qualified entity. Which is what is necessary, to
+support business.
+
+Without getting too much into details, in order to obtain a
+certificate, it's not only about the development
+process, but it is also about being able to demonstrate how the actual
+code fares wrt defects.
+
+As an example, one of the parameters involved is complexity,
+which acts as a proxy toward the confidence that whatever analysis
+done on it can be trusted.
+
+In practice it means that not only we need to have certain functionality,
+but also that the code providing it must be of a certain shape.
+Which might not always be aligned with what kernel common practices expect.
+
+As a practical example, the entire memory management we do not deem to be safe.
+We work around that by introducing additional barriers and validation.
+
+This might sound bad (and I hope it doesn't come across as
+disparaging) but, in reality,
+it gives us the opportunity of actually following upstream much more
+closely, because we
+do not need to put too many expectations (in terms of safety) on the
+bulk of upstream code.
+
+The price we must pay, though, is that our add-on code needs to be
+kept more isolated
+from the rest, so that we can claim that it is unaffected by potential
+bugs that might be present there.
+
+Again, AFAIK, this sort of constraint is not addressed by regular
+kernel practices.
+And even less supported by regression testing that might follow, once
+a feature was merged.
+
+We would like to discuss this perhaps "unprecedented" rather than
+"special" situation.
+
+Because, while it is true that upfront it makes things harder to
+merge, it also offers the opportunity
+of tackling problems like enhanced availability, or improved security.
+
+E.g. write protecting certain (meta)data from accidental scribbling,
+or preventing an attacker from
+gaining read/write access to special kernel (meta)data (keyring?) as
+soon as a foothold in the kernel is established.
+
+For us, it's a side effect, because we would normally protect things
+from the kernel rather than the kernel from
+other things (or itself). But what we have are mechanisms. What to
+protect/hide from what is policy.
+
+Preferences about these targets for protection would go a long way in
+directing the potential development for an RFC patchset.
+
+With the caveat - as I mentioned - that the mechanisms introduced
+would have to remain in a shape that
+can attain and retain qualification.
+
+--
 thanks, igor
