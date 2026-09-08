@@ -1,179 +1,101 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F9D3ACA4B
-	for <ksummit@lists.linux.dev>; Mon,  7 Sep 2026 21:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788817367; cv=pass; b=e3kGadRjTA0ilz7J2RBZNjurKd4gRO5vaT0rXcSclsx9nD5D0Jp2wDmR0bXzqMmYnO78uGx5GT6ddYL1nFMODQieDRFgcPzyp5wu9e7PPxsvAsJG3Mv3rivlkQlSYFPDTVKLkT/0yRgQFAfy6qj39y0hlQwKEDspghwUxq91Dao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788817367; c=relaxed/simple;
-	bh=wvVogsE9106Y1yoTwSItxGk2mTSy5wXCqtN6RcQT95Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PxBabEwprtjgqcq+ZfYyX6o3BFwtxnaD0bsb+n6ENJHHBa3aKeNh0YdrAocvORwMQAoTdzHfDmQeGyzQSvGn6UILET2yMKBykwLRXzfQg55y2ElDB53dSE/i1XnuunCAZr9TJ20j/z41E/7hYUj87X4QrEVPg2rIzUl3Dq3j32M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APGvfSGc; arc=pass smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558AD1F8755
+	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 03:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788839565; cv=none; b=vCg3+dGo3ZbtGLg51NB4bREVkg+HthRTtM+m2jrGw5M6hVHOeJhaf8cXm+ZsrQIW8fOxg+Umm8kRP+qmceTXiwRLONi1o54b0uTw0So74VTgPUwbSdr6wYguI/Bt1m7SsSuK6IwDa5ImzxFBnjE72FJYnKo4xE3UZK3Hmxa7Axw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788839565; c=relaxed/simple;
+	bh=8hcbs/2ZXN0L3Xb2cxYMyREds6gQa02yDuhDrFS+M40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eCm7FkFrjYk/d/xLOSg+6mCHO8Y1xY2zPq6VHvhsZ9DMHL/6zVwlGJwqjCIKKry3jlcEXAmWVs6+m7lY+R48spj0ZZvrX/Z4AN50l6nCFVCUddeuTPuN0UsNvAhcDic1PnH+D+wFlTsGcdAIr0ybMtJFFdLKWYaCfXEN2N1jQKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=Z48sBDL+; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APGvfSGc"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f96c5b722so2762311f8f.0
-        for <ksummit@lists.linux.dev>; Mon, 07 Sep 2026 14:42:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788817364; cv=none;
-        d=google.com; s=arc-20260327;
-        b=plKFzyY1sGMUCTp2FWwPFSd9e27CvKLUYRk9KQZxgVZZjD808Spovuv1E28PYnqx27
-         dnHqCsvvwaJHcxohktdu6Hc89UbK3ouza6VNjEszSvd7hRvSSG3K/qPII6VH+0G5/kRM
-         NVhdWXfWWjjyfUXDjOMVSTQ/tLg6jpquFw2o5bEIu2ScRn6l0j7XEfWuKi8uCpRD54MW
-         Jq3j8syr+5++CHTLPTzidlqirfj+mRFCbkeKswVB+VEadDqqbxyjpUSbM12md7VgMSxu
-         6WoUzHZ0YpIeeFe+y9r4JcQBqVFMc10Wpip2SevDCgj/6S4XlK8W7MQqv4GUFVD/87V2
-         O2CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=3lfcGdW83EmK5MaKP/2txYSj9srz5cFQ4g9uTrWnKmA=;
-        fh=shJsB4eIPJoPNbM/5kyB/AoB8oenWb/YFdDySMmnacI=;
-        b=lwDFFbnKxwqIW8xe6hXM45cDBRX9k2JgFAQuoPfS3j6IC6NyeytSNl46HY0ENpDis4
-         IR8Sct6v6g8m3CJMzgKxQHARUA9gzkXVk8CMb7mqs9YDerG69bMgkLuZhYNuXVge1XIp
-         Xczmry7m+ZibQ1YY/oWvzg0RZXKghdImR8CAcfPrS3BRYSpsE/xar0tsDWpDTQLxJqyG
-         wYPd/Sdak+9f723DKXGIqMKofi0Mxt4kGP7c8rpUuD0T7GWuxeEbgmlRBX5KH+S4M0l/
-         cJPhkVbb/M94KLQlcxgIciVHkCMi2nutp8Yn98IOLb49cTJ757Rt7A2B78UWKhIRHN3d
-         v+7Q==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788817364; x=1789422164; darn=lists.linux.dev;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3lfcGdW83EmK5MaKP/2txYSj9srz5cFQ4g9uTrWnKmA=;
-        b=APGvfSGcctL1frJHYJo5KNIamzW1hP7nC+ry3aflHhvbSPuHqFU78f0Av1lFhxeWpm
-         Mycp4my2bVLPRyz3At0s3YH/Q9cLz8IP+odcO5US5xN/6nryoQcvaVpVS3ZmlrpA+k9B
-         2bw5viI6nmZ0EKTBZnGrRj7reqEAqvf2gFFiZzdge9Yo0H8jMTpRcIYWB/b72GAEsIdB
-         TP4SFug/+eaureXv2bqVtj2Q9QFwEWwfq52cMuCb1/0nX+2/EUvoQdbgqVCN1thi9Q+9
-         HmyXVEGDPQBTwAn/XtGjKqpPW9g+ndw2L1626IxhHojUVl4OkyvHqa3m76IJaaTfCXiF
-         u46g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788817364; x=1789422164;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3lfcGdW83EmK5MaKP/2txYSj9srz5cFQ4g9uTrWnKmA=;
-        b=NUfuJ7U6abYt49rTi+Sp0dhdwOeOo2bERrIYiMHfywEx+MkAyPv04uKDyQE1u53SIQ
-         1M+wUTCFO4ng+WXjzJ8MNNMDFCrFVIL5xIhNqnHXBEZNpEzgRg0di8/K1SFKNFULc25Z
-         mVbA7G0yuDGj2QtiqZ/A2pEFNf1ZaXZVsfl6p5AqjIsqTN9keME2+RrE6XC+OGyj8La7
-         /bxMbilGWYnczsfVz4PM7VzTwVhXru/nxBw1tSQw5JYTv1oTEdfWM+zxFQxoBM9myQ2z
-         OkysrHeF3v1XIRVO/xjdRz1PmNxoykbUwifE6ZtALoYPPFRWQfEWvUqjjCYz3qP1ZWHV
-         G1Ew==
-X-Gm-Message-State: AFuF++nbxZfMN2KMcum31LHT5JnbJPiUas99naG0CLp2Sszk1NpuhAIM
-	swHJ4bN+uwsHkShSHkOdhtKWHFBmv5tbPtZpSqH0og4khlXA4iS7onuMXIczKduCLWEg8vFaKYn
-	gYtRuu8s35+qQ6iwQtuRiO4HlogJYvQA=
-X-Gm-Gg: AYBFou0bLUoNvs3a1aucYBaKlsw/ZQilMVU2mxOyBNmK1yNTnC7v0pG6flsYdSkYoeb
-	veeR16s8vpOGEA/5RHOch1jRGXrD1raxE0TiHeVW7UpWO407XMC4Hh9I8p2PBPchEPK4b7zppAy
-	HjPbHmjldwjLClr4flsFJvmW4YqRU3AX5CP1LFOFplFQZNV1+QDV1IL0QCAnxqZd1AS4QXlS8qE
-	IuqlQ+mURD7ylYhOwMzMa18P0EpC6IgsOSXcX10b8ucFbwtafa6FDjSkbGGxIgbyNU8sPXt5mM5
-	YXUBnv6zIYzBggYAXfgeAXs49wLxDqyg+oQT6ALEaqd7
-X-Received: by 2002:a05:600c:350c:b0:49d:16de:9dc1 with SMTP id
- 5b1f17b1804b1-49d16de9df1mr41766725e9.19.1788817364113; Mon, 07 Sep 2026
- 14:42:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="Z48sBDL+"
+Received: from macsyma.thunk.org (pool-108-26-156-127.bstnma.fios.verizon.net [108.26.156.127])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6883qcOv014783
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 7 Sep 2026 23:52:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1788839560; bh=2wFtpjsfTxx5RiTEM5OtYXVd4aAJp/aJaqGITEIlcVE=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=Z48sBDL+iFChkycaE3Nfp2IX3R5cinrR8AZzGQWkufZGqNT7M1v3ZqKMZY2XmsaS7
+	 jHoUMu2YzXlWzqGWHF0QfSAaMHtZ1debNfBhx5OTJ5C94PVYww51F8rElJS4+Jjns9
+	 N7sUWTfjyxVVJ1znkcAFmau23GdCOPj9IkDPb4Zytq7534wlKPt9spiq8DOJnmesYO
+	 0PsTY7BXjQIsJX+FWZN/KSz3wLLMxZ3rxuUvdYNSdVJE8SUL5b7oRTw5TL8eEqBG3l
+	 rFXjFLDUmjrDP6VvTgWwzmBhS/ZfsokSjETF5uKBerxSMfN7nnDx8yrYDPcStZoPaH
+	 SyvSZuzXJ+T9g==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 3018B13D0D59; Mon,  7 Sep 2026 23:51:38 -0400 (EDT)
+Date: Mon, 7 Sep 2026 23:51:38 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: "igor.stoppa@gmail.com" <igor.stoppa@gmail.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, ksummit@lists.linux.dev,
+        istoppa@nvidia.com
+Subject: Re: [TECH TOPIC] Improving kernel security & integrity by
+ generalizing ad-hoc safety mechanisms
+Message-ID: <ap-AmsGgDNFYLlw8@mit.edu>
+References: <CAH2bzCTjmRnSj5ppEEOKf7_jky54xAK6FroHhs207CqcqXJPaQ@mail.gmail.com>
+ <2026090747-carless-trio-ae92@gregkh>
+ <CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <CAH2bzCTjmRnSj5ppEEOKf7_jky54xAK6FroHhs207CqcqXJPaQ@mail.gmail.com>
- <2026090747-carless-trio-ae92@gregkh>
-In-Reply-To: <2026090747-carless-trio-ae92@gregkh>
-From: "igor.stoppa@gmail.com" <igor.stoppa@gmail.com>
-Date: Tue, 8 Sep 2026 00:42:32 +0300
-X-Gm-Features: AcwNN1Us8rvic3cjJ3bzV23hrF--XNMRU9laI_jvemhJsSc5Qi7QlSIv98hDubc
-Message-ID: <CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
-Subject: Re: [TECH TOPIC] Improving kernel security & integrity by
- generalizing ad-hoc safety mechanisms
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: ksummit@lists.linux.dev, istoppa@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
 
-On Mon, 7 Sept 2026 at 23:56, Greg KH <gregkh@linuxfoundation.org> wrote:
+Looking at some of the videos which you cited, and your description,
+what the kernel safety effort reminds me is the PREEMPT_RT patches[1],
+so the path to upstream that was followed by the PREEMPT_RT patches
+might be instructive.
 
-> Why not just submit your patches like other projects do to get review
-> that way?
+[1] https://en.wikipedia.org/wiki/PREEMPT_RT
 
-Because:
+There were plenty of people who were people doing soft realtime
+without needing PREEMPT_RT, but if what your project required
+something stronger --- hard realtime guarantees --- then you needed
+the PREEMPT_RT patch set[2].
 
-- the effort I mentioned is about safety
-AFAIK safety is not something that has attracted much interest
-in the past, from upstream.
-Especially when it comes to alignment with requirements from safety standards.
-It seems unlikely that things would change much in the near future.
-This is simply an observation of past exchanges between safety folks
-and the upstream community.
+[2] https://www.socallinuxexpo.org/scale7x/sites/scale7x.socallinuxexpo.org/files/Bryan-che-IntroToRealtime-Scale2009.pdf
 
-- we have code that is arranged for survivability to recurring rebase,
-as a fork. It's far from ideal, but it's an acknowledgement of the
-previous point.
-And it allows us to decouple internal schedules from
-whatever time it might take for upstreaming anything.
+I was quite familiar with PREEMPT_RT, since I led the team at IBM
+which productized the PREEMPT_RT patches for use by the US Navy's
+DD(G)-1000 Zumwalt class destroyer.  Also involved included John
+Stultz and Darren Hart, who are still involved with Linux Kernel
+development, and we got an IBM Systems Journal publication out of
+it[3].
 
-- as I wrote, perhaps there might be a common interest in extending
-the properties of the code we have, toward topics that seem to be more
-resonating with upstream, like integrity and security.
+[3] https://www.researchgate.net/publication/220354037_Real-time_Linux_in_real_time
 
-- if indeed there is interest, then we can try to prioritize this rework
-But we would also seek an agreement that the final shape must
-still satisfy our safety-oriented needs.
-After all, what would be the point of upstreaming something, if then
-the end result turned out to be unusable for our main purpose?
-It needs to remain compatible with its original intended use.
-That is one of the points I'd like to explain.
+The path to upstream took place over many, many years, and involved
+individual features that were useful not just for PREEMPT_RT patch
+set, but also for other use cases.  For example, Futexes came out of
+the real-time linux patchset.
 
->  If you don't have working patches, there's not much we can
-> really comment on, right?
+So that's what I would recommend.  You will need to have a business
+case to justify the huge amount of work to (a) implement Linux with
+your safety certification requirements, and (b) get that work
+upstream.  Since the company(s) funding the work will need to be able
+to business income to justify continuing to underwrite your work,
+having an out-of-tree patch set is going to be necessary.  There's no
+getting around that.
 
-I did not propose a code review, though.
-I proposed a discussion about the architectural changes supporting the
-features we have implemented.
+Along the way, if you can find that various features in your
+out-of-tree patchset can be useful for solving multiple problems
+(which was the case with futexes) you can get those features lifted
+out and upstreamed, thus reducing the size of the out-of-tree patch
+set, and reducing your work to maintain that patch set.
 
-For that, knowledge of kernel architecture should suffice.
-And a tad of ARM64 MMU architecture. Not much else.
-I can provide the safety perspective.
+Cheers,
 
-We do have working patches, at least working for our own purposes.
-As I wrote, the effort of massaging them into LKLM compliant shape
-would not be insignificant.
-
-With this I absolutely do not mean that we are seeking a carte blanche
-for merging whatever.
-Precisely because we take seriously the requirements for upstreaming,
-we would like to first seek at least alignment of expectations about
-both functionality of the code, and its shape.
-It would not be very useful for us to prepare said patchset only for seeing
-it rejected because safety needs might be considered unacceptable.
-
-If there is a will to discuss it, and an agreement at least on intent and
-expectations of the exercise can be found, then we can proceed with
-the canonical rework.
-
-In case no agreement can be found, at least we tried it.
-And who knows, maybe some parts can still be acceptable, if not the entirety.
-
-> And as you are working on this with the other ELISA people, why not work
-> with them to get the changes merged upstream?  Or is this separate from
-> that effort?
-
-This is an NVIDIA effort, currently.
-We are exploring the possibility of anticipating its publication, or at least of
-parts of it that might be of interest for the kernel community.
-
-Our activity in ELISA so far has been focused on describing the
-problem we are trying to solve.
-But ELISA's intent is not to maintain a fork of the kernel or anyhow
-replace upstream.
-
-Thus, I am asking here, where people who maintain the subsystems that would
-be impacted can be found.
-
-I can ask ELISA people to lobby for the proposal, if it helps, but in the end
-what is being sought for is an architectural discussion with kernel maintainers.
-
--- 
-igor stoppa
+					- Ted
