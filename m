@@ -1,244 +1,183 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68A53AB27F
-	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 23:13:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788909217; cv=none; b=jLZvGlzBk/SiaExliKCQzY87w49cBfIXJ2G/yCzMibliUPsVfhTNvGs65ak4xwowyTN1BpT7R/d6GZXwvSd4onGiFtSpne/geQtWQdHGoWWqxUpmxNR+9uTMsFq4EUakDyr9tHwPEO9pgngAb9JSsFbqkBO/6mbuIhtu3NTOrHY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788909217; c=relaxed/simple;
-	bh=sg+P0XWxiFO+Yz6dH29vwLOUaHdzvG2uaMAGRJMRJ5E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ce1QexNL+MvIq528d4Fr38kxk/PsmP1mUafolOIlExfFJZO9Lc+Y+Kp444kWGN7O5iLVaaEKkJ1uaJwJt3e0ZkJ9q8hCaJ+P9PQ6QNOg2h1HPSxznqmAPoy/Ug42lrZPQK6gz3dxExPpQgyWJhu61ldjGj+l2WxBVHBmqC+HZy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=vuycP3hT; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF2E49AA3F
+	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 23:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788911345; cv=pass; b=d5B1fzdW0+EAmTyNxxOIe8gANOOgm7eqLixWa5g4ffqNYbOEJSsMTvxPtsHlpL30emFpqoAidvhRvDU/HxbysfrGtakHxE0gCFSktmU+0FaOo3CtjGxybUSOvwhrvZ3MKb2bi8jO5gfdFviD+eqIZn6zg2B5e8TQt/rQKyVNbKA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788911345; c=relaxed/simple;
+	bh=DGreL4F71GnxdLbbCA3RiV8cN27LgRiF2EZcNGs15hU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iCOxFPuQLdBWcc7tK+Eic+fPlBFkXvZgm24dhlOdDjYjpbQi+48romW40kwqiDm6aH7U/X+i26UbSwibDJWnfsN6C4lSgYoZ3RczlUqPkvjiZ6tKTKc1FmSfLUA4MZiOxq4lVMVfx4m9cTQs5zhwdxp4ikTaqGO9DFT42b4hCWA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aSVAGJvV; arc=pass smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="vuycP3hT"
-Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id A2006A537E;
-	Tue,  8 Sep 2026 23:13:27 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id 8BB492002A;
-	Tue,  8 Sep 2026 23:13:25 +0000 (UTC)
-Date: Tue, 8 Sep 2026 19:14:40 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "igor.stoppa@gmail.com" <igor.stoppa@gmail.com>
-Cc: Theodore Tso <tytso@mit.edu>, Miguel Ojeda
- <miguel.ojeda.sandonis@gmail.com>, Greg KH <gregkh@linuxfoundation.org>,
- ksummit@lists.linux.dev, istoppa@nvidia.com, Kate Stewart
- <kstewart@linuxfoundation.org>, Gabriele Paoloni <gpaoloni@redhat.com>,
- Gabriele Monaco <gmonaco@redhat.com>
-Subject: Re: [TECH TOPIC] Improving kernel security & integrity by
- generalizing ad-hoc safety mechanisms
-Message-ID: <20260908191440.65efef15@gandalf.local.home>
-In-Reply-To: <CAH2bzCQYFDvUXdUwE-vS03=QSqO9TuYdN+=kdrYGhL+ttw=BOQ@mail.gmail.com>
-References: <CAH2bzCTjmRnSj5ppEEOKf7_jky54xAK6FroHhs207CqcqXJPaQ@mail.gmail.com>
-	<2026090747-carless-trio-ae92@gregkh>
-	<CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
-	<ap-AmsGgDNFYLlw8@mit.edu>
-	<CAH2bzCS8DzBqR_4ELtg__4x8dX0+SYihKK0LLy3-pJmu=pRnsg@mail.gmail.com>
-	<aqARgWGWYG5kZW9g@mit.edu>
-	<CAH2bzCSLiyJbJD4dUiCRE192A44Qw9B01vn-oA_6=foi2j3iuA@mail.gmail.com>
-	<20260908152921.3c90bdfa@gandalf.local.home>
-	<CAH2bzCQYFDvUXdUwE-vS03=QSqO9TuYdN+=kdrYGhL+ttw=BOQ@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aSVAGJvV"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4858be8b509so2311367f8f.0
+        for <ksummit@lists.linux.dev>; Tue, 08 Sep 2026 16:49:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788911342; cv=none;
+        d=google.com; s=arc-20260327;
+        b=I2YLd1s9QroY+6caMzRXzPPq2uVF6HfgJR6vtumlWNfdMGZBRch27ldpzUCsJ56mI+
+         sx8PtOY+L9Zgg0C2XOW8ML4LO8FH9wt4iLEknZDDuhbpl0b7PRL3Tsx9hQVLnOwlj/Eb
+         1J+SI3wI2Rmf+AxEYe+zeZgQ1cH7paBBThJtDUjB3J3b7wAvI/s6LjCV3y/EbeDatxof
+         Mjo3jNvx7AB9/5cFQiDcYFGrA5IrWYAW5JkSRiiYnn8XEoo524sDKLJmBXLgxBBQsSPI
+         VGhZzzv3DBHl9ID5Xr2TvXfMaANzjW0xXJA3JS0fhwgQRDdteRXVsrBgjn891OH1BXrZ
+         wjtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vYcRwN1CbpQfOHMFhuXVPhSzQf1CxYu2+kVQ+7hsl2A=;
+        fh=yg/hr3KqZB/b4RcbTTQVnDB8qE34nDR1DijgSftXaH4=;
+        b=dKEP2/LvMcKPv6qPXT6yJ1pe8vMBopMyFB8Uj7tTGjTjoKgq8S4rLDkdMkHVlHd9Ue
+         EzRJ74N0zeaVGQYay+jiFaTgshyga1H1IkcG1V2SqHRUbnBzLPBG8ccKpzzeCU9i38jb
+         f33MsN/LXiJFrncl4C7MFo4Q5j6fIHQNWGqRcgNvCSEbnj5E9GPfr0OYo5LOxhvcZ7b6
+         Djg4htOnvK1rlJJK5oOMmHbJoXUzO0h/nU+A/+5eW8H3FDxqaOProaZYu0iCQuyjADGk
+         PynuzYAQ9LXoqoT3uuIGmGHGnMZ9T2/pP227OvMvPRlUKiWdpaR0f62QGmm6hbPr4zXf
+         92Bg==;
+        darn=lists.linux.dev
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788911342; x=1789516142; darn=lists.linux.dev;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vYcRwN1CbpQfOHMFhuXVPhSzQf1CxYu2+kVQ+7hsl2A=;
+        b=aSVAGJvVLR7lwDF6jc97vnqFRyPKCvsb1/y07NCR807I6OSaSjyzTbhB9bG4Uo+t96
+         u0gecU3qXIjOKFrW6voSDrZ0l3kaawCSSgNdxSPLmX2qA1bMbeNQ1tNYZBoxLTSALf5e
+         YbYhbIxXi5U/dFCiRCOrpPHxDJcbamnRgk7FZr6bjfL+cL0yM8/bNqr9hznOZrp7jbjE
+         lVdrH+gzF6DJI0cxxVrYN3jHhQqhXrwrUWkUW3rBPLymsW+1abYIN58FqjK14gIW9BCg
+         vhqRb2UhTwxNABhU/S64ketb5upqd7T9YMbr3qCwEvqLTfcL759+vt9g+x9OV3o65DNC
+         LlSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788911342; x=1789516142;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vYcRwN1CbpQfOHMFhuXVPhSzQf1CxYu2+kVQ+7hsl2A=;
+        b=pP3pbKQc/tpQokM1nygXmhnmFv6QtSR9FsyvLMrNj6OlgqrIdMxkK74MdqFbx7k0gF
+         ZUIFXWxMIo1KTCbL34i341zUL+DAgU2gfs1SBI3UufhBsOrFR4ybaZ4JwdnsRIHmOFcz
+         EhuocpV0m1kY2o7vsMAgYH/o7fOiTuwrmdq8g1PQEH6CObM4wJ5sFLG+Y3sfPpmctoCE
+         iKrORfZedcxGAJDi+cbqWjkz0BoedaNNpzHSrRUq2umaDlBf7YmPeKxGg/H2ly/BKtBQ
+         SbDBDkdkx2pvHz0p54oFvwNcxy+EgfpmSWzM6Dp7XX63pNfAM9rsj5N3gqPoizP1sRWa
+         QHqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwGeubCrgCQNdgE493RzDYJ5YVf1WwndEhmkx4hHJUCc0EZP+MPE51XORXtk+6WeMAs7TewwQqb@lists.linux.dev
+X-Gm-Message-State: AFuF++lAipE/LIeL9W+KFLHkz6iLjhnqNUFUqn7parCy6aIuT8mMxGc2
+	cKQjm13/W3BBJJBl2YiII8+YkQ3te5ddL5Vm7IZILUvbhqHYQfp5j4JpoZgHU2J29yKlP+Wiezf
+	hee0qFLin8L4O4/5LFaXRgbBrQB+TtKE=
+X-Gm-Gg: AYBFou3Oh3N4YeCRM33Q4uteII4XRNKop20dy8E+MJDj1DU1dxvND69PWZFk5dB9kWK
+	1vQp9UpmjTk1VNI/ihAdlqgi3OBq4V2jvnJCVa2GUdNr/tU4QTdwjbolXnIljroynN4FKje63f2
+	AAfZF3KmdJ5Ug20NWpmE3ll/Qmqqw2aj0Ju47FNOXn3YuOoeVxU3I3/D2G0g9Fs7PfY4l/t+5ln
+	hAAmDJtKtx9D9nepOZCcBtZGqki4hlf38OrlaVTSEbR54Nmpx8bkfcJt6kWaiFSdtBsJiToncUA
+	zpwIsydCgx6EZ1/bTfDW/UkiRlvlh1EsMp0CH+buTDQEng==
+X-Received: by 2002:a05:600c:4e8e:b0:49c:dada:f57f with SMTP id
+ 5b1f17b1804b1-49cf823cd42mr290047725e9.7.1788911341829; Tue, 08 Sep 2026
+ 16:49:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 8BB492002A
-X-Stat-Signature: ohro4bgmm4xbxs7gjnscue87zy1r6rui
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19At39LL0+coAuJrvk7xpbuzKDTZPPh4yc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=S+u0SjMheilGDtIIsSojU1BgI8nL88mukeEuVb7nnhU=; b=vuycP3hTiHv1LI8oL1xQazVpp0y0bidrLO4CTcLnbJyPub22urxTmkkv7W1FdbRMrxriMppP2ahoI3WYbhT/jG+bQXWtjcl5bATvu54+DSQjNt8apK8hwwBYRmgx+9KNF+DQ757+DzXaDfO8+napM38mDzPo0fXedLubLa0pcNc=
-X-HE-Tag: 1788909205-199312
-X-HE-Meta: U2FsdGVkX19R5IFqBM8afSmER8sZhqKglKd8mUtDgQNwSK1bES7mv1Jqb77LNXIKq47J8qENKj45WHSvQ3QpmB1qA3O88ffScXFEsFeEThh5a5o9dO569m6OVHqdgP62COfms67MgtU0uATD/p98nD6QriGH+2IAnmlHyVJJuhPdlYCIG/HTp3JvmDsWXZuZyXOaVBOnfWvJL6FDM95jERLXbkB1J5pGibu3HPKSQGtKbSrGHIUEmIgviTMwZCFkyF3bGz9ovZ97/EutnwxuzbYM2jaU19NJwQi4w/+roQLERtkuXggu1qxSj5p7GCfhjWS023orkU2gmVnBJcnXXIM7v6w0WkzNNe00+lZ5V86EV7NOtNVoAN1nLiE16+F5VDnUrBd6H36DYcx85UWxf9nW890XroYV9bFLTBTEfXws5DIfSw76yzgQ8nz34/Jdfzf9bocQb4A=
+References: <CAH2bzCTjmRnSj5ppEEOKf7_jky54xAK6FroHhs207CqcqXJPaQ@mail.gmail.com>
+ <2026090747-carless-trio-ae92@gregkh> <CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
+ <ap-AmsGgDNFYLlw8@mit.edu> <CAH2bzCS8DzBqR_4ELtg__4x8dX0+SYihKK0LLy3-pJmu=pRnsg@mail.gmail.com>
+ <aqARgWGWYG5kZW9g@mit.edu> <CAH2bzCSLiyJbJD4dUiCRE192A44Qw9B01vn-oA_6=foi2j3iuA@mail.gmail.com>
+ <20260908152921.3c90bdfa@gandalf.local.home> <CAH2bzCQYFDvUXdUwE-vS03=QSqO9TuYdN+=kdrYGhL+ttw=BOQ@mail.gmail.com>
+ <20260908191440.65efef15@gandalf.local.home>
+In-Reply-To: <20260908191440.65efef15@gandalf.local.home>
+From: "igor.stoppa@gmail.com" <igor.stoppa@gmail.com>
+Date: Wed, 9 Sep 2026 02:48:50 +0300
+X-Gm-Features: AcwNN1XnNkFrgGPN2lmuVJb-QgytZ4JV2MY50EbCWHcQ4RnGp1z1T6B75NJrnPs
+Message-ID: <CAH2bzCR3_DJOuW+jfkH7tkx-j4KbPJHVx2k2Z6X=+vaS6rmqng@mail.gmail.com>
+Subject: Re: [TECH TOPIC] Improving kernel security & integrity by
+ generalizing ad-hoc safety mechanisms
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Theodore Tso <tytso@mit.edu>, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
+	Greg KH <gregkh@linuxfoundation.org>, ksummit@lists.linux.dev, istoppa@nvidia.com, 
+	Kate Stewart <kstewart@linuxfoundation.org>, Gabriele Paoloni <gpaoloni@redhat.com>, 
+	Gabriele Monaco <gmonaco@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, 9 Sept 2026 at 02:13, Steven Rostedt <rostedt@goodmis.org> wrote:
+>
+>
+> [ Adding another Gabriele to the mix ]
+>
+> On Wed, 9 Sep 2026 00:13:19 +0300
+> "igor.stoppa@gmail.com" <igor.stoppa@gmail.com> wrote:
 
-[ Adding another Gabriele to the mix ]
+[...]
 
-On Wed, 9 Sep 2026 00:13:19 +0300
-"igor.stoppa@gmail.com" <igor.stoppa@gmail.com> wrote:
+> > But that one time that the bug hits the jackpot, what is gonna prevent
+> > it from causing
+> > an unsafe situation? E.g. wrong angle passed to the steering actuator,
+> > car that doesn't follow a turn.
+> >
+> > These situations must be covered, explicitly.
+>
+> Sounds very much what the Runtime Verifier[1] is used for. It is code that
+> adds a model represented by a state machine and hooks to tracepoints within
+> the kernel. It moves the state along based on the information it monitors
+> and if it were to ever detect an anomaly it would trigger a reaction (could
+> be simply panic the kernel to go into a safety critical mode).
 
-> On Tue, 8 Sept 2026 at 22:28, Steven Rostedt <rostedt@goodmis.org> wrote:
-> 
-> > [ Adding a couple of people working with ELISA ]  
-> 
-> [...]
-> 
-> > Hence, a process that you don't realize is a process!  
-> 
-> Even intentionally not having a process can be seen as a process :)
-> 
-> [...]
-> 
-> > From what I remember, certification requires documenting the process and
-> > showing that you are following it. And have artifacts to prove it (git
-> > commits, email trail, etc). Repeatability is crucial. Being able to create
-> > tests may also be needed.  
-> 
-> Indeed, and having a process, test cases, repeatability and what not,
-> it is all necessary to get to the doorsteps of a safety qualification.
-> That's what is called QM - Quality Managed.
-> Which in itself is already a significant achievement.
-> CMM belongs more or less there.
-> 
-> The problems come when one wants to move into the field of actual safety
-> qualification.
-> 
-> To name what is perhaps the most recurring term: FFI, Freedom From Interference.
-> It means that a given component which has been identified as the recipient
-> of safety goals, must not be silently altered in its safety-related properties.
-> 
-> Alteration can be both spatial (e.g. scribbling over its memory)
-> and temporal (e.g. altering its execution timing in whatever way).
-> 
-> Contrary to what one might guess at first impression, though,
-> this doesn't mean that said interference cannot be allowed.
-> 
-> It can, provided that it is somehow managed timely.
-> The classical case is a process not being scheduled and failing to ping its WD.
-> 
-> (I'm not missing the irony of me preaching to the choir, but if I have
-> to say this, I might as well
-> try to make it as accessible as possible to everyone who might be reading it)
-> 
-> Watchdogging done right is in itself not trivial, but often overlooked.
-> However more obvious problems arise with the other aspect, spatial interference.
-> 
-> Assuming a bug can lurk in one of the many kernel components,
-> there is a possibility that it can compromise the integrity of some information
-> that is writable in kernel space.
-> Information that might be fulfilling a safety goal.
-> 
-> How to ensure that, if this happens, such an event will be either prevented
-> or detected within the allotted temporal window?
-> 
-> The bug can be anywhere, and it can manifest itself only once in 10
-> blue moons, or less.
-> And it might not even be normally noticeable, because under most
-> conditions it scribbles
-> over memory that is irrelevant or even unused.
-> 
-> But that one time that the bug hits the jackpot, what is gonna prevent
-> it from causing
-> an unsafe situation? E.g. wrong angle passed to the steering actuator,
-> car that doesn't follow a turn.
-> 
-> These situations must be covered, explicitly.
+> [1] https://docs.kernel.org/trace/rv/runtime-verification.html
 
-Sounds very much what the Runtime Verifier[1] is used for. It is code that
-adds a model represented by a state machine and hooks to tracepoints within
-the kernel. It moves the state along based on the information it monitors
-and if it were to ever detect an anomaly it would trigger a reaction (could
-be simply panic the kernel to go into a safety critical mode).
+Monitoring is a way of doing it, yes, and I am familiar with the
+runtime verification monitor.
+We actually did consider it, some time ago when we were feeling the waters.
 
--- Steve
+But it won't cut it, for most practical safety cases.
 
+In order to detect a deviation, first of all you need to be able to model it.
+Modeling it adds extra complexity and detecting it adds overhead.
+Even if minimal, once it starts to be applied to potentially large
+targets, it adds up.
+And that's for the drivers.
+If I have a SR (Safety Related) process, it is still exposed to interference
+from the kernel through the linear map.
 
-> 
-> The surface to answer for can be very large: from private data of
-> device drivers to
-> parts of the linear maps providing backing for processes.
-> 
-> Some argue that by virtue of a process, they can guarantee that a
-> specific build
-> of a specific configuration won't cause that sort of problem.
-> 
-> It more or less amounts to claiming that the entirety of the kernel is
-> devoid of bugs that
-> might cause that unwanted behavior, under a very diverse set of conditions.
-> That, and statistical data obtained from very different builds,
-> configured in very different ways,
-> running on very different systems, under very different loads.
-> 
-> Without entering the merit of the claim itself, one observation that
-> can be made, objectively,
-> about that sort of approach.
-> 
-> If even one bug of the wrong type has escaped the process, then the
-> system is not safe anymore.
-> If it has ever been. I leave it to the reader to decide what is the
-> likelihood of such a bug-free system.
-> 
-> What said so far might sound like paranoia, but it is what is
-> necessary to provide safety.
-> Besides, there are various levels of qualification, for safety.
-> Any process-based approach won't go very far.
-> 
-> Hence the approach I described earlier, where we are perfectly happy
-> to let the vast majority
-> of the kernel as it is, not a recipient of any safety requirement.
-> If maintainers want to improve their processes, that's great,
-> but we wouldn't be really asking for any extra effort, for safety.
-> 
-> > I'm guessing that this will affect the core kernel the most (scheduler,
-> > interrupt handling, memory management) which should be treated with a bit
-> > more scrutiny than normal device drivers as if they go wrong, everything
-> > goes wrong.  
-> 
-> Actually, no. You are describing availability. MTBF.
-> Great to have for a marketable product, but not mandatory from a safety angle.
-> What matters for safety is to detect and report timely any safety violation.
-> That's all.
-> Each system can be designed to cope with it in its own way.
-> E.g. some cars will disengage the main unit and activate an auxiliary
-> system with reduced capability.
-> Others will simply turn on an indicator and tell you that a certain
-> functionality (e.g. ABS) is unavailable.
-> 
-> > File systems have a similar requirement because if they go wrong, people
-> > lose data, which is never good. Funny enough, I'm not sure if file systems
-> > are part of the safety portion, as file systems are mostly used for logging
-> > in safety environments, but may not be part of the safety path.  
-> 
-> What we want to ensure is the absence of unsafe operations.
-> In many cases one can tie it to integrity and timing.
-> 
-> But, without downplaying filesystems, the first and foremost integrity
-> problem is
-> memory integrity, because what good is it to have a safe filesystem, if then
-> things can get silently altered once they are in memory, due to a bug?
-> 
-> > What you should strive to achieve is a way to make it easy for Linux kernel
-> > developers to follow the process you need. If it makes sense to follow and
-> > not a bunch of bureaucratic BS, you may have people following it.
-> > Especially if it helps make their code better.  
-> 
-> I know you have been exposed to what Kate and Gab are pursuing.
-> That is the process-based-approach.
-> 
-> While we do not disagree with the benefits it can bring, we don't
-> really rely on it.
-> As I wrote earlier, for us it's perfectly fine if the present
-> development model stays as it is,
-> we don't have any dependency on it, for claiming safety.
-> 
-> We have fences to take care of unwanted behavior.
-> Which means that we don't have to worry about where the interference comes from,
-> as long as we can model and manage it.
-> 
-> [...]
-> 
-> > It sounds like you want to do what I mentioned above. To have a process that
-> > kernel developers can follow that's not too different than what they do
-> > today, but just in a way that it helps satisfy your requirements.  
-> 
-> Our method doesn't need anything like that.
-> It's been designed specifically to not have that need.
-> We certainly won't oppose any process improvement.
-> But there's also the problem that what you describe would not be found
-> to be sufficient,
-> by certain stricter assessing bodies.
-> 
-> OTOH our safety concept has been found to be adequate, provided that we
-> bring it to completion.
-> 
+Adding monitoring to pages worth of data used by the process would
+kill the system
+(and I'm intentionally leaving out code, but that's exposed to
+interference as well).
 
-[1] https://docs.kernel.org/trace/rv/runtime-verification.html
+The humble MMU is the simplest and most effective way to protect
+things with minimal overhead,
+once one has in place the support for individually selecting which
+memory map any given kernel
+thread needs to use at a given moment. And for marshalling allocations
+so that SR data gets
+backed by pages that are not writable by non-safety-qualified code.
+We happen to have it.
+
+The other problem with these sort of readily-available components from
+the kernel is that usually
+they take freely from any available API (and why shouldn't they, if it
+is compatible with their intended purpose)
+which leads to a dependency hell when it comes to qualifying the code
+supporting safety goal.
+Because they would pull in more than half of the kernel.
+
+Qualifying rigorously a single kmalloc invocation would spiral into
+endless work.
+
+BTW, "qualifying" means reviewing the code and analyzing it and
+"proving" that it has
+no bugs that would be compromising the intended safe behavior.
+
+Frankly I would never even entertain the idea that we could seriously
+claim to have done
+carpet review on the kmalloc function call graph and proven that all
+of them are safe.
+
+So, we intentionally limit ourselves to having, as dependency of our
+custom fences,
+only functions that are simple enough that we can honestly and credibly claim to
+have reviewed adequately.
+
+-- 
+thanks, igor
