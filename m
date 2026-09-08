@@ -1,44 +1,44 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FA84AF9F4
-	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 17:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A79434981
+	for <ksummit@lists.linux.dev>; Tue,  8 Sep 2026 19:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888877; cv=none; b=cBdIA095Ims0AnJgSh6X1p6QjtdmTv75vn/nDuxFdwZ1NuZpMxOJz9/z0PRDeH9fe/Sib+iQzN7bAf8HH1M5Ku5/d15zWi9T+i/qzO7brFaYKYe/zKxX7WXI4U7CELzWq3A12xgOjHPIdZtcvuAGHMqBH/WtrheHSAaoes+kO5Y=
+	t=1788895693; cv=none; b=ZmJ445qL9BzUXPPDqTLXQK5V2VMwxL6Kio6lNBBtRj8a4lV40ykpZKcNHku8fk3xJS7XfDrxi6BPcrnL0bUj4I0tYPkOl6vuOotp1yFIzjaBUbSPQkFCTdBLkuEPs8N1APMun7ZL2d2q4wtVu0gNE0Yys9Mn5j5OgWqoTe9t+Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888877; c=relaxed/simple;
-	bh=MYq6KPCJJOPd48JciFG0zmKj8b4PtHMA5E9WEUfZLb8=;
+	s=arc-20240116; t=1788895693; c=relaxed/simple;
+	bh=hqOemFhJsuZ7nEuUCU0Ohp4LCejrRsWW3bPSyKAORMk=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sgbIc9YUeZbWbLc81YXPZk/d0Mvyl9Y5uoi7rzsJHicd+uopoxMIGa1fpngQCY5kiG9q1ZVsuU7XiZ0zuE5LxAADBWNPxG3AY+bvuYyLabpSqdkA+/wJsmjx1z80QyQPIeyzQCMJSHuEtYv9yLLFe2u5J6qrJyrODbuuBKsvULk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=lX6ReTP8; arc=none smtp.client-ip=216.40.44.11
+	 MIME-Version:Content-Type; b=gL/RMbfgZ3GSULnek7QPuwDWzrx2ENisVitweLPjOiOUb9z2YJVXNN+5/4/pjOgL4BC+jTPNiFEfhgEytu1wt4thUE19AKBsT+Ce5QMCU0ue2X0DsYoCT3PjqVLjORDV69017ZuIXd+LBS62vDc4yW0EpaxMVTv/xLLPIsAFAro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=omkI4PvE; arc=none smtp.client-ip=216.40.44.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="lX6ReTP8"
-Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id D5000120749;
-	Tue,  8 Sep 2026 17:34:32 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 16A632000E;
-	Tue,  8 Sep 2026 17:34:31 +0000 (UTC)
-Date: Tue, 8 Sep 2026 13:35:45 -0400
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="omkI4PvE"
+Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id CA13180742;
+	Tue,  8 Sep 2026 19:28:08 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id D764E2000E;
+	Tue,  8 Sep 2026 19:28:06 +0000 (UTC)
+Date: Tue, 8 Sep 2026 15:29:21 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
 To: "igor.stoppa@gmail.com" <igor.stoppa@gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>, Greg KH
- <gregkh@linuxfoundation.org>, ksummit@lists.linux.dev, istoppa@nvidia.com
+Cc: Theodore Tso <tytso@mit.edu>, Miguel Ojeda
+ <miguel.ojeda.sandonis@gmail.com>, Greg KH <gregkh@linuxfoundation.org>,
+ ksummit@lists.linux.dev, istoppa@nvidia.com, Kate Stewart
+ <kstewart@linuxfoundation.org>, Gabriele Paoloni <gpaoloni@redhat.com>
 Subject: Re: [TECH TOPIC] Improving kernel security & integrity by
  generalizing ad-hoc safety mechanisms
-Message-ID: <20260908133545.05cbbd74@gandalf.local.home>
-In-Reply-To: <CAH2bzCRuoa9BPWr2wvHGe6XVU5gu_Z2kC8h4DZm4Ub+PiVfuNA@mail.gmail.com>
+Message-ID: <20260908152921.3c90bdfa@gandalf.local.home>
+In-Reply-To: <CAH2bzCSLiyJbJD4dUiCRE192A44Qw9B01vn-oA_6=foi2j3iuA@mail.gmail.com>
 References: <CAH2bzCTjmRnSj5ppEEOKf7_jky54xAK6FroHhs207CqcqXJPaQ@mail.gmail.com>
- <2026090747-carless-trio-ae92@gregkh>
- <CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
- <2026090810-yen-tablet-8843@gregkh>
- <CAH2bzCSCy_=B1SBt9X6+xM5qkzsitgC+TDb0Cu-h5YRFTnT0dw@mail.gmail.com>
- <132d2a682ce15be4d4f1d8586596dd874195c8c8.camel@HansenPartnership.com>
- <CAH2bzCT_iTLE59=QOcJXUG-mQ_ONDLc_iEbpnAL6-VY_MfTYKg@mail.gmail.com>
- <20260908114024.6165c1db@gandalf.local.home>
- <CAH2bzCRuoa9BPWr2wvHGe6XVU5gu_Z2kC8h4DZm4Ub+PiVfuNA@mail.gmail.com>
+	<2026090747-carless-trio-ae92@gregkh>
+	<CAH2bzCSn4C94iWHdwWv=vwSnattvLTjYN2EPiP=6kx+wBtFfYQ@mail.gmail.com>
+	<ap-AmsGgDNFYLlw8@mit.edu>
+	<CAH2bzCS8DzBqR_4ELtg__4x8dX0+SYihKK0LLy3-pJmu=pRnsg@mail.gmail.com>
+	<aqARgWGWYG5kZW9g@mit.edu>
+	<CAH2bzCSLiyJbJD4dUiCRE192A44Qw9B01vn-oA_6=foi2j3iuA@mail.gmail.com>
 X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
@@ -47,37 +47,127 @@ List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: fyeqo7ne5ge34niyq489fbtc1qjb3uu9
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 16A632000E
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: D764E2000E
+X-Stat-Signature: a595mbn3zggwyp8q7s4be8kjti61y1q9
+X-Rspamd-Server: rspamout03
 X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18xqsNCD78nfLIf0/Tqr3nnPBoGyil2P8A=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ztdk40UXgUzmMT7W6r5GmI6JgRSZPhMwCDE6kRoClW4=; b=lX6ReTP8kmmw1aqHMW7bn8k3NjmxwRIbUQmsMg8kAWma2+j2dHi1UrOhQvaJuOq8XMQttJDnzOjXQbu2s6z+/ov+W2BqGmPy6hBuwTj29odo12uRXJjjQ38OLYt8XJ6jm1r0BmiknDGl+9Z+NfpIhJ4WbzqXm8XzAKZ8e4iaLVs=
-X-HE-Tag: 1788888871-115315
-X-HE-Meta: U2FsdGVkX1/g7PhOtGbCwS5/+0uIuCXmfr6V5Y1mNgVtPAJbT6Az6eWZC/fEnh7I/CHZkQP92zqWVtH0q3tn1usM40i0uFTb4Zgb3/UuQilWS2MwrgC5PjdoqsgumInczK7iPLak+G9O7Wt3E6NgLwk53Serxx0FFrs/ZRNII2NBhzZx0uuZFU0246aKSwwcysV0FdFW3/VWeF2GoyvLNjfA3GdZ314fUXF1TCSS+Ti0IXFz1+z3HIJb7JQ/S9tGErb2J2SGwwzzrCMeW+8v+kXNAMu8Mhck3QVAuMFDa6HjJNNz92maDqyec+ijHkrn3A7jplIl0kjFxk9pFpEUrW6ZxSfo4iu05FmieOk5bTe8WPvHtnDkThx4RHdT4e547mRBrjym1Bhwj8UoUYzbBA==
+X-Session-ID: U2FsdGVkX18LNhF0HlpCfGTXeenYEsTnXcQfkmg3Rkw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=hqOemFhJsuZ7nEuUCU0Ohp4LCejrRsWW3bPSyKAORMk=; b=omkI4PvE3ax0Ccg1fKy0a5KUvepAepeWeRECC9EnAzLtxpKOIPSWcwDx2VKM36rTmPpTOinsKfpF1T6QU5KvRaLGN3qfCNisw9wDyAHqSPpQ0M6SVaK8SzNhWrLELKOXLCVd2vRzNiLpgVdkzcaVJirbiQS6xNcAsgqH/e5VA64=
+X-HE-Tag: 1788895686-220700
+X-HE-Meta: U2FsdGVkX18HQAAQM5E2dTIhT+QIzpl10ab17Cc/9L3JP0DR2Q7eCbFqInmkyESs+e7MCE40vxL19/2XvW5+g5GH/iPJChvRThHnUFdMLZwNumiDFd3FqM6TfbUh3MjfJqMorz6SOvEevsynkz1SFfmdqdqnH5xD3BtX60AQ4aflEWsdt0qOR88dT2w1o43GWcdeDLJb4sBArcqr2ZwcXPKFhn2IBDTEXYlOsxop3FogsGz7F82O1YWnQRirnPnSn/hfHZGdQkvBkmHvn9d3voEuEwDkdscrCLNfLowJS9sUaOvTKISXYHtdJWh4MruwtMsZdZWxoEMRpUuFJqLbIYOqZsVLA02LbjOgtgGE3zOy7CUmyouvSxMU2h2MaUNm/nVjwui69Sf1w9K4TVDQXw==
 
-On Tue, 8 Sep 2026 19:09:09 +0300
+
+[ Adding a couple of people working with ELISA ]
+
+Bringing back my memory of working at Lockheed Martin in the 1990s on
+helping it achieve level 5 CMMI rating[1] ...
+
+On Tue, 8 Sep 2026 17:32:40 +0300
 "igor.stoppa@gmail.com" <igor.stoppa@gmail.com> wrote:
 
-> On Tue, 8 Sept 2026 at 18:39, Steven Rostedt <rostedt@goodmis.org> wrote:
-> 
-> > Perhaps if you do your development on LKML with something in the subject
-> > showing that it is for your fork (like we used "[RT PATCH]" to
-> > differentiate our work from normal kernel), but it could elicit those that
-> > find your work interesting, and then you may get the discussion you are
-> > looking for.  
-> 
-> That's very good advice, thanks.
-> It seemed a bit intrusive to spam everyone with it, but if that's how
-> this sort of thing
-> gets discussed, sure, why not.
-> 
+> On Tue, 8 Sept 2026 at 16:56, Theodore Tso <tytso@mit.edu> wrote:
+>=20
+> > If the certification requires restricting and slowing down what 99% of
+> > the other Linux developers need to do, =20
+>=20
+> No. It doesn't. At least not in our case.
+> I've replied also in the other mail to @Miguel Ojeda about it.
+> The need is mostly about preserving certain properties of the "fences mec=
+hanism"
+> that we would be providing.
 
-Just don't Cc the maintainers of the code you modify, as they may think
-it's for inclusion. Cc'ing LKML is one thing, as the only ones that read it
-are those that are curious about what is happening around the kernel. If it
-has some marking in the subject that denotes the patch is for a fork of the
-kernel (that you would be happy to be included one day) it should be fine.
+What my LM manager always told me, the best process is the one you don't
+realize you are doing. That stuck with me. It's to make the process do
+things that "make sense" (although ironically, the CMMI level 5 process was
+definitely *not* that!).
+
+For instance, my process is to look at patches in patchwork for tracing,
+review them, ask for updates, iterate, and when I'm happy I apply them to
+my test tree. I then run my full test suite on these patches and if it
+passes, I then push them to my linux-next tree. When Linus opens up the
+merge window, I write the change log explaining the changes, and send a
+pull request to Linus.
+
+The above is a process. If I document it and then always follow it, it can
+be something that can be "certified" (if it passes the requirements). But
+I'll be following that process regardless of if it is a certified process
+or not.
+
+Hence, a process that you don't realize is a process!
+
+>=20
+> What you describe is the "pure-process-based" approach that has been
+> chosen by many.
+> There, one tries to prove that something is safe, through evidence
+> related to the
+> development processes, because it's needed to be safe.
+> Or else there is no product.
+
+=46rom what I remember, certification requires documenting the process and
+showing that you are following it. And have artifacts to prove it (git
+commits, email trail, etc). Repeatability is crucial. Being able to create
+tests may also be needed.
+
+>=20
+> What we do, instead, is to let the 99.9% of the kernel to be non
+> safety qualified.
+> But behind provable barriers. We qualify the barriers as a fraction of
+> the code base.
+> The barriers might use some simple kernel functionality.
+> "Simple" as in "easy to evaluate its safety" e.g. like linked list manage=
+ment.
+> Mostly, stateles/lib level code.
+
+I'm guessing that this will affect the core kernel the most (scheduler,
+interrupt handling, memory management) which should be treated with a bit
+more scrutiny than normal device drivers as if they go wrong, everything
+goes wrong.
+
+File systems have a similar requirement because if they go wrong, people
+lose data, which is never good. Funny enough, I'm not sure if file systems
+are part of the safety portion, as file systems are mostly used for logging
+in safety environments, but may not be part of the safety path.
+
+>=20
+> So the real concern, there, would be that in case the fences get
+> merged, their qualifiability
+> should be preserved.
+
+What you should strive to achieve is a way to make it easy for Linux kernel
+developers to follow the process you need. If it makes sense to follow and
+not a bunch of bureaucratic BS, you may have people following it.
+Especially if it helps make their code better.
+
+>=20
+> Most of your objections seem to be inferred based on others' previous att=
+empts,
+> but they do not actually apply to what I've described.
+>=20
+> In fact, we truly do want the kernel to stick to its present process,
+> because we can
+> rebase easily on it, since we are not tied to qualification of
+> extensive portions of it.
+>=20
+> The idea is that once a core safety framework is present, then whoever
+> wants to use a
+> specific driver can choose to go the extra mile and make it compliant
+> with the framework.
+>=20
+> Fully voluntary opt-in.
+>=20
+> Or if they do not care about its safety, they can still use it, just
+> not as a safe component.
+> So it would be really on a case-by-case basis.
+>=20
+> And for those who do not care about safety at all, even the core
+> framework can be fully compiled off.
+
+It sounds like you want to do what I mentioned above. To have a process that
+kernel developers can follow that's not too different than what they do
+today, but just in a way that it helps satisfy your requirements.
 
 -- Steve
+
+[1] https://investors.lockheedmartin.com/news-releases/news-release-details=
+/lockheed-martin-achieves-record-fourth-cmmi-level-5-rating
