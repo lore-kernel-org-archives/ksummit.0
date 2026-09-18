@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83944AC155;
-	Fri, 18 Sep 2026 08:55:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B1B4C2253;
+	Fri, 18 Sep 2026 12:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721710; cv=none; b=NptMykzkPOMicpa6o7V9yf3N/OUNESco1cD4acslOqjpPYgtDA7SAFzd/M61XQdl/rDvWhAWTSVuua8n43FVvTMVIu6q1vVXmuwmmjw9sJImsiY0nGmn+Lgv3UyLQmVR2h3kVbDcdba8bIY5MqK+YFEAhn3sfIFstUGFer6vk/Q=
+	t=1789733062; cv=none; b=V776LagFr526LH9fDm1YNu4Ikvts0oP3kwLJHfHSV+a3vT+ecgta9+O8fMoZY1m21M6K/jSkEfX+XacGA3vywvU1KOYgvxMyOyqosaSh4mKH9UY8c3kU096/okgvBxFyuLUuF/dY7FWKs8hYgpKV9HUkLyRWURxKjGH8ANCrOZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721710; c=relaxed/simple;
-	bh=A1H4Ia3lXorJqtEJHQxlLxzSuX80zgxpLOLBud5aqEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ofQJZoANkNnFMvOcaSApkmWdo+o5hCS8nzhyduQmb8or7iPd6gDOnF8UQCsK8BBIhtumIv04BDlRDlQ4ZmqiyxyL0NAamb/K+SfQPzNL2Bcc4DpsIF+14DC+BCm2wnISX9LJz0oY3UnJKdmqc7ohMmXNdsl4IMs91L2m9aRrR8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCvMxaXC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789733062; c=relaxed/simple;
+	bh=wpl1rWhALzXL0RhDHuICP7Nd3gPGXtY5uCmqGcFX4bo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=PFHCT6HqYbRbz2dn5sV3PWHPbLV/O5fuzOyLpK5T1ltRjx297EE0VqTdUzfY/WQXc0Yu8Wf4e4mIpKqx0z7VHk8u6QuaP7Bdds4ZZJADCZIhOE/ICAys0/2DAqgWB3rb5YN5Q9N/t4POYcNzWKgnxUwd7nn34glp4OODINPuXE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iTq7PeXL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCvMxaXC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213521F00898;
-	Fri, 18 Sep 2026 08:55:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iTq7PeXL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A2A1F00893;
+	Fri, 18 Sep 2026 12:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789721707;
-	bh=ORE5eed2IP/CTmN0prx+VgZrUM1l5BbU8OAQtVGhQgg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FCvMxaXC8hOjRbNfHL3oVoMjzPHF5+DsjDvWeTsV+1Gatk75iUXNkxhynJf0FBkvu
-	 XJg0Q6fnuelNNUVoKqNW7/7jcIKDGpVI6PIQ7kVHyBfiyw/ZpI0IPfsgEkfuM2zcJB
-	 y0gtbcpLAxGBffDEthL2JSYsBGng7aPZn0PupxkFxADaJUhvrmxQGwzvNbsw8W58K8
-	 oW/XzVdGzEp2IMPky4ZhHkcc5c8JT6dmfg8KMmd72pkWnPAPGQQCrACnZCzFtYBUg8
-	 43vWrhHHYIalivjIZKxpssVSq7cB+YhLKvJtLzmTODRIRO6GmX7o/VazBHRcf9o/fq
-	 h8xDDoGhsuWMw==
-Message-ID: <7d0497bd-3946-47e0-aba9-143e16ba2631@kernel.org>
-Date: Fri, 18 Sep 2026 10:55:02 +0200
+	s=k20260515; t=1789733060;
+	bh=wcoIMDvcSysLGwQ9Y1JQnMASPj3k3j7sUHBN2AXqZw4=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=iTq7PeXLNJK3tPkx9gEHbPALUa3dRN+xKNEt2Mh619625r1W9z9OCikqwhHFdr2+A
+	 e6DqkMIOgP1Wvk6zpwVLl6bTRB8u60c5rQnYLNxNB261VgSZqLrT/VHnjU3N49pqJH
+	 qT6wEcXnbCSdqH0MXUDB9LC2XnKsfeT8hDJKD7YgGmSea4ngwYHLfI5xFyeuhjmh1g
+	 Knr6Ah+JKSanEiVcTtS5Isn/vwQDfNTwBdgRmmgQP2l6zS4L0CH5wewR9O3orP64gv
+	 bXz3HWe9dtJPxqKDm3UKUojE3nFf8FA4hfH5SuLEF1pgp+3/1aV15pG0/mhgPdlerw
+	 g8pjSFRnrHsIA==
+Message-ID: <44f0077b-780c-44cb-a57d-6f34685f8a44@kernel.org>
+Date: Fri, 18 Sep 2026 10:55:51 +0200
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -36,12 +36,12 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: 2026 LF Technical Advisory Board election - call for candidates
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- ksummit@lists.linux.dev, Dave Hansen <dave.hansen@linux.intel.com>
+ ksummit@lists.linux.dev
 References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
- <CAMuHMdXASe0VkAwaKedwA_4R3y9ob+n61JBVYODOEves62K_Fw@mail.gmail.com>
+ <60e88574-4a88-4473-803d-87a237555c74@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -88,26 +88,38 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <CAMuHMdXASe0VkAwaKedwA_4R3y9ob+n61JBVYODOEves62K_Fw@mail.gmail.com>
+In-Reply-To: <60e88574-4a88-4473-803d-87a237555c74@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-> 
+On 9/18/26 09:23, Vlastimil Babka (SUSE) wrote:
+> On 9/17/26 20:32, David Hildenbrand wrote:
+>> The 2026 election for membership on the Linux Foundation Technical
+>> Advisory Board (TAB) will be held electronically after the 2026 Linux
+>> Plumbers Conference, from October 8 to 15.  This announcement covers
+>> both the call for candidates and the details of voting in this election.
+>>
+>> The TAB exists to provide advice from the kernel community to the Linux
+>> Foundation and holds a seat on the LF's board of directors; it also serves
+>> to facilitate interactions both within the community and with outside
+>> entities.  Over the last year, the TAB has overseen the organization of the
+>> Linux Plumbers Conference, helped develop the Linux kernel's project
+>> continuity process, advised on GPL enforcement developments and the use of
+>> AI, worked behind the scenes to help resolve a number of contentious
+>> community discussions, worked with the Linux Foundation on community
+>> conference planning, and more.
+>>
 >> The public minutes from TAB meetings can be found in this repository:
 >>
 >>     https://git.kernel.org/pub/scm/docs/tab/tab.git/
+>>
+>> Note that there will be an "ask us anything" session with the current TAB
+>> at the Linux Plumbers Conference; it is currently scheduled for 09:00 AM on
+>> Friday, October 7:
 > 
-> No minutes since last election?
-> Thanks again!
+> Captain, it's Wednesday
 
-Ugh, apparently Sasha uploaded the public notes since 2020, and nobody realized
-that this task would have to be taken over once his term ended ...
-
-Thanks for raising that!
-
-@Dave: we need someone to upload the public notes. I'm knee deep in preparing
-the eligible voters and don't have any capacity for that right now.
+Indeed, it is Wednesday my dudes!
 
 -- 
 Cheers,
