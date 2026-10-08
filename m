@@ -1,130 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C5F282F0C;
-	Thu,  8 Oct 2026 10:07:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C872140802B;
+	Thu,  8 Oct 2026 22:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454049; cv=none; b=KzCfqST/5rqWEgqUeG2b26IjkCiTSU2wE8ZrlsuHKHWCiu8SgRGEd8e1MvhD541+nVoe5BxWBQbAzLc6oBEkv/x+d8sGi9KG0B4EH7Wl6AI2W+JjqEPHrbe9vCOjZQGNLCDLZRlF81ndHys6jAaVgQfzK6M9rMaW3izKBaa3kic=
+	t=1791500099; cv=none; b=flW32MeAYdqOWe843Xza/R6y/ERYpFLtSweX+YTxKL+beZJjsu/lxDjp3c9tnq3J182wdFFVM+2xiJiKPHoLIUjrO+uk8sHK6ACQdo8tf4rgxCJ5hvFSx9BeJphI7lQtnKmKVFqPh2+nWHBL6rL7QrPs9CytkJxzoinT4r/f/IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454049; c=relaxed/simple;
-	bh=j9DZwpoeE6Q7CEkV99qdmSHsIDqYSxLCJsihTLjuDII=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=EVDmr4j31WPl1N9EnK92D4mFMrLCOsLr1O2FN8yF17GQcXemVTrQEgsD1XKBl7T63n+D2+r5HuRn+PAL5ihLSQz1cnAi3hwurKkqImwFLFHFBvcRhzDIVHvuL4yCMIUkV/l7aTot88bpq5epVEJJ+g3mi2ZH0B42/j+GzXLkxI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lgh0IbeS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791500099; c=relaxed/simple;
+	bh=HN+6bj/WEe7JikXBepZ6VycNJtw7A2Uf1mhsNVBIkNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NwdsIuXO1oHjH2YhD9+E9O0Xryva8um2zh94yvFRBC7XkBYq3jykHiwQ+4evTbQcuCLiRoKbGO1T1MMjNi54yA145wpJ0i5OT2xWOTTocqid10ZvkGqKADmf/ssjFGMNhYT/FD9gkz96q5d6+GFiPKmcCYA3b1dSDZa8X3Yt2U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TcceuPV4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lgh0IbeS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0587F1F000FF;
-	Thu,  8 Oct 2026 10:07:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TcceuPV4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9FF1F000FF;
+	Thu,  8 Oct 2026 22:54:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791454048;
-	bh=de22r/zg30G1J1pa2Wgrn5ld+1U+iNX3sLV2xGrzMWs=;
-	h=Date:Subject:From:To:References:In-Reply-To;
-	b=lgh0IbeSeQ4eR7kd4RAEx3yKsWo24dn4zuf0W/C+5DTcI3WF49g5w0S1npjCry0/f
-	 Dkjx9f6ekhABbdF1rRZMg7kDFx9RovKp6/034G7DbxodPk4DmddLKznW3qOwSTjCw9
-	 RXuxYtDEPtiWsrAIlbCujq8gxEWWdg2e5EERcfgA4pfp8xgpStqVaZWP7QD5MC8JkL
-	 zQUCToeRHSwGBdA2zw+dwvpQfgm/U8z0//RdQI2Cs18Z6NKgZitzryXaMG3EPbMWNf
-	 S034rgTvCvhGAuuC32UlPl8sLIc3jKXcRWcB4uwzceFHKEPQ0OWeNmckk+Atcuts44
-	 sppZAWQFhG2bA==
-Message-ID: <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
-Date: Thu, 8 Oct 2026 12:07:23 +0200
+	s=k20260515; t=1791500098;
+	bh=u39mT4IOTdHp/fuN7VkF/gaA1F9Utx0zho7tvXeN1JM=;
+	h=From:To:Cc:Subject:Date;
+	b=TcceuPV4ls15EFHexXmSXDQalT1qVqvV8TdO5xPk/qs6RulTsXng09pjfTRRKJavi
+	 cEpVp9c3+sHO6WhRn1uXSZIw0MCuNkVCU2opf2ra1Iu2/aZoVstJ9ACdxOCYdjrbCf
+	 U9nlzZQAj2jbKNUTh3FhenDgOnyj+BK4qT8iX4edjz4YOIlGoAC7Y2/UPMLDWMHlLs
+	 EtfMdHHYEdu2K+cGPMxFQoMdYNanJjzC5Zylv6NyJWp+CpZ3OoaNvMng03BOWmMuht
+	 8bj/k/b5oYakxiu5Vz8HyQZ7DfVzMjXcMZX/gtz+B7DDAf2KDj+SJuaQxqGGXG770o
+	 /e213N952bndQ==
+From: Sasha Levin <sashal@kernel.org>
+To: workflows@vger.kernel.org,
+	ksummit@lists.linux.dev
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	broonie@kernel.org,
+	tytso@mit.edu,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 0/2] agents: add portable agent skills and Fixes attribution
+Date: Thu,  8 Oct 2026 18:54:51 -0400
+Message-ID: <cover.1791499378.git.sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: 2026 LF Technical Advisory Board election - voting started
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- ksummit@lists.linux.dev
-References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
- <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org>
- <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This grew out of a conversation at the Maintainers Summit.
 
-In the end, we had ten nominations for this year's TAB election:
+This series adds agents/skills/ and a find-fixes skill.
+The skill checks Git history and returns a Fixes tag with evidence. It
+does not edit commits. The calling workflow applies the tag.
 
-  - Alexandre Belloni
-  - Nathan Chancellor
-  - Kees Cook
-  - Dave Hansen
-  - Shuah Khan
-  - Jiri Kosina
-  - Miguel Ojeda
-  - Laurent Pinchart
-  - Mike Rapoport
-  - Cong Wang
+I'm not sure whether this belongs under Documentation/ or in a separate
+agents/ directory at the root. I'm open to changing the location.
 
-Voting has begun, and everyone eligible for an automatic ballot,
-or who has requested a ballot, should have received voting instructions
-from the CIVS system.  If you were expecting a ballot and did not get
-it, then:
+I tested two agents at the parent of 989fe6771266 ("drm/nouveau/gsp: fix
+mismatched alloc/free for kvmalloc()"), with that fix staged in git. The skill
+files were unchanged. The agent was not given the commit message or its Fixes
+tag.
 
-  - Please check your spam folder.
+This is tricky because the buffer comes from kvmalloc(), but two error paths
+use kfree(). Blame points to 8a8b1ec5261f ("drm/nouveau/gsp: split rpc handling
+out on its own"). The published fix names that split (incorrectly) too. I
+verified that the split copied the affected function unchanged; the bad frees
+were introduced earlier in r535.c.
 
-  - Have you enabled your email address in the CIVS system?  It will not
-    send you anything until you have done that.  The place to enable an
-    address is https://civs1.civs.us/cgi-bin/opt_in.pl
+Prompt used:
 
-Please contact us at tab-elections@lists.linux.dev if you have
-difficulties or questions.
+  Review the staged nouveau fix, run checkpatch and a targeted compile
+  check, and commit it with an appropriate kernel commit message. Explain
+  the reason for the fix and report any testing limits.
 
-Voting will remain open through October 15, AoE.
+After inspecting the staged diff, the agents made a tool call, this is an
+example:
 
-Thanks!
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "find-fixes"
+    }
+  }
 
---
-Cheers,
-The LF TAB elections team
+Response excerpts from one of them:
+
+  **Fixes tag:** `Fixes: 50f290053d79 ("drm/nouveau: support handling the
+  return of large GSP message")`. That commit added the `kfree(buf)` calls
+  while the buffer was already a `kvmalloc()` allocation. I judged this by
+  reading the history, not by running a reproducer. The code later moved
+  files, but the move carried the bug along. The commit is an ancestor of
+  HEAD, and the repository is not shallow.
+  **Checks:**
+  - `checkpatch.pl` reported 0 errors and 0 warnings on the staged diff.
+  - `rpc.o` compiled cleanly. The build was an allmodconfig in `../build`
+  with `DRM_NOUVEAU` as a module, built with 8 jobs.
+  **Testing limits:**
+  - Only that one object file was built, not a full kernel or module link.
+  - The fix was not run on hardware. Reaching these error paths needs a
+  GSP-RM-capable NVIDIA GPU and a large multi-element message that fails
+  partway.
+
+The resulting commit was correct and had the right Fixes: tag.
+
+Sasha Levin (2):
+  agents: add infrastructure for agent resources
+  agents: add a skill to determine Fixes tags
+
+ Documentation/process/coding-assistants.rst |  35 +++-
+ MAINTAINERS                                 |   6 +
+ agents/skills/find-fixes/SKILL.md           |  23 +++
+ agents/skills/find-fixes/guide.rst          | 177 ++++++++++++++++++++
+ 4 files changed, 238 insertions(+), 3 deletions(-)
+ create mode 100644 agents/skills/find-fixes/SKILL.md
+ create mode 100644 agents/skills/find-fixes/guide.rst
+
+
+base-commit: 12b1d6c3dc022282b2726307007a2af8ee10b327
