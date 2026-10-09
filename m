@@ -1,128 +1,69 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DE649E5FB
-	for <ksummit@lists.linux.dev>; Fri,  9 Oct 2026 09:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E14549C4B5;
+	Fri,  9 Oct 2026 10:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538972; cv=none; b=Vv0RxL4pJEP50I2plnOj4oz+SXWBJGQt2aKMLaKeFJ6U/ExovS82Ev6KtbMUl6JV+XHC/iYfswrtejczy5/hhsneRYTsgWfSUp+1Hg+pCmxEbu2t+zEtt+TgX9yaStqGmcI40VOOBZ/ma8MCTXcEUyBYN4asBpnGQNsLUpBfrdc=
+	t=1791540697; cv=none; b=PC8VmNIpN0zyH8JQnL5TcVTH7RWNlPUoY3lxCwPrqOWbIUgJpZIR1v3/FkjJbF/Y5Uf/WByFmIekNLypYwFFCeeHMP41Ov6wrBiKQXoZtzpuTDI1wXzq4K3B4z+yNuFVOW8r0bts/haOhkfHcV3pS2BPh2rOAonSdRUvpHy9bO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538972; c=relaxed/simple;
-	bh=1T3BeJzcb1BcpYQ7mzRZhVonYiP3CKqYe7tRU4454u0=;
+	s=arc-20240116; t=1791540697; c=relaxed/simple;
+	bh=+AHeosVgImrW9M5js3wM4bugPrJ9Mik12isPB5SVCbk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mcS4iu64SJUaCJhqMiGGDTw3wgVKEfjgMOpDZRotqikJdl/wc25SDkIuyXrKH95efhtHlpquH8lQiGDd/ft5cngzFpLGxlw6BaM1XZW85BqdgO3woZX87cWZlkgAwIcyO0Q15+JF/BTEGLYxFYs22gbwio7Y1hOOm6FZ/N9WYqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OUtzYrMf; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=CdSo++idLmTNHSIkJujWJJJSmn9DHOlYO+afLlocibOMoWTBQgdWetbQFeZyjnNwPXpi3JHncJtXSGcMEa2T4lHVUmTxWmqjUnSicGmJ9MwoFqws1auUaZ2iqYX/jZzUHU4R/sATY0eHIG2wrqgue0P/5D6S5TscyzalPSKeg4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCt+dML0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OUtzYrMf"
-Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1BDD524A;
-	Fri,  9 Oct 2026 11:40:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791538839;
-	bh=1T3BeJzcb1BcpYQ7mzRZhVonYiP3CKqYe7tRU4454u0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OUtzYrMfXCx5W012sBHDyUfe6dlnHgSFO3s7bfOVD47halltaaFkECJXxqYHRZg8H
-	 d/oYtWgTz90PrawpJZf85mqKuetWZ3/OyvWX1b5dhzTNvEZ1lcNjkERICy2X+PmIIY
-	 Za8OnMD/2oSpWwHlr3XK2mOPQoB7XOhv/EnXsxsA=
-Date: Fri, 9 Oct 2026 11:42:37 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCt+dML0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BCF31F0089D;
+	Fri,  9 Oct 2026 10:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791540695;
+	bh=ymPuZI0fAnFqsqK7TjwwxqbFews6fz78UratcRfYtSM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bCt+dML0SAdglO4kkzkeVe//bmGvNFJRodvxijUGlMkyEDhFyt3sllslPPmTC1UEx
+	 oNUFAJD85yHsqX6QY33G1BVZ5sx+FOzEYnsKEuFVPyb76Zi85Q36jwu8X0wAUXrt6e
+	 m0kPbChH/CykDsxQxF1h54sSHZIVW5hIohzUl2G1HlfKjcaHAa+iJr9F+BcW9i48zA
+	 3CoTRwzDDnKb7R8rD+8W72JIpvAMGDP01i02ZOVVc9mSKpDqCr0w81a8bM6Zw04Ssg
+	 xgbr0rL2Rb7B3pf3GKJJZYUH1CqhVlQ7g3srJX7TDsavkAFWMI3BmlRLCSK2IV3D/6
+	 UMv4O4oi3rPng==
+Date: Fri, 9 Oct 2026 06:11:33 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
 	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
 	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
 	broonie@kernel.org, tytso@mit.edu
 Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
  attribution
-Message-ID: <20261009094237.GA693830@killaraus.ideasonboard.com>
+Message-ID: <asi91eAf5veKEUA3@laps>
 References: <cover.1791499378.git.sashal@kernel.org>
+ <20261009094237.GA693830@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <cover.1791499378.git.sashal@kernel.org>
+In-Reply-To: <20261009094237.GA693830@killaraus.ideasonboard.com>
 
-On Thu, Oct 08, 2026 at 06:54:51PM -0400, Sasha Levin wrote:
-> This grew out of a conversation at the Maintainers Summit.
+On Fri, Oct 09, 2026 at 11:42:37AM +0200, Laurent Pinchart wrote:
+>On Thu, Oct 08, 2026 at 06:54:51PM -0400, Sasha Levin wrote:
+>> This grew out of a conversation at the Maintainers Summit.
+>
+>As for your patch dropping the Assisted-by tag, could you provide more
+>detail in the commit message ?
 
-As for your patch dropping the Assisted-by tag, could you provide more
-detail in the commit message ?
+Maybe I should have omitted that line altogether :)
 
-> This series adds agents/skills/ and a find-fixes skill.
-> The skill checks Git history and returns a Fixes tag with evidence. It
-> does not edit commits. The calling workflow applies the tag.
-> 
-> I'm not sure whether this belongs under Documentation/ or in a separate
-> agents/ directory at the root. I'm open to changing the location.
-> 
-> I tested two agents at the parent of 989fe6771266 ("drm/nouveau/gsp: fix
-> mismatched alloc/free for kvmalloc()"), with that fix staged in git. The skill
-> files were unchanged. The agent was not given the commit message or its Fixes
-> tag.
-> 
-> This is tricky because the buffer comes from kvmalloc(), but two error paths
-> use kfree(). Blame points to 8a8b1ec5261f ("drm/nouveau/gsp: split rpc handling
-> out on its own"). The published fix names that split (incorrectly) too. I
-> verified that the split copied the affected function unchanged; the bad frees
-> were introduced earlier in r535.c.
-> 
-> Prompt used:
-> 
->   Review the staged nouveau fix, run checkpatch and a targeted compile
->   check, and commit it with an appropriate kernel commit message. Explain
->   the reason for the fix and report any testing limits.
-> 
-> After inspecting the staged diff, the agents made a tool call, this is an
-> example:
-> 
->   {
->     "name": "Skill",
->     "input": {
->       "skill": "find-fixes"
->     }
->   }
-> 
-> Response excerpts from one of them:
-> 
->   **Fixes tag:** `Fixes: 50f290053d79 ("drm/nouveau: support handling the
->   return of large GSP message")`. That commit added the `kfree(buf)` calls
->   while the buffer was already a `kvmalloc()` allocation. I judged this by
->   reading the history, not by running a reproducer. The code later moved
->   files, but the move carried the bug along. The commit is an ancestor of
->   HEAD, and the repository is not shallow.
->   **Checks:**
->   - `checkpatch.pl` reported 0 errors and 0 warnings on the staged diff.
->   - `rpc.o` compiled cleanly. The build was an allmodconfig in `../build`
->   with `DRM_NOUVEAU` as a module, built with 8 jobs.
->   **Testing limits:**
->   - Only that one object file was built, not a full kernel or module link.
->   - The fix was not run on hardware. Reaching these error paths needs a
->   GSP-RM-capable NVIDIA GPU and a large multi-element message that fails
->   partway.
-> 
-> The resulting commit was correct and had the right Fixes: tag.
-> 
-> Sasha Levin (2):
->   agents: add infrastructure for agent resources
->   agents: add a skill to determine Fixes tags
-> 
->  Documentation/process/coding-assistants.rst |  35 +++-
->  MAINTAINERS                                 |   6 +
->  agents/skills/find-fixes/SKILL.md           |  23 +++
->  agents/skills/find-fixes/guide.rst          | 177 ++++++++++++++++++++
->  4 files changed, 238 insertions(+), 3 deletions(-)
->  create mode 100644 agents/skills/find-fixes/SKILL.md
->  create mode 100644 agents/skills/find-fixes/guide.rst
-> 
-> 
-> base-commit: 12b1d6c3dc022282b2726307007a2af8ee10b327
+Ted T'so asked if we have a way to handle incorrect Fixes: tags in our stable
+tree work, I pointed out that we have LLM workflows to help us determine the
+correct Fixes: tag when we determine when the issue is first introduced, at
+which point other folks showed interest and asked to share it.
+
+Please treat this as just a regular patch adding functionality.
 
 -- 
-Regards,
-
-Laurent Pinchart
+Thanks,
+Sasha
