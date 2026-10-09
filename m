@@ -1,71 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9612D592D;
-	Fri,  9 Oct 2026 14:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366574EFFBB
+	for <ksummit@lists.linux.dev>; Fri,  9 Oct 2026 16:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555768; cv=none; b=CRgL83RAUybyueEDvPU85aQcpowNgDA25DegUr8h3N3gFs5OZhujGhHXRo16P0OuPz3Ws1Ew8sxo8kvk4lCk5Fa4mGfs9srcRzAZNiBAPw1nDxBLOXlRz2l8s3zic2oOXv+WIqWU6W4y/CTJEncgPWkalJPrybrBFVfTtQmch9o=
+	t=1791563451; cv=none; b=TjY/ZrC2BkR0/lOyTM42CzJqomDYgx3NV92Bn4MFF1pgNJMvzmzOb+NiNQy4p7Ib7nYly3YMMES05yL7C+9j55sP9xKEV6EJ6i9RZXrU/S6/MA606I6pDswEv9CdJgLCbKqT9aD8NHtp58fNxxxP20ITEMQqr6J9prDMB3QvVeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555768; c=relaxed/simple;
-	bh=fQbqETrk+6hHLAWxiWRSbCCRBONqw5Hry4DTx6uTvk0=;
+	s=arc-20240116; t=1791563451; c=relaxed/simple;
+	bh=tcmgkuhiNN17EugX4RUpYEsyUNnSbw6ABrqH4Thixe8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MS1wSMAD90vsBx8yqxoIylyLQ9Gmf05PxzXzvNs1Pz8gehfUi5SkqnE6e0Rrg6DqIlkB2u3eTOItcw/nWtC8okyppWomI4lyrlnjwwnupDt7CIdEWPkdMa4JF4aOF0NOJz9oKzdDo11TwUG9Cc07Ua9FCMGpum9b/HLVra1aE6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qs50c1fv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OmHuD06DEP6yYzwMOr3Fm8L3pZnAoQ+4+9d0aHgC2CZw+31/5XOnh8Z9hEOLhNbVhUbILrkxAgob/NMLsuYia1gWyy3YKPKNzIgezYTyNlpsihnb/aeyCVOjVDdA1HxI5/bzJDbJVYmKITMff2O1Ha/PVz5OfMCSm2BYZxyZHzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=OIqWkl5r; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qs50c1fv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C951F00893;
-	Fri,  9 Oct 2026 14:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791555766;
-	bh=k5u0nEAirOWqi1VCaxdmJQ4JqrSlci3pWXWjeAqH/8A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qs50c1fvAAJGbUqZVjnk06seG8+SFM7f/mLMzFePbxQmD6so/orpPKgaMhTjrPUEH
-	 ZqYjQ5CMSb0UNsAg+RnaPsTwAyUxN4a5/zUchKuQkk11K7zsamNpDZj/2E7aD5St/3
-	 FVZXsiqqNzVWF8vzv0sSt3dXwvOvR8C9sUJJhUiU=
-Date: Fri, 9 Oct 2026 10:22:44 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="OIqWkl5r"
+Received: from macsyma.thunk.org (99-196-133-108.cust.exede.net [99.196.133.108] (may be forged))
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 699GUAvb004081
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 9 Oct 2026 12:30:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1791563429; bh=ZM0CvUeJVuI50r1AFpimp14FZHjiiFE5U0fKRuwYWA0=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=OIqWkl5rivkO9/94TUUQ+4lRjfaFQaqIcdZ8GYc97A4RclY6iBe/HBRdaV9q+YQ9E
+	 Dz48C7cRBS2bxqAsKVQRQAatJEbMlVDzwIZbc1VAn5Ba8v+M5Uo3iUMaAR6j1QVKcw
+	 sJJcmNIgsOGrT4TmiE26OOXpebxfsYsWiWhCMEfuNPTC1H97Z4YgYRL2qU72jFxpYr
+	 +Hnwpx/r/ezZacryM/AB38EtA0Ol5kGBesLWiymt8lKM/yjb8rd0OJQxxvSffa8QAG
+	 GZMHfDMHZ7LlP37VCyoEidtWSw+hEXAWO7Gn+XcJGPp1uoVSsFfDmaQDPP+BWNQfoe
+	 QegKAK+8EadaA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 8D8C41FA0BE7; Fri,  9 Oct 2026 12:30:07 -0400 (EDT)
+Date: Fri, 9 Oct 2026 12:30:07 -0400
+From: "Theodore Tso" <tytso@mit.edu>
 To: Sasha Levin <sashal@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>, workflows@vger.kernel.org, 
-	ksummit@lists.linux.dev, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	broonie@kernel.org, tytso@mit.edu
-Subject: Re: [PATCH 1/2] agents: add infrastructure for agent resources
-Message-ID: <20261009-nebulous-prophetic-caiman-c7842c@lemur>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        workflows@vger.kernel.org, ksummit@lists.linux.dev,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+        broonie@kernel.org
+Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
+ attribution
+Message-ID: <askTmFZC6RJKAE_p@mit.edu>
 References: <cover.1791499378.git.sashal@kernel.org>
- <5dfafd6f79165526fe17774c55b553b7dfe4b3fe.1791499378.git.sashal@kernel.org>
- <20261009134025.GA11438@unreal>
- <asj4FCbBoca8TUK6@laps>
+ <20261009094237.GA693830@killaraus.ideasonboard.com>
+ <asi91eAf5veKEUA3@laps>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <asj4FCbBoca8TUK6@laps>
+In-Reply-To: <asi91eAf5veKEUA3@laps>
 
-On Fri, Oct 09, 2026 at 10:20:04AM -0400, Sasha Levin wrote:
-> > > +AGENT RESOURCES
-> > > +M:	Sasha Levin <sashal@kernel.org>
-> > > +L:	linux-kernel@vger.kernel.org
-> > > +S:	Maintained
-> > > +F:	agents/
-> > 
-> > If you choose a separate entry instead of adding this to the existing
-> > "Documentation Process" entry, let's update the mailing list to
-> > workflows@vger.kernel.org. This is where all process changes are announced.
+On Fri, Oct 09, 2026 at 06:11:33AM -0500, Sasha Levin wrote:
 > 
-> Hm... What do you think Konstantin?
-> 
-> I remember the workflows@ list was originally created to share our
-> secret/magical workflows, and I'm not sure that this one qualifies. We can
-> start a new list too if it's easier.
+> Ted Ts'o asked if we have a way to handle incorrect Fixes: tags in our stable
+> tree work, I pointed out that we have LLM workflows to help us determine the
+> correct Fixes: tag when we determine when the issue is first introduced, at
+> which point other folks showed interest and asked to share it.
 
-Eh. At this point I'm trying to shove everyone towards "just use dfn: queries
-for your stuff, stop relying on actual 'lists'". I'd just leave it as
-linux-kernel@vger, honestly, since the automated patch churn may annoy those
-people on the workflows list that we actually want to keep there.
+The context behind the request was from a conversation I had with
+Hannes Reinecke earlier in the week at Plumbers, who told me that in
+his estimation 15-20% of the Fixes tags were actively wrong, and were
+often due to contributors running "git blame" and just looking at the
+first commit which modified a line touched by the patch --- and
+maintainers (including myself) not having the time to verify every
+single Fixes tags, or adding any missing Fixes tags.
 
--K
+Hence, having some help, either as a standalone AI skill, or as part
+of a Sashiko review, or both, to make sure Fixes tags are correct
+would be really helpful.
+
+What follows from this is that for people who are doing backports to
+their own kernels (if they can't depend on LTS kernels), especially
+for commits before we have Maintainers regularly using the AI skill or
+Sashiko can start suggesting proper Fixes commits, they should not
+depend on the Fixes tags to determine whether their production kernel
+might need a particular security or other bug fix.
+
+						- Ted
+								
