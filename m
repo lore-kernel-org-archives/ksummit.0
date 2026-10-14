@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911054D09F8;
-	Tue, 13 Oct 2026 13:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580A247533F;
+	Wed, 14 Oct 2026 08:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897314; cv=none; b=ozYbSuvc2MNuqHwAnXdTmEWCyVcMAY/PuzlUK3z79HJoNGQJb+nNvqaf5W3uEZygB5fPdFhTd7RBdfEFuqmWX0tmsGSAtxCUTHnZrVzbgWTJOG8koiDw+rhtOX5c7RVKbl3hAYaf3J6YxpnnXvVI37JaxA+tTK1TJxKP2Y2jSRg=
+	t=1791967339; cv=none; b=f/RycO0Su3S70zQQKpVNHJdo9DyDXMbMzemThAoLTDq7aN+Ct2qqyYDmxpB6I8UselHy1SQzJ7nmpeAOkqTIyjzuQv2y7JYeXN3Pz5cgCWKUGAiXCTKFritHCBTbUkqYZdSm+bDWVGS0t17pqO/B9KDqAbcgdIiQScrewW46/UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897314; c=relaxed/simple;
-	bh=0cRmbkSpWqtOkdLJMcGkz9vtYphpfeMhHKc91PFNl/0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LelJ0vu8btEH9G/eaRRKJrhNP4cAK7a81htVCXG9Z6YsyW0xt9jCLSJ7/vIBGJUSf04GvGWaQJH6c+A7QHkQd6h23+lwKOh+SH62wqWKcpR/mw8Y6eldtKTR2X75Jly3JCeqM+ftjrFKs09H1QbsvpfspuEZULDpHGsGTvWwYBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VcHctNc+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791967339; c=relaxed/simple;
+	bh=tK8lra/dReHc/0SlxAuvkDnLWE5wdnvnb8/yRByFDcg=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=B+rdUXxuT01mGuYdxu+e0Xpd/+wSxLwNvILUDfWIbLUfotpaaPvUvvYeFGBcez/jeha3WXNXBvvtiw5ldBraAZk1EGrL2hKctwElP6p98++4x+WLhvpn98zE9k0lLONM5kbD2N4kzS2TSkek4UiFK0RkdmqvtrmGd8VZtmcsslU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyQs1PNJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VcHctNc+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888561F000FF;
-	Tue, 13 Oct 2026 13:15:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyQs1PNJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23631F000FF;
+	Wed, 14 Oct 2026 08:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897313;
-	bh=a3iCVAL8BhnB4sqclc4yd2J5otsrZl54zKQnvrRdjPY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VcHctNc+w54BL+VCFquFWtEY3XTGhE3/2subBJif2ocq17rp+4V30Gi7SJa1jsJlE
-	 SnIjvNo/1QRzf29yezjOc1/OQgTFZZS3FEKcZJSoPSe/lUj8hLn0eGPRSIIzDzHSLo
-	 UhG2fxrDNxZpjSojqtccRGUuSLkRTmFn9HvpuWKFawZ7xPq27aa8ckZa3zm8qJtnEC
-	 EPLK5Swld2vi4Ke1iEmnk2+kUCFVWCekG+OEnfp8V1C4Rp/V+Pk3JPJEntevo7URKE
-	 XK/0boGZ9xoBSzozwJ/ah62y7xiWdeQbeJsKlC7YLdy0jHSNzh1TN8IgcT4MkqNknd
-	 RRXbeATrncJJw==
-Message-ID: <c18f2a40-53e0-4161-9c3f-6511eb5d811b@kernel.org>
-Date: Tue, 13 Oct 2026 15:15:04 +0200
+	s=k20260515; t=1791967338;
+	bh=O4YUvIPcE3U2DI+6+HI+UJ14xnY+oG+8AWE4d13EzJM=;
+	h=Date:Subject:From:To:References:In-Reply-To;
+	b=KyQs1PNJJAQhOIa9aSTBO3p+jk1bT2q08AK1YrVovtG/Cpu25n0mciZaPkpToenJ1
+	 q+saXtriqCBsIbkatmecKEj1Kz9uZZmyWo9BRwSIS2/7Bh7j3iGK/VP7zFLwgJe5UN
+	 lVpPMgLXQDHxJ2QHb7o2j5zAzr54rlXY4cQawsMwTTQwANX77K0kNO5PJSNbpp7+cq
+	 NKfaf0ViPzzXgaKaaiKol1z/8Jee1hYmRM1gVBIrZCVLWeXoIuRXMEagVA+KsRXhKp
+	 Tz7j6RJ8xNxU4Ot6T3eYSHQ7GZ7MUW0OoeAlTnzQMOugHsHq/sXctt/c/1dHnHh5Td
+	 kHde8eL1X3WqQ==
+Message-ID: <419fd819-75e4-49c2-9b99-1155bb214b47@kernel.org>
+Date: Wed, 14 Oct 2026 10:42:13 +0200
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
@@ -35,91 +35,90 @@ List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: remove Assisted-by references
+Subject: 2026 LF Technical Advisory Board election - voting reminder
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ ksummit@lists.linux.dev
+References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
+ <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org>
+ <51d0a329-e53c-48ea-876e-98208575b770@kernel.org>
+ <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Federico Vaga <federico.vaga@vaga.pv.it>,
- Daniel Pereira <danielmaraboo@gmail.com>,
- Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Andy Whitcroft <apw@canonical.com>,
- Joe Perches <joe@perches.com>, Linus Torvalds
- <torvalds@linux-foundation.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Steven Rostedt <rostedt@goodmis.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Kees Cook <kees@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
- Jeff Layton <jlayton@kernel.org>, Christian Brauner <brauner@kernel.org>,
- David Hildenbrand <david@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Christoph Hellwig <hch@infradead.org>, Mark Brown <broonie@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Brian Foster <bfoster@redhat.com>,
- Carlos Maiolino <cem@kernel.org>, David Disseldorp <ddiss@suse.de>,
- Jani Nikula <jani.nikula@intel.com>, Justin Stitt <justinstitt@google.com>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "ksummit@lists.linux.dev" <ksummit@lists.linux.dev>
-References: <20261013121501.3738437-1-sashal@kernel.org>
- <d509cd9d-746c-42ff-97eb-3bddb889a78e@kernel.org>
- <04229bc1-f25c-4733-92f8-4508c1540611@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <04229bc1-f25c-4733-92f8-4508c1540611@kernel.org>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/13/26 15:10, Krzysztof Kozlowski wrote:
-> On 13/10/2026 15:08, Vlastimil Babka (SUSE) wrote:
->> +Cc ksummit per [2]:
->> 
->>> There was, finally, a suggestion that the ksummit mailing list could be
->> used more. There are usually interesting discussions there in the lead-up to
->> the event, but then it goes quiet the rest of the year; there is no reason
->> why discussions of that type can't happen there at other times as well.
-> 
-> Then it would be equal to workflows mailing list, no? We already discuss
-> (or supposed to discuss) all process changes on the workflows.
-Yeah somehow that list (unoficially?) evolved from the original "people
-share their wofklows" purpose to discussing process changes. But I wasn't
-sure if enough people are subscribed to there yet vs ksummit. Also this
-patch follows directly from ksummit (maintainers summit) discussions. Can't
-hurt to aim for the widest possible audience of maintainers to see it I think.
+Hi,
+
+One last reminder that voting for members of the Linux Foundation
+Technical Advisory Board is open; it will close at the end of October 15,
+AoE (Anywhere on Earth).  For details, see the previous announcement:
+
+  https://lore.kernel.org/r/a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org/
+
+I'll post the results shortly after voting ends.
+
+If you have not yet voted, you still have a bit more time to do so.
+Remember, in order to vote, you must enable your email address with
+CIVS at:
+
+  https://civs1.civs.us/cgi-bin/opt_in.pl
+
+Without enabling your address, you will not receive the ballot via email,
+even if you are eligible for an automatic ballot.
+
+Eligible voters with fewer than 50 commits can request a ballot by sending an
+email to tab-elections@lists.linux.dev.  Hurry up, the clock is ticking!
+
+Please contact tab-elections@lists.linux.dev if you have any questions.
+
+Thanks!
+
+--
+Cheers,
+The LF TAB elections team
