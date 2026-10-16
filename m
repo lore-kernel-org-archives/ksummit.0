@@ -1,79 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60634EF05;
-	Fri, 16 Oct 2026 14:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730E247F769;
+	Fri, 16 Oct 2026 15:02:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162192; cv=none; b=ttlpoxGyaZjfnPJHe3A8Ypw9dyKzlFNodbIXzyMqvdgbP/QF4CqB57QExjc8Wved/3YTXPOK5P00bc5ixUDVlTCMAWQix1rvSJXie4l/skuy9WUAJUmdYkFY2i45ZtiouQtytgkoPyuML295wEpDcAO1kTLiNvG0cgs/KwlaAYE=
+	t=1792162977; cv=none; b=SmyaZPhclo9cyYrNEgd/4TfRSmskYnO7winVBVag50EV94zYlvciVdkTltWOQ+3iuvFmc2txoSdPNbo9Pge2+nthjd6gHPDksDAxv88RsM55q8k+VIUGRbDifVR42Z/dL4pbTIp+yBUutrUskhIaQJBQOS6DHBBaSsTCFV8TnYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162192; c=relaxed/simple;
-	bh=hiM7IQAVwtsiqq6Qk8g5K+CQEtzNX3uTaG2Qf9uFW+I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VL1reZLl2A4joeOoNy3UvrQpH/NQkL/gLrRz0DI7X08izOS0AB5bySWO6/8d3Ys2Wt53pbTA6kG2k1j2diDWcRENLxRAViqgie+lqgD85bRMZspuihMFnEgwCtb2LL0hNIUBiICRV4ZSkchIwfri0Ypu2TfN6P9UaaleSsbc/Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpdMq1Ye; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792162977; c=relaxed/simple;
+	bh=a0xk3YajHywC9avjEozHZZ6A+/qySorCdfvxzKH59OE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ttzRRbwfEES29QaY71lOfckAiGyG+Gpu2oLEF7kGWQUKZFYJuMgHjCjasgmd/SfNpNxQ+h+iBuVeTUTkMh5i7VuCY+qfxCS0HWUkQM+kneI1Ym0a/l6dywF9TcG7/HHRSwvNOM4YqT9Tx2lPtAFzrnxC6CeKNZRMCcJ0HLuKIfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=Lh92sB95; arc=none smtp.client-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpdMq1Ye"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DCC1F000C4;
-	Fri, 16 Oct 2026 14:49:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792162190;
-	bh=yqXt6lpLaj6UPjxlhdP5l0JbPEHElrrrHrY+I0+u+og=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EpdMq1YeI1Oxurg0JjSUD/I5FMLejyFv9/RHuR8pEVI9C+Cq/kIJ1LnlBcG39nD2l
-	 hDaCPdD5argWeuAReHCCPyKuJ5z/86tyLy3Bp5zFCZOq+Rls4Qi5o+EqCeUEl1hkMn
-	 0HaKRlqsvmjThFaCnubeJ8/1TpLaYUlGEM4ZHx01P0fhEjlb45wJwz1YFlM/QsbGRd
-	 XAMkqubLBpZyGV9KWdZGXSGYI5QakyafLv/ftNkwQrDsgC0P6nhQFf3GTNbDVOiQUv
-	 4xIsfkxdeVLFY6IxLV4mVYNpxZDaZuoHPFH6WDFX+lIszitakQ70JkYTb05F4QrSWg
-	 xihMgSFzTIivg==
-From: Sasha Levin <sashal@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	workflows@vger.kernel.org,
-	ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S . Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 0/5] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
-Date: Fri, 16 Oct 2026 10:49:45 -0400
-Message-ID: <20261016144946.3640829-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
-References: <20261012213452.1863248-1-sashal@kernel.org> <87zewiy1sd.fsf@trenco.lwn.net> <202610122047.A9E381A@keescook> <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="Lh92sB95"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=2KsdMqZ/1ceRn84FGYoGIscLqbckTFraJKhu+lRTVy4=;
+  b=Lh92sB95t4K6czsgcQurd2CvrZs2aboH5WRgN9zjYWnZ0wsklbmX2pLT
+   lbuLqMgPSchYZJlSfhbRL12WMnXev6iV/+O0AM6N1iOInIJhVeDnbGtFf
+   Hkru6AeDafzoqXWn5gtxAyYPWApjBZyffPLNl/8FUgIJ4t8U5BLYCrUpG
+   I=;
+X-CSE-ConnectionGUID: BF1m2EgaQy2T6AEPjM9i0A==
+X-CSE-MsgGUID: nr0tW7UuQPePXMT/kgGiLQ==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,162,1787004000"; 
+   d="scan'208";a="300604784"
+Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 17:02:50 +0200
+Date: Fri, 16 Oct 2026 11:02:49 -0400 (EDT)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+cc: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    ksummit@lists.linux.dev
+Subject: Re: 2026 LF Technical Advisory Board election - results
+In-Reply-To: <9fae8567-0943-47e2-a04d-4e75e1c0cb6d@kernel.org>
+Message-ID: <21b568a5-f764-97a8-26eb-9b7fa0468a9f@inria.fr>
+References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org> <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org> <51d0a329-e53c-48ea-876e-98208575b770@kernel.org> <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org> <419fd819-75e4-49c2-9b99-1155bb214b47@kernel.org>
+ <9fae8567-0943-47e2-a04d-4e75e1c0cb6d@kernel.org>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Oct 14, 2026 at 03:51:27PM +0200, Geert Uytterhoeven wrote:
->The expectation is that the agents are becoming better in understanding,
->so more "instructions" can be shared?
+
+
+On Fri, 16 Oct 2026, David Hildenbrand (Arm) wrote:
+
+> Hi,
 >
->If that is not the case, perhaps we need
->Documentation/translations/simple/, cfr. https://simple.wikipedia? ;-)
+> There were 1,107 registered voters in this year's TAB election, of whom
+> 261 cast ballots.  The results were, with the top five being elected:
+>
+>      1.  Kees Cook
+>      2.  Laurent Pinchart
+>      3.  Dave Hansen
+>      4.  Miguel Ojeda
+>      5.  Shuah Khan
+>     -----------------------
+>      6.  Mike Rapoport
+>      7.  Jiri Kosina
+>      8.  Alexandre Belloni
+>      9.  Nathan Chancellor
+>      10. Cong Wang
+>
+> Thanks to everybody who voted and to the candidates for putting their
+> names forward, and congratulations to those elected!
 
-Mostly, yes. v3 shrinks each skill to a short file that points at the existing
-process documents, and moves the Fixes tag rules agents kept getting wrong into
-submitting-patches.rst, where humans get them too. What stays in the skills is
-agent specific, such as not trusting blame and not making up the reason for a
-change.
+Thanks for managing everything.  The number of voters seems comparable to
+last year.
 
-So hopefully no simple/ translation needed :)
+julia
 
--- 
-Thanks,
-Sasha
+>
+> --
+> Cheers,
+> The LF TAB elections team
+>
+>
