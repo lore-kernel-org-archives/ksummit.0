@@ -1,88 +1,164 @@
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730E247F769;
-	Fri, 16 Oct 2026 15:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2F130216D;
+	Fri, 16 Oct 2026 15:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162977; cv=none; b=SmyaZPhclo9cyYrNEgd/4TfRSmskYnO7winVBVag50EV94zYlvciVdkTltWOQ+3iuvFmc2txoSdPNbo9Pge2+nthjd6gHPDksDAxv88RsM55q8k+VIUGRbDifVR42Z/dL4pbTIp+yBUutrUskhIaQJBQOS6DHBBaSsTCFV8TnYE=
+	t=1792164512; cv=none; b=qZBmHoJd0Oba4tPPixkbUImvZKIDmaMG6yvREQITfLueFnsFa/nRN92RCvtO+CvFKQdkXq0oY/kNZVwmO06fbku/wefHt2SheBRwwr4Tpwq0rZ1oI/nTyZwUAEQBysojAzJpL6gcuY1cDYsT/uVlLELKfxqPjeD53onUUIgwpV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162977; c=relaxed/simple;
-	bh=a0xk3YajHywC9avjEozHZZ6A+/qySorCdfvxzKH59OE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ttzRRbwfEES29QaY71lOfckAiGyG+Gpu2oLEF7kGWQUKZFYJuMgHjCjasgmd/SfNpNxQ+h+iBuVeTUTkMh5i7VuCY+qfxCS0HWUkQM+kneI1Ym0a/l6dywF9TcG7/HHRSwvNOM4YqT9Tx2lPtAFzrnxC6CeKNZRMCcJ0HLuKIfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=Lh92sB95; arc=none smtp.client-ip=192.134.164.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	s=arc-20240116; t=1792164512; c=relaxed/simple;
+	bh=45h0gyJgvcDIpb6kvog5cj+2/XcuNSq1NQrNDLHgX1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T/L8bb9yHtytrk8P9y/uOuO8LwCDU8XyVjyf3rb/oBSHWvZXTzJ8zygo1hR/EAAu2G2oL36iqLqbB4AJgvWJ1XusT+I3BZHGJ9/RsOWz2RU8i2XBn93FeM0XbOGDhZeOrcHiyhP5fk+PtzqDXYzannggtCdvDe2hCicVp7YYc/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvqdLJRV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="Lh92sB95"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=2KsdMqZ/1ceRn84FGYoGIscLqbckTFraJKhu+lRTVy4=;
-  b=Lh92sB95t4K6czsgcQurd2CvrZs2aboH5WRgN9zjYWnZ0wsklbmX2pLT
-   lbuLqMgPSchYZJlSfhbRL12WMnXev6iV/+O0AM6N1iOInIJhVeDnbGtFf
-   Hkru6AeDafzoqXWn5gtxAyYPWApjBZyffPLNl/8FUgIJ4t8U5BLYCrUpG
-   I=;
-X-CSE-ConnectionGUID: BF1m2EgaQy2T6AEPjM9i0A==
-X-CSE-MsgGUID: nr0tW7UuQPePXMT/kgGiLQ==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,162,1787004000"; 
-   d="scan'208";a="300604784"
-Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 17:02:50 +0200
-Date: Fri, 16 Oct 2026 11:02:49 -0400 (EDT)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-cc: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-    ksummit@lists.linux.dev
-Subject: Re: 2026 LF Technical Advisory Board election - results
-In-Reply-To: <9fae8567-0943-47e2-a04d-4e75e1c0cb6d@kernel.org>
-Message-ID: <21b568a5-f764-97a8-26eb-9b7fa0468a9f@inria.fr>
-References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org> <f6c986a1-b3b4-4b0a-bf12-d98357fbc4e5@kernel.org> <51d0a329-e53c-48ea-876e-98208575b770@kernel.org> <75387e88-a2f9-4a33-97dc-45774bd23a01@kernel.org> <419fd819-75e4-49c2-9b99-1155bb214b47@kernel.org>
- <9fae8567-0943-47e2-a04d-4e75e1c0cb6d@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvqdLJRV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBFA1F000C4;
+	Fri, 16 Oct 2026 15:28:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792164511;
+	bh=62b7anYUbwO3ZcefTmO2NBk6/EKmfxok260BD4lTHvU=;
+	h=From:To:Cc:Subject:Date;
+	b=VvqdLJRVokhXmeQrjoQqSVXeVRVjI0Ifbp87jLMSZDwSnHF6tdhkP3Cd1kKhA+wpc
+	 PIZIhRxznyohybDhCfAlQd90aaRU2fzcY7CptWv63t2XPkg58swD/rRnnsMftPu5wN
+	 2s14hii5CylS+G9c3v2X05oabBJ2wn+x0Be6aD1rTfVy4DFc2jYMDAxmSFVfxF34ox
+	 JCAiwVt34xukNgg0rm80uhi7E9j8P2bj+WU2/XxbNY8cddCf9Ic/zM+cVzm0LrGw1N
+	 UD+5zHDXLwBNryi4dC3UxZ7pSnwlLkRmZ/5nUw1Ss9Hj2AOmk0bAZmy06bq3OGkVdo
+	 DbhqOJJqSKMkw==
+From: Sasha Levin <sashal@kernel.org>
+To: workflows@vger.kernel.org,
+	ksummit@lists.linux.dev
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Brown <broonie@kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Kees Cook <kees@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dan Carpenter <error27@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 0/7] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
+Date: Fri, 16 Oct 2026 11:28:20 -0400
+Message-ID: <20261016152828.3765695-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+
+At the Maintainers Summit, Ted asked whether the stable trees have a way
+to deal with incorrect Fixes tags. Hannes estimated that 15-20% of them
+are wrong, often because the author ran git blame and took the first
+commit that touched the line [1]. We use LLM workflows to find the
+commit that actually introduced a bug, and others asked us to share
+them.
+
+This series adds them as agent skills under agents/skills/, together
+with a skill for writing commit messages. Each skill is a short SKILL.md
+that points the agent at the process documents for its task and adds
+only the checks agents tend to get wrong:
+
+ - find-fixes determines the commit for a Fixes tag, following the
+   history past code moves and refactors.
+
+ - stable-tag decides whether a fix should go to stable and generates the
+   tag. It finds the first release with the bug and checks that the fix
+   applies there.
+
+ - find-siblings looks for the same bug elsewhere in the tree, with a
+   Coccinelle semantic patch when Coccinelle is available, and verifies
+   each candidate.
+
+ - commit-message writes, rewrites, or reviews a commit message or cover
+   letter, and writes the text of a pull request. It follows the P:
+   profiles for the changed files and keeps the text short and in the
+   imperative voice, as Linus asked [2].
+
+Rules that people need as much as agents go into the existing documents
+instead: submitting-patches.rst now says which commit a Fixes tag names.
+stable-kernel-rules.rst drops the 100 line limit, the rule against
+theoretical issues, and the requirement that a fix be obviously correct,
+none of which the stable trees apply.
+
+Most of the skills only point at Documentation/. The exception is
+stable-tag, which also lists the kinds of changes the stable trees take
+and leave out. The lists describe how the stable rules are applied, not
+new rules, and they save smaller models from working that out on every
+fix. To keep agents/ consistent with Documentation/, I'll check one
+against the other every release and trim anything in agents/ that
+duplicates or contradicts it, as Kees suggested [4].
+
+The skills only inspect and report. The calling workflow writes the
+commit, creates the tag, and sends the mail. coding-assistants.rst tells
+agents when to use each skill. Tools do not load agents/skills/ on their
+own; to have a tool load them automatically, link the skill directories
+into its skills directory.
+
+Changes since v2:
+ - Keep the skills in agents/. They are now short pointers into
+   Documentation/ rather than documentation of their own; see the
+   discussion on v1 [3].
+ - Cut each skill to a single short SKILL.md that points at the existing
+   documentation, and drop the git how-to (Kees). The skill text went
+   from about 960 lines to 250.
+ - find-siblings: describe how to search with Coccinelle in a separate
+   file that agents read only when Coccinelle is available.
+ - Say in submitting-patches.rst which commit to name when a later commit
+   exposed the bug or more than one commit introduced it, and which trees
+   need the fix (Michael, Thorsten, Dan).
+ - Drop the 100 line limit and the exclusion of theoretical issues from
+   stable-kernel-rules.rst, and require a fix to be correct rather than
+   obviously correct.
+ - State once, in coding-assistants.rst, that skills only inspect and
+   report.
+
+v2: https://lore.kernel.org/r/20261012213452.1863248-1-sashal@kernel.org
+v1: https://lore.kernel.org/r/cover.1791499378.git.sashal@kernel.org
+[1] https://lore.kernel.org/r/askTmFZC6RJKAE_p@mit.edu
+[2] https://lore.kernel.org/r/CAHk-=wgXU50=KgZNZc1JDxsSxg9Z+DjG1_2yU-fNXpZtUe4XDw@mail.gmail.com
+[3] https://lore.kernel.org/r/87y0bzq8oe.fsf@trenco.lwn.net
+[4] https://lore.kernel.org/r/202610150832.58E80C02A@keescook
+
+Sasha Levin (7):
+  agents: add infrastructure for agent resources
+  docs: submitting-patches: say which commit a Fixes tag names
+  docs: stable-kernel-rules: drop rules the stable trees do not apply
+  agents: add a skill to determine Fixes tags
+  agents: add a skill to determine stable tags
+  agents: add a skill to find other instances of a fixed bug
+  agents: add a skill to write commit messages
+
+ Documentation/process/coding-assistants.rst   | 35 +++++++--
+ Documentation/process/stable-kernel-rules.rst |  6 +-
+ Documentation/process/submitting-patches.rst  |  9 +++
+ MAINTAINERS                                   |  6 ++
+ agents/skills/commit-message/SKILL.md         | 42 +++++++++++
+ agents/skills/find-fixes/SKILL.md             | 39 ++++++++++
+ agents/skills/find-siblings/SKILL.md          | 31 ++++++++
+ .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++
+ agents/skills/stable-tag/SKILL.md             | 72 +++++++++++++++++++
+ 9 files changed, 297 insertions(+), 9 deletions(-)
+ create mode 100644 agents/skills/commit-message/SKILL.md
+ create mode 100644 agents/skills/find-fixes/SKILL.md
+ create mode 100644 agents/skills/find-siblings/SKILL.md
+ create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+ create mode 100644 agents/skills/stable-tag/SKILL.md
 
 
+base-commit: 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
+-- 
+2.53.0
 
-On Fri, 16 Oct 2026, David Hildenbrand (Arm) wrote:
-
-> Hi,
->
-> There were 1,107 registered voters in this year's TAB election, of whom
-> 261 cast ballots.  The results were, with the top five being elected:
->
->      1.  Kees Cook
->      2.  Laurent Pinchart
->      3.  Dave Hansen
->      4.  Miguel Ojeda
->      5.  Shuah Khan
->     -----------------------
->      6.  Mike Rapoport
->      7.  Jiri Kosina
->      8.  Alexandre Belloni
->      9.  Nathan Chancellor
->      10. Cong Wang
->
-> Thanks to everybody who voted and to the candidates for putting their
-> names forward, and congratulations to those elected!
-
-Thanks for managing everything.  The number of voters seems comparable to
-last year.
-
-julia
-
->
-> --
-> Cheers,
-> The LF TAB elections team
->
->
