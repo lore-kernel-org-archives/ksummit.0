@@ -1,94 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7359A3AAF69;
-	Sat, 17 Oct 2026 16:44:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269EF3BB690;
+	Sat, 17 Oct 2026 17:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792255457; cv=none; b=DqdMTno+79CgMZicnrYkj5RDFMw+lByFEoPamBpm2meEJ2OBbKQmqHXIfTdxxa7ew4RdmdfaBRuRrJkNnCFQOuH8pBHEZEua5afaWF5LLIf95DoPkUH5Y+PSIexKCtTWU8vqtLdIPBOzRHhPNbDQNAbDtjY9UkgGH63wzSFyFag=
+	t=1792258132; cv=none; b=eJxdElImo+ELs1o1aYzJYxdcUq6YTdEWn4B6JRqPd6psnvgq8dsLEx8jhAeO5HZi0WFOi/GD77tRGFnkSAHH+A30yOw4SLaV6p3vrkYHMN4ODK2znWnrXlU79jbcd7GPUlkaBxCMZNmYBYAkmtwHLV2xl9sQ1OrJIyIxpS5AdBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792255457; c=relaxed/simple;
-	bh=UKfbu1T20lQWRoXbYY8lBXY7F/u8wdHGM7XgPm/Ol3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mdza5P8bW2QtK4PLoN1VZdtbd8OKXrLeoW4hJA7sQUPrvV1nLRXCzK/+zOnyXTaX5IJwL9eim5a8rddyJ2J1hI5g6VmD+WquaISu8sfG6o0bifBB1bzmjtRF8lXI4J7tZ7SMfZ7yqoOdZXMEiRQQMnFo8M+SW7xlQi6QQzXVOH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UahZwYB/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792258132; c=relaxed/simple;
+	bh=oQamr2SaX+J/IlFeizv1BDwMNoEvkNxfGP5uJX9R+p8=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=oP0qUUA5W4G9js2C1xtA7miFFX9jKu/oCBgrckLzQ0ReowgXp2xjWplxda9TdOGHa7yiXoO5hV3H6UUQN0QknHMmPbBbIXctNeWHKxHKU0mwJ9juVGU07Ya8Lsc90SuRyX2MFh/I09miXGPlkAjIwcnstHMHV2CJcXdNwSidOzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iN7TvZ54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UahZwYB/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BBF1F000C5;
-	Sat, 17 Oct 2026 16:44:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iN7TvZ54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2F81F000C5;
+	Sat, 17 Oct 2026 17:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792255456;
-	bh=7G2NT+fxfzQbeg8Nb8I82d+DeZrkITmTp7CpnmRJeHA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UahZwYB/srfY5H1wEt+QhcwHwIMamSV2QK6PUOvWsyvAWb26Ujy9ZyGZZbRIE7cx9
-	 L4sFGTVbTrdEP6DUKl5iIcs+0PqSzivCsyWpbT8QIjlPo4xXhWsO+2ymfBAO3/70ew
-	 i2c1sHcxmCq7aOBZwj7cGzkqkTgDWhBNYw3Nj7WkyzPo8eXCdXyfGPDNN02IkY8U1k
-	 PscUh0mSTdTv/nu6ZXb0ks5naIMwGvLp9KcfXw2nL/DtBxx3f/EtyvDMygbPCUFr9/
-	 4E93+YOyIxPjqYtGQ0RJSlElpcI2D2tEqQGquvN/2pynoT5jKOLzZFx9AuGopuW9Vt
-	 qKGJEjMVJzPCA==
-From: SJ Park <sj@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	workflows@vger.kernel.org,
-	ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] docs: stable-kernel-rules: drop rules the stable trees do not apply
-Date: Sat, 17 Oct 2026 09:44:08 -0700
-Message-ID: <20261017164408.104457-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261016152828.3765695-4-sashal@kernel.org>
-References: 
+	s=k20260515; t=1792258130;
+	bh=gcwOR9FUtF7LUnaye7Fu/VRP0G82zS91qEbvSfaX54s=;
+	h=Date:From:To:cc:Subject;
+	b=iN7TvZ54bbPrDl8ruFK3JnrNldS3lc6mdZSMnYBksrm8p2ZfSIwREJ8cLo8cFVMuM
+	 cMoQQFLKrD7dCEqybqs0VTafDUm0n1oiWaG9JnRtdzT9iYZQEiDAMj2u/5b0raJRpW
+	 cVc0hD+ud3VXvOFjKNy2HynRxMmZv7WDNeJ3wy7hnFwTktoa8QtiaN2TRxBKsmgA9y
+	 Uo27j8FyMbRImjqoZdGi7/0CzBCeSrFB5aVHFv0cG39SqZm4smS7PjY1xs+dhIfoga
+	 PsDKOFU2mIY1JTvMY3J/xBqaO+2khXkQsMbCMJX5HwkEX9eEcrssoBBWUlWOpeIHtZ
+	 09wMD8YV8gjaw==
+Date: Sat, 17 Oct 2026 19:28:48 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: ksummit@lists.linux.dev
+cc: sashiko@lists.linux.dev
+Subject: Patch pre-submission to Sashiko
+Message-ID: <nn69829p-nn62-ppn7-968q-64o246ss90or@xreary.bet>
 Precedence: bulk
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Subscribe: <mailto:ksummit+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 16 Oct 2026 11:28:23 -0400 Sasha Levin <sashal@kernel.org> wrote:
 
-> The stable trees do not apply the 100 line limit or the exclusion of
-> theoretical issues, and they require a fix to be correct and tested
-> rather than obviously correct. Drop those rules.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+[ in the spirit of the concluding discussion at this year's maintainers 
+  summit,  I'm using this list outside of actual maintainer summit 
+  planning :) ]
 
-Acked-by: SJ Park <sj@kernel.org>
+I have just received a v1 to v11 patchset submission within roughly one 
+day timeframe.
 
-[...]
-> @@ -24,9 +23,6 @@ Rules on what kind of patches are accepted, and which ones are not, into the
->      regression they should only be submitted by a distribution kernel
->      maintainer and include an addendum linking to a bugzilla entry if it
->      exists and additional information on the user-visible impact.
-> -  - No "This could be a problem..." type of things like a "theoretical race
-> -    condition", unless an explanation of how the bug can be exploited is also
-> -    provided.
+Neither myself nor anyone else did comment with any review feedback, 
+except for Sashiko. Which I believe is what triggered all the immediate 
+resubmissions.
 
-I initially thought requestion the explanation of how it can be exploited is
-still good.  But, that's maybe what need to be requested when the commit is
-landed on the mainline.  So this looks good to me.
+I don't think this is sustanable.
 
+The idea of throttling Sashiko's responses was gently nibbled at the 
+summit, and might be one of the options how to deal with this.
+
+Another option I'd like to propose would be to introduce a way for 
+submitters to run patches through back-and-forth with Sashiko even before 
+properly submitting the Sashiko-polished v1 to maintainers and 
+mailinglists.
+
+Would that be possible and reasonable?
 
 Thanks,
-SJ
 
-[...]
+-- 
+Jiri Kosina
+SUSE Labs
+
