@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.61.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506059;
-	b=gMw+3bQQIJYI5QpD8FFQ+mmuk8tyVk9TQrMnqTaTX0EhdKfCJ3pAto67vLAKpOhsB8oy
-	 vIy2XDmRTPv4c5CGITOUHmnf/CdXCzyz/SodvCb6BaWxEMp/f2t2pB2ORo+2qKG/FqIKk
-	 ic5No26QPHcoymyoGHgrOvpxdaap+5092rxcvpHsVbZ3q4AgPwc3lLrZO4otq98OGEPvO
-	 J9XUTafliTSDSIW60ydYZoxXfVP4BFFRWF3iX2JJI87d94ZCPZrOVMVZ3/a23HdOFzgH1
-	 ld1cuxQnlLy036YncEMJBTZ0bJXggxvaaQvfdhi9c1AqvMB7TeRiFtIdz8rzZOVNvGg==
+	t=1792506392;
+	b=E+O4IWNyT9grmhDmdwyJPL6VdTB0PRc/oQZq6Z8vgzykIM2uFy7fRkxE3zH35y7o09bV
+	 ltpcB0vBUvzs16ktTMkYAGm4kRS7wYa94WhqEPcAY8dGP7Qlw424lcTR13AZ6tfSWitum
+	 MqP0ezPu0WPOeCANe9KEVGM85zED3P5yoiez7BS2k28dQlN9YwfZTDCav0ZNilmgWJAHW
+	 5iuSrafeMpOh1BXCZFBBWoTKeEdXMePAQgvCidWkkz9OUqLdEAmwnHHN/e6Ycr6iri7/a
+	 K4FuU+3f4IXWsxKxEEOFQxNk34IRG0uduTl6TnEtE4XWahbtQ76n5ij/lwixG97lqmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HceqZTMO1xgG8tL+I11wcK4gHSJ0kl/MBzzbOif+1Kg=;
-	b=QAp7DlFHAUn24fBlBHkzbb9Y/lu7WNAW5PtHTW2HsKsBFREELzB91IF0UgXur8HJ4S2z
-	 ZHUfwqUNwRpSzVsVMw5R1IlQKhJu7Ko3uxF+M9WyP2lj4jT4Bm+XEXIAe/jeC/DT8n6TS
-	 lUkSx4BEb7P8o3+8Vfpxk3HbaBOpxHhgIl0bysX4zlP0XzxdVCB7D2FMwVghRyTBgtZZh
-	 H1YXy9zQYY8IrwRxJUftoz/RYMzclL/V7J2AA/XzAJ4lK/M74VuwzbwQfl+n1zrsdoIf5
-	 AiyXt1a+LwzWYLArnamnq5BpMd21z3LN7LNslmudR+j92OtJje1gXbGHHq/sDmAcb+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792506392;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=Ar2dn0+THjZK4u/Cvqoo16ZTIobYlDHRsPkH3Kn/gsk=;
+	b=ionnhc1L2pF3CcJGxng3hnb6agQJeXQ0AhAZER5nvLAH44Wr++8Ne2HqT3/Nq4mONFp7
+	 TP1QvmfYCueVaCfYLR36VUESysA3VTtxvZbRVxdx8Veas11nObMn1S3pML06uOZwcmrM4
+	 2C/fGvMim5Qe/WpjlN07m1Y+lXFfclyyFenlwPq8gejAkOLZFOxqMsYBy/HXI9jmM4OKY
+	 ANPUBScdo8fvFdh+tzvbu8RWeVeiaUV9URSYkTeKJfbDAfXuvQlf4yoaGKwejSi04Zl9v
+	 tqIEIecwRMsZ4KuL9Q/MvnrUSah4O+iY3O09V81vqBbTCqa7RnzkcC9E0nRSTjZYioA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=JTXYZDdU;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	arc=none smtp.remote-ip=188.68.61.103
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3F3606AA28;
-	Tue, 20 Oct 2026 14:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D3F3606AA28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=JTXYZDdU
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j8F2L64mdzlfvpn;
-	Tue, 20 Oct 2026 14:20:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792506056; x=1795098057; bh=HceqZTMO1xgG8tL+I11wcK4g
-	HSJ0kl/MBzzbOif+1Kg=; b=JTXYZDdUUrlYgXbh/T8LAQIjZdPjKgXGH+DTyS0C
-	EfdbJPMe8aoS6y6aNHww65Cp+5akkw/pjeBpx/l6XzlSGhGH9CXmj21iM1p9z4vN
-	hXJGVkm+Xc/nFRxM15V8om6qqAbMaZj7yR/Q3jMeSTUxAMclTD4t7etR+VaSl4Vc
-	oLwnma6ti2+tEB96gna8pj6f6UblEC+U+GtuGJBbl/bsPz9DwI5ZPMfyzNvzkQIM
-	58UKyeR6PXHpMDYDGcgTRzSw5Kfn23e2fO+0dO8vi4PcNqoM2p2TFMeNbQk6N5/x
-	eEL8W+bwjDPft7/rKxZvpQfylH4fztjhtnzHa5MAdTc7AA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 8sStQKipwe_M; Tue, 20 Oct 2026 14:20:56 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D91606A331
+	for <ksummit@lists.linux.dev>; Tue, 20 Oct 2026 14:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77D91606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4j8F8b6TXFz8FfY;
+	Tue, 20 Oct 2026 16:26:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1792506383;
+	bh=aA+qrgci+kHtn15zDtYqkC7/RXIfoE9h4wgiGSUF3rw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S0vU54hrrXsrQT6BJwKWEUiBkkpFD/kfIHwqfYyOa/VxPC84bvfuoA9Bn6YsaaXE5
+	 XzJpI0OkzIpL6l2twwd785dJjLT3QowekwrpK1tgaSlY9ocf5dHfYdcb/ay3zdESKJ
+	 2lN9BwzKYeLGpZ4gA+rgV5phNdaKpmXxRDzBiYCsjDGU2Ok5a83v1u9YMKeeR7g/an
+	 0WYn/QDq0DAoEtqIR0ermWAPKU8neGTSBKTPjtMQ1fWaALr9fWjKV8a33SsfnaJjCy
+	 ximlANmTYeVlEzvg/JzbAN2kai7T9x2sqfIUYY1GsTZjYxB6UDB+XIEL+2ts36np7i
+	 iD9azACRfpSKQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4j8F8b5lcHz8F56;
+	Tue, 20 Oct 2026 16:26:23 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j8F2J03fPzlfvpK;
-	Tue, 20 Oct 2026 14:20:55 +0000 (UTC)
-Message-ID: <2fef166e-088d-4ffe-8d0a-0143aebc1b26@acm.org>
-Date: Tue, 20 Oct 2026 07:20:53 -0700
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j8F8Y4SLdz8svC;
+	Tue, 20 Oct 2026 16:26:21 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id F1A525F9C5;
+	Tue, 20 Oct 2026 16:26:15 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <66c5725a-d190-427e-aedb-c0374f8d3f5a@leemhuis.info>
+Date: Tue, 20 Oct 2026 16:26:15 +0200
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Post: <mailto:ksummit@lists.linux.dev>
@@ -71,39 +72,105 @@ List-Owner: <mailto:ksummit+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Patch pre-submission to Sashiko
-To: Theodore Tso <tytso@mit.edu>, johannes.goede@oss.qualcomm.com
-Cc: Jiri Kosina <jikos@kernel.org>, ksummit@lists.linux.dev,
- sashiko@lists.linux.dev
-References: <nn69829p-nn62-ppn7-968q-64o246ss90or@xreary.bet>
- <atO3pCuUxI950ftN@mit.edu>
- <3354ebda-5158-489b-a577-5cb10e5d5fb0@oss.qualcomm.com>
- <atZ4J86j7CXF82HX@mit.edu>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <atZ4J86j7CXF82HX@mit.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 2/7] docs: submitting-patches: say which commit a Fixes
+ tag names
+To: Sasha Levin <sashal@kernel.org>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ Theodore Ts'o <tytso@mit.edu>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>
+References: <20261016152828.3765695-1-sashal@kernel.org>
+ <20261016152828.3765695-3-sashal@kernel.org>
+ <bcef59f8-33fe-4bbe-8429-307630dc6bb5@leemhuis.info>
+ <20261020135429.3340755-1-sashal@kernel.org>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <20261020135429.3340755-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <179250637674.1112457.15156320296333205536@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: F1A525F9C5
+X-NC-CID: 2crZjiLa3zFzMwnrX1wokWi+laVlfL9yukuIczRJM19WQkSbJQU=
 
-On 10/19/26 1:27 PM, Theodore Tso wrote:
-> As someone else has pointed out, students / hobbyists just use
-> OpenCode with the review prompts with one of their free models, such
-> as "Big Pickle".  That or a local quen3-coder-next (my current local
-> LLM, when I'm not using my employer's cloud hosted models) might not
-> be as good as Sashiko, but you can find a lot of the obvious issues
-> first, before you send it to the public list.
+On 10/20/26 15:54, Sasha Levin wrote:
+> On Sat, Oct 17, 2026 at 10:07:36AM +0200, Thorsten Leemhuis wrote:
+> 
+> So v4 will have:
 
-Does the requirement to run a local LLM raise the barrier to start with
-kernel coding? The following approach is not as good as running Sashiko
-locally but can help those who can't run an LLM locally:
-* Open the website of your favorite LLM.
-* Enter the prompt "Create a prompt for performing a Sashiko-style Linux 
-kernel patch review. In this context Sashiko refers to 
-https://github.com/sashiko-dev/sashiko"
-* Copy/paste the generated prompt. Do not submit it yet.
-* Copy/paste the patches that should be reviewed into the LLM web
-   browser session, e.g. with git format-patch ...; cat *.patch | wl-copy
-* Submit the review prompt + patches to the LLM and let the LLM review
-   your code.
+Great, thx!
+The following might be nitpicking, so feel free to silently ignore it:
+>   Name the commit that introduced the bug. When using ``git blame`` to
+>   find it, do not settle on a commit that only moved the code. If a later
+>   commit exposed an older bug, add a Fixes: tag for that commit too. If
+>   the same bug was introduced separately by more than one commit, add a>   Fixes: tag for each.
 
-Bart.
+This jumps from "change that caused a bug", to "change that exposed a
+bug", back to "changes that caused a bug". The order I suggested avoided
+that.
+
+Independently: I'm not a native speaker, but "If the same bug..." to me
+sounded like it refers to something specific (especially if the "exposed
+an older bug" in the sentence before remains). Maybe just use "If one
+bug..." instead to avoid that.
+
+> Do not add tags for commits that are only
+>   suspected. The Fixes: tags tell the stable team which trees need the
+>   fix: those that contain one of the tagged commits. Trees that contain
+>   none of them do not need it.
+
+Maybe it's just me, but I'd remove the last sentence, as that feels like
+it kinda implied by the one right before it.
+Ciao, THorsten
