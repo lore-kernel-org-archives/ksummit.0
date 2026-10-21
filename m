@@ -1,64 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569471;
-	b=YRpItiaMBP8jI7Ssgi4Dv/UcI8Nk8bPME3OzBLASlRQSYLDl9/xIjlSCPUNt3PXpC66W
-	 FqJvZPjGm72torwM785Y8SBL9v7Yhyt4OW4lYkCz85pzUSe7B7YnWd9sdw9JyI9kI6JqT
-	 td2xYHQxUTOaoNqM+BQpn8JtuAV2gZ5x1GrYnz2bniYRoivhnClKtkS6zUm5N5M9UBmD8
-	 oj1w+lvS25W5klNSg+KhkQIwweTJEr9K65OC30F2PBJT7i2QlztXl2AvzuHyAnXbwtFKP
-	 kw7eRATBFhc4m+EJOr/O2WJwRWgpM0denYdSfKa0C+af8yAkscNkL204uOgaWp07uyg==
+	t=1792580833;
+	b=Nj1GEcNnAC78sURbrzFHbPMn5a/P1fpKyPDYCQrSgPqNXjFbCpGCjHpjhFPzcxsSSW15
+	 11KYH8vMX82VF6NbsU8Oq328+JtnR98K/bDhFd+d1ktHsPyHDT4033e3DGvhTw50q947s
+	 T2pqcRnq4WOYFeELqFi5jQNzopegQFVYI7cyBeBueLGTTeFss8cWZgF8wvhv1GUnm9XPj
+	 x8O6upfaKpXNvq0H22yml8+YdQXAIr6u8Ladf3glVNL0tWM6iaAJUStzXi+JmBDCijdO2
+	 QKBta6HAbcmR8beqErudeo+Hf+0zFpGUzhq6MYt6vKVgP67rndEZ4b3EpHSfau8EceA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569471;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qEyWhJwynwf8iJjLi/EWuE0iykobG6cHSjgd1fWvF2w=;
-	b=skfMtDJrPkjUUHCWXRTfK+obw0Q7lSK5RH+lLfkwG27iQemZwULXV/ISWR1OFZfA21nm
-	 9mYWhq77pmuJaOu+BonZl7zPU5/7NoGr+KcgnjxEQ9b3X/6YK6Sw30c3wOJzQveAjG5Gq
-	 LSSAvGdhrXLLMj2Ho3Ykmn7gdIWXtL5QFV8DWlhx+qKMi/JPQ6YG5JBxWawxK3M/T4pNs
-	 xbuA42swqopcsrl/33DdgJlONwIj5kA0rfrp491wn1h5LAwCtWmRS+tMhzBUR1OFO5fyp
-	 KOYO6f+sxK0N0qxQxr3tvFxjTYqzvqQ+prJXsZ92DmzEbc8LRRVk67G4IclI65y/gWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580833;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=gAf0Dg+KuB/mpjLPFq0BKt/el80eTSSfEJz3oB8HdRA=;
+	b=JWe8lvOp11PCxqJIHuCIHOqC8e1UGfOa+AjhV9AOh903hzTPzibTCis1jVTguXRaox/l
+	 8aEyqlHP14T7UsTaZFc+XvJnUd1q8rwK8YqFhcP75BKBQDwHSS1E8B5qfFlirwZszbv24
+	 Rv6y/SWhXuiz2z4YBssFddUxEhDi7pOdnfimS83PE+MQrGeVdmkpNSg93A6KnhhAIBdja
+	 RB/vKgnwcDH2jAwzYpI7uSIo0+m6K9cElOhuDxp7GizD1a9PIN3TiIPjzWDXX3cJ5r6PH
+	 xAeHhtaSPCisz9kQtcpI/xthcvBkryHk2GYxjA9fONT9t4l96RU/z9srZJT+JZfXAgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=djAgYa9i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2oErRDA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14358606A32C;
-	Wed, 21 Oct 2026 07:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0A1606A323;
+	Wed, 21 Oct 2026 11:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=djAgYa9i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2E31F000CB;
-	Wed, 21 Oct 2026 07:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792569470;
-	bh=qEyWhJwynwf8iJjLi/EWuE0iykobG6cHSjgd1fWvF2w=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2oErRDA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 447E41F000CF;
+	Wed, 21 Oct 2026 11:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792580832;
+	bh=gAf0Dg+KuB/mpjLPFq0BKt/el80eTSSfEJz3oB8HdRA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=djAgYa9idwN5TUAQOsob+HoPWbM4LX/CKnz/uBqauklVnPe+yO+zfLTmv50svZgXx
-	 /tGIE2V2Wr473ajfWZFdrc3EGIJaq5rGAv9PjFTsfDqn645yIVKPnfyZsBOj6xPwG2
-	 f+i7LaSzLwG5t2GEf5oRTK1KkK8iQI4TU27L20Ic=
-Date: Wed, 21 Oct 2026 09:55:48 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: Sasha Levin <sashal@kernel.org>, workflows@vger.kernel.org,
-	ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>
-Subject: Re: [PATCH v4 3/5] agents: add a skill to determine stable tags
-Message-ID: <2026102130-hazing-amusing-990a@gregkh>
-References: <20261020161642.3713052-1-sashal@kernel.org>
- <20261020161642.3713052-4-sashal@kernel.org>
- <abe59717-d93c-411b-821c-b6fd24965960@leemhuis.info>
+	b=Z2oErRDAVSKOreso8AH9IyHaEXpylrc3+uXYvhujBhzL7wVV60D5dZYFsTIbl8hwS
+	 RJ1hNkiDfLZerzXNZoAurjCl3HV2oIVKXHT5dy2x5RPAyDCC3KNjBwaLgS+0TAI9aF
+	 4i/PnJM11O9/dPZFMaxEnK5+OK1nUVCVFncDsk0ZxEznlVv46wVPhVxbP/4Oru/0l1
+	 5xXhJewfTXg5X3Bmf/zN5Gqs6z/Za1h3gDsOKg52kTmx1kVvHSgHnshOvP8U5l64I9
+	 d0qy8bOkKKu6gPalLmvtq0F3ggqwoGmm9GFk0R9yzQopcIoKdHoU676HJKrTdn0Po4
+	 p/iMxi3vZ37qA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 50C2A1AC5994; Wed, 21 Oct 2026 12:07:09 +0100 (BST)
+Date: Wed, 21 Oct 2026 12:07:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Theodore Tso <tytso@mit.edu>, Bart Van Assche <bvanassche@acm.org>,
+	johannes.goede@oss.qualcomm.com, Jiri Kosina <jikos@kernel.org>,
+	ksummit@lists.linux.dev, sashiko@lists.linux.dev
+Subject: Re: Patch pre-submission to Sashiko
+Message-ID: <atic3bbDeyJI6MJs@sirena.co.uk>
+References: <nn69829p-nn62-ppn7-968q-64o246ss90or@xreary.bet>
+ <atO3pCuUxI950ftN@mit.edu>
+ <3354ebda-5158-489b-a577-5cb10e5d5fb0@oss.qualcomm.com>
+ <atZ4J86j7CXF82HX@mit.edu>
+ <2fef166e-088d-4ffe-8d0a-0143aebc1b26@acm.org>
+ <ate8oESqneK-3sQJ@mit.edu>
+ <7e473af8-2f7a-4a36-a926-e756873c9c52@linuxfoundation.org>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Post: <mailto:ksummit@lists.linux.dev>
@@ -68,30 +66,47 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:ksummit+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WYr3eNcDcuS2J27v"
+Content-Disposition: inline
+In-Reply-To: <7e473af8-2f7a-4a36-a926-e756873c9c52@linuxfoundation.org>
+X-Cookie: You buttered your bread, now lie in it.
+
+
+--WYr3eNcDcuS2J27v
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <abe59717-d93c-411b-821c-b6fd24965960@leemhuis.info>
 
-On Wed, Oct 21, 2026 at 08:56:24AM +0200, Thorsten Leemhuis wrote:
-> On 10/20/26 18:16, Sasha Levin wrote:
-> > Whether a fix needs a stable tag, and which releases it should reach, is
-> > decided by hand and is often missed or left too broad. Add a skill that
-> > [...]
-> 
-> Thx for this!
-> 
-> > +
-> > +Judge a change by what it does, not by how its description labels it: a
-> > +"cleanup" that releases a resource on an error path fixes a leak. In practice,
-> > +the stable trees take:
-> > +
-> 
-> Shouldn't something like "It fixes a user-reported regression" be in
-> here -- maybe even at the top of the list given that "no regressions" is
-> our #1 rule?
+On Tue, Oct 20, 2026 at 02:43:27PM -0600, Shuah Khan wrote:
+> On 10/20/26 13:21, Theodore Tso wrote:
 
-Sure, that would be nice too, an add-on-patch for it perhaps?
+> > and maybe even:
 
-thanks,
+> >     * Add a kunit test covering any changes made by the agentically
+> >       generated code.
 
-greg k-h
+> kunit or kselftest covering any changes made by the agentically
+> generated code
+
+TBH having seen some LLM patches that come with LLM generated testcases
+the testcases are much worse than the patches themselves.  Open coding,
+weird structures, asserting bizzare things without explanation - just
+generally really hard to understand what the test is trying to
+accomplish and why.  Sometimes for a one and done test, especially one
+you're not going to keep around, it doesn't matter so much but stuff
+like that can really impact the maintainability of the testuite.  Some
+of this is probably submitters paying comparatively less attention to
+the tests and just throwing anything over the wall without review.
+
+--WYr3eNcDcuS2J27v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatic2gAKCRAv73Ows9A4
+icJIAQDCOfY+cfIygb0Lhp/uoFq2Oz3i1JxMT26l0NeNzWK90wD9GovDa3Wd5Gfe
+5Vi0ThgsJvqpY/CVMUCDMjVwFy46lQM=
+=P0cp
+-----END PGP SIGNATURE-----
+
+--WYr3eNcDcuS2J27v--
