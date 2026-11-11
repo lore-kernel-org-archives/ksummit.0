@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438042;
-	b=zVv3uIjbZNBJGfIFy9vukO25dZlq2Nr4n0QRya60Nm3dVPpmRe+hrfh3lDLHAjRO9iu6
-	 UA5LYrfbhSuSrdWJntzLcFfxfbTQ2f9wXBThx6v6BR8YrmpHN40NHJfmFSRiNihSUxeUH
-	 /txyWa/ZfAbEe0r5k1PcMoKfrpMlsh3sF+WQ1F6C7PmRcgyiFAlZSSiBFjny4J4REh2JW
-	 yxIA0OgvZQEetae6N9/EdOh7iLrRtVVAGJd1tA2HVHh2YJWfurdOVmzoibLFI4LeTqrA5
-	 nCusRutT6DiLKob8vbM0e6yZuj3O55wK7Fihlmn17m9ORkqvyX+cT8S8G3Dl+S+6hYQ==
+	t=1794438044;
+	b=5AlI1RSfr3UTYMLgA36W/I+iGF9K43XFdU6XpQ35+gCKEyc4VE4/EBnxTmykQIv1fy2Z
+	 O7La1VnVghR+Ru8APExA2h0vLDGegYo7cyToEKT8dbzQ81Bcy5yjKlIdZxRmUFgKL4alY
+	 Nn9hneELEon+MA4shoZrpoN3PoWcOFSjHLNvK4Gz6DTbeMCQRedRD1nm6brQ55jg+/pNB
+	 95EA/bTkh33E1Bhv9WbCNLX1xPxJRh0WlLr/53lYKtwX/nYyTCaBtxHiVRMBh1Rc2///b
+	 1Avd7hyrOYwLC3zFPBu9l+kTGdssIwFyuMj2t8tMNrHBi7P/IF1cFRhClzgyDWiKRUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438044;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hdRiiaC9FUc5w9s4Hjp+o67/X+STjK/LCCxBSdubh9w=;
-	b=cWXIKMuF4g+0oAxlocbydByXmOCc4CDUPSeNmAHrpkT9gSmaYdBTwoLg8VOdBUAvtNR1
-	 gEum9ZkV1qSTSn808LV1YIsMKJavv+cFchlOJvMHiMbifMq5Ib/CAHF0bZfSl3VcYVjZd
-	 UJV5DY1mS3H1mmwSrKPbAgP3K6/0ot6XFtGgjcvEuC1g1OQ1tat1XU9OWLWz2Oqk3JYLB
-	 8QnLkmiyXCXVCcTYbuWWNxF7arDmtSbDWAu68zG2xM847dVaXKDl8W4J3Q97eTilzc5Kz
-	 YXjSRcmHVROmkFoCjpql/1jb4EWVzTa+t8DoaLk26jUyqOK31sJHtzQuKxiZbGAxWxg==
+	bh=kBr4lxIN7nKuJvI5i+sXZXAxd95v5Q1dSvAGHHbt4fk=;
+	b=Gve/sN33rOeueLQaea5zs2KVmeb8LCnZAqlsHRWWNplpxcshO3bN870Wgi0LEpTJYrqR
+	 pqInOK7HcqdL6IM2gG4u4ZjWDwRnMunwqgZo2kmtXGUTwtn3aw31zW73NWzHYmBhMHhQn
+	 Jo67IFX2Jn+nt30RIELDbLkfkA631NrKOmrdUOcJ81wxM+ng5CcWxTj7UhyVodrLmvSGB
+	 isfwnw5TJf6PIKy825yOQYCveKmPNfpCAM9pp2P2FiIoCNTObDXjExQshzVY0w04sDD4x
+	 plaxsO9mnzNsCoXPtfEEBAlKvmyb4n7O31gbe2fKv2/SpUjKLW5Bx6wEoHmhOyeKXdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mit.edu;
 	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=AQC6wuyu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PeH6OJiY;
 	arc=none smtp.remote-ip=18.9.28.11
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE77606A326
-	for <ksummit@lists.linux.dev>; Wed, 11 Nov 2026 23:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EE77606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14410606A330
+	for <ksummit@lists.linux.dev>; Wed, 11 Nov 2026 23:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14410606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=AQC6wuyu
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PeH6OJiY
 Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiR3026980
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxi5t026990
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 11 Nov 2026 17:59:45 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794437992; bh=hdRiiaC9FUc5w9s4Hjp+o67/X+STjK/LCCxBSdubh9w=;
+	t=1794437992; bh=kBr4lxIN7nKuJvI5i+sXZXAxd95v5Q1dSvAGHHbt4fk=;
 	h=From:Subject:Date:Message-ID:MIME-Version;
-	b=AQC6wuyuiZsDnHVo0s5WyNu5aMizxuhylME7eGRRGKVx1a76+yvVSIIaIeJ/lRwe8
-	 6++6UMByb3VaD5EnTAQEfi876S2ZVlaVV4l+BAVw+R4T9N46s4epYSvhTE8kzWDIve
-	 AhYtCawBMjU+X22oZRUQiNlDvRSkZx9+EQuDi4iF15nMShYezGfEjAq6sveDfFSvV5
-	 yMgbbHdUKnY5FOP9hJaGoQI1sxj38MTO7n2Lifg9ZYbITA5LHvLkPErC70KqRlGe78
-	 QB7+LDTESSi/QOQhVrBNZadxHOf5QldjOqguC/Q4QRa+SywEl91WqNan88yHJS/SHN
-	 TAI9zIyTIbCLQ==
+	b=PeH6OJiYNdZvMX8GDqCq6kZ/6LgxSu66UDtJ4vVAPF9DqbnlOMoUTKliNUeH0/Vrn
+	 uugqb99R6yoZ3v/utrXA7zmd947N9PhP6yr39nPMpNEciSoC502NUl+wVruQYMZsVu
+	 dBsqWmSc7TqKSwoVCH0lE9JIJjhndNXBKxIfi/vv8SLdPjt+fCECMrVUVPri/pTSad
+	 1HKvdKruvP6B+A2GV1dV1tSSlc4CzIuIYgG6K9EmTpA2r89iXxKdDmjUA+XOGU4CLJ
+	 ixzGB04AyAE6cWB53o8Vzl9zIlFdxNVyXoGKE9F6QPgQ9DUAqtoGZPu0cFqGad0i7E
+	 WeTcyAyHrHfUQ==
 Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id C1AFF2E013B; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+	id CCD682E0146; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: workflows@vger.kernel.org, ksummit@lists.linux.dev
 Cc: Sasha Levin <sashal@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>,
@@ -67,9 +67,9 @@ Cc: Sasha Levin <sashal@kernel.org>, "Theodore Ts'o" <tytso@mit.edu>,
         Alexei Starovoitov <alexei.starovoitov@gmail.com>,
         Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
         Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Subject: [PATCH v5 2/6] agents: add a skill to determine Fixes tags
-Date: Wed, 11 Nov 2026 17:59:34 -0500
-Message-ID: <20261111225940.1573565-3-tytso@mit.edu>
+Subject: [PATCH v5 4/6] agents: add a skill to find other instances of a fixed bug
+Date: Wed, 11 Nov 2026 17:59:36 -0500
+Message-ID: <20261111225940.1573565-5-tytso@mit.edu>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
 References: <20261111225940.1573565-1-tytso@mit.edu>
@@ -86,99 +86,187 @@ Content-Transfer-Encoding: 8bit
 
 From: Sasha Levin <sashal@kernel.org>
 
-Blame and existing Fixes tags can point to code movement instead of the
-change that introduced a bug. Add a skill that sends the agent to the
-description of the Fixes: tag in submitting-patches.rst, and adds the
-checks agents tend to skip: pinning down the bug before searching,
-following the code past moves and refactors, comparing each candidate
-with its parent, tagging a later commit that only exposed the bug as
-well, handling merges, reverts, backports and bugs older than the Git
-history, and taking the commit ID and subject from the commit rather
-than typing them.
+A bug fixed in one place often exists elsewhere, in copied code, sibling
+drivers, or other users of the same interface, and reviewers routinely
+ask whether that was checked. Left alone, agents tend to audit the whole
+tree by reading it. Add a skill that states the defect as a rule,
+searches for it through shared interfaces, copied code, the introducing
+series and earlier fixes, and verifies each candidate before reporting
+it.
 
-If the origin cannot be established, the skill returns no tag. Point the
-bug-fix procedure in coding-assistants.rst at the skill.
+When Coccinelle is available, the skill searches with a semantic patch:
+it looks for an existing one under scripts/coccinelle/, checks that the
+rule marks the fixed site in the code before the fix, runs it over the
+whole tree with coccicheck, and checks which code spatch could not
+parse. These steps live in references/coccinelle.md, which the agent
+reads only when it uses Coccinelle. The semantic patch is returned with
+the results, so that the commit message of a fix can include it.
 
+Tested on the parent of commit 989fe6771266 ("drm/nouveau/gsp: fix
+mismatched alloc/free for kvmalloc()"): both the existing
+api/kfree_mismatch.cocci and the example rule mark the two kfree() calls
+that commit fixed, and a whole-tree run found the same bug in four other
+drivers that were later fixed separately.
+
+The sites found are reported, not fixed. When the same defect turns up
+in several places, the skill also reports whether the interface invites
+it. The missing of_node_put() calls that iterators/for_each_child.cocci
+finds were fixed one driver at a time for years, until
+commit 34af4554fb0c ("of: Introduce for_each_*_child_of_node_scoped() to
+automate of_node_put() handling") made the put automatic. Whether to fix
+the interface or each site is left to the developer.
+
+Point the bug-fix procedure in coding-assistants.rst at the skill.
+
+Link: https://lore.kernel.org/r/DM6DXZJSMPO3.J5PONDJ3HWNP@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Link: https://patch.msgid.link/20261020161642.3713052-3-sashal@kernel.org
+Link: https://patch.msgid.link/20261020161642.3713052-5-sashal@kernel.org
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 ---
- Documentation/process/coding-assistants.rst |  8 ++++-
- agents/skills/find-fixes/SKILL.md           | 39 +++++++++++++++++++++
- 2 files changed, 46 insertions(+), 1 deletion(-)
- create mode 100644 agents/skills/find-fixes/SKILL.md
+ Documentation/process/coding-assistants.rst   |  5 +-
+ agents/skills/find-siblings/SKILL.md          | 36 ++++++++++
+ .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++++
+ 3 files changed, 106 insertions(+), 1 deletion(-)
+ create mode 100644 agents/skills/find-siblings/SKILL.md
+ create mode 100644 agents/skills/find-siblings/references/coccinelle.md
 
 diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
-index b8f2c74e46fc..ca1cc255606b 100644
+index 81ee530a8a7f..c2f9b71650c1 100644
 --- a/Documentation/process/coding-assistants.rst
 +++ b/Documentation/process/coding-assistants.rst
-@@ -33,6 +33,11 @@ or send mail. A skill returns its result with the evidence for it, or says what
- is missing. Do not fill a missing result with a guess or a placeholder, and do
- not finalize the work until it is resolved.
+@@ -39,6 +39,8 @@ The following skills are available:
+   checks an existing one.
+ * agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
+   returns its stable tag, or checks an existing one.
++* agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
++  tree.
  
-+The following skills are available:
-+
-+* agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
-+  checks an existing one.
-+
  Licensing and Legal Requirements
  ================================
- 
-@@ -78,7 +83,8 @@ these steps:
+@@ -83,7 +85,8 @@ these steps:
+ 5. Build and verify that the fix works either using the reproducer or by
+    re-running a complete analysis; drop any fix that doesn't work and try
     another one. The fix must not add build warnings and must pass the
-    checkpatch.pl checks (see submitting-patches.rst).
+-   checkpatch.pl checks (see submitting-patches.rst).
++   checkpatch.pl checks (see submitting-patches.rst). Then look for the same
++   bug elsewhere with the find-siblings skill.
  6. Commit the working fix with a detailed message describing the problem, the
--   solution and a Fixes tag. Do not add a Signed-off-by tag.
-+   solution and a Fixes tag determined with the find-fixes skill.  Do not
-+   add a Signed-off-by tag.
- 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
-    Documentation/process/security-bugs.rst shows how to do that.
- 8. Indicate what could not be done. If the fix could not be built or tested, or
-diff --git a/agents/skills/find-fixes/SKILL.md b/agents/skills/find-fixes/SKILL.md
+    solution, a Fixes tag determined with the find-fixes skill, and a stable
+    tag if the stable-tag skill calls for one.  Do not add a Signed-off-by tag.
+diff --git a/agents/skills/find-siblings/SKILL.md b/agents/skills/find-siblings/SKILL.md
 new file mode 100644
-index 000000000000..12b6ea83876d
+index 000000000000..8d007472675d
 --- /dev/null
-+++ b/agents/skills/find-fixes/SKILL.md
-@@ -0,0 +1,39 @@
++++ b/agents/skills/find-siblings/SKILL.md
+@@ -0,0 +1,36 @@
 +---
 +# SPDX-License-Identifier: GPL-2.0-only
-+name: find-fixes
++name: find-siblings
 +description: >-
-+  Determine the bug-introducing commit and return a verified Fixes tag for
-+  a Linux kernel fix. Use when preparing or reviewing bug-fix patches,
-+  drafting their commit messages, or checking an existing Fixes tag.
++  Find other places in the Linux kernel tree that have the same defect as a
++  bug being fixed, and verify each candidate. Use after fixing or reviewing
++  a bug fix, or when asked whether the same bug exists elsewhere.
 +---
 +
-+# Determine a Fixes tag
++# Find other instances of a bug
 +
-+Read the description of the Fixes: tag in
-+Documentation/process/submitting-patches.rst. It says which commit to name
-+and how to format the tag. Follow the rules for skills in
-+Documentation/process/coding-assistants.rst.
++Follow the rules for skills in Documentation/process/coding-assistants.rst.
 +
-+- First establish exactly which bug the fix addresses: the failure, how it is
-+  triggered and the code involved. Trace only that bug. If the search leads
-+  to a different bug or subsystem, go back to the fix.
-+- Name a commit from the history of the tree the fix applies to. A stable
-+  backport of that commit, or a commit that exists only on another branch, is
-+  not a valid tag.
-+- Treat blame output, an existing Fixes tag and a bisection result as leads,
-+  not answers. Follow the code back through moves, renames, file splits and
-+  older implementations to the commit that made it wrong.
-+- For each candidate, compare the commit with its parent and explain why the
-+  code was correct before and wrong after. Keep apart the commit that added
-+  the code, the commit that made it wrong, and a later commit that only made
-+  the bug reachable, which gets a tag of its own.
-+- Check each parent of a merge, whether the bug was reverted and later
-+  reintroduced, and whether a backport differs from its upstream commit.
-+- If the bug is already present in the first commit of the Git history, name
-+  that commit: Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2"). Confirm that the bug
-+  exists there instead of using it as a default. A shallow clone boundary is
-+  not an introducing commit; report the limit instead.
++- State the defect as a rule that does not depend on local names, such as
++  "memory from kvmalloc() is released with kfree()".
++- Search the tree as it was before the fix, not the working tree. Look at
++  other users of the same interface, field or lock, code copied from the same
++  origin, the rest of the series that introduced the bug, and earlier fixes
++  for the same defect. Limit history searches to the relevant directories.
++- If Coccinelle is available (`spatch --version` works), search for the
++  defect with a semantic patch as
++  [references/coccinelle.md](references/coccinelle.md) describes. Otherwise
++  use text searches and report that limit.
++- A match is a lead. Read each candidate with its callers, locking and object
++  lifetimes, and classify it as confirmed, safe or undetermined, with the
++  reason. Check whether a confirmed site is already fixed in the current tree
++  or in a pending tree such as linux-next.
++- If several sites have the same defect, check whether the interface they use
++  invites it, for example by making every caller drop a reference by hand when
++  it leaves a loop early. If it does, report that the defect is better fixed
++  in the interface, along with the sites. The developer decides which way to
++  fix it.
 +
-+Take the commit ID and subject from the commit itself instead of typing them.
-+Return the tags with that explanation and the candidates you rejected. If the
-+origin cannot be established, return no tag and say what is missing.
++Return the searches you ran and their scope, with any semantic patch you
++used, and the classified sites with their maintainers. Do not fix the sites or
++the interface.
+diff --git a/agents/skills/find-siblings/references/coccinelle.md b/agents/skills/find-siblings/references/coccinelle.md
+new file mode 100644
+index 000000000000..6b09ce9d04c8
+--- /dev/null
++++ b/agents/skills/find-siblings/references/coccinelle.md
+@@ -0,0 +1,66 @@
++<!-- SPDX-License-Identifier: GPL-2.0-only -->
++
++# Searching for a bug pattern with Coccinelle
++
++Documentation/dev-tools/coccinelle.rst describes `make coccicheck` and its
++options. The semantic patch language is documented at
++https://coccinelle.gitlabpages.inria.fr/website/docs/.
++
++1. Look under `scripts/coccinelle/` for a semantic patch that already covers
++   the defect. Read its rules rather than its name: `kfree()` of memory from
++   `kvmalloc()` is covered by `api/kfree_mismatch.cocci`, while
++   `api/kvmalloc.cocci` only flags an open-coded `is_vmalloc_addr()` test.
++
++2. Otherwise, write a semantic patch outside the repository. Match only what
++   the defect needs, not names or statements specific to the fixed site. Mark
++   the lines of interest with `*`, and declare `virtual context`: coccicheck
++   passes `-D context`, and spatch rejects a mode the file does not declare.
++   A minimal rule for memory from `kvmalloc()` released with `kfree()`, a
++   case that `api/kfree_mismatch.cocci` covers more completely:
++
++       virtual context
++
++       @@
++       expression E;
++       @@
++       E = \(kvmalloc\|kvzalloc\|kvcalloc\|kvmalloc_array\)(...);
++       ...
++       * kfree(E);
++
++3. Check that it finds the site you fixed. Coccinelle reads the files on
++   disk, where the fix is usually already applied, so copy the file as it was
++   before the fix to a directory outside the repository and run
++   `spatch -D <mode> --very-quiet --sp-file <rule> <copy>`, with a mode the
++   rule declares on a `virtual` line, such as `context` or `report`. Without
++   `-D`, rules that depend on a mode do not run and nothing is reported. The
++   rule must mark the fixed site in that copy, and nothing in the fixed
++   version. If it misses the site, correct the rule before searching further.
++
++4. Search the whole tree:
++
++       make coccicheck MODE=context COCCI=<rule> DEBUG_FILE=<new log file>
++
++   - Use a `MODE` the rule declares on a `virtual` line, as in step 3.
++   - In context mode the output is a diff, and each line starting with `-`
++     is a line the rule marked; report mode prints one warning per site.
++     coccicheck searches the files on disk, so a site you already fixed
++     there is not marked; step 3 covers it.
++   - The kernel's `.cocciconfig` makes spatch skip files that do not contain
++     the rule's identifiers, so a whole-tree search is usually quick when the
++     rule names distinctive functions. Add `M=<dir>/` only if it is not.
++   - Give `COCCI` and `DEBUG_FILE` as absolute paths. With `M=`, coccicheck
++     runs from that directory.
++   - Read the log. Without `DEBUG_FILE`, spatch errors are discarded and a
++     broken rule shows only as "coccicheck failed". coccicheck refuses to
++     reuse an existing log file.
++   - Header files are searched only with `SPFLAGS=--include-headers`, or with
++     a `// Options: --include-headers` line at the top of the rule.
++
++5. Check what was not searched. Coccinelle skips code it cannot parse without
++   saying so. Run `spatch --parse-c` on the searched files or directories: a
++   nonzero `nb bad` count means part of them was skipped. Search those files
++   another way and report the gap.
++
++If the rule marks many sites that turn out to be safe, tighten it, for example
++with `when !=` constraints, and run it again rather than discarding candidates
++by hand.
 -- 
 2.53.0
 
