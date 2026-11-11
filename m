@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794438040;
-	b=0UUu63toNnGbKkATwpDOSM006U1lRusAHqNyn/S/VVd6y9+cRu2kCv4ZKjvdCrAeYV7H
-	 obUKhFE3N1E2poXFXBFYibTajBWoJOuPX3TUSS9bY/dRPxUKroeHcbxGecRAKVriQzhtw
-	 N8mz+AHtCg7DArnJm6bqHEBlcibTmUmv5WGflipy6mNAQpA2DUe/BjAkqb+rRq3OwHF4y
-	 BpKr1bcjKgcyO/5sK6zkRzIfpZYYWzRkJeDMmEq44H225s1LDHWvMmx1zXnJYHginfSWb
-	 BDdHh/6XzDsSJbmd7KMAtemxzld44POX4b3dCQUrWDYcyAIcjMLkrObXacg/7N0LvCQ==
+	b=4SPUdq44zgfRHFMGrOWHObQgQ+yrudomrn1n6BfpckWgakXA1+I7h43bWXKsYNaO2tNU
+	 OPOP9iZkTs61TdIp+Hi+R2PHvVMav2zXxLVYU+HC4W7MYgMxadKis/i9y11qbjJI4ZLit
+	 xbmVD8MgEdec//ZtP1N17oAX1HGyWqzDF8luwl+P1h/B4WTC0SVFnAFVWIdVxNFeRzPre
+	 Ana0vt3Xx3YUmd5COYJQsft6sSITtpdEEdNQ4YRR27UPfsYUowVrhtDqo9dwJ0C2Uea2a
+	 Pb7HWG9muyn0YbJmhb2fl3AX4jO7PyRjy+usTmitrq9Ngh1mT9NOmU2Vwrv7rJX9rbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794438040;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
-	b=LgPi+SIfb0VkvNrR2PQ0lGmkJ9e2h6ZbUaxPBmz0RDdVHaQGFRHtv1yO63ylTFunPfMf
-	 ulVQI9YL37owHMQLuv4cWjhKvVReUYYzg/pdcJwtkq06TypyriFYUOqIV+15tET5b6Ldn
-	 e8+xGCUfg+xjnWlYBCDxYob/c7V9fn0eJEpgrmpjnFnOyCxItHeWYDBoKEJSn9IHRsFz7
-	 E2Zjes9FRleiKEyarT9yXH6OQbsNv/NixoTJo3c8WOgJB0iGu5n0TuZLljpH1dNZKssA5
-	 qiIFl1QKHOsg3XZF6sQOCiopZu+GFQZmsL/SsN/gafP0ZBjDcgzjPe8Li5UaEMzu/9A==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WQgY8Su4RmQsevJYQum8Qoq3Gb3AiXFR8qXOsVslQR8=;
+	b=B1z8vKJoT7yEdTorBOZSp7AwXUIDS8RnU8XmP805MVzVjpcbtJURFiF0NjzpaQrKbWAt
+	 21UNNFi9PHdqP5DAbWJAt+V0/eqfCSw6gt4KZmg7n6vsuAOowxMEd7IfW8YQIy/0J90m8
+	 jxfykup89iq3/oishmexznYeSvPVeUNltujHQMvZDv/dDfIU/IHgKTZS2xY+GLIc7Yxky
+	 FqRKd3EJZZl7Val337AWRWhHgU1j0T4uSNSCqod7iHFtq4/iSVmUvVNmfIixI2Zq4KmVv
+	 DUBGUNv2T092FLVGN+qdi0SL4+IfYRReZKRM3h3pyuZMEM4X4KGy2nqsVYqXe27dU/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mit.edu;
 	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=YUCLFLRy;
 	arc=none smtp.remote-ip=18.9.28.11
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF058606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0EE606A332
 	for <ksummit@lists.linux.dev>; Wed, 11 Nov 2026 23:00:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF058606A32D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF0EE606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=YUCLFLRy
 Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiH7026970
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiGm026985
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 11 Nov 2026 17:59:45 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794437992; bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	t=1794437992; bh=WQgY8Su4RmQsevJYQum8Qoq3Gb3AiXFR8qXOsVslQR8=;
 	h=From:Subject:Date:Message-ID:MIME-Version;
-	b=MVSGtbBYUVv2VwDjz2PGO7YbpB8cCkHuNr7RZ2tWdjTyWqYA1nlBJx9+sKj8KivyE
-	 DQmOT5ymQFM4l5C0DXZ0XnKhaUFZK3/HEIIim5fJJjJpimTwFVVBsEQd45Yq3vyqLH
-	 NM9U9v8FHIrLykqscl7IvdtN42ZnMXX/zubEuYWWWVsNGmy4HmZMwNaRu8Yq8+qCds
-	 9OZ+1ABybgY3Ur/qgLmCdIVC9jgDdaaKtdr++Z3vAUJtSCgNCVb+h3cPxK0RQuYSpH
-	 DPH1giU2kDO9Ewbl2YsbyuHsdJDbCV1yeGBt6GUdQYhM+aH1/Hy3ViRKKIvhOisLDv
-	 wkO5hyA1Zyrtg==
+	b=YUCLFLRy0fmyAqnFSu2IGk2VC56xWeNz09JrUvX6AipBfZ3351nlS4reGL6Szn+mH
+	 39hruDgf1PYqNDUaX00RnSOa++nzsAGg4CtHTz8e7tmGSucPTfIjwNjgEoyWcIVsZD
+	 lxwwZRVe4NwS1vFcDfWgibhRENTCRxVOuCD2JkXm8hbjpD4qmajggMTIkhZOd8h5OE
+	 kY1QDGPD2lg5l0y1NWv3U+unIi56xe2+hdd0iuHIHY4HnHVA0UeJtZKNoZhYlk/0Tf
+	 GIYpaJErGQ5i3FWqKwZMIMTLml7J1Z18j/ootseYoRlhb/nupzpyoH9lrIabxs9eJ1
+	 0punlpWWISQ7Q==
 Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id B68392E00BB; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+	id C72392E013F; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: workflows@vger.kernel.org, ksummit@lists.linux.dev
-Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
+Cc: Sasha Levin <sashal@kernel.org>, Bradley Morgan <brads@mainlining.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
         linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
         Shuah Khan <skhan@linuxfoundation.org>,
         Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
         Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Leon Romanovsky <leon@kernel.org>,
         Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
         Thorsten Leemhuis <linux@leemhuis.info>,
@@ -64,12 +66,13 @@ Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
         Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
         Alexei Starovoitov <alexei.starovoitov@gmail.com>,
         Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
         stable@vger.kernel.org
-Subject: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
-Date: Wed, 11 Nov 2026 17:59:32 -0500
-Message-ID: <20261111225940.1573565-1-tytso@mit.edu>
+Subject: [PATCH v5 3/6] agents: add a skill to determine stable tags
+Date: Wed, 11 Nov 2026 17:59:35 -0500
+Message-ID: <20261111225940.1573565-4-tytso@mit.edu>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261111225940.1573565-1-tytso@mit.edu>
+References: <20261111225940.1573565-1-tytso@mit.edu>
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Post: <mailto:ksummit@lists.linux.dev>
@@ -81,57 +84,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an update of Sasha's v4 patchset with the following changes:
+From: Sasha Levin <sashal@kernel.org>
 
-   * Rebased to v7.4-rc2
-   * Removed references to Assisted-by: per the discussion at the
-     Maintainers Summit
-   * Addition of a new skill, writing-kunit-tests which I've been
-     using to add full KUnit test coverage for ext4.
+Whether a fix needs a stable tag, and which releases it should reach, is
+decided by hand and is often missed or left too broad. Add a skill that
+sends the agent to stable-kernel-rules.rst for the decision and the tag
+format, lists the kinds of changes the stable trees take and leave out
+in practice, and adds the checks agents tend to get wrong: finding the
+first release that contains each introducing commit, checking that the
+fix applies to the oldest affected release, giving every stable tag the
+same version, and following the subsystem's stable policy.
 
-I've been using the prompt against Gemini Pro; would appreciate
-comments about how well it works (or doesn't) when used with Claude
-Code.
+If the decision cannot be made, the skill returns no tag. Point the
+bug-fix procedure in coding-assistants.rst at the skill.
 
-Sasha, could you consider updating your patch series with this set?
-I'll assume that you will send this to Linus, since the bulk of the
-work is yours.  Thanks!!
-
-              	     	      	      - Ted
-
-v4: https://lore.kernel.org/r/20261020161642.3713052-1-sashal@kernel.org
-v3: https://lore.kernel.org/r/20261016152828.3765695-1-sashal@kernel.org
-v2: https://lore.kernel.org/r/20261012213452.1863248-1-sashal@kernel.org
-v1: https://lore.kernel.org/r/cover.1791499378.git.sashal@kernel.org
-
-
-Sasha Levin (5):
-  agents: add infrastructure for agent resources
-  agents: add a skill to determine Fixes tags
-  agents: add a skill to determine stable tags
-  agents: add a skill to find other instances of a fixed bug
-  agents: add a skill to write commit messages
-
-Theodore Ts'o (1):
-  agents: add a skill to write KUnit tests
-
- Documentation/process/coding-assistants.rst   |  37 +-
- MAINTAINERS                                   |   6 +
- agents/skills/commit-message/SKILL.md         |  45 +++
- agents/skills/find-fixes/SKILL.md             |  39 ++
- agents/skills/find-siblings/SKILL.md          |  36 ++
- .../find-siblings/references/coccinelle.md    |  66 ++++
- agents/skills/stable-tag/SKILL.md             |  72 ++++
- agents/skills/writing-kunit-tests/SKILL.md    | 344 ++++++++++++++++++
- 8 files changed, 642 insertions(+), 3 deletions(-)
- create mode 100644 agents/skills/commit-message/SKILL.md
- create mode 100644 agents/skills/find-fixes/SKILL.md
- create mode 100644 agents/skills/find-siblings/SKILL.md
- create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20261020161642.3713052-4-sashal@kernel.org
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+---
+ Documentation/process/coding-assistants.rst |  6 +-
+ agents/skills/stable-tag/SKILL.md           | 72 +++++++++++++++++++++
+ 2 files changed, 76 insertions(+), 2 deletions(-)
  create mode 100644 agents/skills/stable-tag/SKILL.md
- create mode 100644 agents/skills/writing-kunit-tests/SKILL.md
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+index ca1cc255606b..81ee530a8a7f 100644
+--- a/Documentation/process/coding-assistants.rst
++++ b/Documentation/process/coding-assistants.rst
+@@ -37,6 +37,8 @@ The following skills are available:
+ 
+ * agents/skills/find-fixes/SKILL.md determines the Fixes tag of a bug fix, or
+   checks an existing one.
++* agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
++  returns its stable tag, or checks an existing one.
+ 
+ Licensing and Legal Requirements
+ ================================
+@@ -83,8 +85,8 @@ these steps:
+    another one. The fix must not add build warnings and must pass the
+    checkpatch.pl checks (see submitting-patches.rst).
+ 6. Commit the working fix with a detailed message describing the problem, the
+-   solution and a Fixes tag determined with the find-fixes skill.  Do not
+-   add a Signed-off-by tag.
++   solution, a Fixes tag determined with the find-fixes skill, and a stable
++   tag if the stable-tag skill calls for one.  Do not add a Signed-off-by tag.
+ 7. Identify the maintainers and lists using scripts/get_maintainer.pl.
+    Documentation/process/security-bugs.rst shows how to do that.
+ 8. Indicate what could not be done. If the fix could not be built or tested, or
+diff --git a/agents/skills/stable-tag/SKILL.md b/agents/skills/stable-tag/SKILL.md
+new file mode 100644
+index 000000000000..d87bcc95089d
+--- /dev/null
++++ b/agents/skills/stable-tag/SKILL.md
+@@ -0,0 +1,72 @@
++---
++# SPDX-License-Identifier: GPL-2.0-only
++name: stable-tag
++description: >-
++  Decide whether a Linux kernel fix should be backported to stable kernels
++  and return verified Cc: stable tag lines. Use when preparing or reviewing
++  bug-fix patches, drafting their commit messages, or checking an existing
++  stable tag.
++---
++
++# Determine a stable tag
++
++Read Documentation/process/stable-kernel-rules.rst. It says which changes go
++to stable and how to write the tag, its prerequisites and its version. Follow
++the rules for skills in Documentation/process/coding-assistants.rst.
++
++Judge a change by what it does, not by how its description labels it: a
++"cleanup" that releases a resource on an error path fixes a leak. In practice,
++the stable trees take:
++
++- Fixes for crashes, oopses, BUG and WARN splats, hangs, lockups, RCU stalls,
++  deadlocks, data corruption and security issues.
++- Fixes for use-after-free, double free, NULL pointer dereferences,
++  out-of-bounds accesses, integer overflows, uninitialized data, reference
++  counting errors, and memory or resource leaks.
++- Fixes for races, including data races.
++- Fixes for incorrect behavior, such as wrong results, wrong hardware
++  programming, or endianness and type errors.
++- Fixes for problems reported by syzbot, other fuzzers, or the KASAN, KMSAN,
++  KCSAN and UBSAN sanitizers.
++- New device IDs and quirks for drivers that exist in the stable trees, device
++  tree fixes, and device tree additions for hardware that existing drivers
++  support.
++- Corrections to documentation that is wrong.
++- Performance fixes that prevent lockups, stalls or hangs.
++- Reverts of commits that are in a released kernel.
++- Fixes for bugs introduced by commits that were backported to stable.
++
++They do not take the following, unless a fix that is taken depends on it:
++
++- New features, new user-visible interfaces or behavior, new drivers, and new
++  module parameters or sysfs attributes.
++- Refactoring, code movement and other preparation patches.
++- Optimizations that do not prevent lockups, stalls or hangs.
++- Cleanups that do not change behavior, such as style, renames and comment
++  changes.
++
++Then work out which releases need the fix:
++
++- Determine the Fixes tags with the find-fixes skill first. A change with no
++  introducing commit, such as a new device ID, a quirk or a build fix, or a
++  bug older than the available history, affects every release that contains
++  the code it changes. Otherwise, if the Fixes tags are unresolved, so is the
++  stable decision.
++- For each Fixes tag, find the first release that contains the commit, not the
++  release it was based on. If no release contains it, check whether the
++  commit was itself backported to stable.
++- Check that everything the fix uses exists in the oldest affected release.
++  If something is missing, list the commit that added it as a prerequisite
++  if it is small and fit for stable, or start the tag at the first release
++  that has it.
++- Give every stable tag in a commit the same version: a tag without a version
++  asks for every stable tree and overrides the versions in the other tags.
++  The stable tooling reads the first version number in a tag comment as the
++  version, so describe what older trees need in the commit message.
++- Follow the stable tag policy in the maintainer profiles, the `P:` entries in
++  MAINTAINERS, for the changed files.
++- Ask the caller whether the fix addresses an unpublished vulnerability, as
++  described in Documentation/process/threat-model.rst.
++
++Return the tag lines with the reasons for them, or the reasons for no tag. If
++the decision cannot be made, return no tag and say what is missing.
 -- 
 2.53.0
 
