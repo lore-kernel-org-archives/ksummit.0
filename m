@@ -1,71 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680323;
-	b=FL6//3fN/f1PJPYJfgAwSPHzopbj+r1RgPpKexjhBYXZkHf5ozFZyPT4TJEvtXK5Z5Q+
-	 RwGzNxUueK3Z8YIkHhBcD40SsmoaE7X8u4kPe5YGIeewKQKGZ1MhsjmHqRefalCuiwXXa
-	 6EXFBqr/t7QGBf2RiQhg1uylmmNF1T/ND1iC0CrT7MsH5gyb+H0/rCXBdyys4MmwP9UFl
-	 mPThXc5rF0G0PfjPZik1vDPZfqlLagEO+e3wCDtTQmst2KTsUpEpLsdVgBt40ANntoKRT
-	 wuzU6gc11BDXHo6OnHyp9jiRNAr7RhdxEi4yBscqQLy7ETREXQqIzEikCpumNfv3NBg==
+	t=1794438040;
+	b=0UUu63toNnGbKkATwpDOSM006U1lRusAHqNyn/S/VVd6y9+cRu2kCv4ZKjvdCrAeYV7H
+	 obUKhFE3N1E2poXFXBFYibTajBWoJOuPX3TUSS9bY/dRPxUKroeHcbxGecRAKVriQzhtw
+	 N8mz+AHtCg7DArnJm6bqHEBlcibTmUmv5WGflipy6mNAQpA2DUe/BjAkqb+rRq3OwHF4y
+	 BpKr1bcjKgcyO/5sK6zkRzIfpZYYWzRkJeDMmEq44H225s1LDHWvMmx1zXnJYHginfSWb
+	 BDdHh/6XzDsSJbmd7KMAtemxzld44POX4b3dCQUrWDYcyAIcjMLkrObXacg/7N0LvCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680323;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=pALpS5I1KlGpkLUKtzKBtS/+k8KKUj01q0cLyiifzu4=;
-	b=A902EdF74tX9JRIqb8r/PxhgeCGPXq7/tuBUB5T+2K+FM+d8C7atprytz0aRCU8OVjc3
-	 HoYpoU//e4c3LoHirLFVOm8rDkJlKokDtUZ84oiu2eWED4G2WUXoYqchHW5746zFLQpLX
-	 QFLpPIn/WA31XvqE33y8Yi5DSe2HQiVdKJT2Qy1w3Y5VG58P+49bECJMYIT2kiZk/9u/y
-	 W2Asmg5RbVDRrTkkOr+XQxNCvlCwk9AU42g/uIN1bTBa0jDAUW8sUlAe7eXdZCUsz9sfp
-	 FsFkkI6K76jD5FYHv1hmpcf9iZ0w0DWksoEg1n1J4v8fQ9O6fGhuyNR/nIkppIw2YIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438040;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	b=LgPi+SIfb0VkvNrR2PQ0lGmkJ9e2h6ZbUaxPBmz0RDdVHaQGFRHtv1yO63ylTFunPfMf
+	 ulVQI9YL37owHMQLuv4cWjhKvVReUYYzg/pdcJwtkq06TypyriFYUOqIV+15tET5b6Ldn
+	 e8+xGCUfg+xjnWlYBCDxYob/c7V9fn0eJEpgrmpjnFnOyCxItHeWYDBoKEJSn9IHRsFz7
+	 E2Zjes9FRleiKEyarT9yXH6OQbsNv/NixoTJo3c8WOgJB0iGu5n0TuZLljpH1dNZKssA5
+	 qiIFl1QKHOsg3XZF6sQOCiopZu+GFQZmsL/SsN/gafP0ZBjDcgzjPe8Li5UaEMzu/9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=KmBaQ+YB;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67F1606A319;
-	Thu, 22 Oct 2026 14:45:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B67F1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF058606A32D
+	for <ksummit@lists.linux.dev>; Wed, 11 Nov 2026 23:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF058606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=KmBaQ+YB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=pALpS5I1KlGpkLUKtzKBtS/+k8KKUj01q0cLyiifzu4=; b=KmBaQ+YB1L14xyLnhfcOfFWQpf
-	/0McU6VTeH77acsbCWl+nKKoNN4Ql/8dRNKhvyIPtWrjB/Y8zMlaUlohRjBsP5/81mepRtVyFGfRP
-	MM+vM+569+9T68zhU8DeNyvTvMvs0ZF4jOUoNY+nSHwsSdfVQsC1OGKB4JJDkEXUZ3vdT6pabNv29
-	Gc/wHWkK/lL+rDSjVM05AMj4mgUzQRXaMnHBFJdRiCOgLWFSN6W7hJGTuiXYjluVjKVkJIZGBN6W0
-	V2OQqndtERNegK3xqlnzc9TBW7/JHmQB9gBfu1pH/2gGa7NOuQcTtUr9LIxZmCszDgp7hrKKDhOgv
-	NqOmmDFw==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xJu2g-0000000EKZP-2QNZ;
-	Thu, 22 Oct 2026 14:45:18 +0000
-Date: Thu, 22 Oct 2026 10:45:15 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>, Theodore Tso <tytso@mit.edu>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Bart Van Assche <bvanassche@acm.org>, 
-	johannes.goede@oss.qualcomm.com, Jiri Kosina <jikos@kernel.org>, ksummit@lists.linux.dev, 
-	sashiko@lists.linux.dev
-Subject: Re: Patch pre-submission to Sashiko
-Message-ID: <aadiwe7siqcwoe6t2sulkwt4hfu54rpvch2aphyoz2s4vnzpua@7xuhfabvjdk5>
-References: <atO3pCuUxI950ftN@mit.edu>
- <3354ebda-5158-489b-a577-5cb10e5d5fb0@oss.qualcomm.com>
- <atZ4J86j7CXF82HX@mit.edu>
- <2fef166e-088d-4ffe-8d0a-0143aebc1b26@acm.org>
- <ate8oESqneK-3sQJ@mit.edu>
- <7e473af8-2f7a-4a36-a926-e756873c9c52@linuxfoundation.org>
- <atic3bbDeyJI6MJs@sirena.co.uk>
- <atjlUoEmTagZjrYI@mit.edu>
- <atjpS__OwjZ-Q_Fh@sirena.org.uk>
- <20261021114524.4c2ea2a31a9d527b78e78768@linux-foundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=MVSGtbBY
+Received: from trampoline.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ABMxiH7026970
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 11 Nov 2026 17:59:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1794437992; bh=aYvMzR0aN37nQlnLtJnVAyPtC9Oir7A/+6zq96PEhL4=;
+	h=From:Subject:Date:Message-ID:MIME-Version;
+	b=MVSGtbBYUVv2VwDjz2PGO7YbpB8cCkHuNr7RZ2tWdjTyWqYA1nlBJx9+sKj8KivyE
+	 DQmOT5ymQFM4l5C0DXZ0XnKhaUFZK3/HEIIim5fJJjJpimTwFVVBsEQd45Yq3vyqLH
+	 NM9U9v8FHIrLykqscl7IvdtN42ZnMXX/zubEuYWWWVsNGmy4HmZMwNaRu8Yq8+qCds
+	 9OZ+1ABybgY3Ur/qgLmCdIVC9jgDdaaKtdr++Z3vAUJtSCgNCVb+h3cPxK0RQuYSpH
+	 DPH1giU2kDO9Ewbl2YsbyuHsdJDbCV1yeGBt6GUdQYhM+aH1/Hy3ViRKKIvhOisLDv
+	 wkO5hyA1Zyrtg==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+	id B68392E00BB; Wed, 11 Nov 2026 17:59:44 -0500 (EST)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: workflows@vger.kernel.org, ksummit@lists.linux.dev
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Leon Romanovsky <leon@kernel.org>,
+        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+        Thorsten Leemhuis <linux@leemhuis.info>,
+        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags, similar bugs, and commit messages
+Date: Wed, 11 Nov 2026 17:59:32 -0500
+Message-ID: <20261111225940.1573565-1-tytso@mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Post: <mailto:ksummit@lists.linux.dev>
@@ -75,74 +79,59 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:ksummit+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021114524.4c2ea2a31a9d527b78e78768@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
 
-On 26/10/21 11:45AM, Andrew Morton wrote:
-> On Wed, 21 Oct 2026 17:33:15 +0100 Mark Brown <broonie@kernel.org> wrote:
-> 
-> > On Wed, Oct 21, 2026 at 12:20:43PM -0400, Theodore Tso wrote:
-> > > On Wed, Oct 21, 2026 at 12:07:09PM -0500, Mark Brown wrote:
-> > 
-> > > > TBH having seen some LLM patches that come with LLM generated testcases
-> > > > the testcases are much worse than the patches themselves.  Open coding,
-> > > > weird structures, asserting bizzare things without explanation - just
-> > > > generally really hard to understand what the test is trying to
-> > > > accomplish and why.
-> > 
-> > > I recently posted a patch[1] to add KUnit tests for
-> > > fs/ext4/extents_status.c.  It was completely AI generated, and used
-> > > these instructions which I gave to Gemini Pro[2].
-> > 
-> > > [1] https://lore.kernel.org/all/20261021031231.40107-1-tytso@mit.edu/
-> > > [2] https://lore.kernel.org/all/atbZWze194QiSOTe@mit.edu/
-> > 
-> > > I'm obviously biased, but it seems to me these test cases were pretty
-> > > good.  I'd appreciate criticisms and suggestions for improvements, but
-> > > if your experience is test cases written with older models, the latest
-> > > frontier models have gotten way better.
-> > 
-> > Yeah, it's not that you can't do it but rather that I'm nervous of how
-> > much of a useful gate it is to require tests - my general feel is that
-> > if the commits have problems then any associated tests tend to have more
-> > problems.  One example I reviewed earlier today is here:
-> > 
-> >    https://lore.kernel.org/r/ed22ebf64ed00a56d5e1eff31ac639fef00dcae6.1792179433.git.ivanrwcm25@gmail.com
-> > 
-> > which will get the issue it was looking for but isn't something I'd want
-> > to maintain long term.
-> 
-> If someone's fixing something I don't see much value in
-> retaining/maintaining a test case for something we've already fixed. 
-> This is considered good engineering practice but why bother - we fixed
-> it!  Move on.
-> 
-> It is good to see testcases during the fixing process though.  In these
-> cases I prefer that the test code be included below the --- with a
-> brief mention in the main changelog.  So interested people can later
-> chase down the Link: and find the test code.
-> 
+This is an update of Sasha's v4 patchset with the following changes:
 
-Having a regression test ensures old bugs don't happen again.  Issues
-that are overlooked often get overlooked repetitively.  Considering the
-next person to edit the code may not have learned about a specific bug,
-then they are likely to reintroduce it.
+   * Rebased to v7.4-rc2
+   * Removed references to Assisted-by: per the discussion at the
+     Maintainers Summit
+   * Addition of a new skill, writing-kunit-tests which I've been
+     using to add full KUnit test coverage for ext4.
 
-Tests also prove to yourself and others that you fully understand what
-is going on.  I try to have a new test case for every bug since most of
-the bugs are exposing corner cases that may be missed in the future.
-Often people go away to write a test and come back with a different fix.
+I've been using the prompt against Gemini Pro; would appreciate
+comments about how well it works (or doesn't) when used with Claude
+Code.
 
-With the tests that have accumulated for the maple tree, we have been
-able to rewrite sections of the code to change algorithms and have a
-functional machine.
+Sasha, could you consider updating your patch series with this set?
+I'll assume that you will send this to Linus, since the bulk of the
+work is yours.  Thanks!!
 
-They are so valuable that I record fuzzer failures into test cases.
+              	     	      	      - Ted
 
-There is validity in Ted's comment about time vs return, but things that
-are harder to test will inherently be harder to fix and so having a test
-that can run on code changes will prove invaluable.
+v4: https://lore.kernel.org/r/20261020161642.3713052-1-sashal@kernel.org
+v3: https://lore.kernel.org/r/20261016152828.3765695-1-sashal@kernel.org
+v2: https://lore.kernel.org/r/20261012213452.1863248-1-sashal@kernel.org
+v1: https://lore.kernel.org/r/cover.1791499378.git.sashal@kernel.org
 
-Thanks,
-Liam
+
+Sasha Levin (5):
+  agents: add infrastructure for agent resources
+  agents: add a skill to determine Fixes tags
+  agents: add a skill to determine stable tags
+  agents: add a skill to find other instances of a fixed bug
+  agents: add a skill to write commit messages
+
+Theodore Ts'o (1):
+  agents: add a skill to write KUnit tests
+
+ Documentation/process/coding-assistants.rst   |  37 +-
+ MAINTAINERS                                   |   6 +
+ agents/skills/commit-message/SKILL.md         |  45 +++
+ agents/skills/find-fixes/SKILL.md             |  39 ++
+ agents/skills/find-siblings/SKILL.md          |  36 ++
+ .../find-siblings/references/coccinelle.md    |  66 ++++
+ agents/skills/stable-tag/SKILL.md             |  72 ++++
+ agents/skills/writing-kunit-tests/SKILL.md    | 344 ++++++++++++++++++
+ 8 files changed, 642 insertions(+), 3 deletions(-)
+ create mode 100644 agents/skills/commit-message/SKILL.md
+ create mode 100644 agents/skills/find-fixes/SKILL.md
+ create mode 100644 agents/skills/find-siblings/SKILL.md
+ create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+ create mode 100644 agents/skills/stable-tag/SKILL.md
+ create mode 100644 agents/skills/writing-kunit-tests/SKILL.md
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.53.0
+
