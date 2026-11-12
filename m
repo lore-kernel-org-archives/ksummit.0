@@ -1,81 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794494588;
-	b=xPMLZvy5Z70GafED3HYLQKPj9LToamQH71OKjCzAzeG9kHBRMgzt0rXBquGGYrcVzDQa
-	 d18+wzy9qzbY0KHTAnZ4XfyY4vTy6jHJ32Jwn8qk3OXD+dzdrw//QuAwSgCCXb77uAr/x
-	 8T6L7Hn/zV+MEwoTJdytqUY8O/d+Vjzi5BrxoDl+CvJuXKx7dOm7LtyIPKE+3S/ZacAQq
-	 Hd+W3G2bHmMSiDRh80JWFkkccNA+DR8Mcf1XLa97Sr2nBqT5JX1Zg8PgEUm6QUdDQpoJX
-	 lajqGUE3mHO3DpYR31vBM8jhKRKFvv24qRLrMhv9acBKw8Uv1Rx902V0oVesm6fYf7g==
+	t=1794495386;
+	b=dj9FJiX+gXlo47kRoqq/5NcEeqHIdpfPVyALUAQtgeL96sCCpyigcbouj60fr6GIBNjj
+	 ZUrtN8rpwOuhl7+C6KD1MjWx/dFwpv5LKg/wv2ULPgXELZ8ZuPAIMUJBbSpA6jCYqmxB7
+	 +/wu3yEl0m1EV3lR+1fbcT2PomhRpUg2r4i9TuEl2eEVHHm+Y5ZdMWU8yDHLZxoGRqmAY
+	 6GPrs25Z6j59Vqr/C7SxCNppyX2XitURc7GTlFVlxNEkedsp39Io/f3pDHlWWWs5MUvyJ
+	 2MKRv/vbx3UYhuceNP2ynCaan/lOPBwQadtuoQvHaw/liklEvztVTu+iOnoN+Gf/8WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794494588;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=doRR2hlsDqY4KYCxE3inoPjG+grnCS2sG965WCAyZas=;
-	b=2BFMlnN4DcaumIXMUdK55sPif6VxJUiiqL9x8C0Yj6SSmQD+kDjtHqN9BRX83BtbE9GI
-	 N6qvWvIZmArTgq+SazEezjZ2u/BqfPTBwNL71j5dn4Fuiv5GeVXlLiULC3Or+utxH/96b
-	 SK2LFLCyFqz/1ANEUhbfP12J0cf1LC4upPLw2hgMtNSNnFGm0t4gEodFJ+xho4m+muWgs
-	 nB3BAI5NeCG3IPKk8lBt4s/aAXByGiYjIyLC8vi8PHqtuc0mtfLuUa0FHo926jueN+UG8
-	 9vPvTAAXbzFjFn6YfqC//WOp+MryaI4ScvZV1+btytUL+qvEp7K8BdoXuZql1nBAqWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495386;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
+	b=GihHFFicksl7hpdm5+gsBrmIWtt4bdP9NWIdj+9RJly92xNVyBE+emYon4ub8ECoeVRF
+	 OLrAKTCgIqoJZ/AuebTLOWc6rBpFVXyyX/dikwOKYIPR0BnIfSnEtWe6qqUyiidqRNIez
+	 M6tynTHJTXOsBSthjcuEgqml5up5e6zeb0SfP2xt1onkY54bPmPkX0DKCWS9Mwry9/50g
+	 DhiNb/vWO+/cW4mSULd0O4hz79uWw2tz8MqWS3gliyisVDAUlDL9Y+h6PGVvezI/X7nHg
+	 v8w+ys3UU1iB2RVREgSRHO1uLXD0h7rY7gxHMvZPNmhHwLQQeevE5T+8OfxeZTxdxzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PCpUqHRW;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAE2606A327
-	for <ksummit@lists.linux.dev>; Thu, 12 Nov 2026 14:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAAE2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B33D606A31C;
+	Thu, 12 Nov 2026 14:56:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=PCpUqHRW
-Received: from macsyma.thunk.org (pool-173-48-111-191.bstnma.fios.verizon.net [173.48.111.191])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6ACEgZrS029468
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Nov 2026 09:42:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1794494561; bh=doRR2hlsDqY4KYCxE3inoPjG+grnCS2sG965WCAyZas=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=PCpUqHRWzITexZeciyh8kmVbkihYGX8mwUkz4BDsbPPLX+qgXZSgK0siPFYDtsNvw
-	 vhi19YCkVdpN2IOIuCQkUbTABBSJH34jKgUk1v7pcRSM1aF+AI/t36ClaWCrfW2JJN
-	 FcvflnJ9GzeSyh+wHskHLh8VisHyED/GCv1zGigO8l7ebgLy4JiNG3DwOYnQyWrVta
-	 EQI9zCjNPdNU2JePDhpFJerpbV/T9UDaDhfs+O06B95xIv8USzHrU41itNr13pVwFh
-	 S4khQLaNAECVY8NIwKjwYoV0mGOMtac6jtKQmU3og6QNRrEW6ISyYhUHAEkjw/6H5q
-	 +6t7Ei0rd0G3g==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id CC8FE26E540E; Thu, 12 Nov 2026 09:42:35 -0500 (EST)
-Date: Thu, 12 Nov 2026 09:42:35 -0500
-From: "Theodore Tso" <tytso@mit.edu>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Leon Romanovsky <leon@kernel.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Thorsten Leemhuis <linux@leemhuis.info>,
-        "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>,
-        Geert Uytterhoeven <geert@linux-m68k.org>,
-        Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-        Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
-        Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-Message-ID: <avXOSg4jOlzBY1r5@mit.edu>
-References: <20261111225940.1573565-1-tytso@mit.edu>
- <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org>
- <avXCcPYM9VAP0JHf@mit.edu>
- <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFAL8ciK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B6B1F00A06;
+	Thu, 12 Nov 2026 14:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794495386;
+	bh=eR/dgfTX4uX3tTDw1oIx0quyMtQsSjo0do2Wb4F29/s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jFAL8ciKEPVfAPoFJqaLI+cRjztWGxLzlgZ2ubFd8NzVcqMHflFmdg6cBG5Ea3qjr
+	 cAsCTFkQ1DLiHdTb3b7tEJx9lTfP4X3ouFkbcwzDHDtV5DVcg57mDlApUrs9lMZozH
+	 wIiyeIWYQjdjciPnOgA566JuvnvZDjabQ1Nq435e6TcbAmDdRI2w7AYsm7bZclylNn
+	 V/4Fl3/vi8CQdYAP4UiyRkaA3HmO1132K5MwyVyls4rh/T1L9eJLQdKz76LO0Y3x0a
+	 PTvQng3hL63LTAWArdr0iyj/zBtrojSGz61c3HSC2WwRH2L1u3MH3/skHjjta55OCt
+	 nILJqbzVcn2fw==
+Message-ID: <45fd1a88-8fbf-4735-9892-c374d8bf4df5@kernel.org>
+Date: Thu, 12 Nov 2026 15:56:15 +0100
 X-Mailing-List: ksummit@lists.linux.dev
 List-Id: <ksummit.lists.linux.dev>
 List-Post: <mailto:ksummit@lists.linux.dev>
@@ -85,27 +51,114 @@ List-Unsubscribe: <mailto:ksummit+unsubscribe@lists.linux.dev>
 List-Owner: <mailto:ksummit+owner@lists.linux.dev>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/6] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+To: Theodore Tso <tytso@mit.edu>
+Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Thorsten Leemhuis <linux@leemhuis.info>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Kees Cook <kees@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dan Carpenter
+ <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Julia Lawall <julia.lawall@inria.fr>, SJ Park <sj@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, Sasha Levin <sashal@kernel.org>,
+ stable@vger.kernel.org
+References: <20261111225940.1573565-1-tytso@mit.edu>
+ <9c5f5976-ebed-48f3-94ab-1121231af6e1@kernel.org> <avXCcPYM9VAP0JHf@mit.edu>
+ <31a56051-bd63-4a39-9cad-2c9afcd98340@kernel.org> <avXOSg4jOlzBY1r5@mit.edu>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <avXOSg4jOlzBY1r5@mit.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
+On 12/11/2026 15:42, Theodore Tso wrote:
+> On Thu, Nov 12, 2026 at 02:49:09PM -0500, Krzysztof Kozlowski wrote:
+>>
+>> Specification is also documentation, just like for example specification
+>> for our ABI. It's also located in Documentation directory.
 > 
-> Specification is also documentation, just like for example specification
-> for our ABI. It's also located in Documentation directory.
+> Source and header files can also contain documentation.  But we don't
+> put them in the Documentation directory because they do not contain
+> *exclusively* documentation.
 
-Source and header files can also contain documentation.  But we don't
-put them in the Documentation directory because they do not contain
-*exclusively* documentation.
+The type of file and its main purpose is a C unit file. Documentation is
+only an addon to that.
 
-If the complaint is that it is visible when we run "ls", one
-compromise might be to put the skills in .agents/skills.  This is a
-cross-harness standard which is supported by some code harneses
-(Google Antigravity, Github Copilot, etc.).  Some harneses (including
-Claude Code, Opencode) don't, but people who use these harneses can
-solve it by installing their own symlink from .claude/skills,
-.opencode/skills, etc. to the right place.
+Here, the main purpose and type of file is documentation. Specification
+IS a documentation, just like in-kernel ABI specification is.
 
-Cheers,
+I found no other than RST and MD files in this patchset, so I really do
+not understand why this is not documentation.
 
-						- Ted
+> 
+> If the complaint is that it is visible when we run "ls", one
+
+Yes, that's one complain and making it hidden is improving the
+perception, but it does not solve the point - it's Documentation so
+should be placed in respective directory.
+
+> compromise might be to put the skills in .agents/skills.  This is a
+> cross-harness standard which is supported by some code harneses
+> (Google Antigravity, Github Copilot, etc.).  Some harneses (including
+> Claude Code, Opencode) don't, but people who use these harneses can
+> solve it by installing their own symlink from .claude/skills,
+> .opencode/skills, etc. to the right place.
+
+Why does it have to be in the top-level in the first place? There is no
+point in making LLM stuff visible to humans, except maybe pleasing
+people behind upcoming IPO...
+
+Best regards,
+Krzysztof
